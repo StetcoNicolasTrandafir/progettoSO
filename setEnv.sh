@@ -1,0 +1,16 @@
+export SO_NAVI=10
+export SO_PORTI=10
+export SO_MERCI=69
+export SO_MIN_VITA=69 
+export SO_MAX_VITA=10
+export SO_SIZE=10
+export SO_SPEED=69
+export SO_LATO=69 
+export SO_CAPACITY=10
+export SO_BANCHINE=10
+export SO_FILL=69
+export SO_LOADSPEED=69 
+export SO_DAYS=10
+export SO_STORMDURATION=10
+export SO_SWELLDURATION=69
+export SO_MALESTROM=69 
