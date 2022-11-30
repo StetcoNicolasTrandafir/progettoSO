@@ -5,7 +5,7 @@
 #define SO_MAX_VITA getenv("SO_MAX_VITA")
 #define SO_SIZE getenv("SO_SIZE")
 #define SO_LATO atoi(getenv("SO_LATO"))
-#define SO_SPEED getenv("SO_SPEED")
+#define SO_SPEED (double)atoi(getenv("SO_SPEED"))
 #define SO_CAPACITY getenv("SO_CAPACITY")
 #define SO_BANCHINE getenv("SO_BANCHINE")
 #define SO_FILL getenv("SO_FILL")
