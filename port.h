@@ -5,18 +5,18 @@
 struct request{
     int satified;
     int goodsType;
-}
+};
 
 /*each port is characterized by its coords (unique), its number of docks (number between [1, SO_BANCHINE]),
 an array for the goods request and another one for the offers*/
 struct port{
-    struct coordinates coords;
+    struct coordinates coord;
     int docks;
-    struct request requests[SO_DAYS];
+    struct request* requests;
 
     //REVIEW: potremmo salvare in questo array solo l'identificativo della merce?
-    struct goods generatedGoods[SO_DAYS];
-}
+    struct goods* generatedGoods;
+};
 
 
 

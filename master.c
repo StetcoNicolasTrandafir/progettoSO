@@ -1,5 +1,5 @@
 #include <unistd.h>
-#include <string.h>
+#include <string.h>	
 #include <stdlib.h>
 #include <stdio.h>
 #include <errno.h>
@@ -11,25 +11,18 @@
 #include <time.h>
 #include <sys/wait.h>
 
-typedef struct coordinates_t {
-	double x;
-	double y;
-}coordinates_t;
-
-#define SO_LATO 100
-#define SO_PORTI 20
-#define SO_NAVI 10
-#define SO_DISTANZA_PORTI 3
+#include "macro.h"
+#include "coordinates.h"
 
 #define PRINT_ERROR fprintf(stderr,				\
 			    "%s:%d: Errore #%3d \"%s\"\n",	\
 			    __FILE__, __LINE__, errno, strerror(errno));
 
-int exist_coords(coordinates_t coordv[], int idx, double x, double y) {
+int exist_coords(struct coordinates coordv[], int idx, struct coordinates coord) {
 	int j;
 	for (j = 0; j < idx; j++) {
-		if ((x < coordv[j].x + SO_DISTANZA_PORTI && x > coordv[j].x - SO_DISTANZA_PORTI) &&
-			(y < coordv[j].y + SO_DISTANZA_PORTI && y > coordv[j].y - SO_DISTANZA_PORTI))
+		if ((coord.x < coordv[j].x + SO_DISTANZA_PORTI && coord.x > coordv[j].x - SO_DISTANZA_PORTI) &&
+			(coord.y < coordv[j].y + SO_DISTANZA_PORTI && coord.y > coordv[j].y - SO_DISTANZA_PORTI))
 			return 1;
 	}
 	return 0;
@@ -46,10 +39,9 @@ int main() {
 	struct sigaction sa;
 	struct timespec now;
 	int i, j, fifo_fd;
-	double x_c, y_c;
-	coordinates_t coord_c;
+	struct coordinates coord_c;
 	char name_fifo[100];
-	coordinates_t coord_port[SO_PORTI];
+	struct coordinates coord_port[SO_PORTI];
 	pid_t fork_rst;
 	alarm(30);
 	bzero(&sa, sizeof(sa));
@@ -98,16 +90,11 @@ int main() {
 					default:
 						
 						do {
-							clock_gettime(CLOCK_REALTIME, &now);
-							x_c = (double)(now.tv_nsec % (SO_LATO * 100)) / 100.0;
-							clock_gettime(CLOCK_REALTIME, &now);
-							y_c = (double)(now.tv_nsec % (SO_LATO * 100)) / 100.0;
+							coord_c = getRandomCoords();
 						}
-						while (exist_coords(coord_port, i, x_c, y_c));
-						coord_c.x = x_c;
-						coord_c.y = y_c;
+						while (exist_coords(coord_port, i, coord_c));
 				}
-				write(fifo_fd, &coord_c, sizeof(coordinates_t));
+				write(fifo_fd, &coord_c, sizeof(struct coordinates));
 				coord_port[i] = coord_c;
 				close(fifo_fd);
 		}

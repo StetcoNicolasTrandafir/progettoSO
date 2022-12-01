@@ -9,34 +9,28 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-typedef struct coordinates_t {
-	double x;
-	double y;
-}coordinates_t;
+#include "macro.h"
+#include "coordinates.h"
+#include "goods.h"
+#include "port.h"
 
-typedef struct port_t {
-	coordinates_t coord; /*una coppia di coordinate (x, y)*/
-	int docks; /*numero di banchine, estratto casualmente tra 1 e SO_BANCHINE*/
-}port_t;
 
-#define SO_BANCHINE 8
-
-void printPort(port_t port) {
-	printf("Porto %d: (%.2f, %.2f) - %d banchine\n", getpid(), port.coord.x, port.coord.y, port.docks);
+void printPort(struct port p) {
+	printf("Porto %d: (%.2f, %.2f) - %d banchine\n", getpid(), p.coord.x, p.coord.y, p.docks);
 }
 
 int main() {
-	port_t port;
+	struct port p;
 	int fifo_fd;
 	char name_fifo[100];
-	coordinates_t coord;
+	struct coordinates coord;
 	sprintf(name_fifo, "%d", getpid());
 	fifo_fd = open(name_fifo, O_RDONLY);
-	read(fifo_fd, &coord, sizeof(coordinates_t));
+	read(fifo_fd, &coord, sizeof(struct coordinates));
 	close(fifo_fd);
 	unlink(name_fifo);	
-	port.coord = coord;
+	p.coord = coord;
 	srand(getpid());
-	port.docks = rand() % SO_BANCHINE + 1;
-	printPort(port);
+	p.docks = rand() % SO_BANCHINE + 1;
+	printPort(p);
 }
