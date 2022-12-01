@@ -116,4 +116,5 @@ int main() {
 		}
 	}
 	while(wait(NULL) != -1);
+	printf("Programma finito\n\n");
 }
