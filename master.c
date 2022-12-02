@@ -1,3 +1,5 @@
+#define _GNU_SOURCE
+
 #include <unistd.h>
 #include <string.h>	
 #include <stdlib.h>
@@ -18,16 +20,6 @@
 			    "%s:%d: Errore #%3d \"%s\"\n",	\
 			    __FILE__, __LINE__, errno, strerror(errno));
 
-int exist_coords(struct coordinates coordv[], int idx, struct coordinates coord) {
-	int j;
-	for (j = 0; j < idx; j++) {
-		if ((coord.x < coordv[j].x + SO_DISTANZA_PORTI && coord.x > coordv[j].x - SO_DISTANZA_PORTI) &&
-			(coord.y < coordv[j].y + SO_DISTANZA_PORTI && coord.y > coordv[j].y - SO_DISTANZA_PORTI))
-			return 1;
-	}
-	return 0;
-}
-
 void handleSignal(int signal) {
 	switch(signal) {
 		case SIGALRM:
@@ -35,14 +27,20 @@ void handleSignal(int signal) {
 	}
 }
 
+/*source setEnv.sh*/
+
 int main() {
 	struct sigaction sa;
 	struct timespec now;
 	int i, j, fifo_fd;
 	struct coordinates coord_c;
 	char name_fifo[100];
-	struct coordinates coord_port[SO_PORTI];
+	struct coordinates *coord_port;
 	pid_t fork_rst;
+	pid_t *port_pids, *ship_pids;
+	coord_port = calloc(SO_PORTI, sizeof(struct coordinates));
+	port_pids = calloc(SO_PORTI, sizeof(pid_t));
+	ship_pids = calloc(SO_NAVI, sizeof(pid_t));
 	alarm(30);
 	bzero(&sa, sizeof(sa));
 	sa.sa_handler = handleSignal;
@@ -54,12 +52,13 @@ int main() {
 				PRINT_ERROR
 				exit(1);
 
-			case 0: //child
+			case 0: 
 				execlp("./port" ,"port.c", NULL);
 				PRINT_ERROR
-				exit(1);
+				exit(EXIT_FAILURE);
 
 			default:
+				port_pids[i] =fork_rst;
 				sprintf(name_fifo, "%d", fork_rst);
 				if (mkfifo(name_fifo, S_IRUSR | S_IWUSR) == -1) {
 					PRINT_ERROR
@@ -112,6 +111,7 @@ int main() {
 				exit(1);
 
 			default:
+				ship_pids[i] =fork_rst;
 				break; 
 		}
 	}

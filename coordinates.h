@@ -10,6 +10,9 @@ struct coordinates{
 /*returns a couple of random coords, both x and y are beteen the range [0, SO_LATO]*/
 struct coordinates getRandomCoords();
 
+/*returns 1 if there is an entity in the space with range SO_DISTANZA centered in coord, 0 otherwise*/
+int exist_coords(struct coordinates coordv[], int idx, struct coordinates coord);
+
 /*print the coords passed as paramter in the format "X: coords.x - Y: coords.y"*/
 void printCoords(struct coordinates coord);
 

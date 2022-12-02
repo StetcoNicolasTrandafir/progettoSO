@@ -20,6 +20,16 @@ struct coordinates getRandomCoords(){
     return coords;
 }
 
+int exist_coords(struct coordinates coordv[], int idx, struct coordinates coord) {
+    int j;
+    for (j = 0; j < idx; j++) {
+        if ((coord.x < coordv[j].x + SO_DISTANZA_PORTI && coord.x > coordv[j].x - SO_DISTANZA_PORTI) &&
+            (coord.y < coordv[j].y + SO_DISTANZA_PORTI && coord.y > coordv[j].y - SO_DISTANZA_PORTI))
+            return 1;
+    }
+    return 0;
+}
+
 void printCoords(struct coordinates coords){
     printf("X: %lf - Y: %lf", coords.x, coords.y);
 }
