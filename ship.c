@@ -23,8 +23,7 @@ void printShip(struct ship s) {
 
 int main() {
 	struct ship s;
-	s.coord.x = SO_LATO / 2;
-	s.coord.y = SO_LATO / 2;
+	s.coord = getRandomCoords();
 	s.capacity = SO_CAPACITY;
 	printShip(s);	
 }
