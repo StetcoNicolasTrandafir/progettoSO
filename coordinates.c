@@ -20,7 +20,7 @@ struct coordinates getRandomCoords(){
     return coords;
 }
 
-int exist_coords(struct coordinates coordv[], int idx, struct coordinates coord) {
+int existCoords(struct coordinates coordv[], int idx, struct coordinates coord) {
     int j;
     for (j = 0; j < idx; j++) {
         if ((coord.x < coordv[j].x + SO_DISTANZA_PORTI && coord.x > coordv[j].x - SO_DISTANZA_PORTI) &&

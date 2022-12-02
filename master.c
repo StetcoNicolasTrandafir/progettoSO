@@ -91,7 +91,7 @@ int main() {
 						do {
 							coord_c = getRandomCoords();
 						}
-						while (exist_coords(coord_port, i, coord_c));
+						while (existCoords(coord_port, i, coord_c));
 				}
 				write(fifo_fd, &coord_c, sizeof(struct coordinates));
 				coord_port[i] = coord_c;
