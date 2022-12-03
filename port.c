@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
 	TEST_ERROR;
 	unlink(name_fifo);	
 	TEST_ERROR;
-	p.coord = coord;
+	printf("unlink\n");
 	srand(getpid());
 	p.docks = rand() % SO_BANCHINE + 1;
 	printPort(p);

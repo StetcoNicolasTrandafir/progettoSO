@@ -45,7 +45,7 @@ int main() {
 	struct timespec now;
 	int i, j, fifo_fd, sem_id, status;
 	struct coordinates coord_c;
-	char name_fifo[100], *args[3], name_file[100], sem_id_str[3 * sizeof(sem_id) + 1];
+	char name_fifo[100], *args[3], name_file[100], sem_id_str[100];
 	struct coordinates *coord_port;
 	pid_t fork_rst;
 	pid_t *port_pids, *ship_pids;
@@ -65,6 +65,7 @@ int main() {
 	args[0] = name_file;
 	sprintf(sem_id_str, "%d", sem_id);
 	args[1] = sem_id_str;
+	args[2] = NULL;
 	for (i = 0; i < SO_PORTI; i++) {
 		fork_rst = fork();
 		TEST_ERROR;
@@ -79,7 +80,7 @@ int main() {
 				exit(EXIT_FAILURE);
 
 			default:
-				port_pids[i] =fork_rst;
+				port_pids[i] = fork_rst;
 				sprintf(name_fifo, "%d", fork_rst);
 				TEST_ERROR;
 				mkfifo(name_fifo, S_IRUSR | S_IWUSR);
@@ -117,7 +118,7 @@ int main() {
 				write(fifo_fd, &coord_c, sizeof(struct coordinates));
 				coord_port[i] = coord_c;
 				close(fifo_fd);
-				TEST_ERROR;
+				TEST_ERROR; 
 		}
 	}
 	sprintf(name_file, "ship.c");
