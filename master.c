@@ -12,9 +12,20 @@
 #include <fcntl.h>
 #include <time.h>
 #include <sys/wait.h>
+#include <sys/ipc.h>
+#include <sys/sem.h>
+#include <sys/shm.h>
 
 #include "macro.h"
 #include "coordinates.h"
+
+#define TEST_ERROR    if (errno) {fprintf(stderr, \
+					  "%s:%d: PID=%5d: Error %d (%s)\n", \
+					  __FILE__,			\
+					  __LINE__,			\
+					  getpid(),			\
+					  errno,			\
+					  strerror(errno));}
 
 #define PRINT_ERROR fprintf(stderr,				\
 			    "%s:%d: Errore #%3d \"%s\"\n",	\
@@ -32,12 +43,13 @@ void handleSignal(int signal) {
 int main() {
 	struct sigaction sa;
 	struct timespec now;
-	int i, j, fifo_fd;
+	int i, j, fifo_fd, sem_id, status;
 	struct coordinates coord_c;
-	char name_fifo[100];
+	char name_fifo[100], *args[3], name_file[100], sem_id_str[3 * sizeof(sem_id) + 1];
 	struct coordinates *coord_port;
 	pid_t fork_rst;
 	pid_t *port_pids, *ship_pids;
+	struct sembuf sops;
 	coord_port = calloc(SO_PORTI, sizeof(struct coordinates));
 	port_pids = calloc(SO_PORTI, sizeof(pid_t));
 	ship_pids = calloc(SO_NAVI, sizeof(pid_t));
@@ -45,26 +57,35 @@ int main() {
 	bzero(&sa, sizeof(sa));
 	sa.sa_handler = handleSignal;
 	sigaction(SIGALRM, &sa, NULL);
+	bzero(&sops, sizeof(sops));
+	sem_id = semget(IPC_PRIVATE, 1, 0600);
+	TEST_ERROR;
+	semctl(sem_id, 0, SETVAL, SO_PORTI + SO_NAVI);
+	sprintf(name_file, "port.c");
+	args[0] = name_file;
+	sprintf(sem_id_str, "%d", sem_id);
+	args[1] = sem_id_str;
 	for (i = 0; i < SO_PORTI; i++) {
 		fork_rst = fork();
+		TEST_ERROR;
 		switch(fork_rst) {
 			case -1:
 				PRINT_ERROR
 				exit(1);
 
 			case 0: 
-				execlp("./port" ,"port.c", NULL);
+				execv("./port", args);
 				PRINT_ERROR
 				exit(EXIT_FAILURE);
 
 			default:
 				port_pids[i] =fork_rst;
 				sprintf(name_fifo, "%d", fork_rst);
-				if (mkfifo(name_fifo, S_IRUSR | S_IWUSR) == -1) {
-					PRINT_ERROR
-					exit(1);
-				}
+				TEST_ERROR;
+				mkfifo(name_fifo, S_IRUSR | S_IWUSR);
+				TEST_ERROR;
 				fifo_fd = open(name_fifo, O_WRONLY);
+				TEST_ERROR;
 				switch(i) {
 					case 0:
 						coord_c.x = 0.0;
@@ -96,17 +117,21 @@ int main() {
 				write(fifo_fd, &coord_c, sizeof(struct coordinates));
 				coord_port[i] = coord_c;
 				close(fifo_fd);
+				TEST_ERROR;
 		}
 	}
+	sprintf(name_file, "ship.c");
+	args[0] = name_file;
 	for (i = 0; i < SO_NAVI; i++) {
 		fork_rst = fork();
+		TEST_ERROR;
 		switch(fork_rst) {
 			case -1:
 				PRINT_ERROR
 				exit(1);
 				
 			case 0:
-				execlp("./ship", "ship.c", NULL);
+				execv("./ship", args);
 				PRINT_ERROR
 				exit(1);
 
@@ -115,5 +140,8 @@ int main() {
 				break; 
 		}
 	}
+	semop(sem_id, &sops, 1);
+	TEST_ERROR;
+	printf("SI\n");
 	while(wait(NULL) != -1);
 }
