@@ -1,12 +1,33 @@
-sofia: somma.o moltiplicazione.o carlo.o
-	gcc -o sofia somma.o moltiplicazione.o carlo.o
-master.o: master.c
-	gcc -c master.c
-moltiplicazione.o: moltiplicazione.c moltiplicazione.h
-	gcc -c moltiplicazione.c
-carlo.o: carlo.c 
-	gcc -c carlo.c
-clean:
+CFLAGS=-std=c89 -pedantic
+LDFLAGS=-lm
+
+simulation: master.o utility_coordinates.o utility_goods.o utility_port.o port ship port 
+	gcc -o simulation *.o $(LDFLAGS)
+
+objects:
+	gcc -c utility_coordinates.c
+	gcc -c utility_goods.c
+	gcc -c utility_port.c
+
+port:
+	gcc port.c utility_coordinates.o -o port $(LDFLAGS)
+
+ship:
+	gcc ship.c utility_coordinates.o -o ship $(LDFLAGS)
+
+master:
+	gcc master.c -o master $(LDFLAGS)
+
+
+setEnv:
+	source ./setEnv.sh
+
+clean: 
 	rm -f *.o
+	rm port 
+	rm master
+	rm ship
+	rm simulation
+
 run:
-	./sofia
+	./simulation
