@@ -16,8 +16,8 @@
 #include "utility_coordinates.h"
 #include "utility_goods.h"
 #include "utility_port.h"
-#include "utility_sem.h"
 #include "utility_shm.h"
+#include "utility_sem.h"
 
 #define TEST_ERROR    if (errno) {fprintf(stderr, \
 					  "%s:%d: PID=%5d: Error %d (%s)\n", \
@@ -33,20 +33,10 @@ void printPort(struct port p) {
 
 int main(int argc, char *argv[]) {
 	struct port p;
-	int fifo_fd, sem_id, shm_id, idx;
-	char name_fifo[100];
+	int sem_id, shm_id, idx;
 	struct coordinates coord;
 	struct sembuf sops;
 	struct shared_port *port_coords;
-
-	/*sprintf(name_fifo, "%d", getpid());
-	fifo_fd = open(name_fifo, O_RDONLY);
-	TEST_ERROR;
-	read(fifo_fd, &coord, sizeof(struct coordinates));
-	close(fifo_fd);
-	TEST_ERROR;
-	unlink(name_fifo);	
-	TEST_ERROR;*/
 
 	sem_id = atoi(argv[1]);
 	idx = atoi(argv[3]);
