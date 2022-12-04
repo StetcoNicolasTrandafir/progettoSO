@@ -13,9 +13,9 @@
 #include <sys/shm.h>
 
 #include "macro.h"
-#include "coordinates.h"
-#include "goods.h"
-#include "port.h"
+#include "utility_coordinates.h"
+#include "utility_goods.h"
+#include "utility_port.h"
 
 #define TEST_ERROR    if (errno) {fprintf(stderr, \
 					  "%s:%d: PID=%5d: Error %d (%s)\n", \

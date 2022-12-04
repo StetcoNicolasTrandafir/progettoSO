@@ -4,7 +4,7 @@
 #include <unistd.h>
 
 #include "macro.h"
-#include "goods.h"
+#include "utility_goods.h"
 
 
 struct goods generateGoods(){

@@ -1,5 +1,5 @@
-#ifndef _PORT_H
-#define _PORT_H
+#ifndef _UTILITY_PORT_H
+#define _UTILITY_PORT_H
 
 /*the request struct is made up by the goods' type and a flag to understand if it has already been satisfied or not*/
 struct request{
@@ -18,6 +18,7 @@ struct port{
     struct goods* generatedGoods;
 };
 
+/*this function prints all the info about the port parameter needed for the daily report*/
+void printPortRepo(struct port port);
 
-
-#endif /*_PORT_H*/
+#endif /*_UTILITY_PORT_H*/
