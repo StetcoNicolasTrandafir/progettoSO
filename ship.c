@@ -13,7 +13,7 @@
 #include <sys/shm.h>
 
 #include "macro.h"
-#include "coordinates.h"
+#include "utility_coordinates.h"
 
 #define TEST_ERROR    if (errno) {fprintf(stderr, \
 					  "%s:%d: PID=%5d: Error %d (%s)\n", \

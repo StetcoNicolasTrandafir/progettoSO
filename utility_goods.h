@@ -1,5 +1,5 @@
-#ifndef _GOODS_H
-#define _GOODS_H
+#ifndef _UTILITY_GOODS_H
+#define _UTILITY_GOODS_H
 
 /*each goods is classified with these states:*/
 enum states {in_port, on_ship, delivered, expired_port, expired_ship};
@@ -20,4 +20,4 @@ struct goods generateGoods();
 /*returns 1 if the good passed as parameter is expired, otherwise 0*/
 int isExpired(struct goods good);
 
-#endif /*_GOODS_H*/
+#endif /*_UTILITY_GOODS_H*/

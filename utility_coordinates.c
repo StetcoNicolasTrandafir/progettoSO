@@ -6,7 +6,7 @@
 #include <time.h>
 
 #include "macro.h"
-#include "coordinates.h"
+#include "utility_coordinates.h"
 
 
 struct coordinates getRandomCoords(){

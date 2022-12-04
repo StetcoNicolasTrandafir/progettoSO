@@ -1,5 +1,5 @@
-#ifndef _COORDINATES_H
-#define _COORDINATES_H
+#ifndef _UTILITY_COORDINATES_H
+#define _UTILITY_COORDINATES_H
 
 
 struct coordinates{
@@ -23,4 +23,4 @@ double getDistance(struct coordinates A, struct coordinates B);
 double getTravelTime(double space);
 
 
-#endif /*_COORDINATES_H*/
+#endif /*_UTILITY_COORDINATES_H*/
