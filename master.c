@@ -1,5 +1,4 @@
 #define _GNU_SOURCE
-
 #include <unistd.h>
 #include <string.h>	
 #include <stdlib.h>
@@ -18,6 +17,7 @@
 
 #include "macro.h"
 #include "utility_coordinates.h"
+#include "utility_shm.h"
 
 #define TEST_ERROR    if (errno) {fprintf(stderr, \
 					  "%s:%d: PID=%5d: Error %d (%s)\n", \
@@ -43,13 +43,15 @@ void handleSignal(int signal) {
 int main() {
 	struct sigaction sa;
 	struct timespec now;
-	int i, j, fifo_fd, sem_id, status;
+	int i, j, fifo_fd, sem_id, shm_id;
 	struct coordinates coord_c;
-	char name_fifo[100], *args[3], name_file[100], sem_id_str[100];
+	char name_fifo[100], *args[5], name_file[100], sem_id_str[3 * sizeof(sem_id) + 1], shm_id_str[3 * sizeof(sem_id) + 1], i_str[3 * sizeof(i) + 1];
 	struct coordinates *coord_port;
 	pid_t fork_rst;
 	pid_t *port_pids, *ship_pids;
 	struct sembuf sops;
+	struct shared_port *port_coords;
+
 	coord_port = calloc(SO_PORTI, sizeof(struct coordinates));
 	port_pids = calloc(SO_PORTI, sizeof(pid_t));
 	ship_pids = calloc(SO_NAVI, sizeof(pid_t));
@@ -58,70 +60,50 @@ int main() {
 	sa.sa_handler = handleSignal;
 	sigaction(SIGALRM, &sa, NULL);
 	bzero(&sops, sizeof(sops));
-	sem_id = semget(IPC_PRIVATE, 1, 0600);
+	sem_id = semget(IPC_PRIVATE, 2, 0600);
 	TEST_ERROR;
 	semctl(sem_id, 0, SETVAL, SO_PORTI + SO_NAVI);
-	sprintf(name_file, "port.c");
+	TEST_ERROR;
+	sprintf(name_file, "port");
 	args[0] = name_file;
 	sprintf(sem_id_str, "%d", sem_id);
 	args[1] = sem_id_str;
-	args[2] = NULL;
+	args[4] = NULL;
+	shm_id = shmget(IPC_PRIVATE, sizeof(*port_coords), 0600);
+	TEST_ERROR;
+	sprintf(shm_id_str, "%d", shm_id);
+	args[2] = shm_id_str;
+	port_coords = shmat(shm_id, NULL, 0);
+	TEST_ERROR;
+	port_coords -> cur_idx = 4;
+	port_coords -> coords[0].x = 0.0;
+	port_coords -> coords[0].x = 0.0;
+	port_coords -> coords[1].x = SO_LATO;
+	port_coords -> coords[1].x = 0.0;
+	port_coords -> coords[2].x = 0.0;
+	port_coords -> coords[2].x = SO_LATO;
+	port_coords -> coords[3].x = SO_LATO;
+	port_coords -> coords[3].x = SO_LATO;
+	semctl(sem_id, 1, SETVAL, 1);
+	TEST_ERROR;
 	for (i = 0; i < SO_PORTI; i++) {
-		fork_rst = fork();
-		TEST_ERROR;
-		switch(fork_rst) {
+		switch(fork_rst = fork()) {
 			case -1:
-				PRINT_ERROR
+				sprintf(i_str, "%d", i);
+				args[3] = i_str;
+				PRINT_ERROR;
 				exit(1);
 
 			case 0: 
 				execv("./port", args);
-				PRINT_ERROR
+				PRINT_ERROR;
 				exit(EXIT_FAILURE);
 
 			default:
 				port_pids[i] = fork_rst;
-				sprintf(name_fifo, "%d", fork_rst);
-				TEST_ERROR;
-				mkfifo(name_fifo, S_IRUSR | S_IWUSR);
-				TEST_ERROR;
-				fifo_fd = open(name_fifo, O_WRONLY);
-				TEST_ERROR;
-				switch(i) {
-					case 0:
-						coord_c.x = 0.0;
-						coord_c.y = 0.0;
-						break;
-
-					case 1:
-						coord_c.x = (double) SO_LATO;
-						coord_c.y = 0.0;
-						break;
-
-					case 2:
-						coord_c.x = 0.0;
-						coord_c.y = (double) SO_LATO;
-						break;
-
-					case 3:
-						coord_c.x = (double) SO_LATO;
-						coord_c.y = (double) SO_LATO;
-						break;
-
-					default:
-						
-						do {
-							coord_c = getRandomCoords();
-						}
-						while (existCoords(coord_port, i, coord_c));
-				}
-				write(fifo_fd, &coord_c, sizeof(struct coordinates));
-				coord_port[i] = coord_c;
-				close(fifo_fd);
-				TEST_ERROR; 
 		}
 	}
-	sprintf(name_file, "ship.c");
+	sprintf(name_file, "ship");
 	args[0] = name_file;
 	for (i = 0; i < SO_NAVI; i++) {
 		fork_rst = fork();
@@ -141,8 +123,14 @@ int main() {
 				break; 
 		}
 	}
+	sops.sem_num = 0;
+	sops.sem_op = 0;
 	semop(sem_id, &sops, 1);
 	TEST_ERROR;
-	printf("SI\n");
+	shmctl(shm_id, IPC_RMID, NULL);
+	TEST_ERROR;
+	sleep(1); /*Lo toglieremo , ma se lo tolgo ora, da un errore perchè eliminiamo il semaforo prima che l'ultimo processo abbia fatto il semop per aspettare tutti i processi*/
+	semctl(sem_id, 0, IPC_RMID);
+	TEST_ERROR;
 	while(wait(NULL) != -1);
 }

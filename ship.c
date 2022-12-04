@@ -40,13 +40,13 @@ int main(int argc, char *argv[]) {
 	s.capacity = SO_CAPACITY;
 	printShip(s);
 	sem_id = atoi(argv[1]);
-	bzero(&sops, sizeof(sops));
+	sops.sem_num = 0;
 	sops.sem_op = -1;
+	sops.sem_flg = 0;
 	semop(sem_id, &sops, 1);
 	TEST_ERROR;
 	sops.sem_op = 0;
 	semop(sem_id, &sops, 1);
 	TEST_ERROR;
-	printf("Sono la nave %d\n", getpid());	
 	exit(0);
 }

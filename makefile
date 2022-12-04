@@ -16,7 +16,7 @@ ship:
 	gcc ship.c utility_coordinates.o -o ship $(LDFLAGS)
 
 master:
-	gcc master.c -o master $(LDFLAGS)
+	gcc master.c utility_coordinates.o -o master $(LDFLAGS)
 
 
 setEnv:
@@ -24,8 +24,7 @@ setEnv:
 
 clean: 
 	rm -f *.o
-	rm port 
-	rm master
+	rm port
 	rm ship
 	rm simulation
 
