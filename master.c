@@ -52,6 +52,7 @@ int main() {
 	struct sembuf sops;
 	struct shared_port *port_coords;
 
+	
 	coord_port = calloc(SO_PORTI, sizeof(coordinates));
 	port_pids = calloc(SO_PORTI, sizeof(pid_t));
 	ship_pids = calloc(SO_NAVI, sizeof(pid_t));

@@ -10,7 +10,7 @@
 goods generateGoods(){
     goods g;
     srand(getpid());
-    //TODO: impostare il generationTime "all'orario" corrente
+    /*TODO: impostare il generationTime "all'orario" corrente*/
     g.generationTime=0;
     g.type=(rand()%SO_MERCI);
     g.dimension= (rand()%SO_SIZE)+1;
@@ -21,9 +21,9 @@ goods generateGoods(){
 
 
 int isExpired(goods g){
-    //TODO: valorizzare correttamente la variabile currentTime 
+    /*TODO: valorizzare correttamente la variabile currentTime */
     double currentTime=(double)SO_DAYS; 
-    //NOTE: per adesso impostato al massimo dei giorni, in questo modo isExpired() sarà sempre falso
+    /*NOTE: per adesso impostato al massimo dei giorni, in questo modo isExpired() sarà sempre falso*/
 
     return ((currentTime-g.generationTime)>=g.lifeTime) ? 1 : 0;
 }

@@ -1,3 +1,4 @@
+#define _GNU_SOURCE
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
@@ -12,11 +13,13 @@
  coordinates getRandomCoords(){
     double x, y;
     struct timespec now;
+    coordinates coords;
     clock_gettime(CLOCK_REALTIME, &now);
     x = (double)(now.tv_nsec % (SO_LATO * 100)) / 100.0;
     clock_gettime(CLOCK_REALTIME, &now);
     y = (double)(now.tv_nsec % (SO_LATO * 100)) / 100.0;
-    coordinates coords = {x, y};
+    coords.x=x;
+    coords.y=y;
     return coords;
 }
 
@@ -31,7 +34,7 @@ int existCoords(coordinates coordv[], int idx, coordinates coord) {
 }
 
 void printCoords(coordinates coords){
-    printf("X: %lf - Y: %lf", coords.x, coords.y);
+    printf("(%.2f,%.2f)", coords.x, coords.y);
 }
 
 double getDistance( coordinates A, coordinates B){
