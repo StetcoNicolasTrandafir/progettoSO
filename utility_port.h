@@ -15,7 +15,7 @@ typedef struct port{
     int docks;
     struct request* requests;
 
-    //REVIEW: potremmo salvare in questo array solo l'identificativo della merce?
+    /*REVIEW: potremmo salvare in questo array solo l'identificativo della merce?*/
     struct goods* generatedGoods;
 };
 
