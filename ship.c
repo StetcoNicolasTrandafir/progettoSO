@@ -14,6 +14,8 @@
 
 #include "macro.h"
 #include "utility_coordinates.h"
+#include "utility_goods.h"
+#include "utility_ship.h"
 
 #define TEST_ERROR    if (errno) {fprintf(stderr, \
 					  "%s:%d: PID=%5d: Error %d (%s)\n", \
@@ -23,21 +25,15 @@
 					  errno,			\
 					  strerror(errno));}
 
-struct ship {
-	struct coordinates coord; /*una coppia di coordinate (x, y)*/
-	int capacity; /*in tonnellate, uguale a SO_CAPACITY*/
-};
-
-void printShip(struct ship s) {
-	printf("Ship %d: (%.2f, %.2f) - S = %.2f - C = %d\n", getpid(), s.coord.x, s.coord.y, SO_SPEED, s.capacity);
+void printShip(ship s) {
+	printf("Ship %d: (%.2f, %.2f) - S = %.2f - C = %d\n", getpid(), s.coords.x, s.coords.y, SO_SPEED, SO_CAPACITY);
 }
 
 int main(int argc, char *argv[]) {
 	int sem_id;
 	ship s;
 	struct sembuf sops;
-	s.coord = getRandomCoords();
-	s.capacity = SO_CAPACITY;
+	s.coords = getRandomCoords();
 	printShip(s);
 	sem_id = atoi(argv[1]);
 	sops.sem_num = 0;

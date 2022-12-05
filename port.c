@@ -27,7 +27,7 @@
 					  errno,			\
 					  strerror(errno));}
 
-void printPort(struct port p) {
+void printPort(port p) {
 	printf("Porto %d: (%.2f, %.2f) - %d banchine\n", getpid(), p.coord.x, p.coord.y, p.docks);
 }
 

@@ -4,8 +4,10 @@
 #include <unistd.h>
 
 #include "macro.h"
+#include "utility_goods.h"
 #include "utility_coordinates.h"
 #include "utility_port.h"
+
 
 
 
@@ -35,20 +37,20 @@ void printDailyPortRepo(port port){
 /*NOTE assumo che gli array port.requests e port.generatedGoods siano 
     array NULL terminated e di lunghezza SO_DAYS*/
 
-int getTotalRequest(port port, int satisfied){
+int getRequests(port port, int satisfied){
     int i=0;
     int total=0;
     
-    while(i<SO_DAYS && port.requests[i]!=NULL){
+    while(i<SO_DAYS && port.requests[i].goodsType!=-1){
         switch(satisfied){
 
             case ONLY_SATISFIED:
                 if(port.requests[i].satisfied)
-                    total+= port.requests.quantity;
+                    total+= port.requests[i].quantity;
                 break;
 
             case ALL:
-                total+= port.requests.quantity;
+                total+= port.requests[i].quantity;
                 break;
             
             default:
@@ -65,7 +67,7 @@ int getGeneratedGoods(port port, int flag){
     int i=0;
     int total=0;
 
-    while(i<SO_DAYS && port.generatedGoods[i]!=NULL){
+    while(i<SO_DAYS && port.generatedGoods[i].type!=-1){
 
         switch(flag){
             case SHIPPED:

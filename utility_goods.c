@@ -7,8 +7,8 @@
 #include "utility_goods.h"
 
 
-struct goods generateGoods(){
-    struct goods g;
+goods generateGoods(){
+    goods g;
     srand(getpid());
     //TODO: impostare il generationTime "all'orario" corrente
     g.generationTime=0;
@@ -20,7 +20,7 @@ struct goods generateGoods(){
 }
 
 
-int isExpired(struct goods g){
+int isExpired(goods g){
     //TODO: valorizzare correttamente la variabile currentTime 
     double currentTime=(double)SO_DAYS; 
     //NOTE: per adesso impostato al massimo dei giorni, in questo modo isExpired() sarà sempre falso

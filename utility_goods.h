@@ -12,12 +12,12 @@ typedef struct goods{
     int dimension;
     int lifeTime;
     double generationTime;
-};
+}goods;
 
 /*this function returns a unity*/
-struct goods generateGoods();
+goods generateGoods();
 
 /*returns 1 if the good passed as parameter is expired, otherwise 0*/
-int isExpired(struct goods good);
+int isExpired(goods good);
 
 #endif /*_UTILITY_GOODS_H*/

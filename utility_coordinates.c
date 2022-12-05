@@ -9,18 +9,18 @@
 #include "utility_coordinates.h"
 
 
-struct coordinates getRandomCoords(){
+ coordinates getRandomCoords(){
     double x, y;
     struct timespec now;
     clock_gettime(CLOCK_REALTIME, &now);
     x = (double)(now.tv_nsec % (SO_LATO * 100)) / 100.0;
     clock_gettime(CLOCK_REALTIME, &now);
     y = (double)(now.tv_nsec % (SO_LATO * 100)) / 100.0;
-    struct coordinates coords = {x, y};
+    coordinates coords = {x, y};
     return coords;
 }
 
-int existCoords(struct coordinates coordv[], int idx, struct coordinates coord) {
+int existCoords(coordinates coordv[], int idx, coordinates coord) {
     int j;
     for (j = 0; j < idx; j++) {
         if ((coord.x < coordv[j].x + SO_DISTANZA_PORTI && coord.x > coordv[j].x - SO_DISTANZA_PORTI) &&
@@ -30,11 +30,11 @@ int existCoords(struct coordinates coordv[], int idx, struct coordinates coord) 
     return 0;
 }
 
-void printCoords(struct coordinates coords){
+void printCoords(coordinates coords){
     printf("X: %lf - Y: %lf", coords.x, coords.y);
 }
 
-double getDistance(struct coordinates A,struct coordinates B){
+double getDistance( coordinates A, coordinates B){
     double deltaX= A.x-B.x;
     double deltaY= A.y-B.y;
     return sqrt(pow(deltaY,2)+pow(deltaX,2));

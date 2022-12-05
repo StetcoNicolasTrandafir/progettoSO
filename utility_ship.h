@@ -4,7 +4,7 @@
 typedef struct ship{
     coordinates coords;
     goods *goods;
-};
+}ship;
 
 
 /*this function compute the time to cover the distance between the coords passed as parameter,

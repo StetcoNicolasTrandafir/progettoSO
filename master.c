@@ -52,7 +52,7 @@ int main() {
 	struct sembuf sops;
 	struct shared_port *port_coords;
 
-	coord_port = calloc(SO_PORTI, sizeof(struct coordinates));
+	coord_port = calloc(SO_PORTI, sizeof(coordinates));
 	port_pids = calloc(SO_PORTI, sizeof(pid_t));
 	ship_pids = calloc(SO_NAVI, sizeof(pid_t));
 	alarm(30);
@@ -133,4 +133,6 @@ int main() {
 	semctl(sem_id, 0, IPC_RMID);
 	TEST_ERROR;
 	while(wait(NULL) != -1);
+
+	printf("\n\nSIMULAZIONE FINITA!!!\n\n");
 }
