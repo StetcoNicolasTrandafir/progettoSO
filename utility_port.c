@@ -7,6 +7,89 @@
 #include "utility_coordinates.h"
 #include "utility_port.h"
 
-void printPortRepo(struct port port){
-    printf("Port in position(%2f,%2f):\n", port.coord.x, port.coord.y);
+
+
+#define IN_PORT 2
+#define SHIPPED 1
+#define ALL 0
+#define ONLY_SATISFIED 1
+
+void printDailyPortRepo(port port){
+    int tonsShipped= getGeneratedGoods(port, SHIPPED);
+    int tonsInPort=getGeneratedGoods(port, IN_PORT);
+    int tonsReceived=getRequests(port, ONLY_SATISFIED);
+    /*TODO quante banchine libere?*/
+    int freeDocks=0;
+
+    printf("\n\n\nPorto in posizione:\n");
+    printCoords(port.coord);
+    printf("Banchine libere %d su %d", freeDocks, port.docks);
+
+    printf("Merci spedite: %d ton",tonsShipped);
+    printf("\nMerci in generate ancora in porto: %d ton",tonsInPort);
+    printf("\nMerci in ricevute: %d ton",tonsReceived);
+
+}
+
+
+/*NOTE assumo che gli array port.requests e port.generatedGoods siano 
+    array NULL terminated e di lunghezza SO_DAYS*/
+
+int getTotalRequest(port port, int satisfied){
+    int i=0;
+    int total=0;
+    
+    while(i<SO_DAYS && port.requests[i]!=NULL){
+        switch(satisfied){
+
+            case ONLY_SATISFIED:
+                if(port.requests[i].satisfied)
+                    total+= port.requests.quantity;
+                break;
+
+            case ALL:
+                total+= port.requests.quantity;
+                break;
+            
+            default:
+                /*INVALID FLAG*/
+                return -1;
+                break;
+        }
+    }
+
+    return total;
+}
+
+int getGeneratedGoods(port port, int flag){
+    int i=0;
+    int total=0;
+
+    while(i<SO_DAYS && port.generatedGoods[i]!=NULL){
+
+        switch(flag){
+            case SHIPPED:
+                if(port.generatedGoods[i].state!=in_port && port.generatedGoods[i].state!=expired_port)
+                    total+=port.generatedGoods[i].dimension;
+                break;
+
+            case IN_PORT:
+                if(port.generatedGoods[i].state==in_port /*|| port.generatedGoods[i].state!=expired_port*/)
+                    total+=port.generatedGoods[i].dimension;
+                break;
+             
+            case ALL:
+                total+=port.generatedGoods[i].dimension;
+                break;
+            
+            default:
+                /*INVALID FLAG*/
+                return -1;
+                break;
+        }
+        
+        i++;
+    }
+
+    return total;
 }

@@ -1,4 +1,4 @@
-CFLAGS=-std=c89 -pedantic
+#CFLAGS=-std=c89 -Wpedantic
 LDFLAGS=-lm
 
 simulation: master.o utility_coordinates.o utility_goods.o utility_port.o port ship port 
@@ -14,10 +14,6 @@ port:
 
 ship:
 	gcc ship.c utility_coordinates.o -o ship $(LDFLAGS)
-
-master:
-	gcc master.c utility_coordinates.o -o master $(LDFLAGS)
-
 
 setEnv:
 	source ./setEnv.sh
