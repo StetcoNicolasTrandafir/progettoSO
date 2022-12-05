@@ -36,6 +36,4 @@ int getGeneratedGoods(port port, int flag);
 void printPortRepo(struct port port);
 
 
-
-
 #endif /*_UTILITY_PORT_H*/

@@ -32,10 +32,10 @@ void printPort(struct port p) {
 }
 
 int main(int argc, char *argv[]) {
-	struct port p;
+	port p;
 	int fifo_fd, sem_id, shm_id, idx;
 	char name_fifo[100];
-	struct coordinates coord;
+	coordinates coord;
 	struct sembuf sops;
 	struct shared_port *port_coords;
 

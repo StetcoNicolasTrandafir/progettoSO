@@ -2,7 +2,7 @@
 #define _UTILITY_COORDINATES_H
 
 
-struct coordinates{
+typedef struct coordinates{
     double x;
     double y;
 };

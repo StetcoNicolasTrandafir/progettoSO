@@ -34,7 +34,7 @@ void printShip(struct ship s) {
 
 int main(int argc, char *argv[]) {
 	int sem_id;
-	struct ship s;
+	ship s;
 	struct sembuf sops;
 	s.coord = getRandomCoords();
 	s.capacity = SO_CAPACITY;

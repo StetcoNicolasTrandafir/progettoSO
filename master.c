@@ -44,9 +44,9 @@ int main() {
 	struct sigaction sa;
 	struct timespec now;
 	int i, j, fifo_fd, sem_id, shm_id;
-	struct coordinates coord_c;
+	coordinates coord_c;
 	char name_fifo[100], *args[5], name_file[100], sem_id_str[3 * sizeof(sem_id) + 1], shm_id_str[3 * sizeof(sem_id) + 1], i_str[3 * sizeof(i) + 1];
-	struct coordinates *coord_port;
+	coordinates *coord_port;
 	pid_t fork_rst;
 	pid_t *port_pids, *ship_pids;
 	struct sembuf sops;
