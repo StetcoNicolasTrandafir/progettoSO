@@ -20,21 +20,48 @@
 #include "utility_shm.h"
 
 #define TEST_ERROR    if (errno) {fprintf(stderr, \
-					  "%s:%d: PID=%5d: Error %d (%s)\n", \
+					  "%s: a riga %d: PID=%5d: Error %d (%s)\n", \
 					  __FILE__,			\
 					  __LINE__,			\
 					  getpid(),			\
 					  errno,			\
 					  strerror(errno));}
 
-#define PRINT_ERROR fprintf(stderr,				\
-			    "%s:%d: Errore #%3d \"%s\"\n",	\
-			    __FILE__, __LINE__, errno, strerror(errno));
+/*
+SEMAFORI:
+-uno per ogni porto
+-uno per ogni memoria condivisa
+-uno per la sincronizzazione iniziale
+-
+*/
+
+
+
+
+int pastDays=0;
+pid_t *port_pids, *ship_pids;
+
+void sendSignalToAllPorts(){
+	int i;
+	for(i=0; i<SO_PORTI; i++){
+		printf("\nSending signal to [%d]", port_pids[i]);
+		if(kill(port_pids[i], SIGUSR1)) TEST_ERROR;
+	}
+}
 
 void handleSignal(int signal) {
 	switch(signal) {
 		case SIGALRM:
+			if(pastDays==SO_DAYS){
+				printf("\nREPORT FINALE:\n");
+				/*finalReport();*/
+				/*killAllChildren();*/
+			}else{
 
+				printf("\n\nREPORT GIORNALIERO: \n");
+				sendSignalToAllPorts();				
+			}
+			break;
 	}
 }
 
@@ -42,16 +69,13 @@ void handleSignal(int signal) {
 
 int main() {
 	struct sigaction sa;
-	struct timespec now;
 	int i, j, fifo_fd, sem_id, shm_id;
 	coordinates coord_c;
 	char  *args[5], name_file[100], sem_id_str[3 * sizeof(sem_id) + 1], shm_id_str[3 * sizeof(sem_id) + 1], i_str[3 * sizeof(i) + 1];
 	coordinates *coord_port;
 	pid_t fork_rst;
-	pid_t *port_pids, *ship_pids;
 	struct sembuf sops;
 	struct shared_port *port_coords;
-
 	
 	coord_port = calloc(SO_PORTI, sizeof(coordinates));
 	port_pids = calloc(SO_PORTI, sizeof(pid_t));
@@ -90,14 +114,15 @@ int main() {
 	for (i = 0; i < SO_PORTI; i++) {
 		switch(fork_rst = fork()) {
 			case -1:
-				PRINT_ERROR;
+				TEST_ERROR;
 				exit(1);
+
 
 			case 0: 
 				sprintf(i_str, "%d", i);
 				args[3] = i_str;
 				execv("./port", args);
-				PRINT_ERROR;
+				TEST_ERROR;
 				exit(EXIT_FAILURE);
 
 			default:
@@ -111,12 +136,12 @@ int main() {
 		TEST_ERROR;
 		switch(fork_rst) {
 			case -1:
-				PRINT_ERROR
+				TEST_ERROR;
 				exit(1);
 				
 			case 0:
 				execv("./ship", args);
-				PRINT_ERROR
+				TEST_ERROR;
 				exit(1);
 
 			default:
@@ -124,6 +149,7 @@ int main() {
 				break; 
 		}
 	}
+
 	sops.sem_num = 0;
 	sops.sem_op = 0;
 	semop(sem_id, &sops, 1);
@@ -133,7 +159,14 @@ int main() {
 	sleep(1); /*Lo toglieremo , ma se lo tolgo ora, da un errore perchè eliminiamo il semaforo prima che l'ultimo processo abbia fatto il semop per aspettare tutti i processi*/
 	semctl(sem_id, 0, IPC_RMID);
 	TEST_ERROR;
+
+
+	
 	while(wait(NULL) != -1);
 
+	sleep(10);
+	
 	printf("\n\nSIMULAZIONE FINITA!!!\n\n");
 }
+
+

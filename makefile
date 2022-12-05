@@ -11,7 +11,7 @@ objects:
 	gcc -c utility_port.c
 
 port:
-	gcc port.c utility_coordinates.o -o port $(LDFLAGS)
+	gcc port.c utility_coordinates.o utility_goods.o utility_port.o -o port $(LDFLAGS)
 
 ship:
 	gcc ship.c utility_coordinates.o -o ship $(LDFLAGS)

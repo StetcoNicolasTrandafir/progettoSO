@@ -11,7 +11,7 @@ typedef struct goods{
     enum states state;
     int dimension;
     int lifeTime;
-    double generationTime;
+    struct timespec generationTime;
 }goods;
 
 /*this function returns a unity*/
