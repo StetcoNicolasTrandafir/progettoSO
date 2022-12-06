@@ -2,8 +2,9 @@ CC=gcc
 CFLAGS=-std=c89 -Wpedantic
 LDFLAGS=-lm
 
-simulation: master.o utility_coordinates.o utility_goods.o utility_port.o port ship port 
+simulation: clean master.o utility_coordinates.o utility_goods.o utility_port.o port ship port 
 	gcc -o simulation *.o $(LDFLAGS)
+
 
 objects:
 	gcc -c utility_coordinates.c

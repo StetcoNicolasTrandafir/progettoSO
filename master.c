@@ -51,7 +51,7 @@ void sendSignalToAllPorts(){
 
 void cleanUp(){
 	int i;
-	
+
 	for(i=0; i< SO_PORTI; i++){
 		kill(port_pids[i], SIGKILL);
 	}
@@ -60,8 +60,8 @@ void cleanUp(){
 		kill(ship_pids[i], SIGKILL);
 	}
 
-	semctl(sem_id, 0, IPC_RMID);
-	shmctl(shm_id, IPC_RMID, NULL);
+	semctl(sem_id, 0, IPC_RMID); TEST_ERROR;
+	shmctl(shm_id, IPC_RMID, NULL); TEST_ERROR;
 }
 
 void handleSignal(int signal) {
