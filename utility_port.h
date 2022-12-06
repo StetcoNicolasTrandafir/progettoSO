@@ -36,7 +36,7 @@ typedef struct port{
 
 
 /*set goodstype of each element of generatedGoods and requests to -1 in order to be checkable in other controls */
-void initializePort(port port);
+port initializePort(port p);
 
 /*returns the amount (ton) of the port passed as parameter requests.
 if the satisfied flag is set to ONLY_SATISFIED (1) computes only the satisfied requests, 
@@ -65,8 +65,5 @@ int isOffered(port port, int goodsType);
 
 /*return 1 if the goods type passed as parameter is already requested in the port, 0 otherwhise*/
 int isRequested(port port, int goodsType);
-
-
-
 
 #endif /*_UTILITY_PORT_H*/

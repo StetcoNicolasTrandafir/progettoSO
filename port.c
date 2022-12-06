@@ -39,13 +39,10 @@ void printPort(port p) {
 void handleSignal(int signal) {
 	switch(signal) {
 		case SIGUSR1:
-			generateOffer(p, 0);
+			/*generateOffer(p, 0);
 			generateRequest(p,0);
-			printDailyReport(p);
-
-
+			printDailyReport(p); */
 			printf("\nSegnale personalizzato del porto [%d] intercettato\n", getpid());
-			sleep(60);
 			break;
 	}
 }
@@ -62,7 +59,7 @@ int main(int argc, char *argv[]) {
 	sa.sa_handler = handleSignal;
 	sigaction(SIGUSR1, &sa, NULL);
 
-
+	bzero(&p, sizeof(p));
 	sem_id = atoi(argv[1]);
 	idx = atoi(argv[3]);
 	shm_id = atoi(argv[2]);
@@ -115,22 +112,10 @@ int main(int argc, char *argv[]) {
 	sops.sem_op = 0;
 	semop(sem_id, &sops, 1);
 	TEST_ERROR;
-	
-
-	printf("\n\n[%d] Arrivato ad inizializzare!\n\n", getpid());
-	initializePort(p);
-	
-	printf("Inizializzato");
-	printf("\n\n[%d] Merce di tipo %d generata!\n\n", getpid(), generateOffer(p,0));
-	
-	printf("\n\n[%d] Merce di tipo %d richiesta!\n\n", getpid(),generateRequest(p,0));
-
-
-	printf("\n\n[%d] In attesa di printare il repo....!\n\n", getpid());
-
-	
+	p = initializePort(p);
+	generateOffer(p, 0);
+	generateRequest(p, 0);
+	printDailyReport(p);
 	sleep(30);
-
-
 	exit(0);
 }

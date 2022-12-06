@@ -18,60 +18,44 @@
 #define ALL 0
 #define ONLY_SATISFIED 1
 
-void printDailyReport(port port){
-
-    int tonsShipped= getGeneratedGoods(port, SHIPPED);
-    int tonsInPort=getGeneratedGoods(port, IN_PORT);
-    int tonsReceived=getRequests(port, ONLY_SATISFIED);
-    
-    /*TODO quante banchine libere?*/
-    int freeDocks=0;
-
-    printf("\n\n\nPorto in posizione:\n");
-    printCoords(port.coord);
-    printf("Banchine libere %d su %d", freeDocks, port.docks);
-
-    printf("Merci spedite: %d ton",tonsShipped);
-    printf("\nMerci in generate ancora in porto: %d ton",tonsInPort);
-    printf("\nMerci in ricevute: %d ton",tonsReceived);
-
+void printDailyReport(port p){
+    char *report;
+    int tonsShipped, tonsInPort, tonsReceived, freeDocks = 0; /*TODO quante banchine libere?*/
+    tonsShipped= getGeneratedGoods(p, SHIPPED);
+    tonsInPort=getGeneratedGoods(p, IN_PORT);
+    tonsReceived=getRequests(p, ONLY_SATISFIED);
+    printf("Porto in posizione: (%.2f, %.2f)\nBanchine libere %d su %d\nMerci spedite: %d ton\nMerci generate ancora in porto: %d ton\nMerci ricevute: %d ton\n\n", p.coord.x, p.coord.y, freeDocks, p.docks, tonsShipped, tonsInPort, tonsReceived);
+    /*TODO Gestire l'ordine di stampa del report*/
 }
 
-void initializePort(port port){
+port initializePort(port p){
     int i=0;
-    
-    
-    port.requests=calloc(SO_DAYS, sizeof(struct request));
-    printf("\r req\n");
-	port.generatedGoods=calloc(SO_DAYS, sizeof(goods));
-    printf("\n gen\n");
-    for(i=0; i< SO_DAYS; i++ ){
-        printf("\nCleaning the element number %d\n", i);
-        port.requests[i].goodsType=-1;
-        port.generatedGoods[i].type=-1;
-        printf("\nCleaned the element number %d\n", i);
+    p.requests=calloc(SO_DAYS, sizeof(struct request));
+    p.generatedGoods=calloc(SO_DAYS, sizeof(goods));
+    for(i=0; i< SO_DAYS; i++){
+        p.requests[i].goodsType=-1;
+        p.generatedGoods[i].type=-1;
     }
-    printf("\nHo finito");
+    return p;
 }
 
-
-/*NOTE assumo che gli array port.requests e port.generatedGoods siano 
+/*NOTE assumo che gli array p.requests e p.generatedGoods siano 
     array NULL terminated e di lunghezza SO_DAYS*/
 
-int getRequests(port port, int satisfied){
+int getRequests(port p, int satisfied){
     int i=0;
     int total=0;
     
-    while(i<SO_DAYS && port.requests[i].goodsType!=-1){
+    while(i<SO_DAYS && p.requests[i].goodsType!=-1){
         switch(satisfied){
 
             case ONLY_SATISFIED:
-                if(port.requests[i].satisfied)
-                    total+= port.requests[i].quantity;
+                if(p.requests[i].satisfied)
+                    total+= p.requests[i].quantity;
                 break;
 
             case ALL:
-                total+= port.requests[i].quantity;
+                total+= p.requests[i].quantity;
                 break;
             
             default:
@@ -79,77 +63,74 @@ int getRequests(port port, int satisfied){
                 return -1;
                 break;
         }
-    }
-
-    return total;
-}
-
-
-
-int getGeneratedGoods(port port, int flag){
-    int i=0;
-    int total=0;
-
-    while(i<SO_DAYS && port.generatedGoods[i].type!=-1){
-
-        switch(flag){
-            case SHIPPED:
-                if(port.generatedGoods[i].state!=in_port && port.generatedGoods[i].state!=expired_port)
-                    total+=port.generatedGoods[i].dimension;
-                break;
-
-            case IN_PORT:
-                if(port.generatedGoods[i].state==in_port /*|| port.generatedGoods[i].state!=expired_port*/)
-                    total+=port.generatedGoods[i].dimension;
-                break;
-             
-            case ALL:
-                total+=port.generatedGoods[i].dimension;
-                break;
-            
-            default:
-                /*INVALID FLAG*/
-                return -1;
-                break;
-        }
-        
         i++;
     }
 
     return total;
 }
 
-int generateOffer(port port, int day){
+
+
+int getGeneratedGoods(port p, int flag){
+    int i=0;
+    int total=0;
+
+    while(i<SO_DAYS && p.generatedGoods[i].type!=-1){
+
+        switch(flag){
+            case SHIPPED:
+                if(p.generatedGoods[i].state!=in_port && p.generatedGoods[i].state!=expired_port)
+                    total+=p.generatedGoods[i].dimension;
+                break;
+
+            case IN_PORT:
+                if(p.generatedGoods[i].state==in_port /*|| p.generatedGoods[i].state!=expired_port*/)
+                    total+=p.generatedGoods[i].dimension;
+                break;
+             
+            case ALL:
+                total+=p.generatedGoods[i].dimension;
+                break;
+            
+            default:
+                /*INVALID FLAG*/
+                return -1;
+                break;
+        }
+        i++;
+    }
+
+    return total;
+}
+
+int generateOffer(port p, int day){
     int type;
     int plus=0;
     goods goods;
     srand(getpid());
     type= rand()%SO_MERCI;
-    while(plus<SO_MERCI && isRequested(port,(type+plus)%SO_MERCI)){
-        printf("\nPLUS= %d", plus);
+    while(plus<SO_MERCI && isRequested(p, (type+plus)%SO_MERCI)){
         plus++;
     }
 
     if(plus==SO_MERCI) return -1;
 
     goods=generateGoods((type+plus)%SO_MERCI);
-    port.generatedGoods[day]=goods;
+    p.generatedGoods[day]=goods;
 
     return goods.type;
 }
 
-int generateRequest(port port, int day){
+int generateRequest(port p, int day){
     int type;
     int plus=0;
     struct request req;
 
     srand(getpid());
-    type= rand()%SO_MERCI;
-
-    while(plus<SO_MERCI && isOffered(port,(type+plus)%SO_MERCI)){
+    type = rand()%SO_MERCI;
+    while(plus<SO_MERCI && isOffered(p, (type+plus)%SO_MERCI)){
         plus++;
     }
-
     if(plus==SO_MERCI) return -1;
 
     req.goodsType=(type+plus)%SO_MERCI;
@@ -157,7 +138,7 @@ int generateRequest(port port, int day){
     /*REVIEW QUESTO È SBAGLIATISSIMO MA NON SO COSA METTERE ORA*/
     req.quantity=(rand()%SO_SIZE)+1;
     
-    port.requests[day]=req;
+    p.requests[day]=req;
 
     return req.goodsType;
 }
@@ -165,14 +146,18 @@ int generateRequest(port port, int day){
 
 int isOffered(port port, int goodsType){
     int i=0;
-    while(port.generatedGoods[i].type!=-1 && i<SO_DAYS) 
-        if (port.generatedGoods[i].type== goodsType && port.generatedGoods[i++].state==in_port) return 1;
+    while(port.generatedGoods[i].type!=-1 && i<SO_DAYS) {
+        if (port.generatedGoods[i].type == goodsType && port.generatedGoods[i].state==in_port) return 1;
+        i++;
+    }
     return 0;
 }
 
 int isRequested(port port, int goodsType){
     int i=0;
-    while(port.requests[i].goodsType!=-1 && i<SO_DAYS) 
-        if(port.requests[i].goodsType==goodsType && port.requests[i].quantity > port.requests[i++].satisfied)  return 1;
+    while(port.requests[i].goodsType!=-1 && i<SO_DAYS) {
+        if(port.requests[i].goodsType==goodsType && port.requests[i].quantity > port.requests[i].satisfied)  return 1;
+        i++;
+    }
     return 0;
 }
