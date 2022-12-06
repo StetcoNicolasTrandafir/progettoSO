@@ -38,7 +38,7 @@ SEMAFORI:
 
 
 
-int pastDays=0;
+int pastDays=0, sem_id, shm_id;
 pid_t *port_pids, *ship_pids;
 
 void sendSignalToAllPorts(){
@@ -47,6 +47,21 @@ void sendSignalToAllPorts(){
 		printf("\nSending signal to [%d]", port_pids[i]);
 		if(kill(port_pids[i], SIGUSR1)) TEST_ERROR;
 	}
+}
+
+void cleanUp(){
+	int i;
+	
+	for(i=0; i< SO_PORTI; i++){
+		kill(port_pids[i], SIGKILL);
+	}
+
+	for(i=0; i< SO_NAVI; i++){
+		kill(ship_pids[i], SIGKILL);
+	}
+
+	semctl(sem_id, 0, IPC_RMID);
+	shmctl(shm_id, IPC_RMID, NULL);
 }
 
 void handleSignal(int signal) {
@@ -62,6 +77,13 @@ void handleSignal(int signal) {
 				sendSignalToAllPorts();				
 			}
 			break;
+		case SIGINT:
+			printf("\n\n\nINTERRUZIONE INASPETTATA DEL PROGRAMMA\n");
+			printf("Pulizia processi figli, IPCs, etc. ...\n");
+			cleanUp();
+			printf("Done!\n\n");
+			exit(EXIT_FAILURE);
+			break;
 	}
 }
 
@@ -69,7 +91,7 @@ void handleSignal(int signal) {
 
 int main() {
 	struct sigaction sa;
-	int i, j, fifo_fd, sem_id, shm_id;
+	int i, j;
 	coordinates coord_c;
 	char  *args[5], name_file[100], sem_id_str[3 * sizeof(sem_id) + 1], shm_id_str[3 * sizeof(sem_id) + 1], i_str[3 * sizeof(i) + 1];
 	coordinates *coord_port;
@@ -84,6 +106,7 @@ int main() {
 	bzero(&sa, sizeof(sa));
 	sa.sa_handler = handleSignal;
 	sigaction(SIGALRM, &sa, NULL);
+	sigaction(SIGINT, &sa, NULL);
 	bzero(&sops, sizeof(sops));
 	sem_id = semget(IPC_PRIVATE, 2, 0600);
 	TEST_ERROR;
