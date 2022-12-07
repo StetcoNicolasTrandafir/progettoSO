@@ -1,9 +1,9 @@
 #define _GNU_SOURCE
 
+#include <stdio.h>
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include <errno.h>
 #include <signal.h>
 #include <limits.h>
@@ -50,23 +50,32 @@ void handleSignal(int signal) {
 
 int main(int argc, char *argv[]) {
 	
-	int sem_id, shm_id, idx;
+	int sem_id, portsSharedMemoryID, idx;
 	coordinates coord;
 	struct sembuf sops;
-	struct shared_port *port_coords;
+	struct port_sharedMemory *shared_portCoords;
 	struct sigaction sa;
+
+
 	bzero(&sa, sizeof(sa));
 	sa.sa_handler = handleSignal;
 	sigaction(SIGUSR1, &sa, NULL);
 
 	bzero(&p, sizeof(p));
 	sem_id = atoi(argv[1]);
+	portsSharedMemoryID=atoi(argv[2]);
+	
+	/*shm_id = atoi(argv[2]);*/
 	idx = atoi(argv[3]);
-	shm_id = atoi(argv[2]);
-	port_coords = shmat(shm_id, NULL, 0);
+
+
+	shared_portCoords = shmat(portsSharedMemoryID, NULL, 0);
+
 	TEST_ERROR;
 	if (idx > 3) {
-		LOCK;
+		coord = getRandomCoords();
+/*
+	LOCK;
 		idx = port_coords -> cur_idx;
 		do {
 			coord = getRandomCoords();
@@ -75,6 +84,8 @@ int main(int argc, char *argv[]) {
 		port_coords -> cur_idx++;
 		port_coords -> coords[idx] = coord;
 		UNLOCK;
+*/
+		
 	}
 	else {
 		switch(idx) {
@@ -98,12 +109,19 @@ int main(int argc, char *argv[]) {
 				coord.y = SO_LATO;
 				break;
 		}
+		printf("\n\nPROCESSO PORTO, [%d] la mia posizione è X: %.2f Y: %.2f\n", getpid(), shared_portCoords[idx].coords.x, shared_portCoords[idx].coords.y);
 	}
+	
+
+	shared_portCoords[idx].coords=coord;
+	shared_portCoords[idx].pid=getpid();
+	shmdt(shared_portCoords);
+
 	p.coord = coord;
-	shmdt(port_coords);
 	srand(getpid());
 	p.docks = rand() % SO_BANCHINE + 1;
 	printPort(p);
+
 	sops.sem_num = 0;
 	sops.sem_op = -1;
 	semop(sem_id, &sops, 1);
@@ -115,7 +133,14 @@ int main(int argc, char *argv[]) {
 	p = initializePort(p);
 	generateOffer(p, 0);
 	generateRequest(p, 0);
+
 	printDailyReport(p);
-	sleep(30);
+	printf("ciao");
+
+	printf("\n\nFINE PROCESSO PORTO, la mia posizione è X: %.2f Y: %.2f\n", shared_portCoords[idx].coords.x, shared_portCoords[idx].coords.y);
+
+	sleep(5);
+
+
 	exit(0);
 }
