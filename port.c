@@ -56,36 +56,22 @@ int main(int argc, char *argv[]) {
 	struct port_sharedMemory *shared_portCoords;
 	struct sigaction sa;
 
-
+	bzero(&p, sizeof(p));
 	bzero(&sa, sizeof(sa));
+	
 	sa.sa_handler = handleSignal;
 	sigaction(SIGUSR1, &sa, NULL);
 
-	bzero(&p, sizeof(p));
+	
 	sem_id = atoi(argv[1]);
 	portsSharedMemoryID=atoi(argv[2]);
-	
-	/*shm_id = atoi(argv[2]);*/
 	idx = atoi(argv[3]);
 
-
 	shared_portCoords = shmat(portsSharedMemoryID, NULL, 0);
-
 	TEST_ERROR;
+
 	if (idx > 3) {
 		coord = getRandomCoords();
-/*
-	LOCK;
-		idx = port_coords -> cur_idx;
-		do {
-			coord = getRandomCoords();
-		}
-		while (existCoords(port_coords -> coords, idx, coord));
-		port_coords -> cur_idx++;
-		port_coords -> coords[idx] = coord;
-		UNLOCK;
-*/
-		
 	}
 	else {
 		switch(idx) {
@@ -109,17 +95,18 @@ int main(int argc, char *argv[]) {
 				coord.y = SO_LATO;
 				break;
 		}
-		printf("\n\nPROCESSO PORTO, [%d] la mia posizione è X: %.2f Y: %.2f\n", getpid(), shared_portCoords[idx].coords.x, shared_portCoords[idx].coords.y);
 	}
 	
 
+	/*dopo che il porto inserisci i suoi dati, nonn ha più bisogno di accedere alla memoria*/
 	shared_portCoords[idx].coords=coord;
 	shared_portCoords[idx].pid=getpid();
 	shmdt(shared_portCoords);
 
-	p.coord = coord;
 	srand(getpid());
 	p.docks = rand() % SO_BANCHINE + 1;
+	p.coord = coord;
+	
 	printPort(p);
 
 	sops.sem_num = 0;
@@ -130,15 +117,13 @@ int main(int argc, char *argv[]) {
 	sops.sem_op = 0;
 	semop(sem_id, &sops, 1);
 	TEST_ERROR;
+
 	p = initializePort(p);
 	generateOffer(p, 0);
 	generateRequest(p, 0);
 
 	printDailyReport(p);
-	printf("ciao");
-
-	printf("\n\nFINE PROCESSO PORTO, la mia posizione è X: %.2f Y: %.2f\n", shared_portCoords[idx].coords.x, shared_portCoords[idx].coords.y);
-
+	
 	sleep(5);
 
 

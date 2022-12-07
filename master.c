@@ -76,7 +76,7 @@ void handleSignal(int signal) {
 			if(pastDays==SO_DAYS){
 				printf("\nREPORT FINALE:\n");
 				/*finalReport();*/
-				/*killAllChildren();*/
+				cleanUp();
 			}else{
 
 				printf("\n\nREPORT GIORNALIERO: \n");
@@ -125,29 +125,18 @@ int main() {
 
 
 	sprintf(name_file, "port");
-	args[0] = name_file;
 	sprintf(sem_id_str, "%d", sem_id);
+
+	args[0] = name_file;
 	args[1] = sem_id_str;
 	args[4] = (char*)0;
-	TEST_ERROR;
-	semctl(sem_id, 1, SETVAL, 1);
-	
 
-	
-	
+
+	semctl(sem_id, 1, SETVAL, 1);
 	port_sharedMemoryID=shmget(IPC_PRIVATE, SO_PORTI*sizeof(struct port_sharedMemory),S_IRUSR | S_IWUSR | IPC_CREAT);
-	printf("\n[%d]=============> %d",getpid(), port_sharedMemoryID);
-	printf("\nIL PADRE HA FATTO DETATCH\n");
 	TEST_ERROR;
 	sharedPortPositions=shmat(port_sharedMemoryID, NULL, 0);
 	TEST_ERROR;
-	
-	/*
-	shmctl(port_sharedMemoryID, IPC_RMID, NULL);
-	TEST_ERROR;
-	*/
-	
-
 
 
 	for (i = 0; i < SO_PORTI; i++) {
@@ -164,6 +153,7 @@ int main() {
 				execv("./port", args);
 				TEST_ERROR;
 				exit(EXIT_FAILURE);
+				
 
 			default:
 				port_pids[i] = fork_rst;
@@ -199,14 +189,12 @@ int main() {
 	sops.sem_op = 0;
 	semop(sem_id, &sops, 1);
 	TEST_ERROR;
-	/*shmctl(shm_id, IPC_RMID, NULL);*/
+	
 	TEST_ERROR;
 	sleep(1); /*Lo toglieremo , ma se lo tolgo ora, da un errore perchè eliminiamo il semaforo prima che l'ultimo processo abbia fatto il semop per aspettare tutti i processi*/
 	TEST_ERROR;
 	
 	while(wait(NULL) != -1);
-
-	printf("\nPRINTING SHARED MEMORY...========================00\n");
 
 	for(i=0; i< SO_PORTI; i++){
 		printf("\nPorto numero %d in posizione ", i);
