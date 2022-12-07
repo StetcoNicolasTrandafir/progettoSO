@@ -66,7 +66,7 @@ void cleanUp(){
 	}
 
 	semctl(sem_id, 0, IPC_RMID); TEST_ERROR;
-	/*shmctl(sharedPortPositions); TEST_ERROR;*/
+	shmdt(sharedPortPositions); TEST_ERROR;
 	shmctl(port_sharedMemoryID, IPC_RMID, NULL); TEST_ERROR;
 }
 
@@ -104,13 +104,13 @@ int main() {
 	pid_t fork_rst;
 	struct sembuf sops;
 	struct shared_port *port_coords;
-	
 	struct port_sharedMemory *sharedPortPositions;
 	
 	coord_port = calloc(SO_PORTI, sizeof(coordinates));
 	sharedPortPositions = calloc(SO_PORTI, sizeof(struct port_sharedMemory));
 	port_pids = calloc(SO_PORTI, sizeof(pid_t));
 	ship_pids = calloc(SO_NAVI, sizeof(pid_t));
+
 	bzero(&sharedPortPositions, sizeof(sharedPortPositions));
 	bzero(&sa, sizeof(sa));
 	sa.sa_handler = handleSignal;
@@ -139,10 +139,10 @@ int main() {
 	printf("\n[%d]=============> %d",getpid(), port_sharedMemoryID);
 	printf("\nIL PADRE HA FATTO DETATCH\n");
 	TEST_ERROR;
-	/*
 	sharedPortPositions=shmat(port_sharedMemoryID, NULL, 0);
-	printf("\n=============> %d", sharedPortPositions[0].pid);
 	TEST_ERROR;
+	
+	/*
 	shmctl(port_sharedMemoryID, IPC_RMID, NULL);
 	TEST_ERROR;
 	*/
@@ -202,7 +202,6 @@ int main() {
 	/*shmctl(shm_id, IPC_RMID, NULL);*/
 	TEST_ERROR;
 	sleep(1); /*Lo toglieremo , ma se lo tolgo ora, da un errore perchè eliminiamo il semaforo prima che l'ultimo processo abbia fatto il semop per aspettare tutti i processi*/
-	semctl(sem_id, 0, IPC_RMID);
 	TEST_ERROR;
 	
 	while(wait(NULL) != -1);
