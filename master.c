@@ -38,7 +38,7 @@ SEMAFORI:
 
 
 
-int pastDays=0, sem_id, shm_id;
+int pastDays=0, sem_sync_id, sem_report_id, shm_id;
 pid_t *port_pids, *ship_pids;
 
 void sendSignalToAllPorts(){
@@ -60,7 +60,7 @@ void cleanUp(){
 		kill(ship_pids[i], SIGKILL);
 	}
 
-	semctl(sem_id, 0, IPC_RMID); TEST_ERROR;
+	semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;
 	shmctl(shm_id, IPC_RMID, NULL); TEST_ERROR;
 }
 
@@ -92,14 +92,11 @@ void handleSignal(int signal) {
 int main() {
 	struct sigaction sa;
 	int i, j;
-	coordinates coord_c;
-	char  *args[5], name_file[100], sem_id_str[3 * sizeof(sem_id) + 1], shm_id_str[3 * sizeof(sem_id) + 1], i_str[3 * sizeof(i) + 1];
-	coordinates *coord_port;
+	char  *args[6], name_file[100], sem_report_str[sizeof(sem_report_id) + 1], sem_sync_str[sizeof(sem_sync_id) + 1], shm_id_str[sizeof(shm_id) + 1], i_str[sizeof(i) + 1];
 	pid_t fork_rst;
 	struct sembuf sops;
 	struct shared_port *port_coords;
-	
-	coord_port = calloc(SO_PORTI, sizeof(coordinates));
+
 	port_pids = calloc(SO_PORTI, sizeof(pid_t));
 	ship_pids = calloc(SO_NAVI, sizeof(pid_t));
 	alarm(30);
@@ -108,31 +105,41 @@ int main() {
 	sigaction(SIGALRM, &sa, NULL);
 	sigaction(SIGINT, &sa, NULL);
 	bzero(&sops, sizeof(sops));
-	sem_id = semget(IPC_PRIVATE, 2, 0600);
+	sem_sync_id = semget(IPC_PRIVATE, 2, 0600);
 	TEST_ERROR;
-	semctl(sem_id, 0, SETVAL, SO_PORTI + SO_NAVI);
+	semctl(sem_sync_id, 0, SETVAL, SO_PORTI + SO_NAVI);
+	TEST_ERROR;
+	sem_report_id = semget(IPC_PRIVATE, 1, 0600);
+	TEST_ERROR;
+	semctl(sem_report_id, 0, SETVAL, 1);
 	TEST_ERROR;
 	sprintf(name_file, "port");
 	args[0] = name_file;
-	sprintf(sem_id_str, "%d", sem_id);
-	args[1] = sem_id_str;
-	args[4] = NULL;
-	shm_id = shmget(IPC_PRIVATE, sizeof(*port_coords), 0600);
+	sprintf(sem_sync_str, "%d", sem_sync_id);
+	args[1] = sem_sync_str;
+	args[5] = NULL;
+	shm_id = shmget(IPC_PRIVATE, (sizeof(int) + (sizeof(pid_t) * SO_PORTI) + (sizeof(coordinates) * SO_PORTI)), 0600);
 	TEST_ERROR;
 	sprintf(shm_id_str, "%d", shm_id);
 	args[2] = shm_id_str;
+	sprintf(sem_report_str, "%d", sem_report_id);
+	args[4] = sem_report_str;
+
 	port_coords = shmat(shm_id, NULL, 0);
 	TEST_ERROR;
+	/*port_coords -> pid = calloc(SO_PORTI, sizeof(pid_t));
+	port_coords -> coords = calloc(SO_PORTI, sizeof(coordinates));*/
 	port_coords -> cur_idx = 4;
 	port_coords -> coords[0].x = 0.0;
-	port_coords -> coords[0].x = 0.0;
+	port_coords -> coords[0].y = 0.0;
 	port_coords -> coords[1].x = SO_LATO;
-	port_coords -> coords[1].x = 0.0;
+	port_coords -> coords[1].y = 0.0;
 	port_coords -> coords[2].x = 0.0;
-	port_coords -> coords[2].x = SO_LATO;
+	port_coords -> coords[2].y = SO_LATO;
 	port_coords -> coords[3].x = SO_LATO;
-	port_coords -> coords[3].x = SO_LATO;
-	semctl(sem_id, 1, SETVAL, 1);
+	port_coords -> coords[3].y = SO_LATO;
+
+	semctl(sem_sync_id, 1, SETVAL, 1);
 	TEST_ERROR;
 	for (i = 0; i < SO_PORTI; i++) {
 		switch(fork_rst = fork()) {
@@ -175,19 +182,20 @@ int main() {
 
 	sops.sem_num = 0;
 	sops.sem_op = 0;
-	semop(sem_id, &sops, 1);
+	semop(sem_sync_id, &sops, 1);
 	TEST_ERROR;
 	shmctl(shm_id, IPC_RMID, NULL);
 	TEST_ERROR;
 	sleep(1); /*Lo toglieremo , ma se lo tolgo ora, da un errore perchè eliminiamo il semaforo prima che l'ultimo processo abbia fatto il semop per aspettare tutti i processi*/
-	semctl(sem_id, 0, IPC_RMID);
+	semctl(sem_sync_id, 0, IPC_RMID);
 	TEST_ERROR;
-
-
 	
 	while(wait(NULL) != -1);
 
-	sleep(10);
+	semctl(sem_report_id, 0, IPC_RMID);
+	TEST_ERROR;
+	
+	sleep(1);
 	
 	printf("\n\nSIMULAZIONE FINITA!!!\n\n");
 }
