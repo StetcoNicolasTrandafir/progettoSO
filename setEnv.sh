@@ -118,13 +118,32 @@ if [ $1 == 0 ]
                             export SO_SWELL_DURATION=10
                             export SO_MALESTROM=1
                             echo "Done!"
-                        else 
-                            echo "Invalid argument: please insert a number of the interval [0,5]"
-                        
+                        else if [ -z "$1" ] 
+                            then
+                                echo "Setting custom configuration..."
+                                export SO_NAVI=20
+                                export SO_PORTI=30
+                                export SO_MERCI=69
+                                export SO_MIN_VITA=69
+                                export SO_MAX_VITA=10
+                                export SO_SIZE=10
+                                export SO_SPEED=40
+                                export SO_LATO=100
+                                export SO_CAPACITY=10
+                                export SO_BANCHINE=10
+                                export SO_FILL=69
+                                export SO_LOADSPEED=69 
+                                export SO_DAYS=30
+                                export SO_STORMDURATION=10
+                                export SO_SWELLDURATION=69
+                                export SO_MALESTROM=69 
+                                echo "Done!"
+                            else 
+                                echo "Invalid argument: please insert a number of the interval [0,5]"
+                        fi  
                     fi
                 fi
-            fi
-                            
+            fi               
         fi
     fi 
 fi
