@@ -103,13 +103,11 @@ int main() {
 	int i, j;
 	coordinates coord_c;
 	char  *args[6], name_file[100], sem_sync_str[3 * sizeof(int) + 1], sem_report_str[3 * sizeof(int) + 1], i_str[3 * sizeof(int) + 1], port_sharedMemoryID_STR[3*sizeof(int)+1];
-	coordinates *coord_port;
 	pid_t fork_rst;
 	struct sembuf sops;
 	struct shared_port *port_coords;
 	struct port_sharedMemory *sharedPortPositions;
-	
-	coord_port = calloc(SO_PORTI, sizeof(coordinates));
+
 	sharedPortPositions = calloc(SO_PORTI, sizeof(struct port_sharedMemory));
 	port_pids = calloc(SO_PORTI, sizeof(pid_t));
 	ship_pids = calloc(SO_NAVI, sizeof(pid_t));
@@ -217,11 +215,7 @@ int main() {
 	TEST_ERROR;
 
 	semctl(sem_sync_id,0, IPC_RMID); TEST_ERROR;
-	semctl(sem_report_id,0, IPC_RMID); TEST_ERROR;
-
-	
-		
-	
+	semctl(sem_report_id,0, IPC_RMID); TEST_ERROR;	
 	
 	printf("\n\nSIMULAZIONE FINITA!!!\n\n");
 }

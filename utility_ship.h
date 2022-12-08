@@ -23,5 +23,8 @@ coordinates getPosition(ship ship, struct timespec rem);
 void loadUnload(goods goods, struct timespec rem);
 
 
+/*return the shared memory index of the port that is closest to the given coords.
+the third parameter rapresent the starting distance (e.g. of min=3, the function returns the index of the nearest port with a minimum distance of 3)*/
+int getNearestPort(struct port_sharedMemory * ports, coordinates coords, double min);
 
 #endif /*_UTILITY_SHIP_H*/

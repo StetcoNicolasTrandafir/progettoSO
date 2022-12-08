@@ -36,10 +36,22 @@ void printShip(ship s) {
 
 struct port_sharedMemory *shared_portCoords;
 
+ship s;
+
 
 void handleSignal(int signal) {
+	int index;
+	int i;
 	switch(signal) {
 		case SIGUSR1:
+			printf("\n\n\nPORTI\n\n:");
+			for(i=0; i<SO_PORTI; i++){	
+				printCoords(shared_portCoords[i].coords);
+				printf(" (%d)\n\n ",shared_portCoords[i].pid);
+			}
+			printf("\nNAVE IN POSIZIONE (%f,%f):\n", s.coords.x, s.coords.y);
+			index= getNearestPort(shared_portCoords, s.coords, 2*SO_LATO);
+			printf("Il porto più vicino a questo porto è in posizione (%f,%f) (PID: %d)) \n", shared_portCoords[i].coords.x, shared_portCoords[i].coords.y,shared_portCoords[i].pid);
 			printf("\nSegnale personalizzato della nave [%d] intercettato\n", getpid());
 			break;
 	}
@@ -49,7 +61,6 @@ void handleSignal(int signal) {
 int main(int argc, char *argv[]) {
 	int sem_id;
 	int i;
-	ship s;
 	struct sembuf sops;
 	struct sigaction sa;
 
