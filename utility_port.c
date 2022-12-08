@@ -19,12 +19,15 @@
 
 void printDailyReport(port p){
     char *report;
-    int tonsShipped, tonsInPort, tonsReceived, freeDocks = 0; /*TODO quante banchine libere?*/
+    int tonsShipped, tonsInPort, tonsReceived, freeDocks = 0, num_bytes; /*TODO quante banchine libere?*/
+    report = malloc(200);
     tonsShipped= getGeneratedGoods(p, SHIPPED);
     tonsInPort=getGeneratedGoods(p, IN_PORT);
     tonsReceived=getRequest(p, ONLY_SATISFIED);
-    printf("Porto in posizione: (%.2f, %.2f)\nBanchine libere %d su %d\nMerci spedite: %d ton\nMerci generate ancora in porto: %d ton\nMerci ricevute: %d ton\n\n", p.coord.x, p.coord.y, freeDocks, p.docks, tonsShipped, tonsInPort, tonsReceived);
-    /*TODO Gestire l'ordine di stampa del report*/
+    num_bytes = sprintf(report, "Porto in posizione: (%.2f, %.2f)\nBanchine libere %d su %d\nMerci spedite: %d ton\nMerci generate ancora in porto: %d ton\nMerci ricevute: %d ton\n\n", p.coord.x, p.coord.y, freeDocks, p.docks, tonsShipped, tonsInPort, tonsReceived);
+    fflush(stdout);
+    write(1, report, num_bytes);
+    free(report);
 }
 
 port initializePort(port p){

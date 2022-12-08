@@ -43,7 +43,6 @@ SEMAFORI:
 
 int pastDays=0;
 int sem_sync_id;
-int sem_report_id;
 int port_sharedMemoryID;
 pid_t *port_pids, *ship_pids;
 struct port_sharedMemory *sharedPortPositions;
@@ -68,7 +67,6 @@ void cleanUp(){
 	}
 
 	semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;
-	semctl(sem_report_id, 0, IPC_RMID); TEST_ERROR;
 	shmdt(sharedPortPositions); TEST_ERROR;
 	shmctl(port_sharedMemoryID, IPC_RMID, NULL); TEST_ERROR;
 }
@@ -128,12 +126,6 @@ int main() {
 	semctl(sem_sync_id, 0, SETVAL, SO_PORTI + SO_NAVI);
 	TEST_ERROR;
 
-	sem_report_id = semget(IPC_PRIVATE, 1, 0600);
-	TEST_ERROR;
-
-	semctl(sem_report_id, 0, SETVAL, 1);
-	TEST_ERROR;
-
 	port_sharedMemoryID=shmget(IPC_PRIVATE, SO_PORTI*sizeof(struct port_sharedMemory),S_IRUSR | S_IWUSR | IPC_CREAT);
 	TEST_ERROR;
 	sharedPortPositions=shmat(port_sharedMemoryID, NULL, 0);
@@ -144,10 +136,9 @@ int main() {
 	sprintf(port_sharedMemoryID_STR, "%d", port_sharedMemoryID);
 
 	args[0] = name_file;
-	args[1]= port_sharedMemoryID_STR;
-	args[2] = sem_sync_str;
-	args[4] = sem_report_str;
-	args[5] = NULL;
+	args[1] = sem_sync_str;
+	args[2]= port_sharedMemoryID_STR;
+	args[4] = NULL;
 
 	for (i = 0; i < SO_PORTI; i++) {
 		switch(fork_rst = fork()) {
@@ -172,7 +163,6 @@ int main() {
 
 	sprintf(name_file, "ship");
 	args[0] = name_file;
-	args[3]=NULL;
 	
 	for (i = 0; i < SO_NAVI; i++) {
 		fork_rst = fork();
@@ -200,22 +190,12 @@ int main() {
 
 	sleep(1); /*Lo toglieremo , ma se lo tolgo ora, da un errore perchè eliminiamo il semaforo prima che l'ultimo processo abbia fatto il semop per aspettare tutti i processi*/
 	
-
-	for(i=0; i<SO_NAVI; i++){
-		kill(ship_pids[i], SIGUSR1); TEST_ERROR;
-	}
-		
-
-	sleep(10);
-
-
-	for(i=0; i< SO_NAVI+SO_PORTI; i++) 
-		wait(NULL);
-
+	for(i=0; i< SO_NAVI+SO_PORTI; i++) wait(NULL);
 	TEST_ERROR;
 
 	semctl(sem_sync_id,0, IPC_RMID); TEST_ERROR;
-	semctl(sem_report_id,0, IPC_RMID); TEST_ERROR;	
+	semctl(sem_report_id,0, IPC_RMID); TEST_ERROR;
+
 	
 	printf("\n\nSIMULAZIONE FINITA!!!\n\n");
 }
