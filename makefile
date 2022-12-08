@@ -1,8 +1,8 @@
 CC=gcc
-CFLAGS=-std=c89 -Wpedantic
+CFLAGS=-std=c89 -Wpedantic 
 LDFLAGS=-lm
 
-simulation: clean master.o utility_coordinates.o utility_goods.o utility_port.o port ship port 
+simulation:  master.o utility_coordinates.o utility_goods.o utility_port.o utility_ship.o ship port 
 	gcc -o simulation *.o $(LDFLAGS)
 
 
@@ -15,7 +15,7 @@ port:
 	gcc port.c utility_coordinates.o utility_goods.o utility_port.o -o port $(LDFLAGS)
 
 ship:
-	gcc ship.c utility_coordinates.o -o ship $(LDFLAGS)
+	gcc ship.c utility_coordinates.o utility_port.o utility_ship.o utility_goods.o -o ship $(LDFLAGS)
 
 
 setEnv:
