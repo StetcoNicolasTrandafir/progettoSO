@@ -1,9 +1,9 @@
 #define _GNU_SOURCE
 
+#include <stdio.h>
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include <errno.h>
 #include <signal.h>
 #include <limits.h>
@@ -47,36 +47,29 @@ void handleSignal(int signal) {
 }
 
 int main(int argc, char *argv[]) {
-	int sem_sync_id, sem_report_id, shm_id, idx, i;
+	
+	int sem_id, portsSharedMemoryID, idx;
 	coordinates coord;
 	struct sembuf sops;
-	struct shared_port *port_coordinates;
+	struct port_sharedMemory *shared_portCoords;
 	struct sigaction sa;
-	coordinates coordv[SO_PORTI];
 
+	bzero(&p, sizeof(p));
 	bzero(&sa, sizeof(sa));
+	
 	sa.sa_handler = handleSignal;
 	sigaction(SIGUSR1, &sa, NULL);
-	bzero(&p, sizeof(p));
-	sem_sync_id = atoi(argv[1]);
-	shm_id = atoi(argv[2]);
+
+	
+	sem_id = atoi(argv[1]);
+	portsSharedMemoryID=atoi(argv[2]);
 	idx = atoi(argv[3]);
-	sem_report_id = atoi(argv[4]);
-	port_coordinates = shmat(shm_id, NULL, 0);
+
+	shared_portCoords = shmat(portsSharedMemoryID, NULL, 0);
 	TEST_ERROR;
+
 	if (idx > 3) {
-		LOCK;
-		idx = port_coordinates -> cur_idx;
-		for (i = 0; i < idx; i++) {
-			printf("%.2f %.2f\n", port_coordinates -> coords[i].x, port_coordinates -> coords[i].y);
-		}
-		do {
-			coord = getRandomCoords();
-		}
-		while (existCoords(port_coordinates -> coords, idx, coord));
-		port_coordinates -> cur_idx++;
-		port_coordinates -> coords[idx] = coord;
-		UNLOCK;
+		coord = getRandomCoords();
 	}
 	else {
 		switch(idx) {
@@ -101,12 +94,19 @@ int main(int argc, char *argv[]) {
 				break;
 		}
 	}
-	p.coord = coord;
-	shmdt(port_coordinates);
-	TEST_ERROR;
+	
+
+	/*dopo che il porto inserisci i suoi dati, nonn ha più bisogno di accedere alla memoria*/
+	shared_portCoords[idx].coords=coord;
+	shared_portCoords[idx].pid=getpid();
+	shmdt(shared_portCoords);
+
 	srand(getpid());
 	p.docks = rand() % SO_BANCHINE + 1;
+	p.coord = coord;
+	
 	printPort(p);
+
 	sops.sem_num = 0;
 	sops.sem_op = -1;
 	semop(sem_sync_id, &sops, 1);
@@ -115,15 +115,15 @@ int main(int argc, char *argv[]) {
 	sops.sem_op = 0;
 	semop(sem_sync_id, &sops, 1);
 	TEST_ERROR;
+
 	p = initializePort(p);
 	generateOffer(p, 0);
 	generateRequest(p, 0);
-	sops.sem_num = 0;
-	sops.sem_op = -1;
-	semop(sem_report_id, &sops, 1);
+
 	printDailyReport(p);
-	sops.sem_op = 1;
-	semop(sem_report_id, &sops, 1);
-	sleep(1);
+	
+	sleep(5);
+
+
 	exit(0);
 }

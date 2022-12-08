@@ -8,6 +8,14 @@ struct request{
     int quantity;
 };
 
+/*this struct contains the coords of the port and the pid, needed to access the port's generatedGoods IPC*/
+struct port_sharedMemory{
+    coordinates coords;
+    int pid;
+    /*TODO aggiungere puntatore a struct che mi contiene tutte le info del singolo porto di cui gli altri processi hanno bisogno*/
+};
+
+
 /*
 NEGOZIAZIONE NAVI-PORTI:
 1) verifico i porti in ordine di vicinanza rispetto alla nave
@@ -28,10 +36,9 @@ an array for the goods request and another one for the offers*/
 typedef struct port{
     coordinates coord;
     int docks;
+    goods *generatedGoods;
     struct request* requests;
     
-    /*REVIEW: potremmo salvare in questo array solo l'identificativo della merce?*/
-    goods * generatedGoods;
 }port;
 
 
