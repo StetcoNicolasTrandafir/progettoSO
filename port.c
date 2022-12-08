@@ -39,8 +39,8 @@ void handleSignal(int signal) {
 	switch(signal) {
 		case SIGUSR1:
 			/*generateOffer(p, 0);
-			generateRequest(p); */
-			printDailyReport(p);
+			generateRequest(p); 
+			printDailyReport(p);*/
 			printf("\nSegnale personalizzato del porto [%d] intercettato\n", getpid());
 			break;
 	}
@@ -62,8 +62,8 @@ int main(int argc, char *argv[]) {
 	sigaction(SIGUSR1, &sa, NULL);
 
 	
-	sem_sync_id = atoi(argv[1]);
-	portsSharedMemoryID=atoi(argv[2]);
+	portsSharedMemoryID=atoi(argv[1]);
+	sem_sync_id = atoi(argv[2]);
 	idx = atoi(argv[3]);
 	sem_report_id = atoi(argv[4]);
 

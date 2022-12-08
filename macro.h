@@ -9,11 +9,11 @@
 #define SO_CAPACITY atoi(getenv("SO_CAPACITY"))
 #define SO_BANCHINE atoi(getenv("SO_BANCHINE"))
 #define SO_FILL atoi(getenv("SO_FILL"))
-#define SO_LOADSPEED getenv("SO_LOADSPEED")
+#define SO_LOADSPEED atoi(getenv("SO_LOADSPEED"))
 #define SO_DAYS atoi(getenv("SO_DAYS"))
 #define SO_DISTANZA_PORTI 3
-#define SO_STORMDURATION atoi(getenv("SO_STORMDURATION"))
-#define SO_SWELLDURATION atoi(getenv("SSO_SWELLDURATIONO_NAVI"))
+#define SO_STORM_DURATION atoi(getenv("SO_STORM_DURATION"))
+#define SO_SWELL_DURATION atoi(getenv("SSO_SWELL_DURATION"))
 #define SO_MALESTROM atoi(getenv("SO_MALESTROM"))
 
 
