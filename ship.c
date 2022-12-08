@@ -30,19 +30,21 @@ void printShip(ship s) {
 }
 
 int main(int argc, char *argv[]) {
-	int sem_id;
+	int sem_sync_id;
 	ship s;
 	struct sembuf sops;
+
+	bzero(&sops, sizeof(sops));
+
 	s.coords = getRandomCoords();
 	printShip(s);
-	sem_id = atoi(argv[1]);
+	sem_sync_id = atoi(argv[1]);
 	sops.sem_num = 0;
 	sops.sem_op = -1;
-	sops.sem_flg = 0;
-	semop(sem_id, &sops, 1);
+	semop(sem_sync_id, &sops, 1);
 	TEST_ERROR;
 	sops.sem_op = 0;
-	semop(sem_id, &sops, 1);
+	semop(sem_sync_id, &sops, 1);
 	TEST_ERROR;
 	exit(0);
 }
