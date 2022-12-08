@@ -48,7 +48,8 @@ void handleSignal(int signal) {
 
 int main(int argc, char *argv[]) {
 	
-	int sem_id, portsSharedMemoryID, idx;
+	int sem_sync_id, portsSharedMemoryID, idx;
+	int sem_report_id;
 	coordinates coord;
 	struct sembuf sops;
 	struct port_sharedMemory *shared_portCoords;
@@ -61,9 +62,10 @@ int main(int argc, char *argv[]) {
 	sigaction(SIGUSR1, &sa, NULL);
 
 	
-	sem_id = atoi(argv[1]);
+	sem_sync_id = atoi(argv[1]);
 	portsSharedMemoryID=atoi(argv[2]);
 	idx = atoi(argv[3]);
+	sem_report_id = atoi(argv[4]);
 
 	shared_portCoords = shmat(portsSharedMemoryID, NULL, 0);
 	TEST_ERROR;
@@ -120,10 +122,17 @@ int main(int argc, char *argv[]) {
 	generateOffer(p, 0);
 	generateRequest(p, 0);
 
+	sops.sem_num=0; 
+	sops.sem_op=-1; 
+	semop(sem_report_id, &sops, 1);
+
 	printDailyReport(p);
 	
-	sleep(5);
+	sops.sem_num=0; 
+	sops.sem_op=1; 
+	semop(sem_report_id, &sops, 1);
 
+	sleep(1);
 
 	exit(0);
 }
