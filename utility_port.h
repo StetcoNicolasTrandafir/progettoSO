@@ -37,7 +37,7 @@ typedef struct port{
     coordinates coord;
     int docks;
     goods *generatedGoods;
-    struct request* requests;
+    struct request request;
     
 }port;
 
@@ -49,7 +49,7 @@ port initializePort(port p);
 if the satisfied flag is set to ONLY_SATISFIED (1) computes only the satisfied requests, 
 if is set to ALL (0) returns the total amount of the requests 
 */
-int getRequests(port port, int satified);
+int getRequest(port port, int satified);
 
 /*compute the amount (ton) of goods generated, according with the flag value the function returns:
 -0 (macro: IN_PORT)->  the genereted goods present in the port
@@ -62,7 +62,7 @@ int getGeneratedGoods(port port, int flag);
 void printDailyReport(port port);
 
 /*generate a request and update the relative shared memory, returns the type of the good requested, -1 if it isn't possible*/
-int generateRequest(port port, int day);
+int generateRequest(port port);
 
 /*generate an offer and update the relative shared memory, returns the type of the good generated, -1 if it isn't possible*/
 int generateOffer(port port, int day);

@@ -39,8 +39,8 @@ void handleSignal(int signal) {
 	switch(signal) {
 		case SIGUSR1:
 			/*generateOffer(p, 0);
-			generateRequest(p,0);
-			printDailyReport(p); */
+			generateRequest(p); */
+			printDailyReport(p);
 			printf("\nSegnale personalizzato del porto [%d] intercettato\n", getpid());
 			break;
 	}
@@ -120,7 +120,7 @@ int main(int argc, char *argv[]) {
 
 	p = initializePort(p);
 	generateOffer(p, 0);
-	generateRequest(p, 0);
+	generateRequest(p);
 
 	sops.sem_num=0; 
 	sops.sem_op=-1; 
