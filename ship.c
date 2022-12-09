@@ -50,8 +50,9 @@ void handleSignal(int signal) {
 				printf(" (%d)\n\n ",shared_portCoords[i].pid);
 			}
 			printf("\nNAVE IN POSIZIONE (%f,%f):\n", s.coords.x, s.coords.y);
-			index= getNearestPort(shared_portCoords, s.coords, 2*SO_LATO);
-			printf("Il porto più vicino a questo porto è in posizione (%f,%f) (PID: %d)) \n", shared_portCoords[i].coords.x, shared_portCoords[i].coords.y,shared_portCoords[i].pid);
+			index= getNearestPort(shared_portCoords, s.coords, 0);
+			printf("\n\nINDICE === %d", index);
+			printf("Il porto più vicino a questo porto è in posizione (%f,%f) (PID: %d)) \n", shared_portCoords[index].coords.x, shared_portCoords[index].coords.y,shared_portCoords[index].pid);
 			printf("\nSegnale personalizzato della nave [%d] intercettato\n", getpid());
 			break;
 	}
@@ -59,9 +60,25 @@ void handleSignal(int signal) {
 
 
 int main(int argc, char *argv[]) {
-	int sem_id;
+	int sem_sync_id;
 	int i;
 	struct sembuf sops;
+	struct sigaction sa;
+
+
+	shared_portCoords = shmat(atoi(argv[2]), NULL, 0);
+
+	printf("\n");
+	for(i=0; i<SO_PORTI; i++){
+		printf("\n[%d] (%f, %f)", shared_portCoords[i].pid, shared_portCoords[i].coords.x,shared_portCoords[i].coords.y);
+	}
+	printf("\n");
+
+
+	bzero(&sa, sizeof(sa));
+	
+	sa.sa_handler = handleSignal;
+	sigaction(SIGUSR1, &sa, NULL);
 
 	bzero(&sops, sizeof(sops));
 
@@ -75,6 +92,6 @@ int main(int argc, char *argv[]) {
 	sops.sem_op = 0;
 	semop(sem_sync_id, &sops, 1);
 	TEST_ERROR;
-	sleep(20);
+	sleep(5);
 	exit(0);
 }
