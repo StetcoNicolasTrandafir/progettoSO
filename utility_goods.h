@@ -10,6 +10,7 @@ typedef struct goods{
     int type;
     enum states state;
     int dimension;
+    int satisfied;
     int lifeTime;
     struct timespec generationTime;
 }goods;

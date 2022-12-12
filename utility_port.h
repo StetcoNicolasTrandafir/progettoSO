@@ -12,7 +12,8 @@ struct request{
 struct port_sharedMemory{
     coordinates coords;
     int pid;
-    /*TODO aggiungere puntatore a struct che mi contiene tutte le info del singolo porto di cui gli altri processi hanno bisogno*/
+    int offersID;
+    goods *offers;
 };
 
 struct msg_request {
@@ -47,7 +48,7 @@ typedef struct port{
 }port;
 
 
-/*set goodstype of each element of generatedGoods and requests to -1 in order to be checkable in other controls */
+/*set goodstype of each element of generatedGoods and requests to -1 in order to be checkable in other controls, it also creates the shared memory for the offers*/
 port initializeRequestsAndOffer(port p);
 
 /*returns the amount (ton) of the port passed as parameter requests.
