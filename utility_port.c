@@ -51,7 +51,7 @@ int getRequest(port p, int satisfied){
     switch(satisfied){
 
         case ONLY_SATISFIED:    
-            return p.request.quantity;
+            return p.request.satisfied;
             break;
 
         case ALL:
@@ -135,7 +135,7 @@ struct request generateRequest(port p){
     req.satisfied = 0;
     /*REVIEW QUESTO È SBAGLIATISSIMO MA NON SO COSA METTERE ORA*/
     q = SO_FILL / SO_PORTI;
-    x = q * 5 / 10;
+    x = q * 5 / 100;
     req.quantity = (rand() % ((q + x) - (q - x))) + (q - x);
 
     return req;

@@ -47,9 +47,9 @@ pid_t *port_pids, *ship_pids;
 struct port_sharedMemory *sharedPortPositions;
 
 int validIdx(int v_casual_idx, int v_port_idx[], int v_idx) {
-	int v_i;
-	for (v_i = 0; v_i < v_idx; v_i++) {
-		if (v_port_idx[v_i] == v_casual_idx) {
+	int i;
+	for (i = 0;i < v_idx;i++) {
+		if (v_port_idx[i] == v_casual_idx) {
 			return 0;
 		}
 	}
@@ -57,24 +57,25 @@ int validIdx(int v_casual_idx, int v_port_idx[], int v_idx) {
 }
 
 void sendSignalToCasualPorts(){
-	/*int i;
-	for(i=0; i<SO_PORTI; i++){
-		printf("\nSending signal to [%d]", port_pids[i]);
-		if(kill(port_pids[i], SIGUSR1)) TEST_ERROR;
-	}*/
-	int s_i, s_n_ports, *s_port_idx, s_casual_idx;
+
+	int i, s_n_ports, *s_port_idx, s_casual_idx;
 	struct timespec now;
     clock_gettime(CLOCK_REALTIME, &now);
-    s_n_ports = now.tv_nsec % SO_PORTI;
+    s_n_ports = (now.tv_nsec % SO_PORTI)+1;
     s_port_idx = calloc(s_n_ports, sizeof(int));
-    for (s_i = 0; s_i < s_n_ports; s_i++) {
+    for (i = 0; i < s_n_ports; i++) {
     	do {
     		clock_gettime(CLOCK_REALTIME, &now);
-    		s_casual_idx = (now.tv_nsec % SO_PORTI) + 1;
+    		s_casual_idx = now.tv_nsec % SO_PORTI;
     	}
-    	while (!validIdx(s_casual_idx, s_port_idx, s_i));
-    	kill(port_pids[s_i], SIGUSR1); TEST_ERROR;
+    	while (!validIdx(s_casual_idx, s_port_idx, i));
+		s_port_idx[i]=s_casual_idx;
+    	kill(port_pids[i], SIGUSR1); TEST_ERROR;
     }
+	printf("\n\nOGGI GENERERANNO %d PORTI, QUESTI SONO:\n", s_n_ports);
+	for(i=0; i<s_n_ports; i++){
+		printf("\n%d, il porto con pid %d", s_port_idx[i], port_pids[s_port_idx[i]]);
+	}
     free(s_port_idx);
 }
 
@@ -104,7 +105,7 @@ void handleSignal(int signal) {
 			if(pastDays++==SO_DAYS){
 				printf("\nREPORT FINALE:\n");
 				/*finalReport();*/
-				cleanUp();
+				
 			}else{
 
 				printf("\n\nREPORT GIORNALIERO (%d): \n", pastDays);
@@ -227,9 +228,7 @@ int main() {
 	semop(sem_sync_id, &sops, 1);
 	TEST_ERROR;
 
-	for(i=0; i< SO_NAVI; i++){
-		kill(ship_pids[i], SIGUSR1);
-	}
+
 
 	alarm(1);
 	sleep(31); /*Lo toglieremo , ma se lo tolgo ora, da un errore perchè eliminiamo il semaforo prima che l'ultimo processo abbia fatto il semop per aspettare tutti i processi*/
