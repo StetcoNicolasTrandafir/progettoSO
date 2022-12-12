@@ -202,6 +202,10 @@ int main() {
 	semop(sem_sync_id, &sops, 1);
 	TEST_ERROR;
 
+	for(i=0; i< SO_NAVI; i++){
+		kill(ship_pids[i], SIGUSR1);
+	}
+
 	sleep(1); /*Lo toglieremo , ma se lo tolgo ora, da un errore perchè eliminiamo il semaforo prima che l'ultimo processo abbia fatto il semop per aspettare tutti i processi*/
 	
 	for(i = 0; i < SO_NAVI + SO_PORTI; i++) wait(NULL);
