@@ -49,7 +49,7 @@ struct port_sharedMemory *sharedPortPositions;
 void sendSignalToAllPorts(){
 	int i;
 	for(i=0; i<SO_PORTI; i++){
-		printf("\nSending signal to [%d]", port_pids[i]);
+		/*printf("\nSending signal to [%d]", port_pids[i]);s*/
 		if(kill(port_pids[i], SIGUSR1)) TEST_ERROR;
 	}
 }
@@ -108,6 +108,7 @@ int main() {
 	pid_t fork_rst;
 	struct sembuf sops;
 	struct shared_port *port_coords;
+	goods *g;
 
 	sharedPortPositions = calloc(SO_PORTI, sizeof(struct port_sharedMemory));
 	sum_request = malloc(sizeof(int));
@@ -212,6 +213,19 @@ int main() {
 	
 	for(i = 0; i < SO_NAVI + SO_PORTI; i++) wait(NULL);
 	TEST_ERROR;
+
+
+	/*	
+	printf("[%d] LETTURA MEMORIA CONDIVISA DAL MASTER:\n", getpid());
+
+	for(i=0; i< SO_PORTI; i++){
+		g= shmat(sharedPortPositions[i].offersID, NULL, 0);
+		printf("Porto [%d] in posizione (%f,%f) offre merce di tipo %d in quantità %d ton\n", sharedPortPositions[i].pid,sharedPortPositions[i].coords.x,sharedPortPositions[i].coords.y, g[0].type, g[0].dimension );
+		shmdt(g);
+	}
+	*/
+
+
 	
 	semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;
 	semctl(sem_request_id, 0, IPC_RMID); TEST_ERROR;

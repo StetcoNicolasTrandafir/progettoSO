@@ -43,8 +43,6 @@ void handleSignal(int signal) {
 			generateOffer(p, 0);
 			generateRequest(p);
 			*/
-			printf("\nSegnale personalizzato del porto [%d] intercettato =========================>\n", getpid());
-
 			printDailyReport(p);
 			break;
 	}
@@ -59,7 +57,7 @@ int main(int argc, char *argv[]) {
 	struct port_sharedMemory *shared_portCoords;
 	struct sigaction sa;
 	struct msg_request msg_request;
-
+	goods *g;
 
 
 	bzero(&p, sizeof(p));
@@ -108,10 +106,11 @@ int main(int argc, char *argv[]) {
 		}
 	}
 	
-
 	/*dopo che il porto inserisci i suoi dati, non ha più bisogno di accedere alla memoria*/
 	shared_portCoords[idx].coords=coord;
 	shared_portCoords[idx].pid=getpid();
+	shared_portCoords[idx].offersID=shmget(IPC_PRIVATE, SO_DAYS*sizeof(goods),S_IRUSR | S_IWUSR | IPC_CREAT);
+	p.generatedGoods=shmat(shared_portCoords[idx].offersID, NULL, 0);
 	shmdt(shared_portCoords);
 
 	srand(getpid());
@@ -127,10 +126,9 @@ int main(int argc, char *argv[]) {
 	sops.sem_op = 0;
 	semop(sem_sync_id, &sops, 1); TEST_ERROR;
 
-	p = initializeRequestsAndOffer(p);
+	/*p = */initializeRequestsAndOffer(p);
 	generateOffer(p, 0);
 	p.request = generateRequest(p);
-
 	sops.sem_num = 0;
 	sops.sem_op = -1;
 	semop(sem_request_id, &sops, 1); TEST_ERROR;
@@ -153,6 +151,9 @@ int main(int argc, char *argv[]) {
 		p.request.quantity += SO_FILL - *sum_request;
 	}
 
+
+	
+
 	msg_id = msgget(getppid(), IPC_CREAT | 0600);
 	msg_request.mtype = p.request.goodsType;
 	msg_request.idx = idx;
@@ -164,6 +165,7 @@ int main(int argc, char *argv[]) {
 
 	for(i=0; i<SO_DAYS; i++)
 		sleep(2);
+
 	
 	exit(0);
 }
