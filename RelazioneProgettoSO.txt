@@ -1,0 +1,14 @@
+﻿Per il progetto assegnatoci dal corso di Sistemi Operativi prima di tutto abbiamo deciso di utilizzare le variabili di ambiente per assegnare i valori alle macro.
+Abbiamo pensato di creare il file master.c in modo che si occupasse della parte iniziale del programma.
+Il master.c gestisce la creazione dei processi delle navi e dei porti, alloca la memoria ove necessario (es. per la memoria condivisa, per gli array dei pid, ecc…). 
+Inoltre viene creato un handler per controllare i segnali SIGALRM e SIGINT. Noi abbiamo deciso di utilizzare SIGINT in questo modo: quando c’è un interrupt viene richiamata la funzione, da noi creata, cleanUp( ) che si occupa di eliminare, oltre ai porti e alle navi, i semafori, le code di messaggi e le memorie condivise.
+Abbiamo creato un semaforo per la sincronizzazione tra porti e navi e abbiamo deciso di utilizzare la memoria condivisa come mezzo di condivisione dei pid e delle coordinate dei porti perché ci serviranno per la gestione della negoziazione di merci.
+Per ogni processo porto/nave generato viene eseguita la execv( ) --------------------------
+Il master tiene traccia dei pid dei porti e delle navi attraverso degli array; ci servirà quando dovremo inviare dei segnali.
+Nel file port.c vengono passati come argomenti, dalla funzione prima citata, il semaforo di sincronizzazione, la memoria condivisa, l’index…
+Utilizziamo SIGUSR1 per segnalare ai porti che devono stampare il report giornaliero e generare una nuova offerta. Il porto viene inizializzato, genera una richiesta e offerte in modo casuale.
+Invece per le navi SIGUSR1 lo utilizziamo per --------------------------------
+Per ogni entità che abbiamo ritenuto opportuna abbiamo creato delle utility basandoci sulla programmazione modulare.
+Per la generazione dei numeri casuali utilizziamo il tempo reale moltiplicando per 100 per convergere in double.
+Abbiamo gestito con degli alarm lo scadere dei giorni.
+La gestione delle richieste e delle offerte, la cui somma doveva essere pari a SO_FILL lo gestiamo con un numero casuale aggiungendo un range del 5% e alla fine del calcolo l’index [0] aggiunge il restante oppure sottrae l’eccesso.
