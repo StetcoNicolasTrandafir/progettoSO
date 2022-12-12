@@ -36,13 +36,13 @@ void move(coordinates from, coordinates to, struct timespec rem){
 }*/
 int getNearestPort(struct port_sharedMemory * ports, coordinates coords, double min){
     int i;
-    int minIndex=-1;
-    double minDist= min;
+    int minIndex = -1;
+    double minDist = min;
     double tempDistance;
 
     for(i=0; i<SO_PORTI; i++){
-        if((tempDistance=getDistance(coords, ports[i].coords))<minDist){
-            minIndex=-1;
+        if((tempDistance = getDistance(coords, ports[i].coords)) < minDist) {
+            minIndex = i;
             minDist= tempDistance;
         }
     }

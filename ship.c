@@ -13,6 +13,7 @@
 #include <sys/ipc.h>
 #include <sys/sem.h>
 #include <sys/shm.h>
+#include <sys/msg.h>
 
 #include "macro.h"
 #include "utility_coordinates.h"
@@ -38,9 +39,8 @@ struct port_sharedMemory *shared_portCoords;
 
 ship s;
 
-
 void handleSignal(int signal) {
-	int index;
+	int index, portsSharedMemoryID;
 	int i;
 	switch(signal) {
 		case SIGUSR1:
@@ -50,24 +50,25 @@ void handleSignal(int signal) {
 				printf(" (%d)\n\n ",shared_portCoords[i].pid);
 			}
 			printf("\nNAVE IN POSIZIONE (%f,%f):\n", s.coords.x, s.coords.y);
-			index= getNearestPort(shared_portCoords, s.coords, 2*SO_LATO);
+			index = getNearestPort(shared_portCoords, s.coords, 2 * SO_LATO);
 			printf("Il porto più vicino a questo porto è in posizione (%f,%f) (PID: %d)) \n", shared_portCoords[i].coords.x, shared_portCoords[i].coords.y,shared_portCoords[i].pid);
 			printf("\nSegnale personalizzato della nave [%d] intercettato\n", getpid());
 			break;
 	}
 }
 
-
 int main(int argc, char *argv[]) {
-	int sem_id;
-	int i;
+	int sem_sync_id, portsSharedMemoryID;
+	int i, msg_id;
 	struct sembuf sops;
+	struct msg_request msg_request;
 
 	bzero(&sops, sizeof(sops));
 
 	s.coords = getRandomCoords();
 	printShip(s);
 	sem_sync_id = atoi(argv[1]);
+	portsSharedMemoryID = atoi(argv[2]);
 	sops.sem_num = 0;
 	sops.sem_op = -1;
 	semop(sem_sync_id, &sops, 1);
@@ -75,6 +76,9 @@ int main(int argc, char *argv[]) {
 	sops.sem_op = 0;
 	semop(sem_sync_id, &sops, 1);
 	TEST_ERROR;
-	sleep(20);
+	msg_id = msgget(getppid(), IPC_CREAT | 0600); TEST_ERROR;
+	shared_portCoords = shmat(portsSharedMemoryID, NULL, 0);
+	TEST_ERROR;
+	sleep(2);
 	exit(0);
 }
