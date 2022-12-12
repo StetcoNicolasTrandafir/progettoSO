@@ -124,7 +124,6 @@ int main(int argc, char *argv[]) {
 	p = initializePort(p);
 	generateOffer(p, 0);
 	p.request = generateRequest(p);
-	printf("PRIMA - Somma [%d]: %d\n", getpid(), p.request.quantity);
 
 	sops.sem_num = 0;
 	sops.sem_op = -1;

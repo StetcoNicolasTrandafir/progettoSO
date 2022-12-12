@@ -44,11 +44,6 @@ void handleSignal(int signal) {
 	int i;
 	switch(signal) {
 		case SIGUSR1:
-			printf("\n\n\nPORTI\n\n:");
-			for(i=0; i<SO_PORTI; i++){	
-				printCoords(shared_portCoords[i].coords);
-				printf(" (%d)\n\n ",shared_portCoords[i].pid);
-			}
 			printf("\nNAVE IN POSIZIONE (%f,%f):\n", s.coords.x, s.coords.y);
 			index= getNearestPort(shared_portCoords, s.coords, 0);
 			printf("\n\nINDICE === %d", index);
@@ -63,16 +58,19 @@ int main(int argc, char *argv[]) {
 	int i, msg_id;
 	struct sembuf sops;
 	struct msg_request msg_request;
+	struct sigaction sa;
 
 
 	shared_portCoords = shmat(atoi(argv[2]), NULL, 0);
 
+	/*
 	printf("\n");
 	for(i=0; i<SO_PORTI; i++){
 		printf("\n[%d] (%f, %f)", shared_portCoords[i].pid, shared_portCoords[i].coords.x,shared_portCoords[i].coords.y);
 	}
 	printf("\n");
 
+	*/
 
 	bzero(&sa, sizeof(sa));
 	
