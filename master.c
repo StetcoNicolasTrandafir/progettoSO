@@ -206,7 +206,7 @@ int main() {
 	
 	for(i = 0; i < SO_NAVI + SO_PORTI; i++) wait(NULL);
 	TEST_ERROR;
-
+	
 	semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;
 	semctl(sem_request_id, 0, IPC_RMID); TEST_ERROR;
 	shmctl(sum_requestID, IPC_RMID, NULL); TEST_ERROR;

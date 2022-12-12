@@ -17,8 +17,8 @@ struct port_sharedMemory{
 
 struct msg_request {
     int mtype;
-    int pid;
     int quantity;
+    int idx;
 };
 
 /*

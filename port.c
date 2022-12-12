@@ -150,7 +150,7 @@ int main(int argc, char *argv[]) {
 
 	msg_id = msgget(getppid(), IPC_CREAT | 0600);
 	msg_request.mtype = p.request.goodsType;
-	msg_request.pid = getpid();
+	msg_request.idx = idx;
 	msg_request.quantity = p.request.quantity;
 	msgsnd(msg_id, &msg_request, sizeof(msg_request), 0);
 	shmdt(sum_request);
