@@ -77,14 +77,15 @@ void cleanUp(){
 void handleSignal(int signal) {
 	switch(signal) {
 		case SIGALRM:
-			if(pastDays==SO_DAYS){
+			if(pastDays++==SO_DAYS){
 				printf("\nREPORT FINALE:\n");
 				/*finalReport();*/
 				cleanUp();
 			}else{
 
-				printf("\n\nREPORT GIORNALIERO: \n");
-				sendSignalToAllPorts();				
+				printf("\n\nREPORT GIORNALIERO (%d): \n", pastDays);
+				sendSignalToAllPorts();		
+				alarm(1);
 			}
 			break;
 		case SIGINT:
@@ -206,7 +207,8 @@ int main() {
 		kill(ship_pids[i], SIGUSR1);
 	}
 
-	sleep(1); /*Lo toglieremo , ma se lo tolgo ora, da un errore perchè eliminiamo il semaforo prima che l'ultimo processo abbia fatto il semop per aspettare tutti i processi*/
+	alarm(1);
+	sleep(10); /*Lo toglieremo , ma se lo tolgo ora, da un errore perchè eliminiamo il semaforo prima che l'ultimo processo abbia fatto il semop per aspettare tutti i processi*/
 	
 	for(i = 0; i < SO_NAVI + SO_PORTI; i++) wait(NULL);
 	TEST_ERROR;

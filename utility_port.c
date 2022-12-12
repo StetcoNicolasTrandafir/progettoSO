@@ -30,7 +30,7 @@ void printDailyReport(port p){
     free(report);
 }
 
-port initializePort(port p){
+port initializeRequestsAndOffer(port p){
     int i=0;
 
     p.request.goodsType=-1;

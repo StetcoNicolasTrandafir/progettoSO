@@ -48,7 +48,7 @@ typedef struct port{
 
 
 /*set goodstype of each element of generatedGoods and requests to -1 in order to be checkable in other controls */
-port initializePort(port p);
+port initializeRequestsAndOffer(port p);
 
 /*returns the amount (ton) of the port passed as parameter requests.
 if the satisfied flag is set to ONLY_SATISFIED (1) computes only the satisfied requests, 

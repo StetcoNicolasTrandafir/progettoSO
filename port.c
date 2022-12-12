@@ -39,22 +39,28 @@ void printPort(port p) {
 void handleSignal(int signal) {
 	switch(signal) {
 		case SIGUSR1:
-			/*generateOffer(p, 0);
-			generateRequest(p); */
+			/*
+			generateOffer(p, 0);
+			generateRequest(p);
+			*/
+			printf("\nSegnale personalizzato del porto [%d] intercettato =========================>\n", getpid());
+
 			printDailyReport(p);
-			printf("\nSegnale personalizzato del porto [%d] intercettato\n", getpid());
 			break;
 	}
 }
 
 int main(int argc, char *argv[]) {
 	
+	int i;
 	int sem_sync_id, sem_request_id, portsSharedMemoryID, idx, sum_requestID, *sum_request, msg_id;
 	coordinates coord;
 	struct sembuf sops;
 	struct port_sharedMemory *shared_portCoords;
 	struct sigaction sa;
 	struct msg_request msg_request;
+
+
 
 	bzero(&p, sizeof(p));
 	bzero(&sa, sizeof(sa));
@@ -121,7 +127,7 @@ int main(int argc, char *argv[]) {
 	sops.sem_op = 0;
 	semop(sem_sync_id, &sops, 1); TEST_ERROR;
 
-	p = initializePort(p);
+	p = initializeRequestsAndOffer(p);
 	generateOffer(p, 0);
 	p.request = generateRequest(p);
 
@@ -156,7 +162,8 @@ int main(int argc, char *argv[]) {
 
 	printDailyReport(p);
 
-	sleep(1);
-
+	for(i=0; i<SO_DAYS; i++)
+		sleep(2);
+	
 	exit(0);
 }
