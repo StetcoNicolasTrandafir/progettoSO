@@ -15,6 +15,11 @@ struct port_sharedMemory{
     /*TODO aggiungere puntatore a struct che mi contiene tutte le info del singolo porto di cui gli altri processi hanno bisogno*/
 };
 
+struct msg_request {
+    int mtype;
+    int quantity;
+    int idx;
+};
 
 /*
 NEGOZIAZIONE NAVI-PORTI:
@@ -62,7 +67,7 @@ int getGeneratedGoods(port port, int flag);
 void printDailyReport(port port);
 
 /*generate a request and update the relative shared memory, returns the type of the good requested, -1 if it isn't possible*/
-int generateRequest(port port);
+struct request generateRequest(port port);
 
 /*generate an offer and update the relative shared memory, returns the type of the good generated, -1 if it isn't possible*/
 int generateOffer(port port, int day);

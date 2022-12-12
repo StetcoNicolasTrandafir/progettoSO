@@ -15,6 +15,7 @@
 #include <sys/ipc.h>
 #include <sys/sem.h>
 #include <sys/shm.h>
+#include <sys/msg.h>
 
 #include "macro.h"
 #include "utility_coordinates.h"
@@ -38,12 +39,10 @@ SEMAFORI:
 -
 */
 
-
-
-
-int pastDays=0;
-int sem_sync_id;
-int port_sharedMemoryID;
+int pastDays = 0, *sum_request;
+int sem_sync_id, sem_request_id;
+int port_sharedMemoryID, sum_requestID;
+int msg_id;
 pid_t *port_pids, *ship_pids;
 struct port_sharedMemory *sharedPortPositions;
 
@@ -69,6 +68,10 @@ void cleanUp(){
 	semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;
 	shmdt(sharedPortPositions); TEST_ERROR;
 	shmctl(port_sharedMemoryID, IPC_RMID, NULL); TEST_ERROR;
+	shmdt(sum_request); TEST_ERROR;
+	shmctl(sum_requestID, IPC_RMID, NULL); TEST_ERROR;
+	semctl(sem_request_id, 0, IPC_RMID); TEST_ERROR;
+	msgctl(msg_id, IPC_RMID, NULL); TEST_ERROR;
 }
 
 void handleSignal(int signal) {
@@ -100,13 +103,13 @@ int main() {
 	struct sigaction sa;
 	int i, j;
 	coordinates coord_c;
-	char  *args[6], name_file[100], sem_sync_str[3 * sizeof(int) + 1], sem_report_str[3 * sizeof(int) + 1], i_str[3 * sizeof(int) + 1], port_sharedMemoryID_STR[3*sizeof(int)+1];
+	char  *args[7], name_file[100], sem_sync_str[3 * sizeof(int) + 1], i_str[3 * sizeof(int) + 1], port_sharedMemoryID_STR[3*sizeof(int)+1], sum_requestID_STR[3 * sizeof(int) + 1], sem_request_str[3 * sizeof(int) + 1];
 	pid_t fork_rst;
 	struct sembuf sops;
 	struct shared_port *port_coords;
-	struct port_sharedMemory *sharedPortPositions;
 
 	sharedPortPositions = calloc(SO_PORTI, sizeof(struct port_sharedMemory));
+	sum_request = malloc(sizeof(int));
 	port_pids = calloc(SO_PORTI, sizeof(pid_t));
 	ship_pids = calloc(SO_NAVI, sizeof(pid_t));
 
@@ -118,27 +121,36 @@ int main() {
 	sigaction(SIGALRM, &sa, NULL);
 	sigaction(SIGINT, &sa, NULL);
 
-	
+	sem_sync_id = semget(IPC_PRIVATE, 1, 0600); TEST_ERROR;
+	semctl(sem_sync_id, 0, SETVAL, SO_PORTI + SO_NAVI); TEST_ERROR;
 
-	sem_sync_id = semget(IPC_PRIVATE, 1, 0600);
-	TEST_ERROR;
-	
-	semctl(sem_sync_id, 0, SETVAL, SO_PORTI + SO_NAVI);
-	TEST_ERROR;
+	sem_request_id = semget(IPC_PRIVATE, 3, 0600); TEST_ERROR;
+	semctl(sem_request_id, 0, SETVAL, 1); TEST_ERROR; /*write*/
+	semctl(sem_request_id, 1, SETVAL, SO_PORTI); TEST_ERROR; /*read*/
+	semctl(sem_request_id, 2, SETVAL, 1); TEST_ERROR; /*controllo SO_FILL*/
 
 	port_sharedMemoryID=shmget(IPC_PRIVATE, SO_PORTI*sizeof(struct port_sharedMemory),S_IRUSR | S_IWUSR | IPC_CREAT);
 	TEST_ERROR;
 	sharedPortPositions=shmat(port_sharedMemoryID, NULL, 0);
 	TEST_ERROR;
 
+	sum_requestID = shmget(IPC_PRIVATE, sizeof(int), S_IRUSR | S_IWUSR | IPC_CREAT); TEST_ERROR;
+	sum_request = shmat(sum_requestID, NULL, 0); TEST_ERROR;
+	sum_request = 0;
+	/*shmdt(sum_request); TEST_ERROR;*/
+
 	sprintf(name_file, "port");
 	sprintf(sem_sync_str, "%d", sem_sync_id);
 	sprintf(port_sharedMemoryID_STR, "%d", port_sharedMemoryID);
+	sprintf(sum_requestID_STR, "%d", sum_requestID);
+	sprintf(sem_request_str, "%d", sem_request_id);
 
 	args[0] = name_file;
 	args[1] = sem_sync_str;
-	args[2]= port_sharedMemoryID_STR;
-	args[4] = NULL;
+	args[2] = port_sharedMemoryID_STR;
+	args[3] = sum_requestID_STR;
+	args[4] = sem_request_str;
+	args[6] = NULL;
 
 	for (i = 0; i < SO_PORTI; i++) {
 		switch(fork_rst = fork()) {
@@ -148,7 +160,7 @@ int main() {
 
 			case 0: 
 				sprintf(i_str, "%d", i);
-				args[3] = i_str;
+				args[5] = i_str;
 				
 				execv("./port", args);
 				TEST_ERROR;
@@ -178,10 +190,12 @@ int main() {
 				exit(1);
 
 			default:
-				ship_pids[i] =fork_rst;
+				ship_pids[i] = fork_rst;
 				break; 
 		}
-	}	
+	}
+
+	msg_id = msgget(getpid(), IPC_CREAT | IPC_EXCL | 0600); TEST_ERROR;
 
 	sops.sem_num = 0;
 	sops.sem_op = 0;
@@ -190,14 +204,14 @@ int main() {
 
 	sleep(1); /*Lo toglieremo , ma se lo tolgo ora, da un errore perchè eliminiamo il semaforo prima che l'ultimo processo abbia fatto il semop per aspettare tutti i processi*/
 	
-	for(i=0; i< SO_NAVI+SO_PORTI; i++) wait(NULL);
+	for(i = 0; i < SO_NAVI + SO_PORTI; i++) wait(NULL);
 	TEST_ERROR;
-
-	semctl(sem_sync_id,0, IPC_RMID); TEST_ERROR;
-	semctl(sem_report_id,0, IPC_RMID); TEST_ERROR;
-
+	
+	semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;
+	semctl(sem_request_id, 0, IPC_RMID); TEST_ERROR;
+	shmctl(sum_requestID, IPC_RMID, NULL); TEST_ERROR;
+	msgctl(msg_id, IPC_RMID, NULL); TEST_ERROR;
+	shmctl(port_sharedMemoryID, IPC_RMID, NULL); TEST_ERROR;
 	
 	printf("\n\nSIMULAZIONE FINITA!!!\n\n");
 }
-
-

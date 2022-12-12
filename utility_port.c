@@ -103,42 +103,42 @@ int getGeneratedGoods(port p, int flag){
 
 int generateOffer(port p, int day){
     int type;
-    int plus=0;
+    int plus = 0;
     goods goods;
     srand(getpid());
-    type= rand()%SO_MERCI;
-    while(plus<SO_MERCI && isRequested(p, (type+plus)%SO_MERCI)){
+    type = rand() % SO_MERCI;
+    while(plus < SO_MERCI && isRequested(p, (type + plus) % SO_MERCI)){
         plus++;
     }
 
-    if(plus==SO_MERCI) return -1;
+    if(plus == SO_MERCI) return -1;
 
-    goods=generateGoods((type+plus)%SO_MERCI);
-    p.generatedGoods[day]=goods;
+    goods = generateGoods((type + plus) % SO_MERCI);
+    p.generatedGoods[day] = goods;
 
     return goods.type;
 }
 
-int generateRequest(port p){
-    int type;
-    int plus=0;
+struct request generateRequest(port p){
+    int type, q, x;
+    int plus = 0;
     struct request req;
 
     srand(getpid());
-    type = rand()%SO_MERCI;
-    while(plus<SO_MERCI && isOffered(p, (type+plus)%SO_MERCI)){
+    type = rand() % SO_MERCI;
+    while(plus < SO_MERCI && isOffered(p, (type + plus) % SO_MERCI)){
         plus++;
     }
-    if(plus==SO_MERCI) return -1;
+    if(plus == SO_MERCI) req.goodsType = -1;
 
-    req.goodsType=(type+plus)%SO_MERCI;
-    req.satisfied=0;
+    /*req.goodsType=(type+plus)%SO_MERCI;*/
+    req.satisfied = 0;
     /*REVIEW QUESTO È SBAGLIATISSIMO MA NON SO COSA METTERE ORA*/
-    req.quantity=(rand()%SO_SIZE)+1;
-    
-    p.request=req;
+    q = SO_FILL / SO_PORTI;
+    x = q * 5 / 10;
+    req.quantity = (rand() % ((q + x) - (q - x))) + (q - x);
 
-    return req.goodsType;
+    return req;
 }
 
 
