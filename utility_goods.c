@@ -15,6 +15,7 @@ goods generateGoods(int type){
     /*TODO: impostare il generationTime "all'orario" corrente*/
     clock_gettime(CLOCK_REALTIME, &g.generationTime);
     g.type=type;
+    g.satisfied=0;
     g.dimension= (rand()%SO_SIZE)+1;
     g.state=in_port;
     g.lifeTime=(rand()%(SO_MAX_VITA-SO_MIN_VITA))+SO_MIN_VITA+1;

@@ -30,7 +30,7 @@ void printDailyReport(port p){
     free(report);
 }
 
-port initializeRequestsAndOffer(port p){
+void initializeRequestsAndOffer(port p){
     int i=0;
 
     p.request.goodsType=-1;
@@ -38,7 +38,7 @@ port initializeRequestsAndOffer(port p){
     for(i=0; i< SO_DAYS; i++){
         p.generatedGoods[i].type=-1;
     }
-    return p;
+    /*return p;*/
 }
 
 /*NOTE assumo che gli array p.requests e p.generatedGoods siano 

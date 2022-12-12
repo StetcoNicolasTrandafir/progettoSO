@@ -1,26 +1,6 @@
 #ifndef _UTILITY_PORT_H
 #define _UTILITY_PORT_H
 
-/*the request struct is made up by the goods' type and a flag to understand if it has already been satisfied or not*/
-struct request{
-    int satisfied;
-    int goodsType;
-    int quantity;
-};
-
-/*this struct contains the coords of the port and the pid, needed to access the port's generatedGoods IPC*/
-struct port_sharedMemory{
-    coordinates coords;
-    int pid;
-    /*TODO aggiungere puntatore a struct che mi contiene tutte le info del singolo porto di cui gli altri processi hanno bisogno*/
-};
-
-struct msg_request {
-    int mtype;
-    int quantity;
-    int idx;
-};
-
 /*
 NEGOZIAZIONE NAVI-PORTI:
 1) verifico i porti in ordine di vicinanza rispetto alla nave
@@ -33,6 +13,26 @@ NEGOZIAZIONE NAVI-PORTI:
 8) se non ci sono offerte e richieste che la nave può soddisfare in nessun porto, mi muovo verso il porto più vicino aspettando la generazione del giorno dopo
 */
 
+
+/*the request struct is made up by the goods' type and a flag to understand if it has already been satisfied or not*/
+struct request{
+    int satisfied;
+    int goodsType;
+    int quantity;
+};
+
+/*this struct contains the coords of the port and the pid, needed to access the port's generatedGoods IPC*/
+struct port_sharedMemory{
+    coordinates coords;
+    int pid;
+    int offersID;
+};
+
+struct msg_request {
+    int mtype;
+    int quantity;
+    int idx;
+};
 
 /*each port is characterized by its coords (unique), its number of docks (number between [1, SO_BANCHINE]),
 an array for the goods request and another one for the offers*/
@@ -47,8 +47,8 @@ typedef struct port{
 }port;
 
 
-/*set goodstype of each element of generatedGoods and requests to -1 in order to be checkable in other controls */
-port initializeRequestsAndOffer(port p);
+/*set goodstype of each element of generatedGoods and requests to -1 in order to be checkable in other controls, it also creates the shared memory for the offers*/
+void initializeRequestsAndOffer(port p);
 
 /*returns the amount (ton) of the port passed as parameter requests.
 if the satisfied flag is set to ONLY_SATISFIED (1) computes only the satisfied requests, 
