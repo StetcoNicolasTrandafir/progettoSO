@@ -46,23 +46,47 @@ int msg_id;
 pid_t *port_pids, *ship_pids;
 struct port_sharedMemory *sharedPortPositions;
 
-void sendSignalToAllPorts(){
-	int i;
+int validIdx(int v_casual_idx, int v_port_idx[], int v_idx) {
+	int v_i;
+	for (v_i = 0; v_i < v_idx; v_i++) {
+		if (v_port_idx[v_i] == v_casual_idx) {
+			return 0;
+		}
+	}
+	return 1;
+}
+
+void sendSignalToCasualPorts(){
+	/*int i;
 	for(i=0; i<SO_PORTI; i++){
 		printf("\nSending signal to [%d]", port_pids[i]);
 		if(kill(port_pids[i], SIGUSR1)) TEST_ERROR;
-	}
+	}*/
+	int s_i, s_n_ports, *s_port_idx, s_casual_idx;
+	struct timespec now;
+    clock_gettime(CLOCK_REALTIME, &now);
+    s_n_ports = now.tv_nsec % SO_PORTI;
+    s_port_idx = calloc(s_n_ports, sizeof(int));
+    for (s_i = 0; s_i < s_n_ports; s_i++) {
+    	do {
+    		clock_gettime(CLOCK_REALTIME, &now);
+    		s_casual_idx = (now.tv_nsec % SO_PORTI) + 1;
+    	}
+    	while (!validIdx(s_casual_idx, s_port_idx, s_i));
+    	kill(port_pids[s_i], SIGUSR1); TEST_ERROR;
+    }
+    free(s_port_idx);
 }
 
 void cleanUp(){
 	int i;
 
 	for(i=0; i< SO_PORTI; i++){
-		kill(port_pids[i], SIGKILL);
+		kill(port_pids[i], SIGKILL);TEST_ERROR;
 	}
 
 	for(i=0; i< SO_NAVI; i++){
-		kill(ship_pids[i], SIGKILL);
+		kill(ship_pids[i], SIGKILL);TEST_ERROR;
 	}
 
 	semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;
@@ -84,7 +108,7 @@ void handleSignal(int signal) {
 			}else{
 
 				printf("\n\nREPORT GIORNALIERO (%d): \n", pastDays);
-				sendSignalToAllPorts();		
+				sendSignalToCasualPorts();		
 				alarm(1);
 			}
 			break;
@@ -208,8 +232,8 @@ int main() {
 	}
 
 	alarm(1);
-	sleep(10); /*Lo toglieremo , ma se lo tolgo ora, da un errore perchè eliminiamo il semaforo prima che l'ultimo processo abbia fatto il semop per aspettare tutti i processi*/
-	
+	sleep(31); /*Lo toglieremo , ma se lo tolgo ora, da un errore perchè eliminiamo il semaforo prima che l'ultimo processo abbia fatto il semop per aspettare tutti i processi*/
+
 	for(i = 0; i < SO_NAVI + SO_PORTI; i++) wait(NULL);
 	TEST_ERROR;
 	

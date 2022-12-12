@@ -101,7 +101,7 @@ int getGeneratedGoods(port p, int flag){
     return total;
 }
 
-int generateOffer(port p, int day){
+int generateOffer(port p, int idx){
     int type;
     int plus = 0;
     goods goods;
@@ -114,7 +114,7 @@ int generateOffer(port p, int day){
     if(plus == SO_MERCI) return -1;
 
     goods = generateGoods((type + plus) % SO_MERCI);
-    p.generatedGoods[day] = goods;
+    p.generatedGoods[idx] = goods;
 
     return goods.type;
 }

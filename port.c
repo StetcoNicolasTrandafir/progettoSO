@@ -31,6 +31,7 @@
 					  strerror(errno));}
 
 port p;
+int idxOfferts;
 
 void printPort(port p) {
 	printf("Porto %d: (%.2f, %.2f) - %d banchine\n", getpid(), p.coord.x, p.coord.y, p.docks);
@@ -39,13 +40,9 @@ void printPort(port p) {
 void handleSignal(int signal) {
 	switch(signal) {
 		case SIGUSR1:
-			/*
-			generateOffer(p, 0);
-			generateRequest(p);
-			*/
 			printf("\nSegnale personalizzato del porto [%d] intercettato =========================>\n", getpid());
-
 			printDailyReport(p);
+			generateOffer(p, ++idxOfferts);
 			break;
 	}
 }
@@ -119,14 +116,6 @@ int main(int argc, char *argv[]) {
 	p.coord = coord;
 	
 	printPort(p);
-
-	sops.sem_num = 0;
-	sops.sem_op = -1;
-	semop(sem_sync_id, &sops, 1); TEST_ERROR;
-	sops.sem_num = 0;
-	sops.sem_op = 0;
-	semop(sem_sync_id, &sops, 1); TEST_ERROR;
-
 	p = initializeRequestsAndOffer(p);
 	generateOffer(p, 0);
 	p.request = generateRequest(p);
@@ -160,7 +149,12 @@ int main(int argc, char *argv[]) {
 	msgsnd(msg_id, &msg_request, sizeof(msg_request), 0);
 	shmdt(sum_request);
 
-	printDailyReport(p);
+	sops.sem_num = 0; /*semaforo di sincronizzazione*/
+	sops.sem_op = -1;
+	semop(sem_sync_id, &sops, 1); TEST_ERROR;
+	sops.sem_num = 0;
+	sops.sem_op = 0;
+	semop(sem_sync_id, &sops, 1); TEST_ERROR;
 
 	for(i=0; i<SO_DAYS; i++)
 		sleep(2);
