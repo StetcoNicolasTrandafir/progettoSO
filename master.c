@@ -239,13 +239,14 @@ int main() {
 
 
 	
-	/*printf("[%d] LETTURA MEMORIA CONDIVISA DAL MASTER:\n", getpid());
+	printf("[%d] LETTURA MEMORIA CONDIVISA DAL MASTER:\n", getpid());
 
 	for(i=0; i< SO_PORTI; i++){
 		g= shmat(sharedPortPositions[i].offersID, NULL, 0);
 		printf("Porto [%d] in posizione (%f,%f) offre merce di tipo %d in quantità %d ton\n", sharedPortPositions[i].pid,sharedPortPositions[i].coords.x,sharedPortPositions[i].coords.y, g[0].type, g[0].dimension );
 		shmdt(g);
-	}*/
+		shmctl(sharedPortPositions[i].offersID, IPC_RMID, NULL); TEST_ERROR;
+	}
 	
 		
 	semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;

@@ -113,7 +113,6 @@ int main(int argc, char *argv[]) {
 	shared_portCoords[idx].pid=getpid();
 	shared_portCoords[idx].offersID=shmget(IPC_PRIVATE, SO_DAYS*sizeof(goods),S_IRUSR | S_IWUSR | IPC_CREAT);
 	p.generatedGoods=shmat(shared_portCoords[idx].offersID, NULL, 0);
-	shmctl(shared_portCoords[idx].offersID, IPC_RMID, NULL); TEST_ERROR;
 	shmdt(shared_portCoords);
 
 	srand(getpid());
