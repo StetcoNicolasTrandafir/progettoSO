@@ -24,7 +24,7 @@ void printDailyReport(port p){
     tonsShipped= getGeneratedGoods(p, SHIPPED);
     tonsInPort=getGeneratedGoods(p, IN_PORT);
     tonsReceived=getRequest(p, ONLY_SATISFIED);
-    num_bytes = sprintf(report, "Porto in posizione: (%.2f, %.2f)\nBanchine libere %d su %d\nMerci spedite: %d ton\nMerci generate ancora in porto: %d ton\nMerci ricevute: %d ton\n\n", p.coord.x, p.coord.y, freeDocks, p.docks, tonsShipped, tonsInPort, tonsReceived);
+    num_bytes = sprintf(report, "Porto [%d] in posizione: (%.2f, %.2f)\nBanchine libere %d su %d\nMerci spedite: %d ton\nMerci generate ancora in porto: %d ton\nMerci ricevute: %d ton\n\n", getpid(), p.coord.x, p.coord.y, freeDocks, p.docks, tonsShipped, tonsInPort, tonsReceived);
     fflush(stdout);
     write(1, report, num_bytes);
     free(report);
@@ -51,7 +51,7 @@ int getRequest(port p, int satisfied){
     switch(satisfied){
 
         case ONLY_SATISFIED:    
-            return p.request.quantity;
+            return p.request.satisfied;
             break;
 
         case ALL:
@@ -101,7 +101,7 @@ int getGeneratedGoods(port p, int flag){
     return total;
 }
 
-int generateOffer(port p, int day){
+int generateOffer(port p, int idx){
     int type;
     int plus = 0;
     goods goods;
@@ -114,7 +114,7 @@ int generateOffer(port p, int day){
     if(plus == SO_MERCI) return -1;
 
     goods = generateGoods((type + plus) % SO_MERCI);
-    p.generatedGoods[day] = goods;
+    p.generatedGoods[idx] = goods;
 
     return goods.type;
 }
@@ -135,7 +135,7 @@ struct request generateRequest(port p){
     req.satisfied = 0;
     /*REVIEW QUESTO È SBAGLIATISSIMO MA NON SO COSA METTERE ORA*/
     q = SO_FILL / SO_PORTI;
-    x = q * 5 / 10;
+    x = q * 1 / 10;
     req.quantity = (rand() % ((q + x) - (q - x))) + (q - x);
 
     return req;

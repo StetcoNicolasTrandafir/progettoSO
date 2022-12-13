@@ -70,7 +70,7 @@ void printDailyReport(port port);
 struct request generateRequest(port port);
 
 /*generate an offer and update the relative shared memory, returns the type of the good generated, -1 if it isn't possible*/
-int generateOffer(port port, int day);
+int generateOffer(port port, int idx);
 
 /*return 1 if the goods type passed as parameter is already offered in the port, 0 otherwhise*/
 int isOffered(port port, int goodsType);

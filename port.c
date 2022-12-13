@@ -31,6 +31,7 @@
 					  strerror(errno));}
 
 port p;
+int idxOfferts;
 
 void printPort(port p) {
 	printf("Porto %d: (%.2f, %.2f) - %d banchine\n", getpid(), p.coord.x, p.coord.y, p.docks);
@@ -39,12 +40,10 @@ void printPort(port p) {
 void handleSignal(int signal) {
 	switch(signal) {
 		case SIGUSR1:
-			/*
-			generateOffer(p, 0);
-			generateRequest(p);
-			*/
-			printf("\nSegnale personalizzato del porto [%d] intercettato =========================>\n", getpid());
-
+			printDailyReport(p);
+			generateOffer(p, ++idxOfferts);
+			break;
+		case SIGUSR2:
 			printDailyReport(p);
 			break;
 	}
@@ -68,6 +67,7 @@ int main(int argc, char *argv[]) {
 	
 	sa.sa_handler = handleSignal;
 	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 
 	sem_sync_id = atoi(argv[1]);
 	portsSharedMemoryID=atoi(argv[2]);
@@ -116,20 +116,13 @@ int main(int argc, char *argv[]) {
 
 	srand(getpid());
 	p.docks = rand() % SO_BANCHINE + 1;
-	p.coord = coord;
-	
+	p.coord = coord;	
+
 	printPort(p);
-
-	sops.sem_num = 0;
-	sops.sem_op = -1;
-	semop(sem_sync_id, &sops, 1); TEST_ERROR;
-	sops.sem_num = 0;
-	sops.sem_op = 0;
-	semop(sem_sync_id, &sops, 1); TEST_ERROR;
-
 	p = initializeRequestsAndOffer(p);
 	generateOffer(p, 0);
-	p.request = generateRequest(p);
+
+	p.request = generateRequest(p);	
 
 	sops.sem_num = 0;
 	sops.sem_op = -1;
@@ -153,14 +146,19 @@ int main(int argc, char *argv[]) {
 		p.request.quantity += SO_FILL - *sum_request;
 	}
 
-	msg_id = msgget(getppid(), IPC_CREAT | 0600);
+	msg_id = msgget(getppid(), IPC_CREAT | 0600); TEST_ERROR;
 	msg_request.mtype = p.request.goodsType;
 	msg_request.idx = idx;
 	msg_request.quantity = p.request.quantity;
 	msgsnd(msg_id, &msg_request, sizeof(msg_request), 0);
 	shmdt(sum_request);
 
-	printDailyReport(p);
+	sops.sem_num = 0; /*semaforo di sincronizzazione*/
+	sops.sem_op = -1;
+	semop(sem_sync_id, &sops, 1); TEST_ERROR;
+	sops.sem_num = 0;
+	sops.sem_op = 0;
+	semop(sem_sync_id, &sops, 1); TEST_ERROR;
 
 	for(i=0; i<SO_DAYS; i++)
 		sleep(2);

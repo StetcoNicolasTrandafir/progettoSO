@@ -46,23 +46,50 @@ int msg_id;
 pid_t *port_pids, *ship_pids;
 struct port_sharedMemory *sharedPortPositions;
 
-void sendSignalToAllPorts(){
+int elementInArray(int element, int array[], int limit) {
 	int i;
-	for(i=0; i<SO_PORTI; i++){
-		printf("\nSending signal to [%d]", port_pids[i]);
-		if(kill(port_pids[i], SIGUSR1)) TEST_ERROR;
+	for (i = 0; i < limit; i++) {
+		if (array[i] == element) {
+			return 1;
+		}
 	}
+	return 0;
+}
+
+void sendSignalToCasualPorts(){
+
+	int i, n_ports, *port_idx, casual_idx;
+	struct timespec now;
+    clock_gettime(CLOCK_REALTIME, &now);
+    n_ports = (now.tv_nsec % SO_PORTI)+1;
+    port_idx = calloc(n_ports, sizeof(int));
+    for (i = 0; i < n_ports; i++) {
+    	do {
+    		clock_gettime(CLOCK_REALTIME, &now);
+    		casual_idx = now.tv_nsec % SO_PORTI;
+    	}
+    	while (elementInArray(casual_idx, port_idx, i));
+    	printf("%d\n", casual_idx);
+		port_idx[i] = casual_idx;
+    	kill(port_pids[port_idx[i]], SIGUSR1); TEST_ERROR;
+    }
+	for (i = 0; i < SO_PORTI; i++) {
+		if (!elementInArray(i, port_idx, n_ports)) {
+    		kill(port_pids[i], SIGUSR2); TEST_ERROR;
+    	}
+	}
+    free(port_idx);
 }
 
 void cleanUp(){
 	int i;
 
 	for(i=0; i< SO_PORTI; i++){
-		kill(port_pids[i], SIGKILL);
+		kill(port_pids[i], SIGKILL);TEST_ERROR;
 	}
 
 	for(i=0; i< SO_NAVI; i++){
-		kill(ship_pids[i], SIGKILL);
+		kill(ship_pids[i], SIGKILL);TEST_ERROR;
 	}
 
 	semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;
@@ -80,11 +107,11 @@ void handleSignal(int signal) {
 			if(pastDays++==SO_DAYS){
 				printf("\nREPORT FINALE:\n");
 				/*finalReport();*/
-				cleanUp();
+				
 			}else{
 
 				printf("\n\nREPORT GIORNALIERO (%d): \n", pastDays);
-				sendSignalToAllPorts();		
+				sendSignalToCasualPorts();		
 				alarm(1);
 			}
 			break;
@@ -203,13 +230,9 @@ int main() {
 	semop(sem_sync_id, &sops, 1);
 	TEST_ERROR;
 
-	for(i=0; i< SO_NAVI; i++){
-		kill(ship_pids[i], SIGUSR1);
-	}
-
 	alarm(1);
-	sleep(10); /*Lo toglieremo , ma se lo tolgo ora, da un errore perchè eliminiamo il semaforo prima che l'ultimo processo abbia fatto il semop per aspettare tutti i processi*/
-	
+	sleep(31); /*Lo toglieremo , ma se lo tolgo ora, da un errore perchè eliminiamo il semaforo prima che l'ultimo processo abbia fatto il semop per aspettare tutti i processi*/
+
 	for(i = 0; i < SO_NAVI + SO_PORTI; i++) wait(NULL);
 	TEST_ERROR;
 	

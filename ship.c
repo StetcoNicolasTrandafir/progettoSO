@@ -44,6 +44,7 @@ void handleSignal(int signal) {
 	int i;
 	switch(signal) {
 		case SIGUSR1:
+			printf("\nAlla nave [%d] è arrivato il segnale", getpid());
 			/*
 			printf("\nNAVE IN POSIZIONE (%f,%f):\n", s.coords.x, s.coords.y);
 			index= getNearestPort(shared_portCoords, s.coords, 0);
@@ -95,6 +96,7 @@ int main(int argc, char *argv[]) {
 	msg_id = msgget(getppid(), IPC_CREAT | 0600); TEST_ERROR;
 	shared_portCoords = shmat(portsSharedMemoryID, NULL, 0);
 	TEST_ERROR;
+	for(i=0; i< SO_DAYS; i++)
 	sleep(2);
 	exit(0);
 }
