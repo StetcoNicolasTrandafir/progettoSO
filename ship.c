@@ -44,14 +44,13 @@ void handleSignal(int signal) {
 	int i;
 	switch(signal) {
 		case SIGUSR1:
-			printf("\nAlla nave [%d] è arrivato il segnale", getpid());
-			/*
+			
 			printf("\nNAVE IN POSIZIONE (%f,%f):\n", s.coords.x, s.coords.y);
 			index= getNearestPort(shared_portCoords, s.coords, 0);
 			printf("\n\nINDICE === %d", index);
 			printf("Il porto più vicino a questo porto è in posizione (%f,%f) (PID: %d)) \n", shared_portCoords[index].coords.x, shared_portCoords[index].coords.y,shared_portCoords[index].pid);
 			printf("\nSegnale personalizzato della nave [%d] intercettato\n", getpid());
-			*/
+			
 			break;
 	}
 }

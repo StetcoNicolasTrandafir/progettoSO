@@ -58,7 +58,7 @@ int main(int argc, char *argv[]) {
 	struct port_sharedMemory *shared_portCoords;
 	struct sigaction sa;
 	struct msg_request msg_request;
-
+	goods *g;
 
 
 	bzero(&p, sizeof(p));
@@ -108,22 +108,22 @@ int main(int argc, char *argv[]) {
 		}
 	}
 	
-
 	/*dopo che il porto inserisci i suoi dati, non ha più bisogno di accedere alla memoria*/
 	shared_portCoords[idx].coords=coord;
 	shared_portCoords[idx].pid=getpid();
+	shared_portCoords[idx].offersID=shmget(IPC_PRIVATE, SO_DAYS*sizeof(goods),S_IRUSR | S_IWUSR | IPC_CREAT);
+	p.generatedGoods=shmat(shared_portCoords[idx].offersID, NULL, 0);
+	shmctl(shared_portCoords[idx].offersID, IPC_RMID, NULL); TEST_ERROR;
 	shmdt(shared_portCoords);
 
 	srand(getpid());
 	p.docks = rand() % SO_BANCHINE + 1;
 	p.coord = coord;	
 
-	printPort(p);
-	p = initializeRequestsAndOffer(p);
+
+	/*p = */initializeRequestsAndOffer(p);
 	generateOffer(p, 0);
-
-	p.request = generateRequest(p);	
-
+	p.request = generateRequest(p);
 	sops.sem_num = 0;
 	sops.sem_op = -1;
 	semop(sem_request_id, &sops, 1); TEST_ERROR;
@@ -162,6 +162,9 @@ int main(int argc, char *argv[]) {
 
 	for(i=0; i<SO_DAYS; i++)
 		sleep(2);
-	
+
+	shmdt(p.generatedGoods);
+	free(p.generatedGoods);
+
 	exit(0);
 }
