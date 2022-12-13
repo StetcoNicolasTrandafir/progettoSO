@@ -24,7 +24,7 @@ void printDailyReport(port p){
     tonsShipped= getGeneratedGoods(p, SHIPPED);
     tonsInPort=getGeneratedGoods(p, IN_PORT);
     tonsReceived=getRequest(p, ONLY_SATISFIED);
-    num_bytes = sprintf(report, "Porto in posizione: (%.2f, %.2f)\nBanchine libere %d su %d\nMerci spedite: %d ton\nMerci generate ancora in porto: %d ton\nMerci ricevute: %d ton\n\n", p.coord.x, p.coord.y, freeDocks, p.docks, tonsShipped, tonsInPort, tonsReceived);
+    num_bytes = sprintf(report, "Porto [%d] in posizione: (%.2f, %.2f)\nBanchine libere %d su %d\nMerci spedite: %d ton\nMerci generate ancora in porto: %d ton\nMerci ricevute: %d ton\n\n", getpid(), p.coord.x, p.coord.y, freeDocks, p.docks, tonsShipped, tonsInPort, tonsReceived);
     fflush(stdout);
     write(1, report, num_bytes);
     free(report);
@@ -135,7 +135,7 @@ struct request generateRequest(port p){
     req.satisfied = 0;
     /*REVIEW QUESTO È SBAGLIATISSIMO MA NON SO COSA METTERE ORA*/
     q = SO_FILL / SO_PORTI;
-    x = q * 5 / 100;
+    x = q * 1 / 10;
     req.quantity = (rand() % ((q + x) - (q - x))) + (q - x);
 
     return req;

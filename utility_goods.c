@@ -14,10 +14,12 @@ goods generateGoods(int type){
     struct timespec t;
     /*TODO: impostare il generationTime "all'orario" corrente*/
     clock_gettime(CLOCK_REALTIME, &g.generationTime);
+    clock_gettime(CLOCK_REALTIME, &t);
     g.type=type;
-    g.dimension= (rand()%SO_SIZE)+1;
+    g.dimension= (t.tv_nsec%SO_SIZE)+1;
     g.state=in_port;
-    g.lifeTime=(rand()%(SO_MAX_VITA-SO_MIN_VITA))+SO_MIN_VITA+1;
+    clock_gettime(CLOCK_REALTIME, &t);
+    g.lifeTime=(t.tv_nsec%(SO_MAX_VITA-SO_MIN_VITA))+SO_MIN_VITA+1;
 
     return g;
 }

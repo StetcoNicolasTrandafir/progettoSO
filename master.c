@@ -46,37 +46,39 @@ int msg_id;
 pid_t *port_pids, *ship_pids;
 struct port_sharedMemory *sharedPortPositions;
 
-int validIdx(int v_casual_idx, int v_port_idx[], int v_idx) {
+int elementInArray(int element, int array[], int limit) {
 	int i;
-	for (i = 0;i < v_idx;i++) {
-		if (v_port_idx[i] == v_casual_idx) {
-			return 0;
+	for (i = 0; i < limit; i++) {
+		if (array[i] == element) {
+			return 1;
 		}
 	}
-	return 1;
+	return 0;
 }
 
 void sendSignalToCasualPorts(){
 
-	int i, s_n_ports, *s_port_idx, s_casual_idx;
+	int i, n_ports, *port_idx, casual_idx;
 	struct timespec now;
     clock_gettime(CLOCK_REALTIME, &now);
-    s_n_ports = (now.tv_nsec % SO_PORTI)+1;
-    s_port_idx = calloc(s_n_ports, sizeof(int));
-    for (i = 0; i < s_n_ports; i++) {
+    n_ports = (now.tv_nsec % SO_PORTI)+1;
+    port_idx = calloc(n_ports, sizeof(int));
+    for (i = 0; i < n_ports; i++) {
     	do {
     		clock_gettime(CLOCK_REALTIME, &now);
-    		s_casual_idx = now.tv_nsec % SO_PORTI;
+    		casual_idx = now.tv_nsec % SO_PORTI;
     	}
-    	while (!validIdx(s_casual_idx, s_port_idx, i));
-		s_port_idx[i]=s_casual_idx;
-    	kill(port_pids[i], SIGUSR1); TEST_ERROR;
+    	while (elementInArray(casual_idx, port_idx, i));
+    	printf("%d\n", casual_idx);
+		port_idx[i] = casual_idx;
+    	kill(port_pids[port_idx[i]], SIGUSR1); TEST_ERROR;
     }
-	printf("\n\nOGGI GENERERANNO %d PORTI, QUESTI SONO:\n", s_n_ports);
-	for(i=0; i<s_n_ports; i++){
-		printf("\n%d, il porto con pid %d", s_port_idx[i], port_pids[s_port_idx[i]]);
+	for (i = 0; i < SO_PORTI; i++) {
+		if (!elementInArray(i, port_idx, n_ports)) {
+    		kill(port_pids[i], SIGUSR2); TEST_ERROR;
+    	}
 	}
-    free(s_port_idx);
+    free(port_idx);
 }
 
 void cleanUp(){
@@ -227,8 +229,6 @@ int main() {
 	sops.sem_op = 0;
 	semop(sem_sync_id, &sops, 1);
 	TEST_ERROR;
-
-
 
 	alarm(1);
 	sleep(31); /*Lo toglieremo , ma se lo tolgo ora, da un errore perchè eliminiamo il semaforo prima che l'ultimo processo abbia fatto il semop per aspettare tutti i processi*/
