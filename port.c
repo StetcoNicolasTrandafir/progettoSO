@@ -19,7 +19,6 @@
 #include "utility_coordinates.h"
 #include "utility_goods.h"
 #include "utility_port.h"
-#include "utility_shm.h"
 #include "utility_sem.h"
 
 #define TEST_ERROR    if (errno) {fprintf(stderr, \

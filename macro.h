@@ -14,6 +14,6 @@
 #define SO_DISTANZA_PORTI 3
 #define SO_STORM_DURATION atoi(getenv("SO_STORM_DURATION"))
 #define SO_SWELL_DURATION atoi(getenv("SSO_SWELL_DURATION"))
-#define SO_MALESTROM atoi(getenv("SO_MALESTROM"))
+#define SO_MEALSTROM atoi(getenv("SO_MEALSTROM"))
 
 

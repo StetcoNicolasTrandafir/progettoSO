@@ -2,7 +2,7 @@
 #define _UTILITY_GOODS_H
 
 /*each goods is classified with these states:*/
-enum states {in_port, on_ship, delivered, expired_port, expired_ship};
+enum states {in_port, on_ship, delivered, expired_port, expired_ship, lost};
 
 /*each unit of goods has a type (encoded by an int), a state, its dimension expressed ton (bewteen [0, SO_SIZE]),
 a lifetime that expresses the number of days until its expiration (between [SO_MIN_VITA,SO_MAX_VITA]) and the time when it was generated*/
