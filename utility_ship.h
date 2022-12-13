@@ -7,6 +7,13 @@ typedef struct ship{
     int inDock; 
 }ship;
 
+struct shared_ship{
+    coordinates coords; 
+    pid_t pid;
+};
+
+
+
 
 /*this function compute the time to cover the distance between the coords passed as parameter,
 and make the nanosleep that simulate the travel*/

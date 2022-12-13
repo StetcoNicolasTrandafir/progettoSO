@@ -21,3 +21,20 @@ struct timespec getMealstromQuantum(){
 
     return t;
 }
+
+
+pid_t [] getShipsInMovement(struct shared_ship ships){
+    int i, j;
+    int count=0;
+    pid_t *pids;
+    for(i=0; i<SO_NAVI; i++)
+        if(ships[i].coords.x==-1&&ships[i].coords.y==-1)
+            count++;
+    pids= calloc(count, sizeof(pid_t));
+    count=0;
+    for(i=0; i<SO_NAVI; i++)
+        if(ships[i].coords.x==-1&&ships[i].coords.y==-1)
+            pids[j]=ships[i].pid;
+
+    return pids;
+}
