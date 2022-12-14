@@ -1,18 +1,6 @@
 #ifndef _UTILITY_PORT_H
 #define _UTILITY_PORT_H
 
-/*
-NEGOZIAZIONE NAVI-PORTI:
-1) verifico i porti in ordine di vicinanza rispetto alla nave
-2) controllo le richieste del porto
-3) per ogni offerta, controllo se c'è un porto (sempre in ordine di prossimità) che fa richiesta di quel bene e se ci arrivo (per la scadenza)
-4) se c'è una richiesta, segno come impegnate tot merci sia nella richiesta che nell'offerta
-5) se non c'è nessuna richiesta, considero il prossimo porto più vicino
-6) se non c'è nessun porto che richiede una determinata merce di un offerta, considero la prossima offerta del porto
-7) se non ci sono richieste per nessuna offerta del porto preso in considerazione, prendo in considerazione il seguente porto
-8) se non ci sono offerte e richieste che la nave può soddisfare in nessun porto, mi muovo verso il porto più vicino aspettando la generazione del giorno dopo
-*/
-
 
 /*the request struct is made up by the goods' type and a flag to understand if it has already been satisfied or not*/
 struct request{
