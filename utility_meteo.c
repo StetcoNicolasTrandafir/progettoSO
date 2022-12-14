@@ -10,8 +10,61 @@
 #include "macro.h"
 #include "utility_meteo.h"
 
-void swell(int portPid){
-    kill(SIGINT, portPid);
+void swell(struct port_sharedMemory ports, struct ship_sharedMemory ships){
+    int portIndex;
+    int i;
+    struct timespec now;
+    pid_t *shipPids;
+
+    clock_gettime(CLOCK_REALTIME, &now);
+    portIndex=now.tv_nsec%SO_PORTI;
+
+    shipPids=getShipsInPort(ships,ports[portIndex].coords);
+
+    /*REVIEW : lo gestiamo con SIGSTOP e SIGCONT? 
+    effetti dei segnali sulle sleep/nanosleep?*/
+    for(i=0; i< sizeof(shipPids)/sizeof(pid_t); i++){
+        kill(SIGSTOP, shipPids[i]);
+    }
+
+    /*TODO qua? facciamo una nanosleep?*/
+
+    for(i=0; i< sizeof(shipPids)/sizeof(pid_t); i++){
+        kill(SIGCONT, shipPids[i]);
+    }
+}
+
+
+
+void storm(struct ship_sharedMemory ships){
+    int shipIndex;
+    struct timespec now;
+    pid_t *shipPids;
+
+    shipPids=getShipsInMovement(ships);
+
+    clock_gettime(CLOCK_REALTIME, &now);
+    portIndex=now.tv_nsec%(sizeof(shipPids)/sizeof(pid_t));
+
+
+    /*REVIEW : lo gestiamo con SIGSTOP e SIGCONT? 
+    effetti dei segnali sulle sleep/nanosleep?*/
+    kill(SIGSTOP, shipPids[shipIndex]);
+
+
+    /*TODO qua? facciamo una nanosleep?*/
+
+    kill(SIGCONT, shipPids[shipIndex]);
+}
+
+void mealstrom(struct ship_sharedMemory ships){
+    int shipIndex;
+    struct timespec now;
+
+    clock_gettime(CLOCK_REALTIME, &now);
+    portIndex=now.tv_nsec%SO_NAVI;
+
+    kill(SIGINT, ships[shipIndex].pid);
 }
 
 struct timespec getMealstromQuantum(){
@@ -22,19 +75,3 @@ struct timespec getMealstromQuantum(){
     return t;
 }
 
-
-pid_t [] getShipsInMovement(struct shared_ship ships){
-    int i, j;
-    int count=0;
-    pid_t *pids;
-    for(i=0; i<SO_NAVI; i++)
-        if(ships[i].coords.x==-1&&ships[i].coords.y==-1)
-            count++;
-    pids= calloc(count, sizeof(pid_t));
-    count=0;
-    for(i=0; i<SO_NAVI; i++)
-        if(ships[i].coords.x==-1&&ships[i].coords.y==-1)
-            pids[j]=ships[i].pid;
-
-    return pids;
-}

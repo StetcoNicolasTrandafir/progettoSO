@@ -4,10 +4,10 @@
 typedef struct ship{
     coordinates coords; 
     goods *goods; 
-    int inDock; 
+    int inDock;
 }ship;
 
-struct shared_ship{
+struct ship_sharedMemory{
     coordinates coords; 
     pid_t pid;
 };
@@ -33,5 +33,12 @@ void loadUnload(goods goods, struct timespec rem);
 /*return the shared memory index of the port that is closest to the given coords.
 the third parameter rapresent the starting distance (e.g. of min=3, the function returns the index of the nearest port with a minimum distance of 3)*/
 int getNearestPort(struct port_sharedMemory * ports, coordinates coords, double min);
+
+
+/*returns an array that contains the pid of all the ships in movement*/
+pid_t [] getShipsInMovement(struct shared_ship ships);
+
+/*/*returns an array that contains the pid of all the ships in the port with the given coords*/
+pid_t [] getShipsInPort(struct shared_ship ships, coordinates portCoords);
 
 #endif /*_UTILITY_SHIP_H*/

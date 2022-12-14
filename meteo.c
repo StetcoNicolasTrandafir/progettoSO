@@ -26,6 +26,7 @@
 void handleSignal(int signal) {
 	struct timespec now;
 	pid_t randomPort, randomShip;
+
     
 	switch(signal) {
         

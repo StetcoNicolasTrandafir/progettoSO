@@ -62,3 +62,45 @@ void loadUnload(goods goods, struct timespec rem){
 
     nanosleep(&sleepTime, &rem);
 }
+
+
+
+
+pid_t [] getShipsInMovement(struct shared_ship ships){
+    int i, j;
+    int count=0;
+    pid_t *pids;
+
+    for(i=0; i<SO_NAVI; i++)
+        if(ships[i].coords.x==-1&&ships[i].coords.y==-1)
+            count++;
+    pids= calloc(count, sizeof(pid_t));
+    count=0;
+    for(i=0; i<SO_NAVI; i++)
+        if(ships[i].coords.x==-1&&ships[i].coords.y==-1)
+            pids[j]=ships[i].pid;
+
+    return pids;
+}
+
+pid_t [] getShipsInPort(struct shared_ship ships, coordinates portCoords){
+    int i, j;
+    int count=0;
+    pid_t *pids;
+
+    for(i=0; i<SO_NAVI; i++)
+        if(ships[i].coords.x==portCoords.x&&ships[i].coords.y==portCoords.x)
+            count++;
+
+    pids= calloc(count, sizeof(pid_t));
+    i=0;
+
+    while(i<SO_NAVI && j< count){
+        if(ships[i].coords.x==portCoords.x&&ships[i].coords.y==portCoords.x)
+            pids[j++]=ships[i].pid;
+        i++;
+    }
+        
+
+    return pids;
+}
