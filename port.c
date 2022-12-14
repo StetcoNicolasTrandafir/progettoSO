@@ -111,11 +111,10 @@ int main(int argc, char *argv[]) {
 	}
 
 	/*dopo che il porto inserisci i suoi dati, non ha più bisogno di accedere alla memoria*/
-	shared_portCoords[idx].coords = coord;
-	shared_portCoords[idx].pid = getpid();
-	shared_portCoords[idx].offersID = shmget(IPC_PRIVATE, SO_DAYS*sizeof(goods),S_IRUSR | S_IWUSR | IPC_CREAT);
-	p.generatedGoods = shmat(shared_portCoords[idx].offersID, NULL, 0);
-	shmctl(shared_portCoords[idx].offersID, IPC_RMID, NULL); TEST_ERROR;
+	shared_portCoords[idx].coords=coord;
+	shared_portCoords[idx].pid=getpid();
+	shared_portCoords[idx].offersID=shmget(IPC_PRIVATE, SO_DAYS*sizeof(goods),S_IRUSR | S_IWUSR | IPC_CREAT);
+	p.generatedGoods=shmat(shared_portCoords[idx].offersID, NULL, 0);
 	shmdt(shared_portCoords);
 
 	srand(getpid());
