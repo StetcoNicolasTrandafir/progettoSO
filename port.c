@@ -14,6 +14,7 @@
 #include <sys/sem.h>
 #include <sys/shm.h>
 #include <sys/msg.h>
+#include <math.h>
 
 #include "macro.h"
 #include "utility_coordinates.h"
@@ -73,7 +74,8 @@ int main(int argc, char *argv[]) {
 	portsSharedMemoryID=atoi(argv[2]);
 	sum_requestID = atoi(argv[3]);
 	sem_request_id = atoi(argv[4]);
-	idx = atoi(argv[5]);
+	msg_id = atoi(argv[5]);
+	idx = atoi(argv[6]);
 
 	shared_portCoords = shmat(portsSharedMemoryID, NULL, 0);
 	TEST_ERROR;
@@ -107,20 +109,20 @@ int main(int argc, char *argv[]) {
 				break;
 		}
 	}
-	
+
 	/*dopo che il porto inserisci i suoi dati, non ha più bisogno di accedere alla memoria*/
-	shared_portCoords[idx].coords=coord;
-	shared_portCoords[idx].pid=getpid();
-	shared_portCoords[idx].offersID=shmget(IPC_PRIVATE, SO_DAYS*sizeof(goods),S_IRUSR | S_IWUSR | IPC_CREAT);
-	p.generatedGoods=shmat(shared_portCoords[idx].offersID, NULL, 0);
+	shared_portCoords[idx].coords = coord;
+	shared_portCoords[idx].pid = getpid();
+	shared_portCoords[idx].offersID = shmget(IPC_PRIVATE, SO_DAYS*sizeof(goods),S_IRUSR | S_IWUSR | IPC_CREAT);
+	p.generatedGoods = shmat(shared_portCoords[idx].offersID, NULL, 0);
 	shmctl(shared_portCoords[idx].offersID, IPC_RMID, NULL); TEST_ERROR;
 	shmdt(shared_portCoords);
 
 	srand(getpid());
 	p.docks = rand() % SO_BANCHINE + 1;
-	p.coord = coord;	
+	p.coord = coord;
 
-
+	printPort(p);
 	/*p = */initializeRequestsAndOffer(p);
 	generateOffer(p, 0);
 	p.request = generateRequest(p);
@@ -142,16 +144,18 @@ int main(int argc, char *argv[]) {
 	sops.sem_op = 0;
 	semop(sem_request_id, &sops, 1); TEST_ERROR;
 
-	if (idx == 0) {
-		p.request.quantity += SO_FILL - *sum_request;
-	}
+	if((p.request.quantity = round((p.request.quantity * SO_FILL) / *sum_request)) == 0)
+		p.request.quantity++;
+	/*if (idx == 0) {
+		p.request.quantity += SO_FILL - round(*sum_request / SO_FILL);
+	}*/
 
-	msg_id = msgget(getppid(), IPC_CREAT | 0600); TEST_ERROR;
 	msg_request.mtype = p.request.goodsType;
 	msg_request.idx = idx;
 	msg_request.quantity = p.request.quantity;
-	msgsnd(msg_id, &msg_request, sizeof(msg_request), 0);
-	shmdt(sum_request);
+	msgsnd(msg_id, &msg_request, sizeof(struct msg_request), 0); TEST_ERROR;
+
+	shmdt(sum_request); TEST_ERROR;
 
 	sops.sem_num = 0; /*semaforo di sincronizzazione*/
 	sops.sem_op = -1;

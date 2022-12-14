@@ -123,9 +123,10 @@ struct request generateRequest(port p){
     int type, q, x;
     int plus = 0;
     struct request req;
+    struct timespec t;
 
     srand(getpid());
-    type = rand() % SO_MERCI;
+    type = (rand() % SO_MERCI) + 1;
     while(plus < SO_MERCI && isOffered(p, (type + plus) % SO_MERCI)){
         plus++;
     }
@@ -133,11 +134,12 @@ struct request generateRequest(port p){
 
     /*req.goodsType=(type+plus)%SO_MERCI;*/
     req.satisfied = 0;
-    /*REVIEW QUESTO È SBAGLIATISSIMO MA NON SO COSA METTERE ORA*/
+    /*REVIEW QUESTO È SBAGLIATISSIMO MA NON SO COSA METTERE ORA
     q = SO_FILL / SO_PORTI;
     x = q * 1 / 10;
-    req.quantity = (rand() % ((q + x) - (q - x))) + (q - x);
-
+    req.quantity = (rand() % ((q + x) - (q - x))) + (q - x);*/
+    clock_gettime(CLOCK_REALTIME, &t);
+    req.quantity = t.tv_nsec % 100;
     return req;
 }
 

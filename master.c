@@ -48,6 +48,7 @@ struct port_sharedMemory *sharedPortPositions;
 
 int elementInArray(int element, int array[], int limit) {
 	int i;
+	
 	for (i = 0; i < limit; i++) {
 		if (array[i] == element) {
 			return 1;
@@ -60,6 +61,7 @@ void sendSignalToCasualPorts(){
 
 	int i, n_ports, *port_idx, casual_idx;
 	struct timespec now;
+
     clock_gettime(CLOCK_REALTIME, &now);
     n_ports = (now.tv_nsec % SO_PORTI)+1;
     port_idx = calloc(n_ports, sizeof(int));
@@ -69,7 +71,6 @@ void sendSignalToCasualPorts(){
     		casual_idx = now.tv_nsec % SO_PORTI;
     	}
     	while (elementInArray(casual_idx, port_idx, i));
-    	printf("%d\n", casual_idx);
 		port_idx[i] = casual_idx;
     	kill(port_pids[port_idx[i]], SIGUSR1); TEST_ERROR;
     }
@@ -131,7 +132,7 @@ int main() {
 	struct sigaction sa;
 	int i, j;
 	coordinates coord_c;
-	char  *args[7], name_file[100], sem_sync_str[3 * sizeof(int) + 1], i_str[3 * sizeof(int) + 1], port_sharedMemoryID_STR[3*sizeof(int)+1], sum_requestID_STR[3 * sizeof(int) + 1], sem_request_str[3 * sizeof(int) + 1];
+	char  *args[8], name_file[100], sem_sync_str[3 * sizeof(int) + 1], i_str[3 * sizeof(int) + 1], port_sharedMemoryID_STR[3*sizeof(int)+1], sum_requestID_STR[3 * sizeof(int) + 1], sem_request_str[3 * sizeof(int) + 1], msg_str[3 * sizeof(int) + 1];
 	pid_t fork_rst;
 	struct sembuf sops;
 	struct shared_port *port_coords;
@@ -168,18 +169,22 @@ int main() {
 	sum_request = 0;
 	/*shmdt(sum_request); TEST_ERROR;*/
 
+	msg_id = msgget(IPC_PRIVATE, IPC_CREAT | IPC_EXCL | 0600); TEST_ERROR;
+
 	sprintf(name_file, "port");
 	sprintf(sem_sync_str, "%d", sem_sync_id);
 	sprintf(port_sharedMemoryID_STR, "%d", port_sharedMemoryID);
 	sprintf(sum_requestID_STR, "%d", sum_requestID);
 	sprintf(sem_request_str, "%d", sem_request_id);
+	sprintf(msg_str, "%d", msg_id);
 
 	args[0] = name_file;
 	args[1] = sem_sync_str;
 	args[2] = port_sharedMemoryID_STR;
 	args[3] = sum_requestID_STR;
 	args[4] = sem_request_str;
-	args[6] = NULL;
+	args[5] = msg_str;
+	args[7] = NULL;
 
 	for (i = 0; i < SO_PORTI; i++) {
 		switch(fork_rst = fork()) {
@@ -189,7 +194,7 @@ int main() {
 
 			case 0: 
 				sprintf(i_str, "%d", i);
-				args[5] = i_str;
+				args[6] = i_str;
 				
 				execv("./port", args);
 				TEST_ERROR;
@@ -223,8 +228,6 @@ int main() {
 				break; 
 		}
 	}
-
-	msg_id = msgget(getpid(), IPC_CREAT | IPC_EXCL | 0600); TEST_ERROR;
 
 	sops.sem_num = 0;
 	sops.sem_op = 0;
