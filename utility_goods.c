@@ -12,7 +12,7 @@
 goods generateGoods(int type){
     goods g;
     struct timespec t;
-    /*TODO: impostare il generationTime "all'orario" corrente*/
+
     clock_gettime(CLOCK_REALTIME, &g.generationTime);
     clock_gettime(CLOCK_REALTIME, &t);
     g.type=type;
@@ -26,10 +26,40 @@ goods generateGoods(int type){
 }
 
 
-/*int isExpired(goods g){
-    /*TODO: valorizzare correttamente la variabile currentTime 
-    double currentTime=(double)SO_DAYS; 
-    /*NOTE: per adesso impostato al massimo dei giorni, in questo modo isExpired() sarà sempre falso
+int isExpired(goods g){
+    
+    struct timespec now;
+    
+    clock_gettime(CLOCK_REALTIME, &now);
+    
+    if(now.tv_sec-g.generationTime.tv_sec > lifeTime ) return 0;
+    else if (now.tv_sec-g.generationTime.tv_sec == lifeTime){
+        if(now.tv_nsec >= g.generationTime.tv_nsec) return 1;
+        else return 0;
+    }else return 1;
 
-    return ((currentTime-g.generationTime)>=g.lifeTime) ? 1 : 0;
-}*/
+}
+
+
+int willExpire(goods g, int quantity, ship s, port startingPort, port destinationPort){
+    double totalTime=0;
+    struct timespec expireTime;
+    totalTime+=getTravelTime(getDistance(startingPort.coords, s.coords)+getDistance(startingPort.coords, destinationPort.coords));
+    totalTime+=2*(quantity*SO_LOADSPEED);
+
+    totalTime + now < generationTime + lifeTime
+
+    clock_gettime(CLOCK_REALTIME, &expireTime);
+
+    expireTime.tv_sec+=int(totalTime);
+    if(expireTime.tv_nsec+(totalTime-(int)totalTime)>=1000000000){
+        expireTime.tv_sec++;
+        expireTime.tv_nsec=expireTime.tv_nsec-1000000000+(totalTime-(int)totalTime);
+    }
+
+    if(expireTime.tv_sec > generationTime.tv_sec+lifeTime) return 0;
+    else if(expireTime.tv_nsec== generationTime.tv_sec+lifeTime){
+        if(expireTime.tv_nsec>=generationTime.tv_nsec) return 0;
+    }else return 1;
+
+}
