@@ -29,6 +29,6 @@ int getNearestPort(struct port_sharedMemory * ports, coordinates coords, double 
 
 
 /*make all the process of negotiation of the goods: here the ship understand where move towards to load and transport goods*/
-void negociate();
+int negociate(struct port_sharedMemory *ports, ship s);
 
 #endif /*_UTILITY_SHIP_H*/

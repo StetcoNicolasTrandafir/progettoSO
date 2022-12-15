@@ -59,8 +59,8 @@ int main(int argc, char *argv[]) {
 	struct port_sharedMemory *shared_portCoords;
 	struct sigaction sa;
 	struct msg_request msg_request;
+	int portSemId;
 	goods *g;
-
 
 	bzero(&p, sizeof(p));
 	bzero(&sa, sizeof(sa));
@@ -119,6 +119,9 @@ int main(int argc, char *argv[]) {
 
 	srand(getpid());
 	p.docks = rand() % SO_BANCHINE + 1;
+	portSemId=semget(getpid(),3,0600); /*3 semaphores: sem[0]=docks, sem[1]= offers handling, sem[2]=???*/
+	semctl(portSemId, 0, SETVAL, p.docks); 
+	semctl(portSemId, 1, SETVAL, 1); 
 	p.coord = coord;
 
 	printPort(p);

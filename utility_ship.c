@@ -5,6 +5,8 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <time.h>
+#include <sys/ipc.h>
+#include <sys/sem.h>
 
 #include "macro.h"
 #include "utility_coordinates.h"
@@ -52,7 +54,7 @@ int getNearestPort(struct port_sharedMemory * ports, coordinates coords, double 
 }
 
 void loadUnload(int quantity, struct timespec rem){
-    double neededTime= goods.dimension/SO_LOADSPEED;
+    double neededTime= quantity/SO_LOADSPEED;
     struct timespec sleepTime;
 
     sleepTime.tv_sec=(int)neededTime;
@@ -75,51 +77,78 @@ NEGOZIAZIONE NAVI-PORTI:
 8) se non ci sono offerte e richieste che la nave può soddisfare in nessun porto, mi muovo verso il porto più vicino aspettando la generazione del giorno dopo
 */
 
-int negociate(struct port_sharedMemory ports, ship s){
+int negociate(struct port_sharedMemory *ports, ship s){
 
-    int indexClosestPort= getNearestPort(port, s.coords, -1);
+    int indexClosestPort= getNearestPort(ports, s.coords, -1);
     goods *g= shmat(ports[indexClosestPort], NULL, 0);
     int i=0, j=0;
     int destinationPortIndex=-1;
     double travelTime;
     struct timespec time, rem; 
     int goodsQuantity;
+    struct sembuf semaphores;
+    int startingPortSemID, destinationPortSemID;
 
     while(j++<SO_NAVI && destinationPortIndex==-1){
 
-        indexClosestPort= getNearestPort(port, s.coords, getDistance(s.coords, ports[indexClosestPort].coords));
+        indexClosestPort= getNearestPort(ports, s.coords, getDistance(s.coords, ports[indexClosestPort].coords));
         g= shmat(ports[indexClosestPort], NULL, 0);
 
         while(g[i].type!=-1 && destinationPortIndex==-1 && i<SO_DAYS ){
-            destinationPortIndex=funzioneDiSte(g[i++]);
+            destinationPortIndex=5; /*funzioneDiSte(g[i++]);*/
         }
     }
+
+    startingPortSemID=semget(ports[indexClosestPort].pid, 3, 0600);
+    destinationPortSemID=semget(ports[destinationPortIndex].pid, 3, 0600);
 
     /*moving towards the port to load goods*/
     travelTime= getTravelTime(getDistance(s.coords,ports[indexClosestPort].coords));
     s.coords.x=-1;
     s.coords.y=-1;
     time.tv_sec=(int)travelTime;
-    tv_nsec=travelTime-((int)travelTime);
-    nanosleep(travelTime, rem);
+    time.tv_nsec=travelTime-time.tv_sec;
+    nanosleep(&time, &rem);
 
     /*arrived at the port, loading the goods*/
     s.coords=ports[indexClosestPort].coords;
-    /*TODO controllo semaforo banchine libere(porto offerte)*/
-    loadUnload(quantity, rem);
+    
+
+    semaphores.sem_num=0;
+    semaphores.sem_op=-1;
+    semaphores.sem_flg=0;
+    semop(startingPortSemID, &semaphores, 1);
+
+    loadUnload(goodsQuantity, rem);
+
+    semaphores.sem_num=0;
+    semaphores.sem_op=1;
+    semaphores.sem_flg=0;
+    semop(startingPortSemID, &semaphores, 1);
 
     /*moving towards the port wich made the request*/
     travelTime= getTravelTime(getDistance(s.coords,ports[destinationPortIndex].coords));
     s.coords.x=-1;
     s.coords.y=-1;
     time.tv_sec=(int)travelTime;
-    tv_nsec=travelTime-((int)travelTime);
-    nanosleep(travelTime, rem);
+    time.tv_nsec=travelTime-time.tv_sec;
+    nanosleep(&time, &rem);
+
 
     /*arrived at the port, loading the goods*/
     s.coords=ports[destinationPortIndex].coords;
-    /*TODO controllo semaforo banchine libere (porto richiesta)*/
-    loadUnload(quantity, rem);
+
+    semaphores.sem_num=0;
+    semaphores.sem_op=-1;
+    semaphores.sem_flg=0;
+    semop(destinationPortSemID, &semaphores, 1);
+
+    loadUnload(goodsQuantity, rem);
+
+    semaphores.sem_num=0;
+    semaphores.sem_op=1;
+    semaphores.sem_flg=0;
+    semop(destinationPortSemID, &semaphores, 1);
 
     return destinationPortIndex;
 }

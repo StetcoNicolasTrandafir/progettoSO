@@ -71,7 +71,6 @@ int main(int argc, char *argv[]) {
 		printf("\n[%d] (%f, %f)", shared_portCoords[i].pid, shared_portCoords[i].coords.x,shared_portCoords[i].coords.y);
 	}
 	printf("\n");
-
 	*/
 
 	bzero(&sa, sizeof(sa));
