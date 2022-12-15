@@ -151,7 +151,6 @@ int main(int argc, char *argv[]) {
 
 	msg_request.mtype = p.request.goodsType;
 	msg_request.idx = idx;
-	msg_request.quantity = p.request.quantity;
 	msgsnd(msg_id, &msg_request, sizeof(struct msg_request), 0); TEST_ERROR;
 
 	shmdt(sum_request); TEST_ERROR;

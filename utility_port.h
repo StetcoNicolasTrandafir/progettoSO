@@ -17,7 +17,8 @@ NEGOZIAZIONE NAVI-PORTI:
 /*the request struct is made up by the goods' type and a flag to understand if it has already been satisfied or not*/
 struct request{
     int satisfied;
-    int goodsType;
+    int booked;
+    int goodsType;  
     int quantity;
 };
 
@@ -29,8 +30,7 @@ struct port_sharedMemory{
 };
 
 struct msg_request {
-    int mtype;
-    int quantity;
+    long mtype;
     int idx;
 };
 

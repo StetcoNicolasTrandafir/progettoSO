@@ -5,12 +5,17 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <time.h>
+#include <sys/ipc.h>
+#include <sys/msg.h>
+#include <sys/shm.h>
 
 #include "macro.h"
 #include "utility_coordinates.h"
 #include "utility_goods.h"
 #include "utility_port.h"
 #include "utility_ship.h"
+
+int min(int a, int b){ return (a>b) ? b:a; }
 
 void move(coordinates from, coordinates to, struct timespec rem){
     double travelTime=getDistance(from, to)/SO_SPEED;
@@ -63,4 +68,35 @@ void loadUnload(goods goods, struct timespec rem){
     nanosleep(&sleepTime, &rem);
 }
 
-void
+int getValidRequestPort(goods good, int msg_id, int shm_id) {
+    struct msg_request msg;
+    int ret = 0, first_idx = -1, q;
+    struct request *requests;
+    requests = shmat(shm_id, NULL, 0);
+    while (1) {
+        ret = msgrcv(msg_id, &msg, sizeof(struct msg_request), good.type, IPC_NOWAIT);
+        if (ret == -1)
+            return -1;
+        else {
+            /*LOCK*/
+            q = min(min(SO_CAPACITY, requests[msg.idx].quantity - requests[msg.idx].booked), good.dimension);
+            if (requests[msg.idx].booked < requests[msg.idx].quantity) {
+                requests[msg.idx].booked += q;
+                /*UNLOCK*/
+                good.state = delivered;
+                msgsnd(msg_id, &msg, sizeof(struct msg_request), 0);
+                shmdt(requests);
+                return msg.idx;
+            }
+            if (first_idx == -1) {
+                first_idx == msg.idx;
+                msgsnd(msg_id, &msg, sizeof(struct msg_request), 0);
+            }
+            else if (msg.idx == first_idx) {
+                msgsnd(msg_id, &msg, sizeof(struct msg_request), 0);
+                shmdt(requests);
+                return -1;
+            }
+        }
+    }
+}
