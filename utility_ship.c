@@ -36,7 +36,8 @@ void move(coordinates from, coordinates to, struct timespec rem){
 }*/
 
 
-int getNearestPort(struct port_sharedMemory * ports, coordinates coords, double min){
+int getNearestPort(struct port_sharedMemory * ports, coordinates coords, double min)
+{
     int i;
     int minIndex=-1;
     double minDist=2*SO_LATO;
@@ -66,7 +67,7 @@ void loadUnload(goods goods, struct timespec rem){
 
 
 
-pid_t [] getShipsInMovement(struct shared_ship ships){
+pid_t * getShipsInMovement(struct ship_sharedMemory * ships){
     int i, j;
     int count=0;
     pid_t *pids;
@@ -83,7 +84,7 @@ pid_t [] getShipsInMovement(struct shared_ship ships){
     return pids;
 }
 
-pid_t [] getShipsInPort(struct shared_ship ships, coordinates portCoords){
+pid_t * getShipsInPort(struct ship_sharedMemory *ships, coordinates portCoords){
     int i, j;
     int count=0;
     pid_t *pids;

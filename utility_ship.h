@@ -36,9 +36,9 @@ int getNearestPort(struct port_sharedMemory * ports, coordinates coords, double 
 
 
 /*returns an array that contains the pid of all the ships in movement*/
-pid_t [] getShipsInMovement(struct shared_ship ships);
+pid_t * getShipsInMovement(struct ship_sharedMemory * ships);
 
 /*/*returns an array that contains the pid of all the ships in the port with the given coords*/
-pid_t [] getShipsInPort(struct shared_ship ships, coordinates portCoords);
+pid_t * getShipsInPort(struct ship_sharedMemory * ships, coordinates portCoords);
 
 #endif /*_UTILITY_SHIP_H*/

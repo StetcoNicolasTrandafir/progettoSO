@@ -8,35 +8,25 @@
 #include <time.h>
 
 #include "macro.h"
+#include "utility_coordinates.h"
+#include "utility_goods.h"
+#include "utility_ship.h"
+#include "utility_port.h"
 #include "utility_meteo.h"
 
-void swell(struct port_sharedMemory ports, struct ship_sharedMemory ships){
-    int portIndex;
-    int i;
+
+void mealstrom(struct ship_sharedMemory * ships){
+    int shipIndex;
     struct timespec now;
-    pid_t *shipPids;
 
     clock_gettime(CLOCK_REALTIME, &now);
-    portIndex=now.tv_nsec%SO_PORTI;
+    shipIndex=now.tv_nsec%SO_NAVI;
 
-    shipPids=getShipsInPort(ships,ports[portIndex].coords);
-
-    /*REVIEW : lo gestiamo con SIGSTOP e SIGCONT? 
-    effetti dei segnali sulle sleep/nanosleep?*/
-    for(i=0; i< sizeof(shipPids)/sizeof(pid_t); i++){
-        kill(SIGSTOP, shipPids[i]);
-    }
-
-    /*TODO qua? facciamo una nanosleep?*/
-
-    for(i=0; i< sizeof(shipPids)/sizeof(pid_t); i++){
-        kill(SIGCONT, shipPids[i]);
-    }
+    kill(SIGINT, ships[shipIndex].pid);
 }
 
 
-
-void storm(struct ship_sharedMemory ships){
+void storm(struct ship_sharedMemory * ships){
     int shipIndex;
     struct timespec now;
     pid_t *shipPids;
@@ -44,7 +34,7 @@ void storm(struct ship_sharedMemory ships){
     shipPids=getShipsInMovement(ships);
 
     clock_gettime(CLOCK_REALTIME, &now);
-    portIndex=now.tv_nsec%(sizeof(shipPids)/sizeof(pid_t));
+    shipIndex=now.tv_nsec%(sizeof(shipPids)/sizeof(pid_t));
 
 
     /*REVIEW : lo gestiamo con SIGSTOP e SIGCONT? 
@@ -57,15 +47,33 @@ void storm(struct ship_sharedMemory ships){
     kill(SIGCONT, shipPids[shipIndex]);
 }
 
-void mealstrom(struct ship_sharedMemory ships){
-    int shipIndex;
+
+void swell(struct port_sharedMemory *ports, struct ship_sharedMemory *ships){
+    int portIndex;
+    int i;
     struct timespec now;
+    pid_t *shipPids;
 
     clock_gettime(CLOCK_REALTIME, &now);
-    portIndex=now.tv_nsec%SO_NAVI;
+    portIndex=now.tv_nsec%SO_PORTI;
 
-    kill(SIGINT, ships[shipIndex].pid);
+    shipPids=getShipsInPort(ships,ports[portIndex].coords);
+
+    /*REVIEW : lo gestiamo con SIGSTOP e SIGCONT? 
+    effetti dei segnali sulle sleep/nanosleep?*/
+
+    for(i=0; i< sizeof(shipPids)/sizeof(pid_t); i++){
+        kill(SIGSTOP, shipPids[i]);
+    }
+
+    /*TODO qua? facciamo una nanosleep?*/
+
+    for(i=0; i< sizeof(shipPids)/sizeof(pid_t); i++){
+        kill(SIGCONT, shipPids[i]);
+    }
 }
+
+
 
 struct timespec getMealstromQuantum(){
     struct timespec t;
