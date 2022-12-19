@@ -10,8 +10,8 @@
 #include "macro.h"
 #include "utility_coordinates.h"
 #include "utility_goods.h"
-#include "utility_ship.h"
 #include "utility_port.h"
+#include "utility_ship.h"
 #include "utility_meteo.h"
 
 
