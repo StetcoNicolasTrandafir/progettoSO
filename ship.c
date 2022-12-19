@@ -52,6 +52,20 @@ void handleSignal(int signal) {
 			printf("\nSegnale personalizzato della nave [%d] intercettato\n", getpid());
 			
 			break;
+
+
+		case SIGSTOP:
+			printf("\n[%d]IMPREVISTO METEO! Le operazioni della nave saranno compromesse...", getpid());
+			break;
+
+		case SIGCONT:
+			printf("\n[%d]MALTEMPO FINITO! Le operazioni della nave possono riprendere...",getpid());
+			break;
+
+		case SIGINT:
+			printf("\n[%d]NAVE AFFONDATA!", getpid());
+			//TODO pulire IPCS
+			break;
 	}
 }
 

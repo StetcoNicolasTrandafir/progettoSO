@@ -35,7 +35,7 @@ void handleSignal(int signal) {
 			clock_gettime(CLOCK_REALTIME, &now);
     		randomPort = now.tv_nsec % SO_PORTI;
 
-			printf("\n\n[%d]METEO: sto per colpire il porto con indice %d con una maregiata e la nave %d con una tempesta", getpid(),randomPort,-1);
+			printf("\n\n[%d]METEO: sto per colpire il porto con indice %d con una mareggiata e la nave %d con una tempesta", getpid(),randomPort,-1);
 			break;
 
         case SIGALRM:
@@ -50,8 +50,6 @@ int main(int argc, char *argv[]){
     int i;
 	struct sigaction sa;
 	struct timespec mealstromQuantum;
-	
-
 
 	mealstromQuantum=getMealstromQuantum();
 
