@@ -156,24 +156,38 @@ int negociate(struct port_sharedMemory *ports, ship s){
 
     return destinationPortIndex;
 }
+
 int getValidRequestPort(goods good, int msg_id, int shm_id) {
     struct msg_request msg;
-    int ret = 0, first_idx = -1, q;
-    struct request *requests;
-    requests = shmat(shm_id, NULL, 0);
+    int ret = 0, first_idx = -1, q, request_id, sem_id;
+    struct request *request;
+    struct port_sharedMemory *sh_port;
+    struct sembuf sops;
+
+    bzero(&sops, sizeof(sops));
+
+    sh_port = shmat(shm_id, NULL, 0);
     while (1) {
         ret = msgrcv(msg_id, &msg, sizeof(struct msg_request), good.type, IPC_NOWAIT);
+        request_id = shmget(sh_port[msg.idx].pid, 0, S_IRUSR | S_IWUSR); TEST_ERROR;
+        sem_id = semget(sh_port[msg.idx].pid, 3, 0600);
+        shmdt(sh_port);
+        request = shmat(request_id, NULL, 0); TEST_ERROR;
         if (ret == -1)
             return -1;
         else {
-            /*LOCK*/
-            q = min(min(SO_CAPACITY, requests[msg.idx].quantity - requests[msg.idx].booked), good.dimension);
-            if (requests[msg.idx].booked < requests[msg.idx].quantity) {
-                requests[msg.idx].booked += q;
-                /*UNLOCK*/
+            sops.sem_num = 1;
+            sops.sem_op = -1;
+            semop(sem_id, &sops, 1);
+            q = min(min(SO_CAPACITY, request -> quantity - request -> booked), good.dimension);
+            if (request -> booked < request -> quantity) {
+                request -> booked += q;
+                sops.sem_num = 1;
+                sops.sem_op = 1;
+                semop(sem_id, &sops, 1);
                 good.state = delivered;
                 msgsnd(msg_id, &msg, sizeof(struct msg_request), 0);
-                shmdt(requests);
+                shmdt(request);
                 return msg.idx;
             }
             if (first_idx == -1) {
@@ -182,7 +196,7 @@ int getValidRequestPort(goods good, int msg_id, int shm_id) {
             }
             else if (msg.idx == first_idx) {
                 msgsnd(msg_id, &msg, sizeof(struct msg_request), 0);
-                shmdt(requests);
+                shmdt(request);
                 return -1;
             }
         }

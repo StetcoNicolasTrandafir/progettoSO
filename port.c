@@ -53,10 +53,11 @@ void handleSignal(int signal) {
 int main(int argc, char *argv[]) {
 	
 	int i;
-	int sem_sync_id, sem_request_id, portsSharedMemoryID, idx, sum_requestID, *sum_request, msg_id;
+	int sem_sync_id, sem_request_id, portsSharedMemoryID, idx, sum_requestID, *sum_request, msg_id, sh_request_id;
 	coordinates coord;
 	struct sembuf sops;
 	struct port_sharedMemory *shared_portCoords;
+	struct request *shared_request;
 	struct sigaction sa;
 	struct msg_request msg_request;
 	int portSemId;
@@ -115,7 +116,12 @@ int main(int argc, char *argv[]) {
 	shared_portCoords[idx].pid=getpid();
 	shared_portCoords[idx].offersID=shmget(IPC_PRIVATE, SO_DAYS*sizeof(goods),S_IRUSR | S_IWUSR | IPC_CREAT);
 	p.generatedGoods=shmat(shared_portCoords[idx].offersID, NULL, 0);
+
 	shmdt(shared_portCoords);
+
+	sh_request_id = shmget(getpid(), struct request, IPC_CREAT | S_IRUSR | S_IWUSR);
+	p.request = shmat(sh_request_id, NULL, 0);
+	shmctl(sh_request_id, IPC_RMID, NULL); TEST_ERROR;
 
 	srand(getpid());
 	p.docks = rand() % SO_BANCHINE + 1;
@@ -126,8 +132,9 @@ int main(int argc, char *argv[]) {
 
 	printPort(p);
 	/*p = */initializeRequestsAndOffer(p);
+	generateRequest(p);
 	generateOffer(p, 0);
-	p.request = generateRequest(p);
+	
 	sops.sem_num = 0;
 	sops.sem_op = -1;
 	semop(sem_request_id, &sops, 1); TEST_ERROR;
@@ -164,6 +171,8 @@ int main(int argc, char *argv[]) {
 	sops.sem_num = 0;
 	sops.sem_op = 0;
 	semop(sem_sync_id, &sops, 1); TEST_ERROR;
+	
+	shmdt(p.request); TEST_ERROR;
 
 	for(i=0; i<SO_DAYS; i++)
 		sleep(2);

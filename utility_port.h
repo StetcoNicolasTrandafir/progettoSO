@@ -3,7 +3,7 @@
 
 
 /*the request struct is made up by the goods' type and a flag to understand if it has already been satisfied or not*/
-struct request{
+struct request {
     int satisfied;
     int booked;
     int goodsType;  
@@ -11,7 +11,7 @@ struct request{
 };
 
 /*this struct contains the coords of the port and the pid, needed to access the port's generatedGoods IPC*/
-struct port_sharedMemory{
+struct port_sharedMemory {
     coordinates coords;
     int pid;
     int offersID;
@@ -26,13 +26,13 @@ struct msg_request {
 an array for the goods request and another one for the offers*/
 
 
-typedef struct port{
+typedef struct port {
     coordinates coord;
     int docks;
     goods *generatedGoods;
-    struct request request;
-    
+    struct request *request; 
 }port;
+
 
 
 /*set goodstype of each element of generatedGoods and requests to -1 in order to be checkable in other controls, it also creates the shared memory for the offers*/
@@ -55,10 +55,10 @@ int getGeneratedGoods(port port, int flag);
 void printDailyReport(port port);
 
 /*generate a request and update the relative shared memory, returns the type of the good requested, -1 if it isn't possible*/
-struct request generateRequest(port port);
+void generateRequest(port port);
 
 /*generate an offer and update the relative shared memory, returns the type of the good generated, -1 if it isn't possible*/
-int generateOffer(port port, int idx);
+void generateOffer(port port, int idx);
 
 /*return 1 if the goods type passed as parameter is already offered in the port, 0 otherwhise*/
 int isOffered(port port, int goodsType);

@@ -36,7 +36,6 @@ void printShip(ship s) {
 
 
 struct port_sharedMemory *shared_portCoords;
-
 ship s;
 
 void handleSignal(int signal) {
@@ -62,8 +61,7 @@ int main(int argc, char *argv[]) {
 	struct msg_request msg_request;
 	struct sigaction sa;
 
-
-	shared_portCoords = shmat(atoi(argv[2]), NULL, 0);
+	shared_portCoords = shmat(atoi(argv[2]), NULL, 0); /*TODO: dobbiamo mettere in questa memoria condivisa le coordinate delle navi*/
 
 	/*
 	printf("\n");
@@ -92,8 +90,8 @@ int main(int argc, char *argv[]) {
 	semop(sem_sync_id, &sops, 1);
 	TEST_ERROR;
 	msg_id = msgget(getppid(), IPC_CREAT | 0600); TEST_ERROR;
-	shared_portCoords = shmat(portsSharedMemoryID, NULL, 0);
-	TEST_ERROR;
+	shared_portCoords = shmat(portsSharedMemoryID, NULL, 0); TEST_ERROR;
+
 	for(i=0; i< SO_DAYS; i++)
 	sleep(2);
 	exit(0);
