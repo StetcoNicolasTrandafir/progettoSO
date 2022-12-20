@@ -10,8 +10,6 @@
 #include "utility_goods.h"
 #include "utility_port.h"
 
-
-
 #define IN_PORT 2
 #define SHIPPED 1
 #define ALL 0

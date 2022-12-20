@@ -1,4 +1,5 @@
 #define _GNU_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
@@ -8,7 +9,6 @@
 #include "macro.h"
 #include "types_module.h"
 #include "utility_goods.h"
-
 
 goods generateGoods(int type){
     goods g;
@@ -38,7 +38,6 @@ int isExpired(goods g){
         if(now.tv_nsec >= g.generationTime.tv_nsec) return 1;
         else return 0;
     }else return 1;
-
 }
 
 

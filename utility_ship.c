@@ -174,7 +174,7 @@ int getValidRequestPort(goods good, int msg_id, int shm_id) {
     struct sembuf sops;
 
     bzero(&sops, sizeof(sops));
-
+    
     sh_port = shmat(shm_id, NULL, 0);
     while (1) {
         ret = msgrcv(msg_id, &msg, sizeof(struct msg_request), good.type, IPC_NOWAIT);
