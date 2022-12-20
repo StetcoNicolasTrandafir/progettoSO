@@ -17,6 +17,7 @@
 
 #include "macro.h"
 #include "types_module.h"
+#include "utility_port.h"
 #include "utility_ship.h"
 
 

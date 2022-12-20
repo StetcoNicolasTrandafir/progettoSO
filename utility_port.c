@@ -19,10 +19,10 @@ void printDailyReport(port p){
     char *report;
     int tonsShipped, tonsInPort, tonsReceived, freeDocks = 0, num_bytes; /*TODO quante banchine libere?*/
     report = malloc(200);
-    tonsShipped= getGeneratedGoods(p, SHIPPED);
-    tonsInPort=getGeneratedGoods(p, IN_PORT);
-    tonsReceived=getRequest(p, ONLY_SATISFIED);
-    num_bytes = sprintf(report, "Porto [%d] in posizione: (%.2f, %.2f)\nBanchine libere %d su %d\nMerci spedite: %d ton\nMerci generate ancora in porto: %d ton\nMerci ricevute: %d ton\n\n", getpid(), p.coord.x, p.coord.y, freeDocks, p.docks, tonsShipped, tonsInPort, tonsReceived);
+    tonsShipped = getGeneratedGoods(p, SHIPPED);
+    tonsInPort = getGeneratedGoods(p, IN_PORT);
+    tonsReceived = getRequest(p, ONLY_SATISFIED);
+    num_bytes = sprintf(report, "Porto [%d] in posizione: (%.2f, %.2f)\nBanchine libere %d su %d\nMerci spedite: %d ton\nMerci generate ancora in porto: %d ton\nMerci ricevute: %d ton\n\n", getpid(), p.coords.x, p.coords.y, freeDocks, p.docks, tonsShipped, tonsInPort, tonsReceived);
     fflush(stdout);
     write(1, report, num_bytes);
     free(report);
@@ -31,6 +31,8 @@ void printDailyReport(port p){
 void initializeRequestsAndOffer(port p){
     int i=0;
 
+    p.request -> booked = 0;
+    p.request -> satisfied = 0;
     p.request -> goodsType=-1;
     p.generatedGoods=calloc(SO_DAYS, sizeof(goods));
     for(i=0; i< SO_DAYS; i++){
@@ -48,21 +50,18 @@ int getRequest(port p, int satisfied){
 
     switch(satisfied){
 
-        case ONLY_SATISFIED:    
+        case ONLY_SATISFIED: 
+            printf("Sono entrato %d\n", p.request -> satisfied); 
             return p.request -> satisfied;
-            break;
 
         case ALL:
             return p.request -> quantity;
-            break;
             
         default:
             /*INVALID FLAG*/
             return -1;
-            break;
     }
-
-    return total;
+    /*return total;*/
 }
 
 
@@ -110,7 +109,7 @@ void generateOffer(port p, int idx){
     }
 
     if(plus == SO_MERCI) 
-        printf("Impossibile generare un'offerta al porto [%d] in posizione: (%2.f, %2.f)\n", getpid(), p.coord.x, p.coord.y);
+        printf("Impossibile generare un'offerta al porto [%d] in posizione: (%2.f, %2.f)\n", getpid(), p.coords.x, p.coords.y);
 
     goods = generateGoods((type + plus) % SO_MERCI);
     p.generatedGoods[idx] = goods;

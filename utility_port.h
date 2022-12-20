@@ -1,6 +1,17 @@
 #ifndef _UTILITY_PORT_H
 #define _UTILITY_PORT_H
 
+/*this struct contains the coords of the port and the pid, needed to access the port's generatedGoods IPC*/
+struct port_sharedMemory {
+    coordinates coords;
+    int pid;
+    int offersID;
+};
+
+struct msg_request {
+    long mtype;
+    int idx;
+};
 
 /*set goodstype of each element of generatedGoods and requests to -1 in order to be checkable in other controls, it also creates the shared memory for the offers*/
 void initializeRequestsAndOffer(port p);

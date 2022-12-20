@@ -44,7 +44,7 @@ int isExpired(goods g){
 int willExpire(goods g, int quantity, ship s, port startingPort, port destinationPort){
     double totalTime=0;
     struct timespec expireTime;
-    totalTime+=getTravelTime(getDistance(startingPort.coord, s.coords)+getDistance(startingPort.coord, destinationPort.coord));
+    totalTime+=getTravelTime(getDistance(startingPort.coords, s.coords)+getDistance(startingPort.coords, destinationPort.coords));
     totalTime+=2*(quantity*SO_LOADSPEED);
 
     clock_gettime(CLOCK_REALTIME, &expireTime);

@@ -15,6 +15,7 @@
 
 #include "macro.h"
 #include "types_module.h"
+#include "utility_port.h"
 #include "utility_ship.h"
 
 #define TEST_ERROR    if (errno) {fprintf(stderr, \
@@ -51,7 +52,7 @@ void move(coordinates from, coordinates to, struct timespec rem){
 }*/
 
 
-int getNearestPort(struct port_sharedMemory * ports, coordinates coords, double min){
+int getNearestPort(struct port_sharedMemory *ports, coordinates coords, double min){
     int i;
     int minIndex=-1;
     double minDist=2*SO_LATO;
@@ -178,7 +179,7 @@ int getValidRequestPort(goods good, int msg_id, int shm_id) {
     sh_port = shmat(shm_id, NULL, 0);
     while (1) {
         ret = msgrcv(msg_id, &msg, sizeof(struct msg_request), good.type, IPC_NOWAIT);
-        request_id = shmget(sh_port[msg.idx].pid, 0, S_IRUSR | S_IWUSR ); TEST_ERROR;
+        request_id = shmget(sh_port[msg.idx].pid, sizeof(struct request), 0600); TEST_ERROR;
         sem_id = semget(sh_port[msg.idx].pid, 3, 0600);
         shmdt(sh_port);
         request = shmat(request_id, NULL, 0); TEST_ERROR;

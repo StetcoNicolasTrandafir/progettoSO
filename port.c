@@ -33,7 +33,7 @@ port p;
 int idxOfferts;
 
 void printPort(port p) {
-	printf("Porto %d: (%.2f, %.2f) - %d banchine\n", getpid(), p.coord.x, p.coord.y, p.docks);
+	printf("Porto %d: (%.2f, %.2f) - %d banchine\n", getpid(), p.coords.x, p.coords.y, p.docks);
 }
 
 void handleSignal(int signal) {
@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
 	
 	int i;
 	int sem_sync_id, sem_request_id, portsSharedMemoryID, idx, sum_requestID, *sum_request, msg_id, sh_request_id;
-	coordinates coord;
+	coordinates coords;
 	struct sembuf sops;
 	struct port_sharedMemory *shared_portCoords;
 	struct request *shared_request;
@@ -83,61 +83,61 @@ int main(int argc, char *argv[]) {
 	TEST_ERROR;
 
 	if (idx > 3) {
-		coord = getRandomCoords();
+		coords = getRandomCoords();
 	}
 	else {
 		switch(idx) {
 			case 0:
-				coord.x = 0.0;
-				coord.y = 0.0;
+				coords.x = 0.0;
+				coords.y = 0.0;
 				break;
 
 			case 1:
-				coord.x = SO_LATO;
-				coord.y = 0.0;
+				coords.x = SO_LATO;
+				coords.y = 0.0;
 				break;
 
 			case 2:
-				coord.x = 0.0;
-				coord.y = SO_LATO;
+				coords.x = 0.0;
+				coords.y = SO_LATO;
 				break;
 
 			case 3:
-				coord.x = SO_LATO;
-				coord.y = SO_LATO;
+				coords.x = SO_LATO;
+				coords.y = SO_LATO;
 				break;
 		}
 	}
 
 	/*dopo che il porto inserisci i suoi dati, non ha più bisogno di accedere alla memoria*/
-	shared_portCoords[idx].coords=coord;
+	shared_portCoords[idx].coords=coords;
 	shared_portCoords[idx].pid=getpid();
-	shared_portCoords[idx].offersID=shmget(IPC_PRIVATE, SO_DAYS*sizeof(goods),S_IRUSR | S_IWUSR | IPC_CREAT);
+	shared_portCoords[idx].offersID=shmget(IPC_PRIVATE, SO_DAYS*sizeof(goods), S_IRUSR | S_IWUSR | IPC_CREAT); TEST_ERROR;
 	p.generatedGoods=shmat(shared_portCoords[idx].offersID, NULL, 0);
 
 	shmdt(shared_portCoords);
 
-	sh_request_id = shmget(getpid(), struct request, IPC_CREAT | S_IRUSR | S_IWUSR);
+	sh_request_id = shmget(getpid(), sizeof(struct request), IPC_CREAT | S_IRUSR | S_IWUSR); TEST_ERROR;
 	p.request = shmat(sh_request_id, NULL, 0);
 	shmctl(sh_request_id, IPC_RMID, NULL); TEST_ERROR;
 
 	srand(getpid());
 	p.docks = rand() % SO_BANCHINE + 1;
-	portSemId=semget(getpid(),3,0600); /*3 semaphores: sem[0]=docks, sem[1]= offers handling, sem[2]=???*/
-	semctl(portSemId, 0, SETVAL, p.docks); 
+	portSemId = semget(IPC_PRIVATE, 3, 0600); /*3 semaphores: sem[0]=docks, sem[1]= offers handling, sem[2]=???*/ TEST_ERROR;
+	semctl(portSemId, 0, SETVAL, p.docks); TEST_ERROR;
 	semctl(portSemId, 1, SETVAL, 1); 
-	p.coord = coord;
+	p.coords = coords;
 
 	printPort(p);
 	/*p = */initializeRequestsAndOffer(p);
 	generateRequest(p);
 	generateOffer(p, 0);
-	
+
 	sops.sem_num = 0;
 	sops.sem_op = -1;
 	semop(sem_request_id, &sops, 1); TEST_ERROR;
 
-	*sum_request += p.request.quantity;
+	*sum_request += p.request -> quantity;
 
 	sops.sem_num = 0;
 	sops.sem_op = 1;
@@ -151,13 +151,13 @@ int main(int argc, char *argv[]) {
 	sops.sem_op = 0;
 	semop(sem_request_id, &sops, 1); TEST_ERROR;
 
-	if((p.request.quantity = round((p.request.quantity * SO_FILL) / *sum_request)) == 0)
-		p.request.quantity++;
+	if((p.request -> quantity = round((p.request -> quantity * SO_FILL) / *sum_request)) == 0)
+		p.request -> quantity++;
 	/*if (idx == 0) {
 		p.request.quantity += SO_FILL - round(*sum_request / SO_FILL);
 	}*/
 
-	msg_request.mtype = p.request.goodsType;
+	msg_request.mtype = p.request -> goodsType;
 	msg_request.idx = idx;
 	msgsnd(msg_id, &msg_request, sizeof(struct msg_request), 0); TEST_ERROR;
 
@@ -169,12 +169,13 @@ int main(int argc, char *argv[]) {
 	sops.sem_num = 0;
 	sops.sem_op = 0;
 	semop(sem_sync_id, &sops, 1); TEST_ERROR;
-	
-	shmdt(p.request); TEST_ERROR;
 
-	for(i=0; i<SO_DAYS; i++)
+	for(i=0; i<SO_DAYS; i++) {
 		sleep(2);
+	}
 
+	shmdt(p.request); TEST_ERROR;
+	semctl(portSemId, 0, IPC_RMID); TEST_ERROR;
 	shmdt(p.generatedGoods);
 	free(p.generatedGoods);
 
