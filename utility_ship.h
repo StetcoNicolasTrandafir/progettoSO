@@ -1,12 +1,6 @@
 #ifndef _UTILITY_SHIP_H
 #define _UTILITY_SHIP_H
 
-typedef struct ship{
-    coordinates coords; 
-    goods *goods; 
-    int inDock; 
-}ship;
-
 
 /*this function compute the time to cover the distance between the coords passed as parameter,
 and make the nanosleep that simulate the travel*/

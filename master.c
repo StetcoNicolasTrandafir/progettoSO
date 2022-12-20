@@ -18,9 +18,7 @@
 #include <sys/msg.h>
 
 #include "macro.h"
-#include "utility_coordinates.h"
-#include "utility_goods.h"
-#include "utility_port.h"
+#include "types_module.h"
 
 
 #define TEST_ERROR    if (errno) {fprintf(stderr, \

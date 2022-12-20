@@ -9,12 +9,21 @@
 #include <sys/msg.h>
 #include <sys/shm.h>
 #include <sys/sem.h>
+#include <errno.h>
+#include <string.h>
+
 
 #include "macro.h"
-#include "utility_coordinates.h"
-#include "utility_goods.h"
-#include "utility_port.h"
+#include "types_module.h"
 #include "utility_ship.h"
+
+#define TEST_ERROR    if (errno) {fprintf(stderr, \
+					  "%s: a riga %d PID=%d: Error %d: %s\n", \
+					  __FILE__,			\
+					  __LINE__,			\
+					  getpid(),			\
+					  errno,			\
+					  strerror(errno));}
 
 int min(int a, int b){ return (a>b) ? b:a; }
 
@@ -84,7 +93,7 @@ NEGOZIAZIONE NAVI-PORTI:
 int negociate(struct port_sharedMemory *ports, ship s){
 
     int indexClosestPort= getNearestPort(ports, s.coords, -1);
-    goods *g= shmat(ports[indexClosestPort], NULL, 0);
+    goods *g= shmat(ports[indexClosestPort].offersID, NULL, 0);
     int i=0, j=0;
     int destinationPortIndex=-1;
     double travelTime;
@@ -96,7 +105,7 @@ int negociate(struct port_sharedMemory *ports, ship s){
     while(j++<SO_NAVI && destinationPortIndex==-1){
 
         indexClosestPort= getNearestPort(ports, s.coords, getDistance(s.coords, ports[indexClosestPort].coords));
-        g= shmat(ports[indexClosestPort], NULL, 0);
+        g= shmat(ports[indexClosestPort].offersID, NULL, 0);
 
         while(g[i].type!=-1 && destinationPortIndex==-1 && i<SO_DAYS ){
             destinationPortIndex=5; /*funzioneDiSte(g[i++]);*/
@@ -169,7 +178,7 @@ int getValidRequestPort(goods good, int msg_id, int shm_id) {
     sh_port = shmat(shm_id, NULL, 0);
     while (1) {
         ret = msgrcv(msg_id, &msg, sizeof(struct msg_request), good.type, IPC_NOWAIT);
-        request_id = shmget(sh_port[msg.idx].pid, 0, S_IRUSR | S_IWUSR); TEST_ERROR;
+        request_id = shmget(sh_port[msg.idx].pid, 0, S_IRUSR | S_IWUSR ); TEST_ERROR;
         sem_id = semget(sh_port[msg.idx].pid, 3, 0600);
         shmdt(sh_port);
         request = shmat(request_id, NULL, 0); TEST_ERROR;

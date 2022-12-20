@@ -1,12 +1,6 @@
 #ifndef _UTILITY_COORDINATES_H
 #define _UTILITY_COORDINATES_H
 
-
-typedef struct coordinates{
-    double x;
-    double y;
-}coordinates;
-
 /*returns a couple of random coords, both x and y are beteen the range [0, SO_LATO]*/
 coordinates getRandomCoords();
 

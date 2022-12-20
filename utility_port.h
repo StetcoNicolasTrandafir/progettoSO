@@ -2,39 +2,6 @@
 #define _UTILITY_PORT_H
 
 
-/*the request struct is made up by the goods' type and a flag to understand if it has already been satisfied or not*/
-struct request {
-    int satisfied;
-    int booked;
-    int goodsType;  
-    int quantity;
-};
-
-/*this struct contains the coords of the port and the pid, needed to access the port's generatedGoods IPC*/
-struct port_sharedMemory {
-    coordinates coords;
-    int pid;
-    int offersID;
-};
-
-struct msg_request {
-    long mtype;
-    int idx;
-};
-
-/*each port is characterized by its coords (unique), its number of docks (number between [1, SO_BANCHINE]),
-an array for the goods request and another one for the offers*/
-
-
-typedef struct port {
-    coordinates coord;
-    int docks;
-    goods *generatedGoods;
-    struct request *request; 
-}port;
-
-
-
 /*set goodstype of each element of generatedGoods and requests to -1 in order to be checkable in other controls, it also creates the shared memory for the offers*/
 void initializeRequestsAndOffer(port p);
 

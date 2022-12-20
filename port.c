@@ -17,11 +17,9 @@
 #include <math.h>
 
 #include "macro.h"
-#include "utility_coordinates.h"
-#include "utility_goods.h"
+#include "types_module.h"
 #include "utility_port.h"
-#include "utility_shm.h"
-#include "utility_sem.h"
+
 
 #define TEST_ERROR    if (errno) {fprintf(stderr, \
 					  "%s:%d: PID=%5d: Error %d (%s)\n", \
