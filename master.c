@@ -44,6 +44,7 @@ int sem_sync_id, sem_request_id;
 int port_sharedMemoryID, sum_requestID;
 int msg_id;
 pid_t *port_pids, *ship_pids;
+pid_t meteoPid;
 struct port_sharedMemory *sharedPortPositions;
 
 int elementInArray(int element, int array[], int limit) {
@@ -113,6 +114,8 @@ void handleSignal(int signal) {
 
 				printf("\n\nREPORT GIORNALIERO (%d): \n", pastDays);
 				sendSignalToCasualPorts();		
+				printf("\nMeteo pid= %d", meteoPid);
+				if(kill(meteoPid, SIGUSR1)) TEST_ERROR;	
 				alarm(1);
 			}
 			break;
@@ -144,8 +147,8 @@ int main() {
 	ship_pids = calloc(SO_NAVI, sizeof(pid_t));
 
 	bzero(&sharedPortPositions, sizeof(sharedPortPositions));
-	bzero(&sa, sizeof(sa));
 	bzero(&sops, sizeof(sops));
+	bzero(&sa, sizeof(sa));
 	
 	sa.sa_handler = handleSignal;
 	sigaction(SIGALRM, &sa, NULL);
@@ -229,6 +232,8 @@ int main() {
 		}
 	}
 
+	msg_id = msgget(getpid(), IPC_CREAT | IPC_EXCL | 0600); TEST_ERROR;
+
 	sops.sem_num = 0;
 	sops.sem_op = 0;
 	semop(sem_sync_id, &sops, 1);
@@ -239,7 +244,7 @@ int main() {
 
 	for(i = 0; i < SO_NAVI + SO_PORTI; i++) wait(NULL);
 	TEST_ERROR;
-
+	
 
 	
 	printf("[%d] LETTURA MEMORIA CONDIVISA DAL MASTER:\n", getpid());

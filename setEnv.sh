@@ -16,7 +16,7 @@ if [ -z "$1" ]
     export SO_DAYS=2
     export SO_STORMDURATION=10
     export SO_SWELLDURATION=69
-    export SO_MALESTROM=69 
+    export SO_MALESTROM=36
     echo "Done!"
     else if [ $1 == 1 ] 
         then

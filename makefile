@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS=-std=c89 -Wpedantic 
 LDFLAGS=-lm
 
-simulation:  master.o utility_coordinates.o utility_goods.o utility_port.o utility_ship.o ship port 
+simulation:  master.o utility_coordinates.o utility_goods.o utility_port.o utility_ship.o utility_meteo.o ship port meteo
 	gcc -o simulation *.o $(LDFLAGS)
 
 
@@ -17,6 +17,8 @@ port:
 ship:
 	gcc ship.c utility_coordinates.o utility_port.o utility_ship.o utility_goods.o -o ship $(LDFLAGS)
 
+meteo: 
+	gcc meteo.c utility_meteo.o utility_coordinates.o utility_port.o utility_ship.o utility_goods.o -o meteo $(LDFLAGS)
 
 setEnv:
 	source ./setEnv.sh
@@ -25,7 +27,9 @@ clean:
 	rm -f *.o
 	rm port
 	rm ship
+	rm meteo
 	rm simulation
+	
 
 run:
 	./simulation

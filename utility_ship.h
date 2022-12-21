@@ -21,8 +21,4 @@ void loadUnload(int quantity, struct timespec rem);
 the third parameter rapresent the starting distance (e.g. of min=3, the function returns the index of the nearest port with a minimum distance of 3)*/
 int getNearestPort(struct port_sharedMemory * ports, coordinates coords, double min);
 
-
-/*make all the process of negotiation of the goods: here the ship understand where move towards to load and transport goods*/
-int negociate(struct port_sharedMemory *ports, ship s);
-
 #endif /*_UTILITY_SHIP_H*/
