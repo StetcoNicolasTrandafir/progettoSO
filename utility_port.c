@@ -6,11 +6,9 @@
 #include <time.h>
 
 #include "macro.h"
+#include "types_module.h"
 #include "utility_goods.h"
-#include "utility_coordinates.h"
 #include "utility_port.h"
-
-
 
 #define IN_PORT 2
 #define SHIPPED 1
@@ -21,10 +19,10 @@ void printDailyReport(port p){
     char *report;
     int tonsShipped, tonsInPort, tonsReceived, freeDocks = 0, num_bytes; /*TODO quante banchine libere?*/
     report = malloc(200);
-    tonsShipped= getGeneratedGoods(p, SHIPPED);
-    tonsInPort=getGeneratedGoods(p, IN_PORT);
-    tonsReceived=getRequest(p, ONLY_SATISFIED);
-    num_bytes = sprintf(report, "Porto [%d] in posizione: (%.2f, %.2f)\nBanchine libere %d su %d\nMerci spedite: %d ton\nMerci generate ancora in porto: %d ton\nMerci ricevute: %d ton\n\n", getpid(), p.coord.x, p.coord.y, freeDocks, p.docks, tonsShipped, tonsInPort, tonsReceived);
+    tonsShipped = getGeneratedGoods(p, SHIPPED);
+    tonsInPort = getGeneratedGoods(p, IN_PORT);
+    tonsReceived = getRequest(p, ONLY_SATISFIED);
+    num_bytes = sprintf(report, "Porto [%d] in posizione: (%.2f, %.2f)\nBanchine libere %d su %d\nMerci spedite: %d ton\nMerci generate ancora in porto: %d ton\nMerci ricevute: %d ton\n\n", getpid(), p.coords.x, p.coords.y, freeDocks, p.docks, tonsShipped, tonsInPort, tonsReceived);
     fflush(stdout);
     write(1, report, num_bytes);
     free(report);
@@ -33,7 +31,9 @@ void printDailyReport(port p){
 void initializeRequestsAndOffer(port p){
     int i=0;
 
-    p.request.goodsType=-1;
+    p.request -> booked = 0;
+    p.request -> satisfied = 0;
+    p.request -> goodsType=-1;
     p.generatedGoods=calloc(SO_DAYS, sizeof(goods));
     for(i=0; i< SO_DAYS; i++){
         p.generatedGoods[i].type=-1;
@@ -50,21 +50,18 @@ int getRequest(port p, int satisfied){
 
     switch(satisfied){
 
-        case ONLY_SATISFIED:    
-            return p.request.satisfied;
-            break;
+        case ONLY_SATISFIED: 
+            printf("Sono entrato %d\n", p.request -> satisfied); 
+            return p.request -> satisfied;
 
         case ALL:
-            return p.request.quantity;
-            break;
+            return p.request -> quantity;
             
         default:
             /*INVALID FLAG*/
             return -1;
-            break;
     }
-
-    return total;
+    /*return total;*/
 }
 
 
@@ -101,7 +98,7 @@ int getGeneratedGoods(port p, int flag){
     return total;
 }
 
-int generateOffer(port p, int idx){
+void generateOffer(port p, int idx){
     int type;
     int plus = 0;
     goods goods;
@@ -111,36 +108,28 @@ int generateOffer(port p, int idx){
         plus++;
     }
 
-    if(plus == SO_MERCI) return -1;
+    if(plus == SO_MERCI) 
+        printf("Impossibile generare un'offerta al porto [%d] in posizione: (%2.f, %2.f)\n", getpid(), p.coords.x, p.coords.y);
 
     goods = generateGoods((type + plus) % SO_MERCI);
     p.generatedGoods[idx] = goods;
-
-    return goods.type;
 }
 
-struct request generateRequest(port p){
-    int type, q, x;
-    int plus = 0;
-    struct request req;
+void generateRequest(port p){
     struct timespec t;
 
     srand(getpid());
-    type = (rand() % SO_MERCI) + 1;
-    while(plus < SO_MERCI && isOffered(p, (type + plus) % SO_MERCI)){
-        plus++;
-    }
-    if(plus == SO_MERCI) req.goodsType = -1;
+    p.request -> goodsType = (rand() % SO_MERCI) + 1;
 
     /*req.goodsType=(type+plus)%SO_MERCI;*/
-    req.satisfied = 0;
+    p.request -> satisfied = 0;
+    p.request -> booked = 0;
     /*REVIEW QUESTO È SBAGLIATISSIMO MA NON SO COSA METTERE ORA
     q = SO_FILL / SO_PORTI;
     x = q * 1 / 10;
     req.quantity = (rand() % ((q + x) - (q - x))) + (q - x);*/
     clock_gettime(CLOCK_REALTIME, &t);
-    req.quantity = t.tv_nsec % 100;
-    return req;
+    p.request -> quantity = t.tv_nsec % 100;
 }
 
 
@@ -153,4 +142,4 @@ int isOffered(port port, int goodsType){
     return 0;
 }
 
-int isRequested(port port, int goodsType){ return (goodsType==port.request.goodsType && port.request.quantity > port.request.satisfied) ? 1:0; }
+int isRequested(port port, int goodsType){ return (goodsType==port.request -> goodsType && port.request -> quantity > port.request -> satisfied) ? 1:0; }
