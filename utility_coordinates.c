@@ -11,7 +11,7 @@
 #include "utility_coordinates.h"
 
 
- coordinates getRandomCoords(){
+coordinates getRandomCoords(){
     double x, y;
     struct timespec now;
     coordinates coords;

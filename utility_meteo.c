@@ -10,15 +10,15 @@
 #include <sys/ipc.h>
 #include <sys/sem.h>
 #include <errno.h>
+#include <string.h>
        
        
 
 #include "macro.h"
-#include "utility_coordinates.h"
-#include "utility_goods.h"
-#include "utility_port.h"
+#include "types_module.h"
 #include "utility_ship.h"
 #include "utility_meteo.h"
+
 
 
 

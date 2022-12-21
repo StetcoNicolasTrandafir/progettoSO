@@ -18,6 +18,7 @@
 
 #include "macro.h"
 #include "types_module.h"
+#include "utility_coordinates.h"
 #include "utility_port.h"
 
 

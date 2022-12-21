@@ -18,8 +18,8 @@
 #include <sys/msg.h>
 
 #include "macro.h"
-#include "utility_coordinates.h"
 #include "types_module.h"
+#include "utility_coordinates.h"
 #include "utility_port.h"
 
 
@@ -44,8 +44,8 @@ int sem_sync_id, sem_request_id;
 int port_sharedMemoryID, sum_requestID;
 int msg_id;
 pid_t *port_pids, *ship_pids;
-pid_t meteoPid;
 struct port_sharedMemory *sharedPortPositions;
+pid_t meteoPid;
 
 int elementInArray(int element, int array[], int limit) {
 	int i;
@@ -114,8 +114,7 @@ void handleSignal(int signal) {
 
 				printf("\n\nREPORT GIORNALIERO (%d): \n", pastDays);
 				sendSignalToCasualPorts();		
-				printf("\nMeteo pid= %d", meteoPid);
-				if(kill(meteoPid, SIGUSR1)) TEST_ERROR;	
+				kill(meteoPid, SIGUSR1); TEST_ERROR;
 				alarm(1);
 			}
 			break;
@@ -137,6 +136,7 @@ int main() {
 	coordinates coord_c;
 	char  *args[8], name_file[100], sem_sync_str[3 * sizeof(int) + 1], i_str[3 * sizeof(int) + 1], port_sharedMemoryID_STR[3*sizeof(int)+1], sum_requestID_STR[3 * sizeof(int) + 1], sem_request_str[3 * sizeof(int) + 1], msg_str[3 * sizeof(int) + 1];
 	pid_t fork_rst;
+	
 	struct sembuf sops;
 	struct shared_port *port_coords;
 	goods *g;
@@ -147,8 +147,8 @@ int main() {
 	ship_pids = calloc(SO_NAVI, sizeof(pid_t));
 
 	bzero(&sharedPortPositions, sizeof(sharedPortPositions));
-	bzero(&sops, sizeof(sops));
 	bzero(&sa, sizeof(sa));
+	bzero(&sops, sizeof(sops));
 	
 	sa.sa_handler = handleSignal;
 	sigaction(SIGALRM, &sa, NULL);
@@ -232,7 +232,27 @@ int main() {
 		}
 	}
 
-	msg_id = msgget(getpid(), IPC_CREAT | IPC_EXCL | 0600); TEST_ERROR;
+	sprintf(name_file, "meteo");
+	args[0] = name_file;
+	args[1]=NULL;
+
+	meteoPid = fork();
+	TEST_ERROR;
+	switch(meteoPid) {
+		case -1:
+			TEST_ERROR;
+			exit(1);
+			
+		case 0:
+			execv("./meteo", args);
+			TEST_ERROR;
+			exit(1);
+
+		default:
+			printf("\nFa brutto...==> %d\n", meteoPid);
+			break; 
+	}
+
 
 	sops.sem_num = 0;
 	sops.sem_op = 0;
@@ -244,7 +264,7 @@ int main() {
 
 	for(i = 0; i < SO_NAVI + SO_PORTI; i++) wait(NULL);
 	TEST_ERROR;
-	
+
 
 	
 	printf("[%d] LETTURA MEMORIA CONDIVISA DAL MASTER:\n", getpid());

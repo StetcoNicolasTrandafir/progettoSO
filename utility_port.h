@@ -1,12 +1,7 @@
 #ifndef _UTILITY_PORT_H
 #define _UTILITY_PORT_H
 
-/*this struct contains the coords of the port and the pid, needed to access the port's generatedGoods IPC*/
-struct port_sharedMemory {
-    coordinates coords;
-    int pid;
-    int offersID;
-};
+
 
 struct msg_request {
     long mtype;

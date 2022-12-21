@@ -17,10 +17,7 @@
 #include <sys/msg.h>
 
 #include "macro.h"
-#include "utility_coordinates.h"
-#include "utility_goods.h"
-#include "utility_port.h"
-#include "utility_ship.h"
+#include "types_module.h"
 #include "utility_meteo.h"
 
 
@@ -59,6 +56,6 @@ int main(int argc, char *argv[]){
 	sigaction(SIGALRM, &sa, NULL);
 	sigaction(SIGUSR1, &sa, NULL);
 
-   
-    sleep(20);
+	for(i=0; i<SO_DAYS; i++)
+    	sleep(20);
 }

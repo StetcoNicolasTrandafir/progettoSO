@@ -1,7 +1,10 @@
 #ifndef _TYPES_MODULE_H
 #define _TYPES_MODULE_H
 
-#include "utility_coordinates.h"
+typedef struct coordinates {
+    double x;
+    double y;
+} coordinates;
 
 /*each goods is classified with these states:*/
 enum states {in_port, on_ship, delivered, expired_port, expired_ship};
@@ -26,6 +29,13 @@ typedef struct port {
     struct request *request; 
 }port;
 
+/*this struct contains the coords of the port and the pid, needed to access the port's generatedGoods IPC*/
+struct port_sharedMemory {
+    coordinates coords;
+    int pid;
+    int offersID;
+};
+
 /*the request struct is made up by the goods' type and a flag to understand if it has already been satisfied or not*/
 struct request {
     int satisfied;
@@ -40,5 +50,13 @@ typedef struct ship{
     goods *goods; 
     int inDock; 
 }ship;
+
+
+struct ship_sharedMemory{
+    coordinates coords; 
+    pid_t pid;
+};
+
+
 
 #endif

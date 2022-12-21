@@ -21,4 +21,12 @@ void loadUnload(int quantity, struct timespec rem);
 the third parameter rapresent the starting distance (e.g. of min=3, the function returns the index of the nearest port with a minimum distance of 3)*/
 int getNearestPort(struct port_sharedMemory * ports, coordinates coords, double min);
 
+
+/*return an array containg all the pids of the ships that are using a dock in some port*/
+pid_t * getShipsInPort(struct ship_sharedMemory *ships, coordinates portCoords);
+
+/*returns an array containing the pids of the ships in movement*/
+pid_t * getShipsInMovement(struct ship_sharedMemory * ships);
+
+
 #endif /*_UTILITY_SHIP_H*/
