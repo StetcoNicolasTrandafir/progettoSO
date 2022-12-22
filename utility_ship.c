@@ -15,6 +15,7 @@
 
 #include "macro.h"
 #include "types_module.h"
+#include "utility_coordinates.h"
 #include "utility_port.h"
 
 
@@ -44,7 +45,6 @@ void move(coordinates from, coordinates to, struct timespec rem){
 /*NON È PIÙ NECESSARIO E IO GODO COME UN RICCIO*/
 /*coordinates getPosition(ship ship, struct timespec rem){
     if(rem){
-        
         nanosleep(rem, rem);
     }else{
         return ship.coords;
@@ -56,14 +56,16 @@ int getNearestPort(struct port_sharedMemory *ports, coordinates coords, double m
     int i;
     int minIndex=-1;
     double minDist=2*SO_LATO;
-    double tempDistance;
+    double tempDistance;    
 
     for(i=0; i<SO_PORTI; i++){
+        
         if((tempDistance=getDistance(coords, ports[i].coords))< minDist && tempDistance>min){
             minIndex=i;
             minDist= tempDistance;
         }
     }
+
     return minIndex;
 }
 
@@ -145,21 +147,26 @@ int negociate(struct port_sharedMemory *ports, ship s){
     struct sembuf semaphores;
     int startingPortSemID, destinationPortSemID;
 
-    printf("\n\nECCOMI\n");
-    while(j++<SO_NAVI && destinationPortIndex==-1){
 
+
+    while(j++<SO_NAVI && destinationPortIndex==-1 && indexClosestPort!=-1){
+        printf("\nPRIMO WHILE, ITERAZIONE %d", j);
         indexClosestPort= getNearestPort(ports, s.coords, getDistance(s.coords, ports[indexClosestPort].coords));
         g= shmat(ports[indexClosestPort].offersID, NULL, 0);
 
         while(g[i].type!=-1 && destinationPortIndex==-1 && i<SO_DAYS ){
-            destinationPortIndex=5; /*funzioneDiSte(g[i++]);*/
+            printf("\nSECONDO WHILE, ITERAZIONE %d", i);
+            destinationPortIndex=getValidRequestPort(g[i++],ports);
         }
     }
+
+    printf("\n\nDESTINATION PORT %d", destinationPortIndex);
+
 
     startingPortSemID=semget(ports[indexClosestPort].pid, 3, 0600);
     destinationPortSemID=semget(ports[destinationPortIndex].pid, 3, 0600);
 
-    printf("\n\nCOGLIONE\n");
+    printf("\n\nSTO ANDANDO A CARICARE OFFERTE DA [%d] PER PORTARLE A [%d]\n", ports[indexClosestPort].pid,ports[destinationPortIndex].pid);
 
     /*moving towards the port to load goods*/
     travelTime= getTravelTime(getDistance(s.coords,ports[indexClosestPort].coords));
@@ -215,48 +222,58 @@ int negociate(struct port_sharedMemory *ports, ship s){
     return destinationPortIndex;
 }
 
-int getValidRequestPort(goods good, int msg_id, int shm_id) {
+int getValidRequestPort(goods good, struct port_sharedMemory * sh_port) {
     struct msg_request msg;
     int ret = 0, first_idx = -1, q, request_id, sem_id;
     struct request *request;
-    struct port_sharedMemory *sh_port;
     struct sembuf sops;
+    int msg_id;
 
     bzero(&sops, sizeof(sops));
-    
-    sh_port = shmat(shm_id, NULL, 0);
+
+    msg_id=msgget(getppid(), 0600); TEST_ERROR;
+    printf("\n\nID CODA MESSAGGI (ship) %d", msg_id);
+
     while (1) {
-        ret = msgrcv(msg_id, &msg, sizeof(struct msg_request), good.type, IPC_NOWAIT);
+        ret = msgrcv(msg_id, &msg, sizeof(struct msg_request), good.type, IPC_NOWAIT); TEST_ERROR;
+        printf("\n\nPID PORTO: %d", sh_port[msg.idx].pid);
+
+        printf("\n\nBYTE TROVATI: %d", ret);
+        
+        if (ret == -1){
+            printf("\n\nRITORNO -1 QUA (239)");
+            return -1;
+        }
+        printf("\n\nprint qua a caso %d", msg_id);
+
         request_id = shmget(sh_port[msg.idx].pid, sizeof(struct request), 0600); TEST_ERROR;
         sem_id = semget(sh_port[msg.idx].pid, 3, 0600);
         shmdt(sh_port);
         request = shmat(request_id, NULL, 0); TEST_ERROR;
-        if (ret == -1)
-            return -1;
-        else {
+        
+        sops.sem_num = 1;
+        sops.sem_op = -1;
+        semop(sem_id, &sops, 1);
+        q = min(min(SO_CAPACITY, request -> quantity - request -> booked), good.dimension);
+        if (request -> booked < request -> quantity) {
+            request -> booked += q;
             sops.sem_num = 1;
-            sops.sem_op = -1;
+            sops.sem_op = 1;
             semop(sem_id, &sops, 1);
-            q = min(min(SO_CAPACITY, request -> quantity - request -> booked), good.dimension);
-            if (request -> booked < request -> quantity) {
-                request -> booked += q;
-                sops.sem_num = 1;
-                sops.sem_op = 1;
-                semop(sem_id, &sops, 1);
-                good.state = delivered;
-                msgsnd(msg_id, &msg, sizeof(struct msg_request), 0);
-                shmdt(request);
-                return msg.idx;
-            }
-            if (first_idx == -1) {
-                first_idx == msg.idx;
-                msgsnd(msg_id, &msg, sizeof(struct msg_request), 0);
-            }
-            else if (msg.idx == first_idx) {
-                msgsnd(msg_id, &msg, sizeof(struct msg_request), 0);
-                shmdt(request);
-                return -1;
-            }
+            good.state = delivered;
+            msgsnd(msg_id, &msg, sizeof(struct msg_request), 0);
+            shmdt(request);
+            return msg.idx;
+        }
+        if (first_idx == -1) {
+            first_idx == msg.idx;
+            msgsnd(msg_id, &msg, sizeof(struct msg_request), 0);
+        }
+        else if (msg.idx == first_idx) {
+            msgsnd(msg_id, &msg, sizeof(struct msg_request), 0);
+            shmdt(request);
+            printf("\n\nRITORNO -1 QUA (269)");
+            return -1;
         }
     }
 }

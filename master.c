@@ -140,6 +140,8 @@ int main() {
 	struct sembuf sops;
 	struct shared_port *port_coords;
 	goods *g;
+	int idRequest;
+	struct 	request *r;
 
 	sharedPortPositions = calloc(SO_PORTI, sizeof(struct port_sharedMemory));
 	sum_request = malloc(sizeof(int));
@@ -172,7 +174,9 @@ int main() {
 	sum_request = 0;
 	/*shmdt(sum_request); TEST_ERROR;*/
 
-	msg_id = msgget(IPC_PRIVATE, IPC_CREAT | IPC_EXCL | 0600); TEST_ERROR;
+	msg_id = msgget(getpid(), IPC_CREAT | IPC_EXCL | 0600); TEST_ERROR;
+	printf("\n\nID CODA MESSAGGI (master) %d", msg_id);
+
 
 	sprintf(name_file, "port");
 	sprintf(sem_sync_str, "%d", sem_sync_id);
@@ -266,16 +270,22 @@ int main() {
 	/*TEST_ERROR;*/
 
 
-	/*
-	printf("[%d] LETTURA MEMORIA CONDIVISA DAL MASTER:\n", getpid());
+	
+	printf("\n\n[%d] LETTURA MEMORIA CONDIVISA DAL MASTER:\n", getpid());
 
 	for(i=0; i< SO_PORTI; i++){
+		/*
 		g= shmat(sharedPortPositions[i].offersID, NULL, 0);
 		printf("Porto [%d] in posizione (%f,%f) offre merce di tipo %d in quantità %d ton\n", sharedPortPositions[i].pid,sharedPortPositions[i].coords.x,sharedPortPositions[i].coords.y, g[0].type, g[0].dimension );
 		shmdt(g);
 		shmctl(sharedPortPositions[i].offersID, IPC_RMID, NULL); TEST_ERROR;
+		*/
+		idRequest=shmget(sharedPortPositions[i].pid, 16, S_IRUSR); TEST_ERROR;
+		r=shmat(idRequest, NULL,0);TEST_ERROR;
+		printf("\n\nPORTO[%d] NUMERO %d, richiesta di tipo %d in quantità %d", sharedPortPositions[i].pid, i, r->goodsType, r->quantity);
+		shmdt(r);
 	}
-	*/
+	
 		
 	semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;
 	semctl(sem_request_id, 0, IPC_RMID); TEST_ERROR;

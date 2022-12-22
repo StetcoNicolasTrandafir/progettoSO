@@ -31,5 +31,5 @@ clean:
 	rm simulation
 	
 
-run:
+run: simulation
 	./simulation

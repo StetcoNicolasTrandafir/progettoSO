@@ -41,7 +41,9 @@ void printCoords(coordinates coords){
 double getDistance( coordinates A, coordinates B){
     double deltaX= A.x-B.x;
     double deltaY= A.y-B.y;
-    return sqrt(pow(deltaY,2)+pow(deltaX,2));
+    double ris=sqrt(pow(deltaY,2)+pow(deltaX,2));
+
+    return ris;
 }
 
 double getTravelTime(double space){

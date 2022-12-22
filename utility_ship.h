@@ -30,6 +30,11 @@ int negociate(struct port_sharedMemory *ports, ship s);
 /*returns an array containing the pids of the ships in movement*/
 pid_t * getShipsInMovement(struct ship_sharedMemory * ships);
 
+/*make all the process of negotiation of the goods: here the ship understand where move towards to load and transport goods*/
+int negociate(struct port_sharedMemory *ports, ship s);
+
+
+/*returns the index of port in the shared memory wich has a request that can be satisfied, -1 if there's no request satisfiable */
 int getValidRequestPort(goods good, int msg_id, int shm_id);
 
 #endif /*_UTILITY_SHIP_H*/

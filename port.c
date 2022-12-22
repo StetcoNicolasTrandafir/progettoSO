@@ -110,6 +110,7 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
+
 	/*dopo che il porto inserisci i suoi dati, non ha più bisogno di accedere alla memoria*/
 	shared_portCoords[idx].coords=coords;
 	shared_portCoords[idx].pid=getpid();
@@ -117,6 +118,7 @@ int main(int argc, char *argv[]) {
 	p.generatedGoods=shmat(shared_portCoords[idx].offersID, NULL, 0);
 
 	shmdt(shared_portCoords);
+
 
 	sh_request_id = shmget(getpid(), sizeof(struct request), IPC_CREAT | S_IRUSR | S_IWUSR); TEST_ERROR;
 	p.request = shmat(sh_request_id, NULL, 0);
@@ -133,6 +135,7 @@ int main(int argc, char *argv[]) {
 	/*p = */initializeRequestsAndOffer(p);
 	generateRequest(p);
 	generateOffer(p, 0);
+
 
 	sops.sem_num = 0;
 	sops.sem_op = -1;
@@ -175,7 +178,7 @@ int main(int argc, char *argv[]) {
 		sleep(2);
 	}
 
-	shmdt(p.request); TEST_ERROR;
+	/*shmdt(p.request); TEST_ERROR;*/
 	semctl(portSemId, 0, IPC_RMID); TEST_ERROR;
 	shmdt(p.generatedGoods);
 	free(p.generatedGoods);
