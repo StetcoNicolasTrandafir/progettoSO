@@ -145,6 +145,7 @@ int negociate(struct port_sharedMemory *ports, ship s){
     struct sembuf semaphores;
     int startingPortSemID, destinationPortSemID;
 
+    printf("\n\nECCOMI\n");
     while(j++<SO_NAVI && destinationPortIndex==-1){
 
         indexClosestPort= getNearestPort(ports, s.coords, getDistance(s.coords, ports[indexClosestPort].coords));
@@ -157,6 +158,8 @@ int negociate(struct port_sharedMemory *ports, ship s){
 
     startingPortSemID=semget(ports[indexClosestPort].pid, 3, 0600);
     destinationPortSemID=semget(ports[destinationPortIndex].pid, 3, 0600);
+
+    printf("\n\nCOGLIONE\n");
 
     /*moving towards the port to load goods*/
     travelTime= getTravelTime(getDistance(s.coords,ports[indexClosestPort].coords));
@@ -188,6 +191,7 @@ int negociate(struct port_sharedMemory *ports, ship s){
     s.coords.y=-1;
     time.tv_sec=(int)travelTime;
     time.tv_nsec=travelTime-time.tv_sec;
+    printf("\nBUONANOTTE\n");
     nanosleep(&time, &rem);
 
 
@@ -199,6 +203,7 @@ int negociate(struct port_sharedMemory *ports, ship s){
     semaphores.sem_flg=0;
     semop(destinationPortSemID, &semaphores, 1);
 
+    printf("\nSTO CARICANDO\n");
     loadUnload(goodsQuantity, rem);
 
     semaphores.sem_num=0;
@@ -206,6 +211,7 @@ int negociate(struct port_sharedMemory *ports, ship s){
     semaphores.sem_flg=0;
     semop(destinationPortSemID, &semaphores, 1);
 
+    printf("\nSTO RITORNANDO IL VALORE\n");
     return destinationPortIndex;
 }
 

@@ -25,8 +25,11 @@ int getNearestPort(struct port_sharedMemory * ports, coordinates coords, double 
 /*return an array containg all the pids of the ships that are using a dock in some port*/
 pid_t * getShipsInPort(struct ship_sharedMemory *ships, coordinates portCoords);
 
+int negociate(struct port_sharedMemory *ports, ship s);
+
 /*returns an array containing the pids of the ships in movement*/
 pid_t * getShipsInMovement(struct ship_sharedMemory * ships);
 
+int getValidRequestPort(goods good, int msg_id, int shm_id);
 
 #endif /*_UTILITY_SHIP_H*/

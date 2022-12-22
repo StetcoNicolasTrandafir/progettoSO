@@ -263,10 +263,10 @@ int main() {
 	sleep(31); /*Lo toglieremo , ma se lo tolgo ora, da un errore perchè eliminiamo il semaforo prima che l'ultimo processo abbia fatto il semop per aspettare tutti i processi*/
 
 	for(i = 0; i < SO_NAVI + SO_PORTI; i++) wait(NULL);
-	TEST_ERROR;
+	/*TEST_ERROR;*/
 
 
-	
+	/*
 	printf("[%d] LETTURA MEMORIA CONDIVISA DAL MASTER:\n", getpid());
 
 	for(i=0; i< SO_PORTI; i++){
@@ -275,7 +275,7 @@ int main() {
 		shmdt(g);
 		shmctl(sharedPortPositions[i].offersID, IPC_RMID, NULL); TEST_ERROR;
 	}
-	
+	*/
 		
 	semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;
 	semctl(sem_request_id, 0, IPC_RMID); TEST_ERROR;

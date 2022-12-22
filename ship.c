@@ -103,8 +103,11 @@ int main(int argc, char *argv[]) {
 	sops.sem_op = 0;
 	semop(sem_sync_id, &sops, 1);
 	TEST_ERROR;
+
 	msg_id = msgget(getppid(), IPC_CREAT | 0600); TEST_ERROR;
 	shared_portCoords = shmat(portsSharedMemoryID, NULL, 0); TEST_ERROR;
+
+	negociate(shared_portCoords, s);
 
 	for(i=0; i< SO_DAYS; i++)
 	sleep(2);
