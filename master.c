@@ -272,7 +272,6 @@ int main() {
 
 	
 	printf("\n\n[%d] LETTURA MEMORIA CONDIVISA DAL MASTER:\n", getpid());
-
 	for(i=0; i< SO_PORTI; i++){
 		/*
 		g= shmat(sharedPortPositions[i].offersID, NULL, 0);
@@ -280,12 +279,10 @@ int main() {
 		shmdt(g);
 		shmctl(sharedPortPositions[i].offersID, IPC_RMID, NULL); TEST_ERROR;
 		*/
-		idRequest=shmget(sharedPortPositions[i].pid, 16, S_IRUSR); TEST_ERROR;
-		r=shmat(idRequest, NULL,0);TEST_ERROR;
+		r=shmat(sharedPortPositions[i].requestID, NULL, 0); TEST_ERROR;
 		printf("\n\nPORTO[%d] NUMERO %d, richiesta di tipo %d in quantità %d", sharedPortPositions[i].pid, i, r->goodsType, r->quantity);
 		shmdt(r);
 	}
-	
 		
 	semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;
 	semctl(sem_request_id, 0, IPC_RMID); TEST_ERROR;
