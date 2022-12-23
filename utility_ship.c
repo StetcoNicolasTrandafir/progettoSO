@@ -160,6 +160,7 @@ int negociate(struct port_sharedMemory *ports, ship s){
         }
     }
 
+    printf("\n\nSTARTING PORT %d", indexClosestPort);
     printf("\n\nDESTINATION PORT %d", destinationPortIndex);
 
 
@@ -241,16 +242,13 @@ int getValidRequestPort(goods good, struct port_sharedMemory * sh_port) {
         printf("\n\nBYTE TROVATI: %d", ret);
         
         if (ret == -1){
-            printf("\n\nRITORNO -1 QUA (239)");
             return -1;
         }
-        printf("\n\nprint qua a caso %d", msg_id);
+        printf("\n\nprint qua a caso ");
 
-        request_id = shmget(sh_port[msg.idx].pid, sizeof(struct request), 0600); TEST_ERROR;
-        sem_id = semget(sh_port[msg.idx].pid, 3, 0600);
-        shmdt(sh_port);
-        request = shmat(request_id, NULL, 0); TEST_ERROR;
-        
+        sem_id = semget(sh_port[msg.idx].pid, 3, 0600);TEST_ERROR;
+        request = shmat(sh_port[msg.idx].requestID, NULL, 0); TEST_ERROR;
+        printf("\n\n\nRICHIESTA di tipo: %d in quantità %d", request->goodsType,request->quantity);
         sops.sem_num = 1;
         sops.sem_op = -1;
         semop(sem_id, &sops, 1);

@@ -291,4 +291,5 @@ int main() {
 	shmctl(port_sharedMemoryID, IPC_RMID, NULL); TEST_ERROR;
 	
 	printf("\n\nSIMULAZIONE FINITA!!!\n\n");
+	exit(EXIT_FAILURE);
 }
