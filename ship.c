@@ -75,7 +75,7 @@ int main(int argc, char *argv[]) {
 	struct msg_request msg_request;
 	struct sigaction sa;
 
-	shared_portCoords = shmat(atoi(argv[2]), NULL, 0); /*TODO: dobbiamo mettere in questa memoria condivisa le coordinate delle navi*/
+	shared_portCoords = shmat(atoi(argv[2]), NULL, 0); 
 
 	/*
 	printf("\n");

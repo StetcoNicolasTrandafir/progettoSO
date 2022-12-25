@@ -56,9 +56,12 @@ void finalReport(){
 	int shippedGoods=0;
 	int *offerSum;
 	int shipsInDock;
+	int totalGoodsState[5];
 	struct goodsTypeReport *goodsReport;
 	goods *g;
+	enum states state;
 	struct request *r;
+	
 
 	
 	goodsReport=calloc(SO_MERCI, sizeof(struct goodsTypeReport));
@@ -87,17 +90,22 @@ void finalReport(){
 
 			goodsReport[(g[j].type-1)].totalSum+=g[j].dimension;
 			goodsReport[(g[j].type-1)].inPort+=g[j].dimension-g[j].satisfied;
+			
 
-			if(g[j].state==expired_port)
+			if(g[j].state==expired_port){
 				goodsReport[(g[j].type-1)].expiredInPort+=g[j].dimension-g[j].satisfied;
-
-			goodsStateSum[g[j].state]+=g[j].dimension;
+				goodsStateSum[expired_port]+=g[j].dimension-g[j].satisfied;
+			}else{
+				goodsStateSum[in_port]+=g[j].dimension-g[j].satisfied;
+			}
 
 			inPortGoods+=g[j].dimension-g[j].satisfied;
 			shippedGoods+=g[j].satisfied;
 		}
 
 		goodsReport[(r->goodsType-1)].delivered+=r->satisfied;
+		
+		goodsStateSum[in_port]+=r->satisfied;
 
 		for(j=0; j<SO_MERCI; j++){
 			if(goodsReport[j].maxOffer<offerSum[j]){
@@ -115,9 +123,9 @@ void finalReport(){
 
 		shmdt(g);
 		shmdt(r);
-
-
 	}
+
+
 
 
 /*semval= valore semfaforo(numero banchine)
@@ -128,9 +136,33 @@ come stracazzo mi trovo il valore iniziale del semaforo
 */
 
 
-	/*TODO ships handling*/
+	/*TODO ships handling:
+	-Quante occupano una banchina => darei un occhio al semaforo, ma non so come ritornare il valore iniziale del semaforo
+	-Quante affondate da un vortice? => farei tenere il conto al processo meteo
+	-Quanti rallentati da una mareggiata=> farei tenere il conto al processo meteo(perchè bisogna tenere conto anche dei porti che hanno subito la mareggiata)
+	-Quanta merce persa?
+	-Quanta merce scaduta in nave? 
+	*/
 
-	printf("\n\n ==================>\t\tMERCI\n");
+
+	printf("\n\n ==================>\t\tREPORT MERCI\n");
+	printf("\n---------->\tPER STATI:");
+
+
+	/*NOTE
+	FATTI: 
+	-in porto
+	-scaduta in porto
+	-consegnata
+	DA FARE:
+	-in nave
+	-scaduta in nave
+	*/
+
+
+	printf("\n\nMerce in porto (disponibile): %dton\nMerce scaduta in porto: %dton\nMerce consegnata: %dton\nMerce in nave: %dton\nMerce scaduta in nave: %dton\n", goodsStateSum[in_port],goodsStateSum[expired_port],goodsStateSum[delivered],goodsStateSum[on_ship],goodsStateSum[expired_ship]);
+
+	printf("\n---------->\tPER TIPOLOGIA:");
 
 	printf("\n\n\nTOTALE MERCE GENERATA: %dton", totalGoodsSum);
 	for(i=0; i<SO_MERCI; i++){
