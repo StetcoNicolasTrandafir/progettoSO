@@ -43,13 +43,13 @@ void handleSignal(int signal) {
 	int i;
 	switch(signal) {
 		case SIGUSR1:
-			
+			/*
 			printf("\nNAVE IN POSIZIONE (%f,%f):\n", s.coords.x, s.coords.y);
 			index= getNearestPort(shared_portCoords, s.coords, 0);
 			printf("\n\nINDICE === %d", index);
 			printf("Il porto più vicino a questo porto è in posizione (%f,%f) (PID: %d)) \n", shared_portCoords[index].coords.x, shared_portCoords[index].coords.y,shared_portCoords[index].pid);
 			printf("\nSegnale personalizzato della nave [%d] intercettato\n", getpid());
-			
+			*/
 			break;
 
 
@@ -106,9 +106,7 @@ int main(int argc, char *argv[]) {
 
 	msg_id = msgget(getppid(), IPC_CREAT | 0600); TEST_ERROR;
 	shared_portCoords = shmat(portsSharedMemoryID, NULL, 0); TEST_ERROR;
-	
-	for(i=0; i< SO_PORTI; i++)
-		printf("\nPOSIZIONE PORTO %d: (%f,%f)", i, shared_portCoords[i].coords.x,shared_portCoords[i].coords.y);
+
 	
 	
 	negociate(shared_portCoords, s);

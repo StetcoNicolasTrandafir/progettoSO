@@ -110,7 +110,6 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-
 	/*dopo che il porto inserisci i suoi dati, non ha più bisogno di accedere alla memoria*/
 	shared_portCoords[idx].coords=coords;
 	shared_portCoords[idx].pid=getpid();

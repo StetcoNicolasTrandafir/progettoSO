@@ -4,6 +4,9 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <time.h>
+#include <sys/types.h>
+#include <sys/ipc.h>
+#include <sys/sem.h>
 
 #include "macro.h"
 #include "types_module.h"
@@ -115,7 +118,7 @@ void generateOffer(port p, int idx){
     p.generatedGoods[idx] = goods;
 }
 
-void generateRequest(port p, int sem_request_id, int sum_requestID){
+void generateRequest(port p){
     struct timespec t;
     int *sum_request;
     struct sembuf sops;

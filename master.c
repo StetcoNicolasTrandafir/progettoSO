@@ -36,7 +36,6 @@ SEMAFORI:
 -uno per ogni porto
 -uno per ogni memoria condivisa
 -uno per la sincronizzazione iniziale
--
 */
 
 int pastDays = 0, *sum_request;
@@ -46,6 +45,97 @@ int msg_id;
 pid_t *port_pids, *ship_pids;
 struct port_sharedMemory *sharedPortPositions;
 pid_t meteoPid;
+
+void finalReport(){
+	int i, j;
+	int maxRequestPortIndex=-1, maxRequest=0;
+	int maxOfferPortIndex=-1, maxOfferSum=0;
+	int *goodsStateSum;
+	int totalGoodsSum=0;
+	int inPortGoods=0;
+	int shippedGoods=0;
+	int *offerSum;
+	int shipsInDock;
+	struct goodsTypeReport *goodsReport;
+	goods *g;
+	struct request *r;
+
+
+	printf("\nQui ci arriviamo");
+	goodsReport=calloc(SO_MERCI, sizeof(struct goodsTypeReport));
+	offerSum=calloc(SO_MERCI, sizeof(int));
+	goodsStateSum=calloc(5, sizeof(int));
+
+	bzero(&goodsReport, SO_MERCI*sizeof(struct goodsTypeReport));
+	bzero(&offerSum, SO_MERCI* sizeof(int));
+	bzero(&goodsStateSum, 5*sizeof(int));
+	
+	for(i=0; i<SO_PORTI; i++){
+		g=shmat(sharedPortPositions[i].offersID, NULL, 0);
+		r=shmat(sharedPortPositions[i].requestID, NULL, 0);
+
+		offerSum=calloc(SO_MERCI, sizeof(int));
+
+		inPortGoods=0;
+		shippedGoods=0;
+		offerSum=0;
+
+		for(j=0; j<SO_DAYS && g[j].type!=-1; j++){
+
+			totalGoodsSum+=g[j].dimension;
+			offerSum[(g[j].type-1)]+=g[j].dimension;
+
+			goodsReport[(g[j].type-1)].totalSum+=g[j].dimension;
+			goodsReport[(g[j].type-1)].inPort+=g[j].dimension-g[j].satisfied;
+
+			if(g[j].state==expired_port)
+				goodsReport[(g[j].type-1)].expiredInPort+=g[j].dimension-g[j].satisfied;
+
+			goodsStateSum[g[j].state]+=g[j].dimension;
+
+			inPortGoods+=g[j].dimension-g[j].satisfied;
+			shippedGoods+=g[j].satisfied;
+		}
+
+		goodsReport[(r->goodsType-1)].delivered+=r->satisfied;
+
+		for(j=0; j<SO_MERCI; j++){
+			if(goodsReport[j].maxOffer<offerSum[j]){
+				goodsReport[j].maxOffer=offerSum[j];
+				goodsReport[j].maxOfferPortIndex=i;
+			}
+		}
+		
+		if(goodsReport[(r->goodsType-1)].maxRequest<r->quantity){
+			goodsReport[(r->goodsType-1)].maxRequest=r->quantity;
+			goodsReport[(r->goodsType-1)].maxOfferPortIndex=i;
+		}
+
+		printf("\n\nPORTO NUMERO %d [%d]:\nMerce in porto:%d\nMerce spedita:%d\nMerce ricevuta:%d\n", (i+1), sharedPortPositions[i].pid, inPortGoods,shippedGoods,r-> satisfied);
+
+		shmdt(g);
+		shmdt(r);
+	}
+
+
+/*semval= valore semfaforo(numero banchine)
+
+freeDocks= semctl(portSemaphoreID, 0, GETVAL);
+
+come stracazzo mi trovo il valore iniziale del semaforo
+*/
+
+
+	/*TODO ships handling*/
+
+
+	printf("\nTOTALE MERCE GENERATA: %dton", totalGoodsSum);
+	for(i=0; i<SO_MERCI; i++){
+		printf("\nMERCE DI TIPO %d:\nMerce generata: %dton\nMerce ferma in porto: %dton\nMerce scaduta in porto: %dton\nMerce scaduta in nave: %dton\nMerce consegnata: %d\n\nIl porto che ne ha fatto più richiesta è il numero %d (%dton)\nIl porto che ne ha generato di più è %d (%dton)",(i+1), goodsReport[i].totalSum, goodsReport[i].inPort, goodsReport[i].expiredInPort, -1, goodsReport[i].delivered, goodsReport[i].maxRequestPortIndex, goodsReport[i].maxRequest, goodsReport[i].maxOfferPortIndex, goodsReport[i].maxOffer);
+	}
+
+
+}
 
 int elementInArray(int element, int array[], int limit) {
 	int i;
@@ -106,9 +196,9 @@ void cleanUp(){
 void handleSignal(int signal) {
 	switch(signal) {
 		case SIGALRM:
-			if(pastDays++==SO_DAYS){
+			if(++pastDays==SO_DAYS){
 				printf("\nREPORT FINALE:\n");
-				/*finalReport();*/
+				finalReport();
 				
 			}else{
 
@@ -270,19 +360,20 @@ int main() {
 	/*TEST_ERROR;*/
 
 
-	
+	/*
 	printf("\n\n[%d] LETTURA MEMORIA CONDIVISA DAL MASTER:\n", getpid());
 	for(i=0; i< SO_PORTI; i++){
-		/*
+		
 		g= shmat(sharedPortPositions[i].offersID, NULL, 0);
 		printf("Porto [%d] in posizione (%f,%f) offre merce di tipo %d in quantità %d ton\n", sharedPortPositions[i].pid,sharedPortPositions[i].coords.x,sharedPortPositions[i].coords.y, g[0].type, g[0].dimension );
 		shmdt(g);
 		shmctl(sharedPortPositions[i].offersID, IPC_RMID, NULL); TEST_ERROR;
-		*/
+		
 		r=shmat(sharedPortPositions[i].requestID, NULL, 0); TEST_ERROR;
 		printf("\n\nPORTO[%d] NUMERO %d, richiesta di tipo %d in quantità %d", sharedPortPositions[i].pid, i, r->goodsType, r->quantity);
 		shmdt(r);
 	}
+	*/
 		
 	semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;
 	semctl(sem_request_id, 0, IPC_RMID); TEST_ERROR;

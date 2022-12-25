@@ -58,6 +58,16 @@ struct ship_sharedMemory{
     pid_t pid;
 };
 
-
+struct goodsTypeReport{
+    int totalSum;
+    int inPort;
+    int expiredInPort;
+    int expiredInShip;
+    int delivered;
+    int maxRequestPortIndex;
+    int maxRequest;
+    int maxOfferPortIndex;
+    int maxOffer;
+};
 
 #endif

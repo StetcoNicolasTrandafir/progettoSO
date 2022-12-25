@@ -150,24 +150,20 @@ int negociate(struct port_sharedMemory *ports, ship s){
 
 
     while(j++<SO_NAVI && destinationPortIndex==-1 && indexClosestPort!=-1){
-        printf("\nPRIMO WHILE, ITERAZIONE %d", j);
         indexClosestPort= getNearestPort(ports, s.coords, getDistance(s.coords, ports[indexClosestPort].coords));
         g= shmat(ports[indexClosestPort].offersID, NULL, 0);
 
         while(g[i].type!=-1 && destinationPortIndex==-1 && i<SO_DAYS ){
-            printf("\nSECONDO WHILE, ITERAZIONE %d", i);
             destinationPortIndex=getValidRequestPort(g[i++],ports);
         }
     }
 
-    printf("\n\nSTARTING PORT %d", indexClosestPort);
-    printf("\n\nDESTINATION PORT %d", destinationPortIndex);
 
 
     startingPortSemID=semget(ports[indexClosestPort].pid, 3, 0600);
     destinationPortSemID=semget(ports[destinationPortIndex].pid, 3, 0600);
 
-    printf("\n\nSTO ANDANDO A CARICARE OFFERTE DA [%d] PER PORTARLE A [%d]\n", ports[indexClosestPort].pid,ports[destinationPortIndex].pid);
+    printf("\n\n[%d]STO ANDANDO A CARICARE OFFERTE DA [%d] PER PORTARLE A [%d]\n", getpid(),ports[indexClosestPort].pid,ports[destinationPortIndex].pid);
 
     /*moving towards the port to load goods*/
     travelTime= getTravelTime(getDistance(s.coords,ports[indexClosestPort].coords));
@@ -199,7 +195,6 @@ int negociate(struct port_sharedMemory *ports, ship s){
     s.coords.y=-1;
     time.tv_sec=(int)travelTime;
     time.tv_nsec=travelTime-time.tv_sec;
-    printf("\nBUONANOTTE\n");
     nanosleep(&time, &rem);
 
 
@@ -211,7 +206,6 @@ int negociate(struct port_sharedMemory *ports, ship s){
     semaphores.sem_flg=0;
     semop(destinationPortSemID, &semaphores, 1);
 
-    printf("\nSTO CARICANDO\n");
     loadUnload(goodsQuantity, rem);
 
     semaphores.sem_num=0;
@@ -219,7 +213,6 @@ int negociate(struct port_sharedMemory *ports, ship s){
     semaphores.sem_flg=0;
     semop(destinationPortSemID, &semaphores, 1);
 
-    printf("\nSTO RITORNANDO IL VALORE\n");
     return destinationPortIndex;
 }
 
@@ -233,22 +226,16 @@ int getValidRequestPort(goods good, struct port_sharedMemory * sh_port) {
     bzero(&sops, sizeof(sops));
 
     msg_id=msgget(getppid(), 0600); TEST_ERROR;
-    printf("\n\nID CODA MESSAGGI (ship) %d", msg_id);
 
     while (1) {
         ret = msgrcv(msg_id, &msg, sizeof(struct msg_request), good.type, IPC_NOWAIT); TEST_ERROR;
-        printf("\n\nPID PORTO: %d", sh_port[msg.idx].pid);
-
-        printf("\n\nBYTE TROVATI: %d", ret);
         
         if (ret == -1){
             return -1;
         }
-        printf("\n\nprint qua a caso ");
 
         sem_id = semget(sh_port[msg.idx].pid, 3, 0600);TEST_ERROR;
         request = shmat(sh_port[msg.idx].requestID, NULL, 0); TEST_ERROR;
-        printf("\n\n\nRICHIESTA di tipo: %d in quantità %d", request->goodsType,request->quantity);
         sops.sem_num = 1;
         sops.sem_op = -1;
         semop(sem_id, &sops, 1);
@@ -270,7 +257,6 @@ int getValidRequestPort(goods good, struct port_sharedMemory * sh_port) {
         else if (msg.idx == first_idx) {
             msgsnd(msg_id, &msg, sizeof(struct msg_request), 0);
             shmdt(request);
-            printf("\n\nRITORNO -1 QUA (269)");
             return -1;
         }
     }
