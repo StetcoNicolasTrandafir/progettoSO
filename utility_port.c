@@ -53,8 +53,7 @@ int getRequest(port p, int satisfied){
 
     switch(satisfied){
 
-        case ONLY_SATISFIED: 
-            printf("Sono entrato %d\n", p.request -> satisfied); 
+        case ONLY_SATISFIED:  
             return p.request -> satisfied;
 
         case ALL:
@@ -115,6 +114,7 @@ void generateOffer(port p, int idx){
         printf("Impossibile generare un'offerta al porto [%d] in posizione: (%2.f, %2.f)\n", getpid(), p.coords.x, p.coords.y);
 
     goods = generateGoods((type + plus) % SO_MERCI);
+    goods.type++;
     p.generatedGoods[idx] = goods;
 }
 

@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-std=c89 -Wpedantic 
+CFLAGS=-std=c89 -Wpedantic -O0 -g
 LDFLAGS=-lm
 
 simulation:  master.o utility_coordinates.o utility_goods.o utility_port.o utility_ship.o utility_meteo.o ship port meteo

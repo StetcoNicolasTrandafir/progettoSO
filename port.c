@@ -178,7 +178,7 @@ int main(int argc, char *argv[]) {
 	/*shmdt(p.request); TEST_ERROR;*/
 	semctl(portSemId, 0, IPC_RMID); TEST_ERROR;
 	shmctl(shared_portCoords[idx].requestID, IPC_RMID, NULL); TEST_ERROR;
-	shmdt(p.generatedGoods);
+	/*shmdt(p.generatedGoods);*/
 	free(p.generatedGoods);
 
 	exit(0);
