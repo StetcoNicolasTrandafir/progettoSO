@@ -123,7 +123,7 @@ int main(int argc, char *argv[]) {
 
 	srand(getpid());
 	p.docks = rand() % SO_BANCHINE + 1;
-	portSemId = semget(getpid(), 3, IPC_CREAT | 0600); /*3 semaphores: sem[0]=docks, sem[1]= offers handling, sem[2]=???*/ TEST_ERROR;
+	portSemId = semget(getpid(), 3, IPC_CREAT | 0600); /*3 semaphores: sem[0]=docks, sem[1]= offers handling, sem[2]=request handling*/ TEST_ERROR;
 	semctl(portSemId, 0, SETVAL, p.docks); TEST_ERROR;
 	semctl(portSemId, 1, SETVAL, 1); 
 	p.coords = coords;

@@ -150,15 +150,18 @@ int negociate(struct port_sharedMemory *ports, ship s){
 
 
     while(j++<SO_NAVI && destinationPortIndex==-1 && indexClosestPort!=-1){
-        printf("\nPRIMO WHILE, ITERAZIONE %d", j);
         indexClosestPort= getNearestPort(ports, s.coords, getDistance(s.coords, ports[indexClosestPort].coords));
         g= shmat(ports[indexClosestPort].offersID, NULL, 0);
 
         while(g[i].type!=-1 && destinationPortIndex==-1 && i<SO_DAYS ){
-            printf("\nSECONDO WHILE, ITERAZIONE %d", i);
             destinationPortIndex=getValidRequestPort(g[i++],ports);
         }
     }
+
+    /*TODO AGGIORNO I BOOKED DELLA RICHIESTA E DELL'OFFERTA*/
+    
+
+
 
     printf("\n\nSTARTING PORT %d", indexClosestPort);
     printf("\n\nDESTINATION PORT %d", destinationPortIndex);
@@ -180,6 +183,7 @@ int negociate(struct port_sharedMemory *ports, ship s){
     /*arrived at the port, loading the goods*/
     s.coords=ports[indexClosestPort].coords;
     
+    printf("\nARRIVATO AL PRIMO PORTO, carico merce...\n");
 
     semaphores.sem_num=0;
     semaphores.sem_op=-1;
@@ -187,6 +191,8 @@ int negociate(struct port_sharedMemory *ports, ship s){
     semop(startingPortSemID, &semaphores, 1);
 
     loadUnload(goodsQuantity, rem);
+
+    /*TODO AGGIORNO IL SATISFIED DELL'OFFERTA*/
 
     semaphores.sem_num=0;
     semaphores.sem_op=1;
@@ -199,7 +205,7 @@ int negociate(struct port_sharedMemory *ports, ship s){
     s.coords.y=-1;
     time.tv_sec=(int)travelTime;
     time.tv_nsec=travelTime-time.tv_sec;
-    printf("\nBUONANOTTE\n");
+    printf("\nFINITO DI CARICARE! Mi dirigo verso il secondo porto...\n");
     nanosleep(&time, &rem);
 
 
@@ -211,15 +217,18 @@ int negociate(struct port_sharedMemory *ports, ship s){
     semaphores.sem_flg=0;
     semop(destinationPortSemID, &semaphores, 1);
 
-    printf("\nSTO CARICANDO\n");
+    printf("\nARRIVATO AL SECONDO PORTO, scarico merce...\n");
     loadUnload(goodsQuantity, rem);
+
+    /*TODO AGGIORNO IL SATISFIED DELLA RICHIESTA*/
+
 
     semaphores.sem_num=0;
     semaphores.sem_op=1;
     semaphores.sem_flg=0;
     semop(destinationPortSemID, &semaphores, 1);
 
-    printf("\nSTO RITORNANDO IL VALORE\n");
+    printf("\nFINITO DI SCARICARE! Merce portata dal punto A al punto B\n");
     return destinationPortIndex;
 }
 
@@ -233,18 +242,14 @@ int getValidRequestPort(goods good, struct port_sharedMemory * sh_port) {
     bzero(&sops, sizeof(sops));
 
     msg_id=msgget(getppid(), 0600); TEST_ERROR;
-    printf("\n\nID CODA MESSAGGI (ship) %d", msg_id);
 
     while (1) {
         ret = msgrcv(msg_id, &msg, sizeof(struct msg_request), good.type, IPC_NOWAIT); TEST_ERROR;
-        printf("\n\nPID PORTO: %d", sh_port[msg.idx].pid);
 
-        printf("\n\nBYTE TROVATI: %d", ret);
         
         if (ret == -1){
             return -1;
         }
-        printf("\n\nprint qua a caso ");
 
         sem_id = semget(sh_port[msg.idx].pid, 3, 0600);TEST_ERROR;
         request = shmat(sh_port[msg.idx].requestID, NULL, 0); TEST_ERROR;
