@@ -291,7 +291,7 @@ int negociate(struct port_sharedMemory *ports, ship s){
 int getValidRequestPort(goods good, struct port_sharedMemory * sh_port) {
     struct msg_request msg;
     int ret = 0, first_idx = -1, q, request_id, sem_id;
-    struct re quest *request;
+    struct request *request;
     struct sembuf sops;
     int msg_id;
 
