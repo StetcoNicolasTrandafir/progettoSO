@@ -107,9 +107,6 @@ int main(int argc, char *argv[]) {
 	msg_id = msgget(getppid(), IPC_CREAT | 0600); TEST_ERROR;
 	shared_portCoords = shmat(portsSharedMemoryID, NULL, 0); TEST_ERROR;
 	
-	for(i=0; i< SO_PORTI; i++)
-		printf("\nPOSIZIONE PORTO %d: (%f,%f)", i, shared_portCoords[i].coords.x,shared_portCoords[i].coords.y);
-	
 	
 	negociate(shared_portCoords, s);
 

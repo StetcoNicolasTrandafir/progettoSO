@@ -173,7 +173,7 @@ int main(int argc, char *argv[]) {
 	semop(sem_sync_id, &sops, 1); TEST_ERROR;
 
 	for(i=0; i<SO_DAYS; i++) {
-		sleep(2);
+		sleep(5);
 	}
 
 	/*shmdt(p.request); TEST_ERROR;*/
