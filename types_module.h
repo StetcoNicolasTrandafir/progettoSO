@@ -14,6 +14,7 @@ a lifetime that expresses the number of days until its expiration (between [SO_M
 typedef struct goods{
     int type;
     enum states state;
+    int shipped;
     int dimension;
     int booked;
     int lifeTime;
