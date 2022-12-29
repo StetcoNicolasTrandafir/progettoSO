@@ -38,9 +38,9 @@ SEMAFORI:
 -uno per la sincronizzazione iniziale
 */
 
-int pastDays = 0, *sum_request;
-int sem_sync_id, sem_request_id;
-int port_sharedMemoryID, sum_requestID;
+int pastDays = 0, *sum_request, *sum_offer;
+int sem_sync_id, sem_sum_id;
+int port_sharedMemoryID, sum_requestID, sum_offerID;
 int msg_id;
 pid_t *port_pids, *ship_pids;
 struct port_sharedMemory *sharedPortPositions;
@@ -224,7 +224,7 @@ void cleanUp(){
 	shmctl(port_sharedMemoryID, IPC_RMID, NULL); TEST_ERROR;
 	shmdt(sum_request); TEST_ERROR;
 	shmctl(sum_requestID, IPC_RMID, NULL); TEST_ERROR;
-	semctl(sem_request_id, 0, IPC_RMID); TEST_ERROR;
+	semctl(sem_sum_id, 0, IPC_RMID); TEST_ERROR;
 	msgctl(msg_id, IPC_RMID, NULL); TEST_ERROR;
 }
 
@@ -237,7 +237,8 @@ void handleSignal(int signal) {
 				finalReport();
 				
 			}else{
-
+				/*non penso serva il controllo del semaforo dato che nessuno dovrebbe più scrivere o leggere*/
+				sum_offer = 0;
 				printf("\n\nREPORT GIORNALIERO (%d): \n", pastDays);
 				sendSignalToCasualPorts();		
 				kill(meteoPid, SIGUSR1); TEST_ERROR;
@@ -260,7 +261,7 @@ int main() {
 	struct sigaction sa;
 	int i, j;
 	coordinates coord_c;
-	char  *args[8], name_file[100], sem_sync_str[3 * sizeof(int) + 1], i_str[3 * sizeof(int) + 1], port_sharedMemoryID_STR[3*sizeof(int)+1], sum_requestID_STR[3 * sizeof(int) + 1], sem_request_str[3 * sizeof(int) + 1], msg_str[3 * sizeof(int) + 1];
+	char  *args[9], name_file[100], sem_sync_str[3 * sizeof(int) + 1], i_str[3 * sizeof(int) + 1], port_sharedMemoryID_STR[3*sizeof(int)+1], sum_requestID_STR[3 * sizeof(int) + 1], sem_request_str[3 * sizeof(int) + 1], msg_str[3 * sizeof(int) + 1], sum_offerID_STR[3 * sizeof(int) + 1];
 	pid_t fork_rst;
 	
 	struct sembuf sops;
@@ -285,10 +286,11 @@ int main() {
 	sem_sync_id = semget(IPC_PRIVATE, 1, 0600); TEST_ERROR;
 	semctl(sem_sync_id, 0, SETVAL, SO_PORTI + SO_NAVI); TEST_ERROR;
 
-	sem_request_id = semget(IPC_PRIVATE, 3, 0600); TEST_ERROR;
-	semctl(sem_request_id, 0, SETVAL, 1); TEST_ERROR; /*write*/
-	semctl(sem_request_id, 1, SETVAL, SO_PORTI); TEST_ERROR; /*read*/
-	semctl(sem_request_id, 2, SETVAL, 1); TEST_ERROR; /*controllo SO_FILL*/
+	sem_sum_id = semget(IPC_PRIVATE, 4, 0600); TEST_ERROR;
+	semctl(sem_sum_id, 0, SETVAL, 1); TEST_ERROR; /*write request*/
+	semctl(sem_sum_id, 1, SETVAL, SO_PORTI); TEST_ERROR; /*read request*/
+	semctl(sem_sum_id, 2, SETVAL, 1); TEST_ERROR; /*write offer*/
+	semctl(sem_sum_id, 3, SETVAL, SO_PORTI); TEST_ERROR; /*read offer*/
 
 	port_sharedMemoryID=shmget(IPC_PRIVATE, SO_PORTI*sizeof(struct port_sharedMemory),S_IRUSR | S_IWUSR | IPC_CREAT);
 	TEST_ERROR;
@@ -300,16 +302,21 @@ int main() {
 	sum_request = 0;
 	/*shmdt(sum_request); TEST_ERROR;*/
 
+	sum_offerID = shmget(IPC_PRIVATE, sizeof(int), S_IRUSR | S_IWUSR | IPC_CREAT); TEST_ERROR;
+	sum_offer = shmat(sum_offerID, NULL, 0); TEST_ERROR;
+	sum_offer = 0;
+	/*shmdt(sum_request); TEST_ERROR;*/
+
 	msg_id = msgget(getpid(), IPC_CREAT | IPC_EXCL | 0600); TEST_ERROR;
 	printf("\n\nID CODA MESSAGGI (master) %d", msg_id);
-
 
 	sprintf(name_file, "port");
 	sprintf(sem_sync_str, "%d", sem_sync_id);
 	sprintf(port_sharedMemoryID_STR, "%d", port_sharedMemoryID);
 	sprintf(sum_requestID_STR, "%d", sum_requestID);
-	sprintf(sem_request_str, "%d", sem_request_id);
+	sprintf(sem_request_str, "%d", sem_sum_id);
 	sprintf(msg_str, "%d", msg_id);
+	sprintf(sum_offerID_STR, "%d", sum_offerID);
 
 	args[0] = name_file;
 	args[1] = sem_sync_str;
@@ -317,7 +324,8 @@ int main() {
 	args[3] = sum_requestID_STR;
 	args[4] = sem_request_str;
 	args[5] = msg_str;
-	args[7] = NULL;
+	args[7] = sum_offerID_STR;
+	args[8] = NULL;
 
 	for (i = 0; i < SO_PORTI; i++) {
 		switch(fork_rst = fork()) {
@@ -342,6 +350,7 @@ int main() {
 
 	sprintf(name_file, "ship");
 	args[0] = name_file;
+	args[3] = NULL;
 	
 	for (i = 0; i < SO_NAVI; i++) {
 		fork_rst = fork();
@@ -354,6 +363,7 @@ int main() {
 			case 0:
 				execv("./ship", args);
 				TEST_ERROR;
+				printf("DIOCANE!\n");
 				exit(1);
 
 			default:
@@ -364,7 +374,7 @@ int main() {
 
 	sprintf(name_file, "meteo");
 	args[0] = name_file;
-	args[1]=NULL;
+	args[1]= NULL;
 
 	meteoPid = fork();
 	TEST_ERROR;
@@ -413,7 +423,7 @@ int main() {
 */
 		
 	semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;
-	semctl(sem_request_id, 0, IPC_RMID); TEST_ERROR;
+	semctl(sem_sum_id, 0, IPC_RMID); TEST_ERROR;
 	shmctl(sum_requestID, IPC_RMID, NULL); TEST_ERROR;
 	msgctl(msg_id, IPC_RMID, NULL); TEST_ERROR;
 	shmctl(port_sharedMemoryID, IPC_RMID, NULL); TEST_ERROR;

@@ -21,7 +21,6 @@
 #include "utility_coordinates.h"
 #include "utility_port.h"
 
-
 #define TEST_ERROR    if (errno) {fprintf(stderr, \
 					  "%s:%d: PID=%5d: Error %d (%s)\n", \
 					  __FILE__,			\
@@ -31,7 +30,7 @@
 					  strerror(errno));}
 
 port p;
-int idxOfferts;
+int idxOfferts, sum_offerID, sem_sum_id;
 
 void printPort(port p) {
 	printf("Porto %d: (%.2f, %.2f) - %d banchine\n", getpid(), p.coords.x, p.coords.y, p.docks);
@@ -41,7 +40,7 @@ void handleSignal(int signal) {
 	switch(signal) {
 		case SIGUSR1:
 			printDailyReport(p);
-			generateOffer(p, ++idxOfferts);
+			generateOffer(p, ++idxOfferts, sum_offerID, sem_sum_id);
 			break;
 		case SIGUSR2:
 			printDailyReport(p);
@@ -52,7 +51,7 @@ void handleSignal(int signal) {
 int main(int argc, char *argv[]) {
 	
 	int i;
-	int sem_sync_id, sem_request_id, portsSharedMemoryID, idx, sum_requestID, *sum_request, msg_id, sh_request_id;
+	int sem_sync_id, portsSharedMemoryID, idx, sum_requestID, *sum_request, msg_id, sh_request_id;
 	coordinates coords;
 	struct sembuf sops;
 	struct port_sharedMemory *shared_portCoords;
@@ -73,9 +72,10 @@ int main(int argc, char *argv[]) {
 	sem_sync_id = atoi(argv[1]);
 	portsSharedMemoryID=atoi(argv[2]);
 	sum_requestID = atoi(argv[3]);
-	sem_request_id = atoi(argv[4]);
+	sem_sum_id = atoi(argv[4]);
 	msg_id = atoi(argv[5]);
 	idx = atoi(argv[6]);
+	sum_offerID = atoi(argv[7]);
 
 	shared_portCoords = shmat(portsSharedMemoryID, NULL, 0);
 	TEST_ERROR;
@@ -116,9 +116,7 @@ int main(int argc, char *argv[]) {
 	shared_portCoords[idx].offersID=shmget(IPC_PRIVATE, SO_DAYS*sizeof(goods), S_IRUSR | S_IWUSR | IPC_CREAT); TEST_ERROR;
 	p.generatedGoods=shmat(shared_portCoords[idx].offersID, NULL, 0);
 	shared_portCoords[idx].requestID = shmget(IPC_PRIVATE, sizeof(struct request), S_IRUSR | S_IWUSR | IPC_CREAT); TEST_ERROR;
-	p.request = shmat(shared_portCoords[idx].requestID, NULL, 0);
-
-	shmdt(shared_portCoords);
+	p.request = shmat(shared_portCoords[idx].requestID, NULL, 0); TEST_ERROR;
 
 	srand(getpid());
 	p.docks = rand() % SO_BANCHINE + 1;
@@ -129,40 +127,12 @@ int main(int argc, char *argv[]) {
 
 	printPort(p);
 	/*p = */initializeRequestsAndOffer(p);
-	generateRequest(p);
-	generateOffer(p, 0);
-
-	printf("tipo: %d, quantità: %d\n", p.request -> goodsType, p.request -> quantity);
-
-	sops.sem_num = 0;
-	sops.sem_op = -1;
-	semop(sem_request_id, &sops, 1); TEST_ERROR;
-
-	*sum_request += p.request -> quantity;
-
-	sops.sem_num = 0;
-	sops.sem_op = 1;
-	semop(sem_request_id, &sops, 1); TEST_ERROR;
-
-	sops.sem_num = 1;
-	sops.sem_op = -1;
-	semop(sem_request_id, &sops, 1); TEST_ERROR;
-
-	sops.sem_num = 1;
-	sops.sem_op = 0;
-	semop(sem_request_id, &sops, 1); TEST_ERROR;
-
-	if((p.request -> quantity = round((p.request -> quantity * SO_FILL) / *sum_request)) == 0)
-		p.request -> quantity++;
-	/*if (idx == 0) {
-		p.request.quantity += SO_FILL - round(*sum_request / SO_FILL);
-	}*/
+	generateRequest(p, sum_requestID, sem_sum_id);
+	generateOffer(p, 0, sum_offerID, sem_sum_id);
 
 	msg_request.mtype = p.request -> goodsType;
 	msg_request.idx = idx;
 	msgsnd(msg_id, &msg_request, sizeof(struct msg_request), 0); TEST_ERROR;
-
-	shmdt(sum_request); TEST_ERROR;
 
 	sops.sem_num = 0; /*semaforo di sincronizzazione*/
 	sops.sem_op = -1;
@@ -175,9 +145,10 @@ int main(int argc, char *argv[]) {
 		sleep(2);
 	}
 
-	/*shmdt(p.request); TEST_ERROR;*/
+	shmdt(p.request); TEST_ERROR;
 	semctl(portSemId, 0, IPC_RMID); TEST_ERROR;
 	shmctl(shared_portCoords[idx].requestID, IPC_RMID, NULL); TEST_ERROR;
+	shmdt(shared_portCoords);
 	/*shmdt(p.generatedGoods);*/
 	free(p.generatedGoods);
 
