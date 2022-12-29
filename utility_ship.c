@@ -18,7 +18,6 @@
 #include "utility_coordinates.h"
 #include "utility_port.h"
 
-
 #define TEST_ERROR    if (errno) {fprintf(stderr, \
 					  "%s: a riga %d PID=%d: Error %d: %s\n", \
 					  __FILE__,			\
@@ -26,6 +25,17 @@
 					  getpid(),			\
 					  errno,			\
 					  strerror(errno));}
+
+
+#define LOCK(semId,semNum) sops.sem_num = semNum; \
+	                       sops.sem_op = -1; \
+	                       semop(semId, &sops, 1); TEST_ERROR;
+
+#define UNLOCK(semId,semNum) sops.sem_num = semNum; \
+	                         sops.sem_op = 1; \
+	                         semop(semId, &sops, 1); TEST_ERROR;
+
+
 
 int min(int a, int b){ return (a>b) ? b:a; }
 
@@ -144,26 +154,71 @@ int negociate(struct port_sharedMemory *ports, ship s){
     double travelTime;
     struct timespec time, rem; 
     int goodsQuantity;
-    struct sembuf semaphores;
     int startingPortSemID, destinationPortSemID;
+    int shippedQuantity=0;
+    int goodIndex=-1;
+    struct request *request;
+    struct sembuf sops;
 
 
 
     while(j++<SO_NAVI && destinationPortIndex==-1 && indexClosestPort!=-1){
         indexClosestPort= getNearestPort(ports, s.coords, getDistance(s.coords, ports[indexClosestPort].coords));
-        g= shmat(ports[indexClosestPort].offersID, NULL, 0);
+        g= shmat(ports[indexClosestPort].offersID, NULL, 0);TEST_ERROR;
 
         while(g[i].type!=-1 && destinationPortIndex==-1 && i<SO_DAYS ){
-            destinationPortIndex=getValidRequestPort(g[i++],ports);
+            destinationPortIndex=getValidRequestPort(g[i],ports);
+            if(destinationPortIndex!=-1)
+                goodIndex=i;
+            i++;
         }
+        if(destinationPortIndex==-1){
+            shmdt(g);TEST_ERROR;
+        }
+            
     }
 
+    printf("\n\n TIPO MERCE: %d QUANTITÀ: %d", g[goodIndex].type, g[goodIndex].dimension);
 
 
-    startingPortSemID=semget(ports[indexClosestPort].pid, 3, 0600);
-    destinationPortSemID=semget(ports[destinationPortIndex].pid, 3, 0600);
+    
+    printf("\n\nSTARTING PORT %d", indexClosestPort);
+    printf("\n\nDESTINATION PORT %d", destinationPortIndex);
+
+    startingPortSemID=semget(ports[indexClosestPort].pid, 3, 0600);TEST_ERROR;
+    destinationPortSemID=semget(ports[destinationPortIndex].pid, 3, 0600); TEST_ERROR;/*[0]=banchine [1]=offerta [2]=richiesta*/
+
+    /*TODO AGGIORNO I BOOKED DELLA RICHIESTA E DELL'OFFERTA*/
 
     printf("\n\n[%d]STO ANDANDO A CARICARE OFFERTE DA [%d] PER PORTARLE A [%d]\n", getpid(),ports[indexClosestPort].pid,ports[destinationPortIndex].pid);
+
+    /*CAMBIO VALORI RICHIESTA*/
+    /*LOCK(destinationPortIndex, 2)*/
+    sops.sem_num = 2; 
+	sops.sem_op = -1; 
+	semop(destinationPortSemID, &sops, 1); TEST_ERROR;
+    request = shmat(ports[destinationPortIndex].requestID, NULL, 0); TEST_ERROR;
+    shippedQuantity=min((request->quantity-request->booked), (g[goodIndex].dimension-g[goodIndex].booked));
+    request->booked+=shippedQuantity;
+    sops.sem_num = 2; 
+	sops.sem_op = -1; 
+	semop(destinationPortSemID, &sops, 1); TEST_ERROR;
+    /*UNLOCK(destinationPortIndex, 2)*/
+
+
+    /*CAMBIO VALORI OFFERTA*/
+    /*LOCK(destinationPortIndex, 2)*/
+    sops.sem_num = 1; 
+	sops.sem_op = -1; 
+	semop(startingPortSemID, &sops, 1); TEST_ERROR;
+    g[goodIndex].booked+=shippedQuantity;
+    sops.sem_num = 1; 
+	sops.sem_op = -1; 
+	semop(startingPortSemID, &sops, 1);
+    
+
+
+    printf("\n\nSTO ANDANDO A CARICARE OFFERTE DA [%d] PER PORTARLE A [%d]\n", ports[indexClosestPort].pid,ports[destinationPortIndex].pid);
 
     /*moving towards the port to load goods*/
     travelTime= getTravelTime(getDistance(s.coords,ports[indexClosestPort].coords));
@@ -173,48 +228,76 @@ int negociate(struct port_sharedMemory *ports, ship s){
     time.tv_nsec=travelTime-time.tv_sec;
     nanosleep(&time, &rem);
 
-    /*arrived at the port, loading the goods*/
+    /*arrived at the port*/
     s.coords=ports[indexClosestPort].coords;
     
+    printf("\nARRIVATO AL PRIMO PORTO, carico merce...\n");
 
-    semaphores.sem_num=0;
-    semaphores.sem_op=-1;
-    semaphores.sem_flg=0;
-    semop(startingPortSemID, &semaphores, 1);
-
+    /*loading goods*/
+    /*LOCK(destinationPortIndex, 2)*/
+    sops.sem_num = 0; 
+	sops.sem_op = -1; 
+	semop(startingPortSemID, &sops, 1); TEST_ERROR;
     loadUnload(goodsQuantity, rem);
+    sops.sem_num = 0; 
+	sops.sem_op = -1; 
+	semop(startingPortSemID, &sops, 1);
 
-    semaphores.sem_num=0;
-    semaphores.sem_op=1;
-    semaphores.sem_flg=0;
-    semop(startingPortSemID, &semaphores, 1);
 
+
+    /*CAMBIO VALORI OFFERTA*/
+    /*LOCK(destinationPortIndex, 2)*/
+    sops.sem_num = 1; 
+	sops.sem_op = -1; 
+	semop(startingPortSemID, &sops, 1); TEST_ERROR;
+    g[goodIndex].shipped+=shippedQuantity;
+    shmdt(g);
+    sops.sem_num = 1; 
+	sops.sem_op = -1; 
+	semop(startingPortSemID, &sops, 1);
+
+
+    
     /*moving towards the port wich made the request*/
     travelTime= getTravelTime(getDistance(s.coords,ports[destinationPortIndex].coords));
     s.coords.x=-1;
     s.coords.y=-1;
     time.tv_sec=(int)travelTime;
     time.tv_nsec=travelTime-time.tv_sec;
+    printf("\nFINITO DI CARICARE! Mi dirigo verso il secondo porto...\n");
     nanosleep(&time, &rem);
 
 
     /*arrived at the port, loading the goods*/
     s.coords=ports[destinationPortIndex].coords;
+    printf("\nARRIVATO AL SECONDO PORTO, scarico merce...\n");
 
-    semaphores.sem_num=0;
-    semaphores.sem_op=-1;
-    semaphores.sem_flg=0;
-    semop(destinationPortSemID, &semaphores, 1);
-
+    /*LOCK(destinationPortIndex, 2)*/
+    sops.sem_num = 2; 
+	sops.sem_op = -1; 
+	semop(destinationPortSemID, &sops, 1); TEST_ERROR;
     loadUnload(goodsQuantity, rem);
+    sops.sem_num = 2; 
+	sops.sem_op = -1; 
+	semop(destinationPortSemID, &sops, 1);
 
-    semaphores.sem_num=0;
-    semaphores.sem_op=1;
-    semaphores.sem_flg=0;
-    semop(destinationPortSemID, &semaphores, 1);
 
+    /*CAMBIO VALORI RICHIESTA*/
+    /*LOCK(destinationPortIndex, 2)*/
+    sops.sem_num = 2; 
+	sops.sem_op = -1; 
+	semop(destinationPortSemID, &sops, 1); TEST_ERROR;
+    request->satisfied+=shippedQuantity;
+    shmdt(request); TEST_ERROR;
+    sops.sem_num = 2; 
+	sops.sem_op = -1; 
+	semop(destinationPortSemID, &sops, 1);
+
+
+    printf("\nFINITO DI SCARICARE! Merce portata dal punto A al punto B\n");
     return destinationPortIndex;
 }
+
 
 int getValidRequestPort(goods good, struct port_sharedMemory * sh_port) {
     struct msg_request msg;
@@ -229,6 +312,7 @@ int getValidRequestPort(goods good, struct port_sharedMemory * sh_port) {
 
     while (1) {
         ret = msgrcv(msg_id, &msg, sizeof(struct msg_request), good.type, IPC_NOWAIT); TEST_ERROR;
+
         
         if (ret == -1){
             return -1;

@@ -111,10 +111,6 @@ int main(int argc, char *argv[]) {
 	
 	negociate(shared_portCoords, s);
 
-	getNearestPort(shared_portCoords, s.coords,-1);
-
-
-
 	for(i=0; i< SO_DAYS; i++)
 	sleep(2);
 	exit(0);
