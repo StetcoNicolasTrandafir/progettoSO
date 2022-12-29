@@ -132,8 +132,6 @@ int main(int argc, char *argv[]) {
 	generateRequest(p);
 	generateOffer(p, 0);
 
-	printf("tipo: %d, quantità: %d\n", p.request -> goodsType, p.request -> quantity);
-
 	sops.sem_num = 0;
 	sops.sem_op = -1;
 	semop(sem_request_id, &sops, 1); TEST_ERROR;

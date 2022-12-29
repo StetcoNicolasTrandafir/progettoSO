@@ -31,7 +31,7 @@
 					  strerror(errno));}
 
 void printShip(ship s) {
-	printf("Ship %d: (%.2f, %.2f) - S = %.2f - C = %d\n", getpid(), s.coords.x, s.coords.y, SO_SPEED, SO_CAPACITY);
+	printf("Ship %d: (%.2f, %.2f)", getpid(), s.coords.x, s.coords.y);
 }
 
 

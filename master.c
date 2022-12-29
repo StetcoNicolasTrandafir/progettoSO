@@ -99,7 +99,7 @@ void finalReport(){
 				goodsStateSum[in_port]+=g[j].dimension-g[j].shipped;
 
 			
-			
+
 			inPortGoods+=g[j].dimension-g[j].shipped;
 			shippedGoods+=g[j].shipped;
 		}

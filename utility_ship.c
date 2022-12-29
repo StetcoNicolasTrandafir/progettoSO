@@ -178,19 +178,12 @@ int negociate(struct port_sharedMemory *ports, ship s){
             
     }
 
-    printf("\n\n TIPO MERCE: %d QUANTITÀ: %d", g[goodIndex].type, g[goodIndex].dimension);
-
-
-    
-    printf("\n\nSTARTING PORT %d", indexClosestPort);
-    printf("\n\nDESTINATION PORT %d", destinationPortIndex);
 
     startingPortSemID=semget(ports[indexClosestPort].pid, 3, 0600);TEST_ERROR;
     destinationPortSemID=semget(ports[destinationPortIndex].pid, 3, 0600); TEST_ERROR;/*[0]=banchine [1]=offerta [2]=richiesta*/
 
     /*TODO AGGIORNO I BOOKED DELLA RICHIESTA E DELL'OFFERTA*/
 
-    printf("\n\n[%d]STO ANDANDO A CARICARE OFFERTE DA [%d] PER PORTARLE A [%d]\n", getpid(),ports[indexClosestPort].pid,ports[destinationPortIndex].pid);
 
     /*CAMBIO VALORI RICHIESTA*/
     /*LOCK(destinationPortIndex, 2)*/
@@ -218,7 +211,6 @@ int negociate(struct port_sharedMemory *ports, ship s){
     
 
 
-    printf("\n\nSTO ANDANDO A CARICARE OFFERTE DA [%d] PER PORTARLE A [%d]\n", ports[indexClosestPort].pid,ports[destinationPortIndex].pid);
 
     /*moving towards the port to load goods*/
     travelTime= getTravelTime(getDistance(s.coords,ports[indexClosestPort].coords));
@@ -231,7 +223,6 @@ int negociate(struct port_sharedMemory *ports, ship s){
     /*arrived at the port*/
     s.coords=ports[indexClosestPort].coords;
     
-    printf("\nARRIVATO AL PRIMO PORTO, carico merce...\n");
 
     /*loading goods*/
     /*LOCK(destinationPortIndex, 2)*/
@@ -264,13 +255,11 @@ int negociate(struct port_sharedMemory *ports, ship s){
     s.coords.y=-1;
     time.tv_sec=(int)travelTime;
     time.tv_nsec=travelTime-time.tv_sec;
-    printf("\nFINITO DI CARICARE! Mi dirigo verso il secondo porto...\n");
     nanosleep(&time, &rem);
 
 
     /*arrived at the port, loading the goods*/
     s.coords=ports[destinationPortIndex].coords;
-    printf("\nARRIVATO AL SECONDO PORTO, scarico merce...\n");
 
     /*LOCK(destinationPortIndex, 2)*/
     sops.sem_num = 2; 
@@ -294,7 +283,7 @@ int negociate(struct port_sharedMemory *ports, ship s){
 	semop(destinationPortSemID, &sops, 1);
 
 
-    printf("\nFINITO DI SCARICARE! Merce portata dal punto A al punto B\n");
+    printf("\nFINITO DI SCARICARE! Merce portata dal punto A al punto B!\n\n");
     return destinationPortIndex;
 }
 
@@ -302,7 +291,7 @@ int negociate(struct port_sharedMemory *ports, ship s){
 int getValidRequestPort(goods good, struct port_sharedMemory * sh_port) {
     struct msg_request msg;
     int ret = 0, first_idx = -1, q, request_id, sem_id;
-    struct request *request;
+    struct re quest *request;
     struct sembuf sops;
     int msg_id;
 
