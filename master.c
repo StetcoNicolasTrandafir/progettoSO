@@ -89,23 +89,24 @@ void finalReport(){
 			offerSum[(g[j].type-1)]+=g[j].dimension;
 
 			goodsReport[(g[j].type-1)].totalSum+=g[j].dimension;
-			goodsReport[(g[j].type-1)].inPort+=g[j].dimension-g[j].satisfied;
+			goodsReport[(g[j].type-1)].inPort+=g[j].dimension-g[j].shipped;
 			
 
 			if(g[j].state==expired_port){
-				goodsReport[(g[j].type-1)].expiredInPort+=g[j].dimension-g[j].satisfied;
-				goodsStateSum[expired_port]+=g[j].dimension-g[j].satisfied;
-			}else{
-				goodsStateSum[in_port]+=g[j].dimension-g[j].satisfied;
-			}
+				goodsReport[(g[j].type-1)].expiredInPort+=g[j].dimension-g[j].shipped;
+				goodsStateSum[expired_port]+=g[j].dimension-g[j].shipped;
+			}else
+				goodsStateSum[in_port]+=g[j].dimension-g[j].shipped;
 
-			inPortGoods+=g[j].dimension-g[j].satisfied;
-			shippedGoods+=g[j].satisfied;
+			
+			
+			inPortGoods+=g[j].dimension-g[j].shipped;
+			shippedGoods+=g[j].shipped;
 		}
 
 		goodsReport[(r->goodsType-1)].delivered+=r->satisfied;
 		
-		goodsStateSum[in_port]+=r->satisfied;
+		goodsStateSum[delivered]+=r->satisfied;
 
 		for(j=0; j<SO_MERCI; j++){
 			if(goodsReport[j].maxOffer<offerSum[j]){

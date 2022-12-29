@@ -14,8 +14,9 @@ a lifetime that expresses the number of days until its expiration (between [SO_M
 typedef struct goods{
     int type;
     enum states state;
+    int shipped;
     int dimension;
-    int satisfied;
+    int booked;
     int lifeTime;
     struct timespec generationTime;
 }goods;
