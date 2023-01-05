@@ -31,7 +31,15 @@
 					  strerror(errno));}
 
 void printShip(ship s) {
-	printf("Ship %d: (%.2f, %.2f)", getpid(), s.coords.x, s.coords.y);
+	char *string;
+	int numBytes;
+	string=malloc(30);
+	numBytes=sprintf(string,"Ship[%d]: (%.2f, %.2f)\n", getpid(), s.coords.x, s.coords.y);
+
+	fflush(stdout);
+	write(1, string, numBytes);
+	free(string);
+
 }
 
 
@@ -41,6 +49,8 @@ ship s;
 void handleSignal(int signal) {
 	int index, portsSharedMemoryID;
 	int i;
+	char *string;
+	int numBytes;
 	switch(signal) {
 		case SIGUSR1:
 			/*
@@ -54,15 +64,26 @@ void handleSignal(int signal) {
 
 
 		case SIGSTOP:
-			printf("\n[%d]IMPREVISTO METEO! Le operazioni della nave saranno compromesse...", getpid());
+			string=malloc(76);
+			numBytes=sprintf(string,"\n[%d]IMPREVISTO METEO! Le operazioni della nave saranno compromesse...", getpid());
+			fflush(stdout);
+			write(1, string, numBytes);
+
 			break;
 
 		case SIGCONT:
-			printf("\n[%d]MALTEMPO FINITO! Le operazioni della nave possono riprendere...",getpid());
+			string=malloc(74);
+			numBytes=sprintf(string,"\n[%d]MALTEMPO FINITO! Le operazioni della nave possono riprendere...",getpid());
+			fflush(stdout);
+			write(1, string, numBytes);
+
 			break;
 
 		case SIGINT:
-			printf("\n[%d]NAVE AFFONDATA!", getpid());
+			string=malloc(27);
+			numBytes=sprintf(string,"\n[%d]NAVE AFFONDATA!", getpid());
+			fflush(stdout);
+			write(1, string, numBytes);
 			//TODO pulire IPCS
 			break;
 	}
@@ -70,12 +91,13 @@ void handleSignal(int signal) {
 
 int main(int argc, char *argv[]) {
 	int sem_sync_id, portsSharedMemoryID;
-	int i, msg_id;
+	int i=0, msg_id;
 	struct sembuf sops;
 	struct msg_request msg_request;
 	struct sigaction sa;
 
-	shared_portCoords = shmat(atoi(argv[2]), NULL, 0); 
+	TEST_ERROR;
+	shared_portCoords = shmat(atoi(argv[2]), NULL, 0); TEST_ERROR;
 
 	/*
 	printf("\n");

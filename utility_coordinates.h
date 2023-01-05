@@ -8,9 +8,6 @@ coordinates getRandomCoords();
 /*returns 1 if there is an entity in the space with range SO_DISTANZA centered in coord, 0 otherwise*/
 int existCoords(coordinates coordv[], int idx, coordinates coord);
 
-/*print the coords passed as paramter in the format "X: coords.x - Y: coords.y"*/
-void printCoords(coordinates coord);
-
 /*returns the distance between the point A and B, computed with pythagoras theorem*/
 double getDistance(coordinates A, coordinates B);
 

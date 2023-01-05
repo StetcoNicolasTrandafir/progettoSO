@@ -61,6 +61,12 @@ void finalReport(){
 	goods *g;
 	enum states state;
 	struct request *r;
+	char *string;
+	int numBytes;
+
+
+	
+	
 	
 
 	
@@ -71,7 +77,11 @@ void finalReport(){
 	bzero(goodsReport, SO_MERCI*sizeof(struct goodsTypeReport));
 	bzero(goodsStateSum, 5*sizeof(int));
 
-	printf("\n==================>\t\tPORTI\n");
+	string=malloc(200);
+	numBytes=sprintf(string,"\n\n========================================================================\n\t\tREPORT FINALE:\n========================================================================\n\n\n==================>\t\tPORTI\n");
+
+	fflush(stdout);
+	write(1, string, numBytes);
 	
 	for(i=0; i<SO_PORTI; i++){
 		g=shmat(sharedPortPositions[i].offersID, NULL, 0);
@@ -120,21 +130,16 @@ void finalReport(){
 			goodsReport[(r->goodsType-1)].maxOfferPortIndex=i;
 		}
 
-		printf("\n\nPORTO[%d] NUMERO %d (%.2f,%.2f):\nMerce in porto:%dton\nMerce spedita:%dton\nMerce ricevuta:%dton\n",  sharedPortPositions[i].pid,(i+1),sharedPortPositions[i].coords.x,sharedPortPositions[i].coords.y, inPortGoods,shippedGoods,r-> satisfied);
+		string=realloc(string,130);
+		numBytes=sprintf(string,"\n\nPORTO[%d] NUMERO %d (%.2f,%.2f):\nMerce in porto:%dton\nMerce spedita:%dton\nMerce ricevuta:%dton\n",  sharedPortPositions[i].pid,(i+1),sharedPortPositions[i].coords.x,sharedPortPositions[i].coords.y, inPortGoods,shippedGoods,r-> satisfied);
+		fflush(stdout);
+		write(1, string, numBytes);
 
 		shmdt(g);
 		shmdt(r);
+
 	}
 
-
-
-
-/*semval= valore semfaforo(numero banchine)
-
-freeDocks= semctl(portSemaphoreID, 0, GETVAL);
-
-come stracazzo mi trovo il valore iniziale del semaforo
-*/
 
 
 	/*TODO ships handling:
@@ -146,9 +151,11 @@ come stracazzo mi trovo il valore iniziale del semaforo
 	*/
 
 
-	printf("\n\n ==================>\t\tREPORT MERCI\n");
-	printf("\n---------->\tPER STATI:");
 
+	string=realloc(string,65);
+	numBytes=sprintf(string,"\n\n ==================>\t\tREPORT MERCI\n\n---------->\tPER STATI:");
+	fflush(stdout);
+	write(1, string, numBytes);
 
 	/*NOTE
 	FATTI: 
@@ -160,17 +167,22 @@ come stracazzo mi trovo il valore iniziale del semaforo
 	-scaduta in nave
 	*/
 
+	string=realloc(string,240);
+	numBytes=sprintf(string,"\n\nMerce in porto (disponibile): %dton\nMerce scaduta in porto: %dton\nMerce consegnata: %dton\nMerce in nave: %dton\nMerce scaduta in nave: %dton\n\n---------->\tPER TIPOLOGIA:\n\n\nTOTALE MERCE GENERATA: %dton",goodsStateSum[in_port],goodsStateSum[expired_port],goodsStateSum[delivered],goodsStateSum[on_ship],goodsStateSum[expired_ship],totalGoodsSum);
+	fflush(stdout);
+	write(1, string, numBytes);
 
-	printf("\n\nMerce in porto (disponibile): %dton\nMerce scaduta in porto: %dton\nMerce consegnata: %dton\nMerce in nave: %dton\nMerce scaduta in nave: %dton\n", goodsStateSum[in_port],goodsStateSum[expired_port],goodsStateSum[delivered],goodsStateSum[on_ship],goodsStateSum[expired_ship]);
 
-	printf("\n---------->\tPER TIPOLOGIA:");
 
-	printf("\n\n\nTOTALE MERCE GENERATA: %dton", totalGoodsSum);
+	string=realloc(string,404);
+
 	for(i=0; i<SO_MERCI; i++){
-		printf("\nMERCE DI TIPO %d:\nMerce generata: %dton\nMerce ferma in porto: %dton\nMerce scaduta in porto: %dton\nMerce scaduta in nave: %dton\nMerce consegnata: %d\nIl porto che ne ha fatto più richiesta è il numero %d (%dton)\nIl porto che ne ha generato di più è %d (%dton)\n",(i+1), goodsReport[i].totalSum, goodsReport[i].inPort, goodsReport[i].expiredInPort, -1, goodsReport[i].delivered, goodsReport[i].maxRequestPortIndex, goodsReport[i].maxRequest, goodsReport[i].maxOfferPortIndex, goodsReport[i].maxOffer);
+		numBytes=sprintf(string,"\nMERCE DI TIPO %d:\nMerce generata: %dton\nMerce ferma in porto: %dton\nMerce scaduta in porto: %dton\nMerce scaduta in nave: %dton\nMerce consegnata: %d\nIl porto che ne ha fatto più richiesta è il numero %d (%dton)\nIl porto che ne ha generato di più è %d (%dton)\n",(i+1), goodsReport[i].totalSum, goodsReport[i].inPort, goodsReport[i].expiredInPort, -1, goodsReport[i].delivered, goodsReport[i].maxRequestPortIndex, goodsReport[i].maxRequest, goodsReport[i].maxOfferPortIndex, goodsReport[i].maxOffer);
+		fflush(stdout);
+		write(1, string, numBytes);
 	}
 
-
+	free(string);
 }
 
 int elementInArray(int element, int array[], int limit) {
@@ -230,27 +242,39 @@ void cleanUp(){
 }
 
 void handleSignal(int signal) {
+	char * string;
+	int numBytes;
 	switch(signal) {
 		case SIGALRM:
 			if(++pastDays==SO_DAYS){
-				printf("\n\n========================================================================\n\t\tREPORT FINALE:\n========================================================================\n\n");
-				
 				finalReport();
-				
 			}else{
 
-				printf("\n\nREPORT GIORNALIERO (%d): \n", pastDays);
+				string=malloc(31);
+				numBytes=sprintf(string,"\n\nREPORT GIORNALIERO (%d):\n", pastDays);
+
+				fflush(stdout);
+				write(1, string, numBytes);
+
 				sendSignalToCasualPorts();		
 				kill(meteoPid, SIGUSR1); TEST_ERROR;
 				alarm(1);
 			}
 			break;
 		case SIGINT:
-			printf("\n\n\nINTERRUZIONE INASPETTATA DEL PROGRAMMA\n");
-			printf("Pulizia processi figli, IPCs, etc. ...\n");
+
+			string=malloc(85);
+			numBytes=sprintf(string,"\n\n\nINTERRUZIONE INASPETTATA DEL PROGRAMMA\nPulizia processi figli, IPCs, etc. ...\n");
+			fflush(stdout);
+			write(1, string, numBytes);
+
 			cleanUp();
-			printf("Done!\n\n");
-			exit(EXIT_FAILURE);
+			string=realloc(string,7);
+			numBytes=sprintf(string,"Done!\n\n");
+			fflush(stdout);
+			write(1, string, numBytes);
+	
+			exit(EXIT_SUCCESS);
 			break;
 	}
 }
@@ -269,6 +293,8 @@ int main() {
 	goods *g;
 	int idRequest;
 	struct 	request *r;
+	char *string;
+	int numBytes;
 
 	sharedPortPositions = calloc(SO_PORTI, sizeof(struct port_sharedMemory));
 	sum_request = malloc(sizeof(int));
@@ -302,7 +328,6 @@ int main() {
 	/*shmdt(sum_request); TEST_ERROR;*/
 
 	msg_id = msgget(getpid(), IPC_CREAT | IPC_EXCL | 0600); TEST_ERROR;
-	printf("\n\nID CODA MESSAGGI (master) %d", msg_id);
 
 
 	sprintf(name_file, "port");
@@ -380,7 +405,6 @@ int main() {
 			exit(1);
 
 		default:
-			printf("\nFa brutto...==> %d\n", meteoPid);
 			break; 
 	}
 
@@ -419,6 +443,10 @@ int main() {
 	msgctl(msg_id, IPC_RMID, NULL); TEST_ERROR;
 	shmctl(port_sharedMemoryID, IPC_RMID, NULL); TEST_ERROR;
 	
-	printf("\n\nSIMULAZIONE FINITA!!!\n\n");
-	exit(EXIT_FAILURE);
+	
+	string=malloc(25);
+	numBytes=sprintf(string,"\n\nSIMULAZIONE FINITA!!!\n\n");
+	fflush(stdout);
+	write(1, string, numBytes);
+	exit(EXIT_SUCCESS);
 }

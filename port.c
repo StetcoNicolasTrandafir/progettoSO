@@ -33,8 +33,15 @@
 port p;
 int idxOfferts;
 
-void printPort(port p) {
-	printf("Porto %d: (%.2f, %.2f) - %d banchine\n", getpid(), p.coords.x, p.coords.y, p.docks);
+void printPort(port p, int i) {
+	char *string;
+	int numBytes;
+	string=malloc(70);
+	numBytes=sprintf(string,"Porto[%d] numero %d: (%.2f, %.2f) - %d banchine\n", getpid(),i, p.coords.x, p.coords.y, p.docks);
+
+	fflush(stdout);
+	write(1, string, numBytes);
+	free(string);
 }
 
 void handleSignal(int signal) {
@@ -127,7 +134,7 @@ int main(int argc, char *argv[]) {
 	semctl(portSemId, 1, SETVAL, 1); 
 	p.coords = coords;
 
-	printPort(p);
+	printPort(p, idx);
 	/*p = */initializeRequestsAndOffer(p);
 	generateRequest(p);
 	generateOffer(p, 0);
@@ -158,6 +165,7 @@ int main(int argc, char *argv[]) {
 
 	msg_request.mtype = p.request -> goodsType;
 	msg_request.idx = idx;
+
 	msgsnd(msg_id, &msg_request, sizeof(struct msg_request), 0); TEST_ERROR;
 
 	shmdt(sum_request); TEST_ERROR;

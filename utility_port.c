@@ -103,6 +103,8 @@ int getGeneratedGoods(port p, int flag){
 void generateOffer(port p, int idx){
     int type;
     int plus = 0;
+    int numBytes;
+    char *string; 
     goods goods;
     srand(getpid());
     type = rand() % SO_MERCI;
@@ -110,12 +112,17 @@ void generateOffer(port p, int idx){
         plus++;
     }
 
-    if(plus == SO_MERCI) 
-        printf("Impossibile generare un'offerta al porto [%d] in posizione: (%2.f, %2.f)\n", getpid(), p.coords.x, p.coords.y);
-
-    goods = generateGoods((type + plus) % SO_MERCI);
-    goods.type++;
-    p.generatedGoods[idx] = goods;
+    if(plus == SO_MERCI){
+        string=malloc(90);
+        numBytes=sprintf(string,"Impossibile generare un'offerta al porto [%d] in posizione: (%2.f, %2.f)\n", getpid(), p.coords.x, p.coords.y);
+        fflush(stdout);
+        write(1, string, numBytes);
+        free(string);
+    }else{
+        goods = generateGoods((type + plus) % SO_MERCI);
+        goods.type++;
+        p.generatedGoods[idx] = goods;
+    }    
 }
 
 void generateRequest(port p){
