@@ -62,8 +62,8 @@ void handleSignal(int signal) {
 			*/
 			break;
 
-            case SIGALRM:
-                break;
+        case SIGALRM:
+            break;
 
 
 		case SIGSTOP:
@@ -115,6 +115,10 @@ int main(int argc, char *argv[]) {
 	
 	sa.sa_handler = handleSignal;
 	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGALRM, &sa, NULL);
+	sigaction(SIGSTOP, &sa, NULL);
+	sigaction(SIGCONT, &sa, NULL);
+	sigaction(SIGINT, &sa, NULL);
 
 	bzero(&sops, sizeof(sops));
 

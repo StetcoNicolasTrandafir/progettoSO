@@ -46,7 +46,7 @@ void printPort(port p, int i) {
 void handleSignal(int signal) {
 	switch(signal) {
 		case SIGUSR1:
-			generateOffer(p, ++idxOfferts);
+			generateOffer(p, ++idxOfferts, sum_offerID, sem_sum_id);
 			break;
 
 		case SIGALRM:
