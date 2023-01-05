@@ -4,6 +4,13 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <time.h>
+#include <sys/types.h>
+#include <sys/ipc.h>
+#include <sys/sem.h>
+#include <string.h>
+#include <errno.h>
+#include <sys/shm.h>
+#include <math.h>
 
 #include "macro.h"
 #include "types_module.h"
@@ -50,8 +57,7 @@ int getRequest(port p, int satisfied){
 
     switch(satisfied){
 
-        case ONLY_SATISFIED: 
-            printf("Sono entrato %d\n", p.request -> satisfied); 
+        case ONLY_SATISFIED:  
             return p.request -> satisfied;
 
         case ALL:
@@ -98,27 +104,79 @@ int getGeneratedGoods(port p, int flag){
     return total;
 }
 
-void generateOffer(port p, int idx){
-    int type;
+void generateOffer(port p, int idx, int sum_offerID, int sem_sum_id){
+    struct timespec t;
+    struct sembuf sops;
+    int type, *sum_offer;
     int plus = 0;
+    int numBytes;
+    char *string; 
     goods goods;
+
+    bzero(&sops, sizeof(struct sembuf));
+
     srand(getpid());
     type = rand() % SO_MERCI;
     while(plus < SO_MERCI && isRequested(p, (type + plus) % SO_MERCI)){
         plus++;
     }
 
-    if(plus == SO_MERCI) 
-        printf("Impossibile generare un'offerta al porto [%d] in posizione: (%2.f, %2.f)\n", getpid(), p.coords.x, p.coords.y);
+
+
+
+    if(plus == SO_MERCI){
+        string=malloc(90);
+        numBytes=sprintf(string,"Impossibile generare un'offerta al porto [%d] in posizione: (%2.f, %2.f)\n", getpid(), p.coords.x, p.coords.y);
+        fflush(stdout);
+        write(1, string, numBytes);
+        free(string);
+    }else{
+    sum_offer = shmat(sum_offerID, NULL, 0); TEST_ERROR;
 
     goods = generateGoods((type + plus) % SO_MERCI);
+    goods.type++;
+
+    clock_gettime(CLOCK_REALTIME, &t);
+    goods.dimension = t.tv_nsec % 1000;
+
+
+    sum_offer = shmat(sum_offerID, NULL, 0); TEST_ERROR;
+
+    sops.sem_num = 2;
+    sops.sem_op = -1;
+    semop(sem_sum_id, &sops, 1); TEST_ERROR;
+
+    *sum_offer += goods.dimension;
+
+    sops.sem_num = 2;
+    sops.sem_op = 1;
+    semop(sem_sum_id, &sops, 1); TEST_ERROR;
+
+    sops.sem_num = 3;
+    sops.sem_op = -1;
+    semop(sem_sum_id, &sops, 1); TEST_ERROR;
+
+    sops.sem_num = 3;
+    sops.sem_op = 0;
+    semop(sem_sum_id, &sops, 1); TEST_ERROR;
+
+
+    if((goods.dimension = round((goods.dimension * (SO_FILL / SO_DAYS)) / *sum_offer)) == 0)
+        goods.dimension++;
+
+
+    shmdt(sum_offer); TEST_ERROR;
+
     p.generatedGoods[idx] = goods;
+    }
 }
 
-void generateRequest(port p, int sem_request_id, int sum_requestID){
+void generateRequest(port p, int sum_requestID, int sem_sum_id){
     struct timespec t;
     int *sum_request;
     struct sembuf sops;
+
+    bzero(&sops, sizeof(struct sembuf));
 
     srand(getpid());
     p.request -> goodsType = (rand() % SO_MERCI) + 1;
@@ -131,7 +189,32 @@ void generateRequest(port p, int sem_request_id, int sum_requestID){
     x = q * 1 / 10;
     req.quantity = (rand() % ((q + x) - (q - x))) + (q - x);*/
     clock_gettime(CLOCK_REALTIME, &t);
-    p.request -> quantity = t.tv_nsec % 100;
+    p.request -> quantity = t.tv_nsec % 1000;
+
+    sum_request = shmat(sum_requestID, NULL, 0); TEST_ERROR;
+
+    sops.sem_num = 0;
+    sops.sem_op = -1;
+    semop(sem_sum_id, &sops, 1); TEST_ERROR;
+
+    *sum_request += p.request -> quantity;
+
+    sops.sem_num = 0;
+    sops.sem_op = 1;
+    semop(sem_sum_id, &sops, 1); TEST_ERROR;
+
+    sops.sem_num = 1;
+    sops.sem_op = -1;
+    semop(sem_sum_id, &sops, 1); TEST_ERROR;
+
+    sops.sem_num = 1;
+    sops.sem_op = 0;
+    semop(sem_sum_id, &sops, 1); TEST_ERROR;
+
+    if((p.request -> quantity = round((p.request -> quantity * SO_FILL) / *sum_request)) == 0)
+        p.request -> quantity++;
+
+    shmdt(sum_request); TEST_ERROR;
 }
 
 

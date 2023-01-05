@@ -21,16 +21,6 @@
 
 
 
-
-#define TEST_ERROR    if (errno) {fprintf(stderr, \
-					  "%s: a riga %d PID=%5d: Error %d: %s\n", \
-					  __FILE__,			\
-					  __LINE__,			\
-					  getpid(),			\
-					  errno,			\
-					  strerror(errno));}
-
-
 void mealstrom(struct ship_sharedMemory * ships){
     int shipIndex;
     struct timespec now;

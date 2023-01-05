@@ -34,10 +34,6 @@ int existCoords(coordinates coordv[], int idx, coordinates coord) {
     return 0;
 }
 
-void printCoords(coordinates coords){
-    printf("(%.2f,%.2f)", coords.x, coords.y);
-}
-
 double getDistance( coordinates A, coordinates B){
     double deltaX= A.x-B.x;
     double deltaY= A.y-B.y;

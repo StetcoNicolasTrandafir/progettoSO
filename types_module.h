@@ -14,8 +14,9 @@ a lifetime that expresses the number of days until its expiration (between [SO_M
 typedef struct goods{
     int type;
     enum states state;
+    int shipped;
     int dimension;
-    int satisfied;
+    int booked;
     int lifeTime;
     struct timespec generationTime;
 }goods;
@@ -37,7 +38,7 @@ struct port_sharedMemory {
     int requestID;
 };
 
-/*the request struct is made up by the goods' type and a flag to understand if it has already been satisfied or not*/
+/*the struct request is made up by the requested goods' type, the quantity and a couple of ints usefull in the negociation process*/
 struct request {
     int satisfied;
     int booked;
@@ -58,6 +59,16 @@ struct ship_sharedMemory{
     pid_t pid;
 };
 
-
+struct goodsTypeReport{
+    int totalSum;
+    int inPort;
+    int expiredInPort;
+    int expiredInShip;
+    int delivered;
+    int maxRequestPortIndex;
+    int maxRequest;
+    int maxOfferPortIndex;
+    int maxOffer;
+};
 
 #endif

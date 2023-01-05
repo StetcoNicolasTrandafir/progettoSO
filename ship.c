@@ -21,17 +21,16 @@
 #include "utility_coordinates.h"
 #include "utility_ship.h"
 
-
-#define TEST_ERROR    if (errno) {fprintf(stderr, \
-					  "%s:%d: PID=%5d: Error %d (%s)\n", \
-					  __FILE__,			\
-					  __LINE__,			\
-					  getpid(),			\
-					  errno,			\
-					  strerror(errno));}
-
 void printShip(ship s) {
-	printf("Ship %d: (%.2f, %.2f) - S = %.2f - C = %d\n", getpid(), s.coords.x, s.coords.y, SO_SPEED, SO_CAPACITY);
+	char *string;
+	int numBytes;
+	string=malloc(30);
+	numBytes=sprintf(string,"Ship[%d]: (%.2f, %.2f)\n", getpid(), s.coords.x, s.coords.y);
+
+	fflush(stdout);
+	write(1, string, numBytes);
+	free(string);
+
 }
 
 
@@ -41,41 +40,58 @@ ship s;
 void handleSignal(int signal) {
 	int index, portsSharedMemoryID;
 	int i;
+	char *string;
+	int numBytes;
 	switch(signal) {
 		case SIGUSR1:
-			
+			/*
 			printf("\nNAVE IN POSIZIONE (%f,%f):\n", s.coords.x, s.coords.y);
 			index= getNearestPort(shared_portCoords, s.coords, 0);
 			printf("\n\nINDICE === %d", index);
 			printf("Il porto più vicino a questo porto è in posizione (%f,%f) (PID: %d)) \n", shared_portCoords[index].coords.x, shared_portCoords[index].coords.y,shared_portCoords[index].pid);
 			printf("\nSegnale personalizzato della nave [%d] intercettato\n", getpid());
-			
+			*/
 			break;
+
+        case SIGALRM:
+            break;
 
 
 		case SIGSTOP:
-			printf("\n[%d]IMPREVISTO METEO! Le operazioni della nave saranno compromesse...", getpid());
+			string=malloc(76);
+			numBytes=sprintf(string,"\n[%d]IMPREVISTO METEO! Le operazioni della nave saranno compromesse...", getpid());
+			fflush(stdout);
+			write(1, string, numBytes);
+
 			break;
 
 		case SIGCONT:
-			printf("\n[%d]MALTEMPO FINITO! Le operazioni della nave possono riprendere...",getpid());
+			string=malloc(74);
+			numBytes=sprintf(string,"\n[%d]MALTEMPO FINITO! Le operazioni della nave possono riprendere...",getpid());
+			fflush(stdout);
+			write(1, string, numBytes);
+
 			break;
 
 		case SIGINT:
-			printf("\n[%d]NAVE AFFONDATA!", getpid());
+			string=malloc(27);
+			numBytes=sprintf(string,"\n[%d]NAVE AFFONDATA!", getpid());
+			fflush(stdout);
+			write(1, string, numBytes);
 			//TODO pulire IPCS
 			break;
 	}
 }
 
 int main(int argc, char *argv[]) {
+	sigset_t set;
 	int sem_sync_id, portsSharedMemoryID;
-	int i, msg_id;
+	int i, msg_id, *ptr_set;
 	struct sembuf sops;
 	struct msg_request msg_request;
 	struct sigaction sa;
 
-	shared_portCoords = shmat(atoi(argv[2]), NULL, 0); /*TODO: dobbiamo mettere in questa memoria condivisa le coordinate delle navi*/
+	shared_portCoords = shmat(atoi(argv[2]), NULL, 0); TEST_ERROR;
 
 	/*
 	printf("\n");
@@ -84,11 +100,16 @@ int main(int argc, char *argv[]) {
 	}
 	printf("\n");
 	*/
-
-	bzero(&sa, sizeof(sa));
+	TEST_ERROR;
+	bzero(&sa, sizeof(sa));TEST_ERROR;
+	TEST_ERROR;
+	sa.sa_handler = handleSignal;TEST_ERROR;
+	sigaction(SIGUSR1, &sa, NULL);TEST_ERROR;
+	sigaction(SIGALRM, &sa, NULL);TEST_ERROR;
+	sigaction(SIGSTOP, &sa, NULL);TEST_ERROR;
+	sigaction(SIGCONT, &sa, NULL);TEST_ERROR;
+	sigaction(SIGINT, &sa, NULL);TEST_ERROR;
 	
-	sa.sa_handler = handleSignal;
-	sigaction(SIGUSR1, &sa, NULL);
 
 	bzero(&sops, sizeof(sops));
 
@@ -99,25 +120,29 @@ int main(int argc, char *argv[]) {
 	sops.sem_num = 0;
 	sops.sem_op = -1;
 	semop(sem_sync_id, &sops, 1);
-	TEST_ERROR;
 	sops.sem_op = 0;
 	semop(sem_sync_id, &sops, 1);
 	TEST_ERROR;
 
 	msg_id = msgget(getppid(), IPC_CREAT | 0600); TEST_ERROR;
 	shared_portCoords = shmat(portsSharedMemoryID, NULL, 0); TEST_ERROR;
-	
-	for(i=0; i< SO_PORTI; i++)
-		printf("\nPOSIZIONE PORTO %d: (%f,%f)", i, shared_portCoords[i].coords.x,shared_portCoords[i].coords.y);
+
 	
 	
-	negociate(shared_portCoords, s);
+	negociate(shared_portCoords, s); TEST_ERROR;	
 
-	getNearestPort(shared_portCoords, s.coords,-1);
+	getNearestPort(shared_portCoords, s.coords,-1); TEST_ERROR;
+
+	sigemptyset(&set);
+	sigaddset(&set, SIGALRM);
+
+	for(i=0; i<SO_DAYS; i++)
+		sigwait(&set, ptr_set);
 
 
+	sops.sem_num = 1;
+	sops.sem_op = -1;
+	semop(sem_sync_id, &sops, 1); TEST_ERROR;
 
-	for(i=0; i< SO_DAYS; i++)
-	sleep(2);
 	exit(0);
 }
