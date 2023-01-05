@@ -23,14 +23,6 @@
 #include "utility_port.h"
 
 
-#define TEST_ERROR    if (errno) {fprintf(stderr, \
-					  "%s: a riga %d PID=%5d: Error %d: %s\n", \
-					  __FILE__,			\
-					  __LINE__,			\
-					  getpid(),			\
-					  errno,			\
-					  strerror(errno));}
-
 /*
 SEMAFORI:
 -uno per ogni porto
@@ -138,8 +130,9 @@ void finalReport(){
 		shmdt(g);
 		shmdt(r);
 
-		free(offerSum);
+		
 	}
+	free(offerSum);
 
 
 
@@ -435,7 +428,10 @@ int main() {
 
 	sops.sem_num = 1;
 	sops.sem_op = 0;
-	semop(sem_sync_id, &sops, 1); TEST_ERROR;
+	semop(sem_sync_id, &sops, 1); 
+	if(errno==4)errno=0;
+	else  TEST_ERROR
+	
 	/*sleep(31); Lo toglieremo , ma se lo tolgo ora, da un errore perchè eliminiamo il semaforo prima che l'ultimo processo abbia fatto il semop per aspettare tutti i processi*/
 
 	/*for(i = 0; i < SO_NAVI + SO_PORTI; i++) wait(NULL); TEST_ERROR;*/

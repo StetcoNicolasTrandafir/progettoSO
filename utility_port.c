@@ -22,14 +22,6 @@
 #define ALL 0
 #define ONLY_SATISFIED 1
 
-#define TEST_ERROR    if (errno) {fprintf(stderr, \
-                      "%s:%d: PID=%5d: Error %d (%s)\n", \
-                      __FILE__,         \
-                      __LINE__,         \
-                      getpid(),         \
-                      errno,            \
-                      strerror(errno));}
-
 void printDailyReport(port p){
     char *report;
     int tonsShipped, tonsInPort, tonsReceived, freeDocks = 0, num_bytes; /*TODO quante banchine libere?*/

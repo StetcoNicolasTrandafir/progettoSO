@@ -18,13 +18,6 @@
 #include "utility_coordinates.h"
 #include "utility_port.h"
 
-#define TEST_ERROR    if (errno) {fprintf(stderr, \
-					  "%s: a riga %d PID=%d: Error %d: %s\n", \
-					  __FILE__,			\
-					  __LINE__,			\
-					  getpid(),			\
-					  errno,			\
-					  strerror(errno));}
 
 
 #define LOCK(semId,semNum) sops.sem_num = semNum; \

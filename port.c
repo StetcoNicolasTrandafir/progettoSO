@@ -21,13 +21,7 @@
 #include "utility_coordinates.h"
 #include "utility_port.h"
 
-#define TEST_ERROR    if (errno) {fprintf(stderr, \
-					  "%s:%d: PID=%5d: Error %d (%s)\n", \
-					  __FILE__,			\
-					  __LINE__,			\
-					  getpid(),			\
-					  errno,			\
-					  strerror(errno));}
+
 
 port p;
 int idxOfferts, sum_offerID, sem_sum_id;

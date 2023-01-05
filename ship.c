@@ -21,15 +21,6 @@
 #include "utility_coordinates.h"
 #include "utility_ship.h"
 
-
-#define TEST_ERROR    if (errno) {fprintf(stderr, \
-					  "%s:%d: PID=%5d: Error %d (%s)\n", \
-					  __FILE__,			\
-					  __LINE__,			\
-					  getpid(),			\
-					  errno,			\
-					  strerror(errno));}
-
 void printShip(ship s) {
 	char *string;
 	int numBytes;
@@ -100,7 +91,6 @@ int main(int argc, char *argv[]) {
 	struct msg_request msg_request;
 	struct sigaction sa;
 
-	TEST_ERROR;
 	shared_portCoords = shmat(atoi(argv[2]), NULL, 0); TEST_ERROR;
 
 	/*
@@ -110,15 +100,16 @@ int main(int argc, char *argv[]) {
 	}
 	printf("\n");
 	*/
-
-	bzero(&sa, sizeof(sa));
+	TEST_ERROR;
+	bzero(&sa, sizeof(sa));TEST_ERROR;
+	TEST_ERROR;
+	sa.sa_handler = handleSignal;TEST_ERROR;
+	sigaction(SIGUSR1, &sa, NULL);TEST_ERROR;
+	sigaction(SIGALRM, &sa, NULL);TEST_ERROR;
+	sigaction(SIGSTOP, &sa, NULL);TEST_ERROR;
+	sigaction(SIGCONT, &sa, NULL);TEST_ERROR;
+	sigaction(SIGINT, &sa, NULL);TEST_ERROR;
 	
-	sa.sa_handler = handleSignal;
-	sigaction(SIGUSR1, &sa, NULL);
-	sigaction(SIGALRM, &sa, NULL);
-	sigaction(SIGSTOP, &sa, NULL);
-	sigaction(SIGCONT, &sa, NULL);
-	sigaction(SIGINT, &sa, NULL);
 
 	bzero(&sops, sizeof(sops));
 
@@ -129,7 +120,6 @@ int main(int argc, char *argv[]) {
 	sops.sem_num = 0;
 	sops.sem_op = -1;
 	semop(sem_sync_id, &sops, 1);
-	TEST_ERROR;
 	sops.sem_op = 0;
 	semop(sem_sync_id, &sops, 1);
 	TEST_ERROR;

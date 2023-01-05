@@ -1,3 +1,6 @@
+#ifndef _MACRO_H
+#define _MACRO_H
+
 #define SO_NAVI atoi(getenv("SO_NAVI"))
 #define SO_PORTI atoi(getenv("SO_PORTI"))
 #define SO_MERCI atoi(getenv("SO_MERCI"))
@@ -15,5 +18,18 @@
 #define SO_STORM_DURATION atoi(getenv("SO_STORM_DURATION"))
 #define SO_SWELL_DURATION atoi(getenv("SO_SWELL_DURATION"))
 #define SO_MEALSTROM atoi(getenv("SO_MEALSTROM"))
+
+
+#define TEST_ERROR    if (errno) {fprintf(stderr, \
+					  "%s at line %d: PID=%5d, Error %d: %s\n", \
+					  __FILE__,			\
+					  __LINE__,			\
+					  getpid(),			\
+					  errno,			\
+					  strerror(errno)); \
+					  errno=0;\
+					  }
+
+#endif /*_MACRO_H*/
 
 
