@@ -57,13 +57,12 @@ void handleSignal(int signal) {
             break;
 
 
-		case SIGSTOP:
+		/*SIGSTOP:
 			string=malloc(76);
 			numBytes=sprintf(string,"\n[%d]IMPREVISTO METEO! Le operazioni della nave saranno compromesse...", getpid());
 			fflush(stdout);
 			write(1, string, numBytes);
-
-			break;
+			break;*/
 
 		case SIGCONT:
 			string=malloc(74);
@@ -75,7 +74,7 @@ void handleSignal(int signal) {
 
 		case SIGINT:
 			string=malloc(27);
-			numBytes=sprintf(string,"\n[%d]NAVE AFFONDATA!", getpid());
+			numBytes=sprintf(string,"\n[%d]NAVE AFFONDATA!\n", getpid());
 			fflush(stdout);
 			write(1, string, numBytes);
 			//TODO pulire IPCS
@@ -106,7 +105,6 @@ int main(int argc, char *argv[]) {
 	sa.sa_handler = handleSignal;TEST_ERROR;
 	sigaction(SIGUSR1, &sa, NULL);TEST_ERROR;
 	sigaction(SIGALRM, &sa, NULL);TEST_ERROR;
-	sigaction(SIGSTOP, &sa, NULL);TEST_ERROR;
 	sigaction(SIGCONT, &sa, NULL);TEST_ERROR;
 	sigaction(SIGINT, &sa, NULL);TEST_ERROR;
 	
@@ -114,15 +112,15 @@ int main(int argc, char *argv[]) {
 	bzero(&sops, sizeof(sops));
 
 	s.coords = getRandomCoords();
-	printShip(s);
+	printShip(s);TEST_ERROR;
 	sem_sync_id = atoi(argv[1]);
-	portsSharedMemoryID = atoi(argv[2]);
+	portsSharedMemoryID = atoi(argv[2]);TEST_ERROR;
 	sops.sem_num = 0;
 	sops.sem_op = -1;
-	semop(sem_sync_id, &sops, 1);
+	semop(sem_sync_id, &sops, 1);TEST_ERROR;
 	sops.sem_op = 0;
-	semop(sem_sync_id, &sops, 1);
-	TEST_ERROR;
+	semop(sem_sync_id, &sops, 1);TEST_ERROR;
+
 
 	msg_id = msgget(getppid(), IPC_CREAT | 0600); TEST_ERROR;
 	shared_portCoords = shmat(portsSharedMemoryID, NULL, 0); TEST_ERROR;

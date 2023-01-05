@@ -21,7 +21,7 @@
 
 
 #define TEST_ERROR    if (errno) {fprintf(stderr, \
-					  "%s at line %d: PID=%5d, Error %d: %s\n", \
+					  "\x1b[31m%s at line %d: PID=%5d, Error %d: %s\n\x1b[37m", \
 					  __FILE__,			\
 					  __LINE__,			\
 					  getpid(),			\

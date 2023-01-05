@@ -131,43 +131,43 @@ void generateOffer(port p, int idx, int sum_offerID, int sem_sum_id){
         write(1, string, numBytes);
         free(string);
     }else{
-    sum_offer = shmat(sum_offerID, NULL, 0); TEST_ERROR;
+        sum_offer = shmat(sum_offerID, NULL, 0); TEST_ERROR;
 
-    goods = generateGoods((type + plus) % SO_MERCI);
-    goods.type++;
+        goods = generateGoods((type + plus) % SO_MERCI);
+        goods.type++;
 
-    clock_gettime(CLOCK_REALTIME, &t);
-    goods.dimension = t.tv_nsec % 1000;
-
-
-    sum_offer = shmat(sum_offerID, NULL, 0); TEST_ERROR;
-
-    sops.sem_num = 2;
-    sops.sem_op = -1;
-    semop(sem_sum_id, &sops, 1); TEST_ERROR;
-
-    *sum_offer += goods.dimension;
-
-    sops.sem_num = 2;
-    sops.sem_op = 1;
-    semop(sem_sum_id, &sops, 1); TEST_ERROR;
-
-    sops.sem_num = 3;
-    sops.sem_op = -1;
-    semop(sem_sum_id, &sops, 1); TEST_ERROR;
-
-    sops.sem_num = 3;
-    sops.sem_op = 0;
-    semop(sem_sum_id, &sops, 1); TEST_ERROR;
+        clock_gettime(CLOCK_REALTIME, &t);
+        goods.dimension = t.tv_nsec % 1000;
 
 
-    if((goods.dimension = round((goods.dimension * (SO_FILL / SO_DAYS)) / *sum_offer)) == 0)
-        goods.dimension++;
+        sum_offer = shmat(sum_offerID, NULL, 0); TEST_ERROR;
+
+        sops.sem_num = 2;
+        sops.sem_op = -1;
+        semop(sem_sum_id, &sops, 1); TEST_ERROR;
+
+        *sum_offer += goods.dimension;
+
+        sops.sem_num = 2;
+        sops.sem_op = 1;
+        semop(sem_sum_id, &sops, 1); TEST_ERROR;
+
+        sops.sem_num = 3;
+        sops.sem_op = -1;
+        semop(sem_sum_id, &sops, 1); TEST_ERROR;
+
+        sops.sem_num = 3;
+        sops.sem_op = 0;
+        semop(sem_sum_id, &sops, 1); TEST_ERROR;
 
 
-    shmdt(sum_offer); TEST_ERROR;
+        if((goods.dimension = round((goods.dimension * (SO_FILL / SO_DAYS)) / *sum_offer)) == 0)
+            goods.dimension++;
 
-    p.generatedGoods[idx] = goods;
+
+        shmdt(sum_offer); TEST_ERROR;
+
+        p.generatedGoods[idx] = goods;
     }
 }
 
