@@ -213,10 +213,9 @@ void sendSignalToCasualPorts(){
 		port_idx[i] = casual_idx;
     	kill(port_pids[port_idx[i]], SIGUSR1); TEST_ERROR;
     }
+
 	for (i = 0; i < SO_PORTI; i++) {
-		if (!elementInArray(i, port_idx, n_ports)) {
-    		kill(port_pids[i], SIGUSR2); TEST_ERROR;
-    	}
+    	kill(port_pids[i], SIGALRM); TEST_ERROR;
 	}
     free(port_idx);
 }

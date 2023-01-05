@@ -47,10 +47,10 @@ void printPort(port p, int i) {
 void handleSignal(int signal) {
 	switch(signal) {
 		case SIGUSR1:
-			printDailyReport(p);
 			generateOffer(p, ++idxOfferts);
 			break;
-		case SIGUSR2:
+
+		case SIGALRM:
 			printDailyReport(p);
 			break;
 	}
@@ -75,7 +75,7 @@ int main(int argc, char *argv[]) {
 	
 	sa.sa_handler = handleSignal;
 	sigaction(SIGUSR1, &sa, NULL);
-	sigaction(SIGUSR2, &sa, NULL);
+	sigaction(SIGALRM, &sa, NULL);
 
 	sem_sync_id = atoi(argv[1]);
 	portsSharedMemoryID=atoi(argv[2]);
