@@ -62,6 +62,9 @@ void handleSignal(int signal) {
 			*/
 			break;
 
+            case SIGALRM:
+                break;
+
 
 		case SIGSTOP:
 			string=malloc(76);
@@ -90,8 +93,9 @@ void handleSignal(int signal) {
 }
 
 int main(int argc, char *argv[]) {
+	sigset_t set;
 	int sem_sync_id, portsSharedMemoryID;
-	int i=0, msg_id;
+	int i, msg_id, *ptr_set;
 	struct sembuf sops;
 	struct msg_request msg_request;
 	struct sigaction sa;
@@ -131,9 +135,20 @@ int main(int argc, char *argv[]) {
 
 	
 	
-	negociate(shared_portCoords, s);
+	negociate(shared_portCoords, s); TEST_ERROR;	
 
-	for(i=0; i< SO_DAYS; i++)
-	sleep(2);
+	getNearestPort(shared_portCoords, s.coords,-1); TEST_ERROR;
+
+	sigemptyset(&set);
+	sigaddset(&set, SIGALRM);
+
+	for(i=0; i<SO_DAYS; i++)
+		sigwait(&set, ptr_set);
+
+
+	sops.sem_num = 1;
+	sops.sem_op = -1;
+	semop(sem_sync_id, &sops, 1); TEST_ERROR;
+
 	exit(0);
 }
