@@ -123,6 +123,8 @@ void finalReport(){
 
 		shmdt(g);
 		shmdt(r);
+
+		free(offerSum);
 	}
 
 
@@ -168,7 +170,8 @@ come stracazzo mi trovo il valore iniziale del semaforo
 	for(i=0; i<SO_MERCI; i++){
 		printf("\nMERCE DI TIPO %d:\nMerce generata: %dton\nMerce ferma in porto: %dton\nMerce scaduta in porto: %dton\nMerce scaduta in nave: %dton\nMerce consegnata: %d\nIl porto che ne ha fatto più richiesta è il numero %d (%dton)\nIl porto che ne ha generato di più è %d (%dton)\n",(i+1), goodsReport[i].totalSum, goodsReport[i].inPort, goodsReport[i].expiredInPort, -1, goodsReport[i].delivered, goodsReport[i].maxRequestPortIndex, goodsReport[i].maxRequest, goodsReport[i].maxOfferPortIndex, goodsReport[i].maxOffer);
 	}
-
+	free(goodsReport);
+	free(goodsStateSum);
 
 }
 
@@ -223,6 +226,7 @@ void cleanUp(){
 	shmdt(sharedPortPositions); TEST_ERROR;
 	shmctl(port_sharedMemoryID, IPC_RMID, NULL); TEST_ERROR;
 	shmdt(sum_request); TEST_ERROR;
+	shmdt(sum_offer); TEST_ERROR;
 	shmctl(sum_requestID, IPC_RMID, NULL); TEST_ERROR;
 	semctl(sem_sum_id, 0, IPC_RMID); TEST_ERROR;
 	msgctl(msg_id, IPC_RMID, NULL); TEST_ERROR;
@@ -283,8 +287,12 @@ int main() {
 	sigaction(SIGALRM, &sa, NULL);
 	sigaction(SIGINT, &sa, NULL);
 
-	sem_sync_id = semget(IPC_PRIVATE, 1, 0600); TEST_ERROR;
+	sem_sync_id = semget(IPC_PRIVATE, 2, 0600); TEST_ERROR;
 	semctl(sem_sync_id, 0, SETVAL, SO_PORTI + SO_NAVI); TEST_ERROR;
+	semctl(sem_sync_id, 1, SETVAL, SO_PORTI + SO_NAVI); TEST_ERROR;
+
+	i = semctl(sem_sync_id, 1, GETVAL);
+	printf("VALORE SEMAFORO: %d\n\n", i);
 
 	sem_sum_id = semget(IPC_PRIVATE, 4, 0600); TEST_ERROR;
 	semctl(sem_sum_id, 0, SETVAL, 1); TEST_ERROR; /*write request*/
@@ -292,20 +300,19 @@ int main() {
 	semctl(sem_sum_id, 2, SETVAL, 1); TEST_ERROR; /*write offer*/
 	semctl(sem_sum_id, 3, SETVAL, SO_PORTI); TEST_ERROR; /*read offer*/
 
-	port_sharedMemoryID=shmget(IPC_PRIVATE, SO_PORTI*sizeof(struct port_sharedMemory),S_IRUSR | S_IWUSR | IPC_CREAT);
-	TEST_ERROR;
-	sharedPortPositions=shmat(port_sharedMemoryID, NULL, 0);
-	TEST_ERROR;
+	port_sharedMemoryID=shmget(IPC_PRIVATE, SO_PORTI*sizeof(struct port_sharedMemory),S_IRUSR | S_IWUSR | IPC_CREAT); TEST_ERROR;
+	sharedPortPositions=shmat(port_sharedMemoryID, NULL, 0); TEST_ERROR;
+	shmctl(port_sharedMemoryID, IPC_RMID, NULL); TEST_ERROR;
 
 	sum_requestID = shmget(IPC_PRIVATE, sizeof(int), S_IRUSR | S_IWUSR | IPC_CREAT); TEST_ERROR;
 	sum_request = shmat(sum_requestID, NULL, 0); TEST_ERROR;
-	sum_request = 0;
-	/*shmdt(sum_request); TEST_ERROR;*/
+	*sum_request = 0;
+	shmctl(sum_requestID, IPC_RMID, NULL); TEST_ERROR;
 
 	sum_offerID = shmget(IPC_PRIVATE, sizeof(int), S_IRUSR | S_IWUSR | IPC_CREAT); TEST_ERROR;
 	sum_offer = shmat(sum_offerID, NULL, 0); TEST_ERROR;
-	sum_offer = 0;
-	/*shmdt(sum_request); TEST_ERROR;*/
+	*sum_offer = 0;
+	shmctl(sum_offerID, IPC_RMID, NULL); TEST_ERROR;
 
 	msg_id = msgget(getpid(), IPC_CREAT | IPC_EXCL | 0600); TEST_ERROR;
 	printf("\n\nID CODA MESSAGGI (master) %d", msg_id);
@@ -363,7 +370,6 @@ int main() {
 			case 0:
 				execv("./ship", args);
 				TEST_ERROR;
-				printf("DIOCANE!\n");
 				exit(1);
 
 			default:
@@ -396,15 +402,19 @@ int main() {
 
 	sops.sem_num = 0;
 	sops.sem_op = 0;
-	semop(sem_sync_id, &sops, 1);
-	TEST_ERROR;
+	semop(sem_sync_id, &sops, 1); TEST_ERROR;
+
+	shmdt(sum_request); TEST_ERROR;
+	shmdt(sum_offer); TEST_ERROR;
 
 	alarm(1);
-	sleep(31); /*Lo toglieremo , ma se lo tolgo ora, da un errore perchè eliminiamo il semaforo prima che l'ultimo processo abbia fatto il semop per aspettare tutti i processi*/
 
-	for(i = 0; i < SO_NAVI + SO_PORTI; i++) wait(NULL);
-	/*TEST_ERROR;*/
+	sops.sem_num = 1;
+	sops.sem_op = 0;
+	semop(sem_sync_id, &sops, 1); TEST_ERROR;
+	/*sleep(31); Lo toglieremo , ma se lo tolgo ora, da un errore perchè eliminiamo il semaforo prima che l'ultimo processo abbia fatto il semop per aspettare tutti i processi*/
 
+	/*for(i = 0; i < SO_NAVI + SO_PORTI; i++) wait(NULL); TEST_ERROR;*/
 
 /*
 	printf("\n\n[%d] LETTURA MEMORIA CONDIVISA DAL MASTER:\n", getpid());
@@ -424,10 +434,11 @@ int main() {
 		
 	semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;
 	semctl(sem_sum_id, 0, IPC_RMID); TEST_ERROR;
-	shmctl(sum_requestID, IPC_RMID, NULL); TEST_ERROR;
 	msgctl(msg_id, IPC_RMID, NULL); TEST_ERROR;
-	shmctl(port_sharedMemoryID, IPC_RMID, NULL); TEST_ERROR;
+
+	free(port_pids);
+	free(ship_pids);
 	
 	printf("\n\nSIMULAZIONE FINITA!!!\n\n");
-	exit(EXIT_FAILURE);
+	exit(EXIT_SUCCESS);
 }

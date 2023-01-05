@@ -49,8 +49,8 @@ void handleSignal(int signal) {
 }
 
 int main(int argc, char *argv[]) {
-	
-	int i;
+	sigset_t set;
+	int i, *ptr_set;
 	int sem_sync_id, portsSharedMemoryID, idx, sum_requestID, *sum_request, msg_id, sh_request_id;
 	coordinates coords;
 	struct sembuf sops;
@@ -64,7 +64,7 @@ int main(int argc, char *argv[]) {
 	bzero(&p, sizeof(p));
 	bzero(&sa, sizeof(sa));
 	bzero(&sops, sizeof(sops));
-	
+
 	sa.sa_handler = handleSignal;
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
@@ -115,6 +115,7 @@ int main(int argc, char *argv[]) {
 	shared_portCoords[idx].pid=getpid();
 	shared_portCoords[idx].offersID=shmget(IPC_PRIVATE, SO_DAYS*sizeof(goods), S_IRUSR | S_IWUSR | IPC_CREAT); TEST_ERROR;
 	p.generatedGoods=shmat(shared_portCoords[idx].offersID, NULL, 0);
+	shmctl(shared_portCoords[idx].offersID, IPC_RMID, NULL); TEST_ERROR;
 	shared_portCoords[idx].requestID = shmget(IPC_PRIVATE, sizeof(struct request), S_IRUSR | S_IWUSR | IPC_CREAT); TEST_ERROR;
 	p.request = shmat(shared_portCoords[idx].requestID, NULL, 0); TEST_ERROR;
 
@@ -141,16 +142,27 @@ int main(int argc, char *argv[]) {
 	sops.sem_op = 0;
 	semop(sem_sync_id, &sops, 1); TEST_ERROR;
 
-	for(i=0; i<SO_DAYS; i++) {
+	sigemptyset(&set);
+	sigaddset(&set, SIGUSR1);
+	sigaddset(&set, SIGUSR2);
+
+	for(i=0; i<SO_DAYS; i++)
+		sigwait(&set, ptr_set);
+
+	/*for(i=0; i<SO_DAYS; i++) {
 		sleep(2);
-	}
+	}*/
 
 	shmdt(p.request); TEST_ERROR;
 	semctl(portSemId, 0, IPC_RMID); TEST_ERROR;
 	shmctl(shared_portCoords[idx].requestID, IPC_RMID, NULL); TEST_ERROR;
 	shmdt(shared_portCoords);
 	/*shmdt(p.generatedGoods);*/
-	free(p.generatedGoods);
+	/*free(p.generatedGoods);*/
+
+	sops.sem_num = 1;
+	sops.sem_op = -1;
+	semop(sem_sync_id, &sops, 1); TEST_ERROR;
 
 	exit(0);
 }
