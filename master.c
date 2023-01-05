@@ -120,7 +120,7 @@ void finalReport(){
 			goodsReport[(r->goodsType-1)].maxOfferPortIndex=i;
 		}
 
-		printf("\n\nPORTO[%d] NUMERO %d (%.2f,%.2f):\nMerce in porto:%d\nMerce spedita:%d\nMerce ricevuta:%d\n",  sharedPortPositions[i].pid,(i+1),sharedPortPositions[i].coords.x,sharedPortPositions[i].coords.y, inPortGoods,shippedGoods,r-> satisfied);
+		printf("\n\nPORTO[%d] NUMERO %d (%.2f,%.2f):\nMerce in porto:%dton\nMerce spedita:%dton\nMerce ricevuta:%dton\n",  sharedPortPositions[i].pid,(i+1),sharedPortPositions[i].coords.x,sharedPortPositions[i].coords.y, inPortGoods,shippedGoods,r-> satisfied);
 
 		shmdt(g);
 		shmdt(r);
