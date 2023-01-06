@@ -40,11 +40,15 @@ void printPort(port p, int i) {
 void handleSignal(int signal) {
 	switch(signal) {
 		case SIGUSR1:
+			printf("SEGNALE SIGUSR1 RICEVUTO\n");
 			generateOffer(p, ++idxOfferts, sum_offerID, sem_sum_id);
+			printf("Cazzo\n");
 			break;
 
-		case SIGALRM:
+		case SIGUSR2:
+			printf("SEGNALE SIGUSR2 RICEVUTO\n");
 			printDailyReport(p);
+			/*printf("STAMPATO REPORT GIORNALIERO\n");*/
 			break;
 	}
 }
@@ -59,7 +63,6 @@ int main(int argc, char *argv[]) {
 	struct request *shared_request;
 	struct sigaction sa;
 	struct msg_request msg_request;
-	int portSemId;
 	goods *g;
 
 	bzero(&p, sizeof(p));
@@ -68,7 +71,7 @@ int main(int argc, char *argv[]) {
 
 	sa.sa_handler = handleSignal;
 	sigaction(SIGUSR1, &sa, NULL);
-	sigaction(SIGALRM, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 
 	sem_sync_id = atoi(argv[1]);
 	portsSharedMemoryID=atoi(argv[2]);
@@ -122,10 +125,12 @@ int main(int argc, char *argv[]) {
 
 	srand(getpid());
 	p.docks = rand() % SO_BANCHINE + 1;
-	portSemId = semget(getpid(), 3, IPC_CREAT | 0600); /*3 semaphores: sem[0]=docks, sem[1]= offers handling, sem[2]=request handling*/ TEST_ERROR;
-	semctl(portSemId, 0, SETVAL, p.docks); TEST_ERROR;
-	semctl(portSemId, 1, SETVAL, 1); 
+	shared_portCoords[idx].semID = semget(IPC_PRIVATE, 3, IPC_CREAT | 0600); /*3 semaphores: sem[0]=docks, sem[1]= offers handling, sem[2]=request handling*/ TEST_ERROR;
+	semctl(shared_portCoords[idx].semID, 0, SETVAL, p.docks); TEST_ERROR;
+	semctl(shared_portCoords[idx].semID, 1, SETVAL, 1); TEST_ERROR;
+	semctl(shared_portCoords[idx].semID, 2, SETVAL, 1); TEST_ERROR;
 	p.coords = coords;
+    printf("semID in port: %d\n", shared_portCoords[idx].semID);
 
 	printPort(p, idx);
 	/*p = */initializeRequestsAndOffer(p);
@@ -144,17 +149,18 @@ int main(int argc, char *argv[]) {
 	sops.sem_op = 0;
 	semop(sem_sync_id, &sops, 1); TEST_ERROR;
 
+	printf("Ciao dal porto\n");
+
 	sigemptyset(&set);
-	sigaddset(&set, SIGALRM);
+	sigaddset(&set, SIGUSR2);
 
-
-	for(i=0; i<SO_DAYS; i++)
+	for(i=0; i<SO_DAYS - 1; i++) {
+		printf("%d", i);
 		sigwait(&set, ptr_set);
-
-
+	}
 
 	shmdt(p.request); TEST_ERROR;
-	semctl(portSemId, 0, IPC_RMID); TEST_ERROR;
+	semctl(shared_portCoords[idx].semID, 0, IPC_RMID); TEST_ERROR;
 	shmctl(shared_portCoords[idx].requestID, IPC_RMID, NULL); TEST_ERROR;
 	shmdt(shared_portCoords);
 	/*shmdt(p.generatedGoods);*/

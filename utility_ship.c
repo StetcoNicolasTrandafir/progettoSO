@@ -155,7 +155,7 @@ int negociate(struct port_sharedMemory *ports, ship s){
     char *string;
 	int numBytes;
 
-
+    bzero(&sops, sizeof(struct sembuf));
 
     while(j++<SO_NAVI && destinationPortIndex==-1 && indexClosestPort!=-1){
         indexClosestPort= getNearestPort(ports, s.coords, getDistance(s.coords, ports[indexClosestPort].coords));
@@ -173,26 +173,29 @@ int negociate(struct port_sharedMemory *ports, ship s){
             
     }
 
+    printf("%d | %d\n", indexClosestPort, destinationPortIndex);
 
-    startingPortSemID=semget(ports[indexClosestPort].pid, 3, 0600);TEST_ERROR;
-    destinationPortSemID=semget(ports[destinationPortIndex].pid, 3, 0600); TEST_ERROR;/*[0]=banchine [1]=offerta [2]=richiesta*/
+    startingPortSemID = ports[indexClosestPort].semID;
+    destinationPortSemID = ports[destinationPortIndex].semID;
+    /*startingPortSemID=semget(ports[indexClosestPort].semID, 3, 0600);TEST_ERROR;
+    destinationPortSemID=semget(ports[destinationPortIndex].semID, 3, 0600); TEST_ERROR; /*[0]=banchine [1]=offerta [2]=richiesta*/
 
     /*TODO AGGIORNO I BOOKED DELLA RICHIESTA E DELL'OFFERTA*/
-
 
     /*CAMBIO VALORI RICHIESTA*/
     /*LOCK(destinationPortIndex, 2)*/
     sops.sem_num = 2; 
 	sops.sem_op = -1; 
 	semop(destinationPortSemID, &sops, 1); TEST_ERROR;
+
     request = shmat(ports[destinationPortIndex].requestID, NULL, 0); TEST_ERROR;
-    shippedQuantity=min((request->quantity-request->booked), (g[goodIndex].dimension-g[goodIndex].booked));
+    shippedQuantity=min((request->quantity - request->booked), (g[goodIndex].dimension - g[goodIndex].booked));
     request->booked+=shippedQuantity;
+
     sops.sem_num = 2; 
-	sops.sem_op = -1; 
+	sops.sem_op = 1;
 	semop(destinationPortSemID, &sops, 1); TEST_ERROR;
     /*UNLOCK(destinationPortIndex, 2)*/
-
 
     /*CAMBIO VALORI OFFERTA*/
     /*LOCK(destinationPortIndex, 2)*/
@@ -201,11 +204,8 @@ int negociate(struct port_sharedMemory *ports, ship s){
 	semop(startingPortSemID, &sops, 1); TEST_ERROR;
     g[goodIndex].booked+=shippedQuantity;
     sops.sem_num = 1; 
-	sops.sem_op = -1; 
+	sops.sem_op = 1; 
 	semop(startingPortSemID, &sops, 1);
-    
-
-
 
     /*moving towards the port to load goods*/
     travelTime= getTravelTime(getDistance(s.coords,ports[indexClosestPort].coords));
@@ -217,7 +217,8 @@ int negociate(struct port_sharedMemory *ports, ship s){
 
     /*arrived at the port*/
     s.coords=ports[indexClosestPort].coords;
-    
+
+    printf("Ho cambiato coordinate bro\n");
 
     /*loading goods*/
     /*LOCK(destinationPortIndex, 2)*/
@@ -225,11 +226,12 @@ int negociate(struct port_sharedMemory *ports, ship s){
 	sops.sem_op = -1; 
 	semop(startingPortSemID, &sops, 1); TEST_ERROR;
     loadUnload(goodsQuantity, rem);
+    printf("Semop 1 fatta\n");
     sops.sem_num = 0; 
-	sops.sem_op = -1; 
+	sops.sem_op = 1; 
 	semop(startingPortSemID, &sops, 1);
 
-
+    printf("Loadato le varie cose\n");
 
     /*CAMBIO VALORI OFFERTA*/
     /*LOCK(destinationPortIndex, 2)*/
@@ -237,12 +239,12 @@ int negociate(struct port_sharedMemory *ports, ship s){
 	sops.sem_op = -1; 
 	semop(startingPortSemID, &sops, 1); TEST_ERROR;
     g[goodIndex].shipped+=shippedQuantity;
-    shmdt(g);
+    shmdt(g); TEST_ERROR;
     sops.sem_num = 1; 
-	sops.sem_op = -1; 
+	sops.sem_op = 1; 
 	semop(startingPortSemID, &sops, 1);
 
-
+    printf("Ho cambiato i valori offerta di nuovo in negociate\n");
     
     /*moving towards the port wich made the request*/
     travelTime= getTravelTime(getDistance(s.coords,ports[destinationPortIndex].coords));
@@ -262,7 +264,7 @@ int negociate(struct port_sharedMemory *ports, ship s){
 	semop(destinationPortSemID, &sops, 1); TEST_ERROR;
     loadUnload(goodsQuantity, rem);
     sops.sem_num = 2; 
-	sops.sem_op = -1; 
+	sops.sem_op = 1; 
 	semop(destinationPortSemID, &sops, 1);
 
 
@@ -274,7 +276,7 @@ int negociate(struct port_sharedMemory *ports, ship s){
     request->satisfied+=shippedQuantity;
     shmdt(request); TEST_ERROR;
     sops.sem_num = 2; 
-	sops.sem_op = -1; 
+	sops.sem_op = 1; 
 	semop(destinationPortSemID, &sops, 1);
 
 	string=malloc(70);
@@ -301,13 +303,10 @@ int getValidRequestPort(goods good, struct port_sharedMemory * sh_port) {
 
     while (1) {
         ret = msgrcv(msg_id, &msg, sizeof(struct msg_request), good.type, IPC_NOWAIT); TEST_ERROR;
-
-        
         if (ret == -1){
             return -1;
-        }
-
-        sem_id = semget(sh_port[msg.idx].pid, 3, 0600);TEST_ERROR;
+        }   
+        sem_id = sh_port[msg.idx].semID;
         request = shmat(sh_port[msg.idx].requestID, NULL, 0); TEST_ERROR;
         sops.sem_num = 1;
         sops.sem_op = -1;

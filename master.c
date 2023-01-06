@@ -279,8 +279,9 @@ void handleSignal(int signal) {
 /*source setEnv.sh*/
 
 int main() {
+	sigset_t set;
 	struct sigaction sa;
-	int i, j;
+	int i, j, *ptr_set;
 	coordinates coord_c;
 	char  *args[9], name_file[100], sem_sync_str[3 * sizeof(int) + 1], i_str[3 * sizeof(int) + 1], port_sharedMemoryID_STR[3*sizeof(int)+1], sum_requestID_STR[3 * sizeof(int) + 1], sem_request_str[3 * sizeof(int) + 1], msg_str[3 * sizeof(int) + 1], sum_offerID_STR[3 * sizeof(int) + 1];
 	pid_t fork_rst;
@@ -416,21 +417,32 @@ int main() {
 			break; 
 	}
 
-
 	sops.sem_num = 0;
 	sops.sem_op = 0;
 	semop(sem_sync_id, &sops, 1); TEST_ERROR;
+
+	printf("Ciao\n");
 
 	shmdt(sum_request); TEST_ERROR;
 	shmdt(sum_offer); TEST_ERROR;
 
 	alarm(1);
 
+	sigemptyset(&set);
+	sigaddset(&set, SIGALRM);
+
+	printf("Ciao\n");
+
+	for(i=0; i<SO_DAYS; i++) {
+		printf("MAIN: %d", i);
+		sigwait(&set, ptr_set);
+	}
+
 	sops.sem_num = 1;
 	sops.sem_op = 0;
 	semop(sem_sync_id, &sops, 1); 
 	if(errno==4)errno=0;
-	else  TEST_ERROR
+	else TEST_ERROR;
 	
 	/*sleep(31); Lo toglieremo , ma se lo tolgo ora, da un errore perchè eliminiamo il semaforo prima che l'ultimo processo abbia fatto il semop per aspettare tutti i processi*/
 
