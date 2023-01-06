@@ -124,18 +124,17 @@ int main(int argc, char *argv[]) {
 
 	msg_id = msgget(getppid(), IPC_CREAT | 0600); TEST_ERROR;
 	shared_portCoords = shmat(portsSharedMemoryID, NULL, 0); TEST_ERROR;
-
 	
-	
-	negociate(shared_portCoords, s); TEST_ERROR;	
+	negociate(shared_portCoords, s); TEST_ERROR;
 
-	getNearestPort(shared_portCoords, s.coords,-1); TEST_ERROR;
+	/*getNearestPort(shared_portCoords, s.coords,-1); TEST_ERROR;*/
 
 	sigemptyset(&set);
 	sigaddset(&set, SIGALRM);
 
-	for(i=0; i<SO_DAYS; i++)
-		sigwait(&set, ptr_set);
+	for(i=0; i<SO_DAYS; i++) {
+		sigwait(&set, ptr_set); TEST_ERROR;
+	}
 
 
 	sops.sem_num = 1;

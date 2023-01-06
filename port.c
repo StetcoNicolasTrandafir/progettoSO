@@ -40,15 +40,13 @@ void printPort(port p, int i) {
 void handleSignal(int signal) {
 	switch(signal) {
 		case SIGUSR1:
-			printf("SEGNALE SIGUSR1 RICEVUTO\n");
 			generateOffer(p, ++idxOfferts, sum_offerID, sem_sum_id);
 			printf("Cazzo\n");
 			break;
 
 		case SIGUSR2:
-			printf("SEGNALE SIGUSR2 RICEVUTO\n");
 			printDailyReport(p);
-			/*printf("STAMPATO REPORT GIORNALIERO\n");*/
+			printf("STAMPATO REPORT GIORNALIERO\n");
 			break;
 	}
 }
@@ -125,12 +123,12 @@ int main(int argc, char *argv[]) {
 
 	srand(getpid());
 	p.docks = rand() % SO_BANCHINE + 1;
+	shared_portCoords[idx].docks=p.docks;
 	shared_portCoords[idx].semID = semget(IPC_PRIVATE, 3, IPC_CREAT | 0600); /*3 semaphores: sem[0]=docks, sem[1]= offers handling, sem[2]=request handling*/ TEST_ERROR;
 	semctl(shared_portCoords[idx].semID, 0, SETVAL, p.docks); TEST_ERROR;
 	semctl(shared_portCoords[idx].semID, 1, SETVAL, 1); TEST_ERROR;
 	semctl(shared_portCoords[idx].semID, 2, SETVAL, 1); TEST_ERROR;
 	p.coords = coords;
-    printf("semID in port: %d\n", shared_portCoords[idx].semID);
 
 	printPort(p, idx);
 	/*p = */initializeRequestsAndOffer(p);
@@ -148,8 +146,6 @@ int main(int argc, char *argv[]) {
 	sops.sem_num = 0;
 	sops.sem_op = 0;
 	semop(sem_sync_id, &sops, 1); TEST_ERROR;
-
-	printf("Ciao dal porto\n");
 
 	sigemptyset(&set);
 	sigaddset(&set, SIGUSR2);

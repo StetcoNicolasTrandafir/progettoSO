@@ -33,6 +33,7 @@ typedef struct port {
 /*this struct contains the coords of the port and the pid, needed to access the port's generatedGoods IPC*/
 struct port_sharedMemory {
     coordinates coords;
+    int docks;
     int pid;
     int offersID;
     int requestID;

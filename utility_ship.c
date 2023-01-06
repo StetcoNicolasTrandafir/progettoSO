@@ -218,20 +218,15 @@ int negociate(struct port_sharedMemory *ports, ship s){
     /*arrived at the port*/
     s.coords=ports[indexClosestPort].coords;
 
-    printf("Ho cambiato coordinate bro\n");
-
     /*loading goods*/
     /*LOCK(destinationPortIndex, 2)*/
     sops.sem_num = 0; 
 	sops.sem_op = -1; 
 	semop(startingPortSemID, &sops, 1); TEST_ERROR;
     loadUnload(goodsQuantity, rem);
-    printf("Semop 1 fatta\n");
     sops.sem_num = 0; 
 	sops.sem_op = 1; 
-	semop(startingPortSemID, &sops, 1);
-
-    printf("Loadato le varie cose\n");
+	semop(startingPortSemID, &sops, 1); TEST_ERROR;
 
     /*CAMBIO VALORI OFFERTA*/
     /*LOCK(destinationPortIndex, 2)*/
@@ -242,9 +237,7 @@ int negociate(struct port_sharedMemory *ports, ship s){
     shmdt(g); TEST_ERROR;
     sops.sem_num = 1; 
 	sops.sem_op = 1; 
-	semop(startingPortSemID, &sops, 1);
-
-    printf("Ho cambiato i valori offerta di nuovo in negociate\n");
+	semop(startingPortSemID, &sops, 1); TEST_ERROR;
     
     /*moving towards the port wich made the request*/
     travelTime= getTravelTime(getDistance(s.coords,ports[destinationPortIndex].coords));
@@ -277,7 +270,7 @@ int negociate(struct port_sharedMemory *ports, ship s){
     shmdt(request); TEST_ERROR;
     sops.sem_num = 2; 
 	sops.sem_op = 1; 
-	semop(destinationPortSemID, &sops, 1);
+	semop(destinationPortSemID, &sops, 1); TEST_ERROR;
 
 	string=malloc(70);
 	numBytes=sprintf(string,"\n[%d]FINITO DI SCARICARE! Merce portata dal punto A al punto B!\n\n", getpid());

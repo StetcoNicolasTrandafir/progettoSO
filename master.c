@@ -56,12 +56,6 @@ void finalReport(){
 	char *string;
 	int numBytes;
 
-
-	
-	
-	
-
-	
 	goodsReport=calloc(SO_MERCI, sizeof(struct goodsTypeReport));
 	offerSum=calloc(SO_MERCI, sizeof(int));
 	goodsStateSum=calloc(5, sizeof(int));
@@ -192,7 +186,35 @@ int elementInArray(int element, int array[], int limit) {
 	return 0;
 }
 
-void sendSignalToCasualPorts(){
+void dailyReport(){
+	int i,j = 0;
+	int tonsShipped = 0, tonsInPort = 0, freeDocks = 0;
+	char *string;
+	int num_bytes;
+	goods *g;
+	struct request *r;
+
+	string = malloc(200);
+
+	for(i=0; i< SO_PORTI; i++){
+		g=shmat(sharedPortPositions[i].offersID, NULL, 0); TEST_ERROR;
+		r=shmat(sharedPortPositions[i].requestID, NULL, 0); TEST_ERROR;
+		
+		while(j<SO_DAYS && g[j].type!=-1){
+			tonsInPort+=g[j].dimension-g[j].shipped;
+			tonsShipped+=g[j].shipped;
+			j++;
+		}
+
+		num_bytes = sprintf(string, "Porto [%d] in posizione: (%.2f, %.2f)\nBanchine libere %d su %d\nMerci spedite: %d ton\nMerci generate ancora in porto: %d ton\nMerci ricevute: %d ton\n\n", sharedPortPositions[i].pid, sharedPortPositions[i].coords.x, sharedPortPositions[i].coords.y, freeDocks, sharedPortPositions[i].docks, 1, 2, 23);
+		fflush(stdout);
+		write(1, string, num_bytes);
+	}
+	
+    free(string);
+}
+
+/*void sendSignalToCasualPorts(){
 
 	int i, n_ports, *port_idx, casual_idx;
 	struct timespec now;
@@ -200,21 +222,22 @@ void sendSignalToCasualPorts(){
     clock_gettime(CLOCK_REALTIME, &now);
     n_ports = (now.tv_nsec % SO_PORTI)+1;
     port_idx = calloc(n_ports, sizeof(int));
-    for (i = 0; i < n_ports; i++) {
+    for (i = 0; i < SO_PORTI; i++) {
+    	kill(port_pids[i], SIGUSR2); TEST_ERROR;
+	}
+    /*for (i = 0; i < n_ports; i++) {
     	do {
     		clock_gettime(CLOCK_REALTIME, &now);
     		casual_idx = now.tv_nsec % SO_PORTI;
     	}
     	while (elementInArray(casual_idx, port_idx, i));
 		port_idx[i] = casual_idx;
+		printf("invio il segnale 1 al porto %d\n", casual_idx);
     	kill(port_pids[port_idx[i]], SIGUSR1); TEST_ERROR;
     }
 
-	for (i = 0; i < SO_PORTI; i++) {
-    	kill(port_pids[i], SIGALRM); TEST_ERROR;
-	}
     free(port_idx);
-}
+}*/
 
 void cleanUp(){
 	int i;
@@ -253,11 +276,14 @@ void handleSignal(int signal) {
 				write(1, string, numBytes);
 
 				sum_offer = 0;
-				sendSignalToCasualPorts();		
-				kill(meteoPid, SIGUSR1); TEST_ERROR;
+				dailyReport();
+				printf("Ho finito il report\n");
+				/*kill(meteoPid, SIGUSR1); TEST_ERROR;*/
+				free(string);
 				alarm(1);
 			}
 			break;
+
 		case SIGINT:
 
 			string=malloc(85);
@@ -397,7 +423,7 @@ int main() {
 		}
 	}
 
-	sprintf(name_file, "meteo");
+	/*sprintf(name_file, "meteo");
 	args[0] = name_file;
 	args[1]= NULL;
 
@@ -415,7 +441,7 @@ int main() {
 
 		default:
 			break; 
-	}
+	}*/
 
 	sops.sem_num = 0;
 	sops.sem_op = 0;
@@ -433,16 +459,18 @@ int main() {
 
 	printf("Ciao\n");
 
-	for(i=0; i<SO_DAYS; i++) {
+	/*for(i=0; i<SO_DAYS; i++) {
 		printf("MAIN: %d", i);
 		sigwait(&set, ptr_set);
-	}
+	}*/
 
 	sops.sem_num = 1;
 	sops.sem_op = 0;
-	semop(sem_sync_id, &sops, 1); 
-	if(errno==4)errno=0;
-	else TEST_ERROR;
+	for(i=0; i<SO_DAYS; i++) {
+		semop(sem_sync_id, &sops, 1); 
+		if(errno==4)errno=0;
+		else TEST_ERROR;
+	}
 	
 	/*sleep(31); Lo toglieremo , ma se lo tolgo ora, da un errore perchè eliminiamo il semaforo prima che l'ultimo processo abbia fatto il semop per aspettare tutti i processi*/
 
