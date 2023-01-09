@@ -186,15 +186,34 @@ int elementInArray(int element, int array[], int limit) {
 	return 0;
 }
 
+
+/*!SECTION
+
 void dailyReport(){
 	int i,j = 0;
 	int tonsShipped = 0, tonsInPort = 0, freeDocks = 0;
 	char *string;
-	int num_bytes;
+	int numBytes;
 	goods *g;
 	struct request *r;
+	int endRequest=0;
+	int endOffer=0;
+	int *stateSum;
+    int *typeSum;
 
-	string = malloc(200);
+	typeSum=calloc(SO_MERCI, sizeof(int));TEST_ERROR;
+	stateSum=calloc(5, sizeof(int));TEST_ERROR;
+
+	bzero(typeSum, SO_MERCI*sizeof(int));
+	bzero(stateSum, 5*sizeof(int));
+
+	string=malloc(200);TEST_ERROR;
+	numBytes=sprintf(string,"\n\n========================================================================\n\t\tREPORT GIORNO %d:\n========================================================================\n\n\n==================>\t\tPORTI\n", pastDays);
+
+	fflush(stdout);
+	write(1, string, numBytes);
+
+	string = realloc(string,200); TEST_ERROR;
 
 	for(i=0; i< SO_PORTI; i++){
 		g=shmat(sharedPortPositions[i].offersID, NULL, 0); TEST_ERROR;
@@ -203,15 +222,147 @@ void dailyReport(){
 		while(j<SO_DAYS && g[j].type!=-1){
 			tonsInPort+=g[j].dimension-g[j].shipped;
 			tonsShipped+=g[j].shipped;
+			if(g[j].state==in_port)
+				endOffer+=g[j].dimension-g[j].shipped;
+
+			stateSum[g[j].state]+=g[j].dimension-g[j].shipped;
 			j++;
+			typeSum[g[j].type-1]+=g[j].dimension;
 		}
 
-		num_bytes = sprintf(string, "Porto [%d] in posizione: (%.2f, %.2f)\nBanchine libere %d su %d\nMerci spedite: %d ton\nMerci generate ancora in porto: %d ton\nMerci ricevute: %d ton\n\n", sharedPortPositions[i].pid, sharedPortPositions[i].coords.x, sharedPortPositions[i].coords.y, freeDocks, sharedPortPositions[i].docks, 1, 2, 23);
+		stateSum[delivered]+=(r->quantity-r->satisfied);
+
+		freeDocks= semctl(sharedPortPositions[i].semID, 0, GETVAL);TEST_ERROR;
+		endRequest+=(r->quantity-r->satisfied);
+
+		numBytes = sprintf(string, "Porto [%d] in posizione: (%.2f, %.2f)\nBanchine libere %d su %d\nMerci spedite: %d ton\nMerci generate ancora in porto: %d ton\nMerci ricevute: %d ton\n\n", sharedPortPositions[i].pid, sharedPortPositions[i].coords.x, sharedPortPositions[i].coords.y, freeDocks, sharedPortPositions[i].docks, 1, 2, 23);
 		fflush(stdout);
-		write(1, string, num_bytes);
+		write(1, string, numBytes);
+
+		shmdt(g);
+		shmdt(r);
 	}
+
+	string=realloc(string,200);TEST_ERROR;
+	numBytes=sprintf(string,"\n\n ==================>\t\tMERCI\n\n---------->\tPER STATI:\n\nMerce in porto: %dton\nMerce scaduta in porto: %dton\nMerce in nave: %dton\nMerce scaduta in nave: %d\nMerce consegnata: %dton", stateSum[in_port],stateSum[expired_port],stateSum[on_ship],stateSum[expired_ship],stateSum[delivered]);
+	fflush(stdout);
+	write(1, string, numBytes);
+
+	string=realloc(string,33);TEST_ERROR;
+	numBytes=sprintf(string,"\n\n---------->\tPER TIPOLOGIA:\n");
+	fflush(stdout);
+	write(1, string, numBytes);
 	
-    free(string);
+	string=realloc(string,30);TEST_ERROR;
+
+	for(i=0; i<SO_MERCI; i++){
+		numBytes=sprintf(string,"\nMerce di tipo %d: %dton", (i+1), typeSum[i]);
+		fflush(stdout);
+		write(1, string, numBytes);
+	}
+
+
+	if(!endOffer){
+		printf("\n\nNON CI SONO PIÙ OFFERTE PER NESSUN TIPO DI MERCE ==> SIMULAZIONE FINITA");
+	}else if(!endRequest){
+		printf("\n\nNON C'È PIÙ RICHIESTA PER NESSUN TIPO DI MERCE ==> SIMULAZIONE FINITA");
+	}
+
+	string=realloc(string,89);TEST_ERROR;
+	numBytes=sprintf(string,"\n\n============================= FINE REPORT GIORNO %d =============================\n\n", pastDays);
+	fflush(stdout);
+	write(1, string, numBytes);TEST_ERROR;
+
+
+
+	free(stateSum);TEST_ERROR;
+	free(typeSum);TEST_ERROR;
+	free(string);TEST_ERROR;
+	
+	
+
+}
+
+*/
+
+void dailyReport(){
+	int i,j = 0;
+	int tonsShipped = 0, tonsInPort = 0, freeDocks = 0;
+	char *string;
+	int numBytes;
+	goods *g;
+	struct request *r;
+	int *stateSum;
+    int *typeSum;
+	int inPort;
+	int shipped;
+
+	typeSum=calloc(SO_MERCI, sizeof(int));TEST_ERROR;
+	stateSum=calloc(5, sizeof(int));TEST_ERROR;
+
+	bzero(typeSum, SO_MERCI*sizeof(int));
+	bzero(stateSum, 5*sizeof(int));
+
+
+	string=malloc(200);TEST_ERROR;
+	numBytes=sprintf(string,"\n\n========================================================================\n\t\tREPORT GIORNO %d:\n========================================================================\n\n\n==================>\t\tPORTI\n", pastDays);
+	TEST_ERROR;
+
+	fflush(stdout);
+	write(1, string, numBytes);
+
+
+	for(i=0; i< SO_PORTI; i++){
+		g=shmat(sharedPortPositions[i].offersID, NULL, 0); TEST_ERROR;
+		r=shmat(sharedPortPositions[i].requestID, NULL, 0); TEST_ERROR;
+		inPort=0;
+		shipped=0;
+		
+		while(j<SO_DAYS && g[j].type!=-1){
+			tonsInPort+=g[j].dimension-g[j].shipped;
+			tonsShipped+=g[j].shipped;
+			inPort+=g[j].dimension-g[j].shipped;
+			shipped+=g[j].shipped;
+			typeSum[g[j].type-1]+=g[j].dimension;
+			stateSum[g[j].state]+=g[j].dimension-g[j].shipped;
+			j++;
+		}
+		stateSum[delivered]+=(r->quantity-r->satisfied);
+		freeDocks= semctl(sharedPortPositions[i].semID, 0, GETVAL);TEST_ERROR;
+
+		numBytes = sprintf(string, "Porto [%d] in posizione: (%.2f, %.2f)\nBanchine libere %d su %d\nMerci spedite: %d ton\nMerci generate ancora in porto: %d ton\nMerci ricevute: %d ton\n\n", sharedPortPositions[i].pid, sharedPortPositions[i].coords.x, sharedPortPositions[i].coords.y, freeDocks, sharedPortPositions[i].docks, shipped, inPort, r->satisfied);
+		fflush(stdout);
+		write(1, string, numBytes);
+	}
+
+
+	string=realloc(string,200);TEST_ERROR;
+	numBytes=sprintf(string,"\n\n ==================>\t\tMERCI\n\n---------->\tPER STATI:\n\nMerce in porto: %dton\nMerce scaduta in porto: %dton\nMerce in nave: %dton\nMerce scaduta in nave: %d\nMerce consegnata: %dton", stateSum[in_port],stateSum[expired_port],stateSum[on_ship],stateSum[expired_ship],stateSum[delivered]);
+	fflush(stdout);
+	write(1, string, numBytes);
+
+	string=realloc(string,33);TEST_ERROR;
+	numBytes=sprintf(string,"\n\n---------->\tPER TIPOLOGIA:\n");
+	fflush(stdout);
+	write(1, string, numBytes);
+	
+	string=realloc(string,30);TEST_ERROR;
+
+	for(i=0; i<SO_MERCI; i++){
+		numBytes=sprintf(string,"\nMerce di tipo %d: %dton", (i+1), typeSum[i]);
+		fflush(stdout);
+		write(1, string, numBytes);
+	}
+
+
+	string=realloc(string,89);TEST_ERROR;
+	numBytes=sprintf(string,"\n\n============================= FINE REPORT GIORNO %d =============================\n\n", pastDays);
+	fflush(stdout);
+	write(1, string, numBytes);TEST_ERROR;
+	
+    free(string); TEST_ERROR;
+	free(typeSum);TEST_ERROR;
+	free(stateSum);TEST_ERROR;
 }
 
 /*void sendSignalToCasualPorts(){
@@ -269,17 +420,12 @@ void handleSignal(int signal) {
 				finalReport();
 			}else{
 
-				string=malloc(31);
-				numBytes=sprintf(string,"\n\nREPORT GIORNALIERO (%d):\n", pastDays);
 
-				fflush(stdout);
-				write(1, string, numBytes);
 
 				sum_offer = 0;
 				dailyReport();
-				printf("Ho finito il report\n");
 				/*kill(meteoPid, SIGUSR1); TEST_ERROR;*/
-				free(string);
+
 				alarm(1);
 			}
 			break;
@@ -447,8 +593,6 @@ int main() {
 	sops.sem_op = 0;
 	semop(sem_sync_id, &sops, 1); TEST_ERROR;
 
-	printf("Ciao\n");
-
 	shmdt(sum_request); TEST_ERROR;
 	shmdt(sum_offer); TEST_ERROR;
 
@@ -457,7 +601,6 @@ int main() {
 	sigemptyset(&set);
 	sigaddset(&set, SIGALRM);
 
-	printf("Ciao\n");
 
 	/*for(i=0; i<SO_DAYS; i++) {
 		printf("MAIN: %d", i);
