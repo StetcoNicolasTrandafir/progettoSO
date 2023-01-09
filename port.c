@@ -173,7 +173,5 @@ int main(int argc, char *argv[]) {
 	sops.sem_op = -1;
 	semop(sem_sync_id, &sops, 1); TEST_ERROR;
 
-
-
 	exit(0);
 }

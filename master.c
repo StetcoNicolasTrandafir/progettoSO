@@ -341,13 +341,11 @@ void killChildren(){
 }
 
 void cleanUp(){
-	int i;
-
-	semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;
 	shmdt(sharedPortPositions); TEST_ERROR;
 	shmdt(sum_request); TEST_ERROR;
 	shmdt(shared_ship);TEST_ERROR;
-	shmdt(sum_offer); TEST_ERROR;
+	shmdt(sum_offer); TEST_ERROR; 	
+	semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;
 	semctl(sem_sum_id, 0, IPC_RMID); TEST_ERROR;
 	msgctl(msg_id, IPC_RMID, NULL); TEST_ERROR;
 }
@@ -360,12 +358,11 @@ void handleSignal(int signal) {
 			if(++pastDays==SO_DAYS){
 				finalReport();
 				sendDailySignal();
-				cleanUp();
 				
 
 			}else{
 				sendDailySignal();
-				sum_offer = 0;
+				*sum_offer = 0;
 				dailyReport();
 				/*kill(meteoPid, SIGUSR1); TEST_ERROR;*/
 
@@ -592,7 +589,7 @@ int main() {
 	msgctl(msg_id, IPC_RMID, NULL); TEST_ERROR;
 */
 	free(port_pids);
-	
+
 	
 	string=malloc(25);
 	numBytes=sprintf(string,"\n\nSIMULAZIONE FINITA!!!\n\n");
