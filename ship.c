@@ -35,6 +35,7 @@ void printShip(ship s) {
 
 
 struct port_sharedMemory *shared_portCoords;
+struct ship_sharedMemory *shared_shipCoords;
 ship s;
 
 void handleSignal(int signal) {
@@ -89,8 +90,10 @@ int main(int argc, char *argv[]) {
 	struct sembuf sops;
 	struct msg_request msg_request;
 	struct sigaction sa;
+	int shipIndex= atoi(argv[4]);
 
 	shared_portCoords = shmat(atoi(argv[2]), NULL, 0); TEST_ERROR;
+	shared_shipCoords= shmat(atoi(argv[3]), NULL, 0); TEST_ERROR;
 
 	/*
 	printf("\n");
@@ -108,24 +111,24 @@ int main(int argc, char *argv[]) {
 	sigaction(SIGCONT, &sa, NULL);TEST_ERROR;
 	sigaction(SIGINT, &sa, NULL);TEST_ERROR;
 	
-
 	bzero(&sops, sizeof(sops));
-
+	
 	s.coords = getRandomCoords();
+	shared_shipCoords[shipIndex].coords = s.coords;
+	shared_shipCoords[shipIndex].inDock= 0;
+	shared_shipCoords[shipIndex].goodsQuantity= 0;
+	
 	printShip(s);TEST_ERROR;
 	sem_sync_id = atoi(argv[1]);
-	portsSharedMemoryID = atoi(argv[2]);TEST_ERROR;
 	sops.sem_num = 0;
 	sops.sem_op = -1;
 	semop(sem_sync_id, &sops, 1);TEST_ERROR;
 	sops.sem_op = 0;
 	semop(sem_sync_id, &sops, 1);TEST_ERROR;
 
-
 	msg_id = msgget(getppid(), IPC_CREAT | 0600); TEST_ERROR;
-	shared_portCoords = shmat(portsSharedMemoryID, NULL, 0); TEST_ERROR;
 	
-	negociate(shared_portCoords, s); TEST_ERROR;
+	negociate(shared_portCoords, s, shared_shipCoords[shipIndex]); TEST_ERROR;
 
 	/*getNearestPort(shared_portCoords, s.coords,-1); TEST_ERROR;*/
 
@@ -140,6 +143,8 @@ int main(int argc, char *argv[]) {
 	sops.sem_num = 1;
 	sops.sem_op = -1;
 	semop(sem_sync_id, &sops, 1); TEST_ERROR;
+
+	shmdt(shared_shipCoords);
 
 	exit(0);
 }

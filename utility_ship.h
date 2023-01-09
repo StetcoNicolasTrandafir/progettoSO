@@ -25,13 +25,12 @@ int getNearestPort(struct port_sharedMemory * ports, coordinates coords, double 
 /*return an array containg all the pids of the ships that are using a dock in some port*/
 pid_t * getShipsInPort(struct ship_sharedMemory *ships, coordinates portCoords);
 
-int negociate(struct port_sharedMemory *ports, ship s);
 
 /*returns an array containing the pids of the ships in movement*/
 pid_t * getShipsInMovement(struct ship_sharedMemory * ships);
 
 /*make all the process of negotiation of the goods: here the ship understand where move towards to load and transport goods*/
-int negociate(struct port_sharedMemory *ports, ship s);
+int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory shared_ship);
 
 
 /*returns the index of port in the shared memory wich has a request that can be satisfied, -1 if there's no request satisfiable */
