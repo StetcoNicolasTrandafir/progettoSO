@@ -58,7 +58,10 @@ typedef struct ship{
 
 struct ship_sharedMemory{
     coordinates coords; 
+    int inDock;
+    int semID;
     pid_t pid;
+    int goodsQuantity;
 };
 
 struct goodsTypeReport{
