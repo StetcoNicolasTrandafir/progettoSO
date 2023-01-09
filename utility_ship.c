@@ -138,7 +138,7 @@ NEGOZIAZIONE NAVI-PORTI:
 8) se non ci sono offerte e richieste che la nave può soddisfare in nessun porto, mi muovo verso il porto più vicino aspettando la generazione del giorno dopo
 */
 
-int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory shared_ship){
+int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory *shared_ships, int shipIndex){
 
     int indexClosestPort= getNearestPort(ports, s.coords, -1);
     goods *g= shmat(ports[indexClosestPort].offersID, NULL, 0);
@@ -173,7 +173,6 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
             
     }
 
-    printf("NEGOZIAZIONE INIZIATA\n\n\n\n");
 
     startingPortSemID = ports[indexClosestPort].semID;
     destinationPortSemID = ports[destinationPortIndex].semID;
@@ -211,7 +210,7 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
     travelTime= getTravelTime(getDistance(s.coords,ports[indexClosestPort].coords));
     s.coords.x=-1;
     s.coords.y=-1;
-    shared_ship.coords=s.coords;
+    shared_ships[shipIndex].coords=s.coords;
     
     time.tv_sec=(int)travelTime;
     time.tv_nsec=travelTime-time.tv_sec;
@@ -219,19 +218,17 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
 
     /*arrived at the port*/
     s.coords=ports[indexClosestPort].coords;
-    shared_ship.coords=s.coords;
+    shared_ships[shipIndex].coords=s.coords;
 
     /*loading goods*/
     /*LOCK(destinationPortIndex, 2)*/
     sops.sem_num = 0; 
 	sops.sem_op = -1; 
 	semop(startingPortSemID, &sops, 1); TEST_ERROR;
-    shared_ship.inDock=1;
-    printf("CARICANDO...! inDock: %d, goodsQuantity:%d\n\n\n\n", shared_ship.inDock,shared_ship.goodsQuantity);
+    shared_ships[shipIndex].inDock=1;
     loadUnload(goodsQuantity, rem);
-    shared_ship.inDock=0;
-    shared_ship.goodsQuantity=shippedQuantity;
-    printf("CARICATO! inDock: %d, goodsQuantity:%d\n\n\n\n", shared_ship.inDock,shared_ship.goodsQuantity);
+    shared_ships[shipIndex].inDock=0;
+    shared_ships[shipIndex].goodsQuantity=shippedQuantity;
 
     sops.sem_num = 0; 
 	sops.sem_op = 1; 
@@ -259,20 +256,18 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
 
     /*arrived at the port, loading the goods*/
     s.coords=ports[destinationPortIndex].coords;
-    shared_ship.coords=s.coords;
+    shared_ships[shipIndex].coords=s.coords;
 
     /*LOCK(destinationPortIndex, 2)*/
     sops.sem_num = 2; 
 	sops.sem_op = -1; 
 	semop(destinationPortSemID, &sops, 1); TEST_ERROR;
-    shared_ship.inDock=1;
-    printf("SCARICANDO... inDock: %d, goodsQuantity:%d\n\n\n\n", shared_ship.inDock,shared_ship.goodsQuantity);
+    shared_ships[shipIndex].inDock=1;
 
     loadUnload(goodsQuantity, rem);
-    printf("SCARICATO! inDock: %d, goodsQuantity:%d\n\n\n\n", shared_ship.inDock,shared_ship.goodsQuantity);
 
-    shared_ship.goodsQuantity=0;
-    shared_ship.inDock=0;
+    shared_ships[shipIndex].goodsQuantity=0;
+    shared_ships[shipIndex].inDock=0;
     sops.sem_num = 2; 
 	sops.sem_op = 1; 
 	semop(destinationPortSemID, &sops, 1);

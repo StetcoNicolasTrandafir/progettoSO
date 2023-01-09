@@ -233,7 +233,7 @@ void dailyReport(){
 			stateSum[g[j].state]+=g[j].dimension-g[j].shipped;
 			j++;
 		}
-		stateSum[delivered]+=(r->quantity-r->satisfied);
+		stateSum[delivered]+=r->satisfied;
 		freeDocks= semctl(sharedPortPositions[i].semID, 0, GETVAL);TEST_ERROR;
 
 		numBytes = sprintf(string, "Porto [%d] in posizione: (%.2f, %.2f)\nBanchine libere %d su %d\nMerci spedite: %d ton\nMerci generate ancora in porto: %d ton\nMerci ricevute: %d ton\n\n", sharedPortPositions[i].pid, sharedPortPositions[i].coords.x, sharedPortPositions[i].coords.y, freeDocks, sharedPortPositions[i].docks, shipped, inPort, r->satisfied);
@@ -292,7 +292,7 @@ void dailyReport(){
 	free(stateSum);TEST_ERROR;
 }
 
-/*void sendSignalToCasualPorts(){
+void sendSignalToCasualPorts(){
 
 	int i, n_ports, *port_idx, casual_idx;
 	struct timespec now;
@@ -300,10 +300,8 @@ void dailyReport(){
     clock_gettime(CLOCK_REALTIME, &now);
     n_ports = (now.tv_nsec % SO_PORTI)+1;
     port_idx = calloc(n_ports, sizeof(int));
-    for (i = 0; i < SO_PORTI; i++) {
-    	kill(port_pids[i], SIGUSR2); TEST_ERROR;
-	}
-    /*for (i = 0; i < n_ports; i++) {
+    
+    for (i = 0; i < n_ports; i++) {
     	do {
     		clock_gettime(CLOCK_REALTIME, &now);
     		casual_idx = now.tv_nsec % SO_PORTI;
@@ -315,7 +313,7 @@ void dailyReport(){
     }
 
     free(port_idx);
-}*/
+}
 
 void sendDailySignal() {
 	int i;
@@ -362,6 +360,7 @@ void handleSignal(int signal) {
 
 			}else{
 				sendDailySignal();
+				/*sendSignalToCasualPorts();*/
 				*sum_offer = 0;
 				dailyReport();
 				/*kill(meteoPid, SIGUSR1); TEST_ERROR;*/

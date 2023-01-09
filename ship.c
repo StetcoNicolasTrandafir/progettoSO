@@ -138,7 +138,7 @@ int main(int argc, char *argv[]) {
 
 	msg_id = msgget(getppid(), IPC_CREAT | 0600); TEST_ERROR;
 	
-	negociate(shared_portCoords, s, shared_shipCoords[shipIndex]); TEST_ERROR;
+	negociate(shared_portCoords, s, shared_shipCoords,shipIndex); TEST_ERROR;
 
 	/*getNearestPort(shared_portCoords, s.coords,-1); TEST_ERROR;*/
 

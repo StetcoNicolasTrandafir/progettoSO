@@ -32,4 +32,7 @@ clean:
 	
 
 run: simulation
-	./simulation
+	./simulation 
+
+log: simulation
+	./simulation > log.txt

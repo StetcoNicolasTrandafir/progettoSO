@@ -7,13 +7,13 @@ if [ -z "$1" ]
     export SO_MIN_VITA=100000
     export SO_MAX_VITA=10000000
     export SO_SIZE=10
-    export SO_SPEED=50
+    export SO_SPEED=10
     export SO_LATO=100
     export SO_CAPACITY=10
     export SO_BANCHINE=10
     export SO_FILL=69
     export SO_LOADSPEED=100 
-    export SO_DAYS=1
+    export SO_DAYS=20
     export SO_STORMDURATION=10
     export SO_SWELLDURATION=69
     export SO_MALESTROM=36

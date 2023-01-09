@@ -1,0 +1,1132 @@
+Porto[8317] numero 1: (100.00, 0.00) - 10 banchine
+Porto[8316] numero 0: (0.00, 0.00) - 6 banchine
+Porto[8319] numero 3: (100.00, 100.00) - 10 banchine
+Ship[8320]: (28.21, 50.49)
+Porto[8318] numero 2: (0.00, 100.00) - 1 banchine
+
+
+========================================================================
+		REPORT GIORNO 1:
+========================================================================
+
+
+==================>		PORTI
+Porto [8316] in posizione: (0.00, 0.00)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 1 ton
+Merci ricevute: 0 ton
+
+Porto [8317] in posizione: (100.00, 0.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8318] in posizione: (0.00, 100.00)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8319] in posizione: (100.00, 100.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+
+
+ ==================>		MERCI
+
+---------->	PER STATI:
+
+Merce in porto: 1ton
+Merce scaduta in porto: 0ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0
+Merce consegnata: 0ton
+
+---------->	PER TIPOLOGIA:
+
+Merce di tipo 1: 1ton
+
+ ==================>		NAVI
+
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 1
+In mare senza carico a bordo: 0
+
+============================= FINE REPORT GIORNO 1 =============================
+
+
+
+========================================================================
+		REPORT GIORNO 2:
+========================================================================
+
+
+==================>		PORTI
+Porto [8316] in posizione: (0.00, 0.00)
+Banchine libere 6 su 6
+Merci spedite: 1 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8317] in posizione: (100.00, 0.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8318] in posizione: (0.00, 100.00)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8319] in posizione: (100.00, 100.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+
+
+ ==================>		MERCI
+
+---------->	PER STATI:
+
+Merce in porto: 0ton
+Merce scaduta in porto: 0ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0
+Merce consegnata: 0ton
+
+---------->	PER TIPOLOGIA:
+
+Merce di tipo 1: 1ton
+
+ ==================>		NAVI
+
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 0
+In mare senza carico a bordo: 1
+
+============================= FINE REPORT GIORNO 2 =============================
+
+
+[8320]FINITO DI SCARICARE! Merce portata dal punto A al punto B!
+
+
+
+========================================================================
+		REPORT GIORNO 3:
+========================================================================
+
+
+==================>		PORTI
+Porto [8316] in posizione: (0.00, 0.00)
+Banchine libere 6 su 6
+Merci spedite: 1 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 1 ton
+
+Porto [8317] in posizione: (100.00, 0.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8318] in posizione: (0.00, 100.00)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8319] in posizione: (100.00, 100.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+
+
+ ==================>		MERCI
+
+---------->	PER STATI:
+
+Merce in porto: 0ton
+Merce scaduta in porto: 0ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0
+Merce consegnata: 1ton
+
+---------->	PER TIPOLOGIA:
+
+Merce di tipo 1: 1ton
+
+ ==================>		NAVI
+
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 0
+In mare senza carico a bordo: 1
+
+============================= FINE REPORT GIORNO 3 =============================
+
+
+
+========================================================================
+		REPORT GIORNO 4:
+========================================================================
+
+
+==================>		PORTI
+Porto [8316] in posizione: (0.00, 0.00)
+Banchine libere 6 su 6
+Merci spedite: 1 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 1 ton
+
+Porto [8317] in posizione: (100.00, 0.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8318] in posizione: (0.00, 100.00)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8319] in posizione: (100.00, 100.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+
+
+ ==================>		MERCI
+
+---------->	PER STATI:
+
+Merce in porto: 0ton
+Merce scaduta in porto: 0ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0
+Merce consegnata: 1ton
+
+---------->	PER TIPOLOGIA:
+
+Merce di tipo 1: 1ton
+
+ ==================>		NAVI
+
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 0
+In mare senza carico a bordo: 1
+
+============================= FINE REPORT GIORNO 4 =============================
+
+
+
+========================================================================
+		REPORT GIORNO 5:
+========================================================================
+
+
+==================>		PORTI
+Porto [8316] in posizione: (0.00, 0.00)
+Banchine libere 6 su 6
+Merci spedite: 1 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 1 ton
+
+Porto [8317] in posizione: (100.00, 0.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8318] in posizione: (0.00, 100.00)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8319] in posizione: (100.00, 100.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+
+
+ ==================>		MERCI
+
+---------->	PER STATI:
+
+Merce in porto: 0ton
+Merce scaduta in porto: 0ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0
+Merce consegnata: 1ton
+
+---------->	PER TIPOLOGIA:
+
+Merce di tipo 1: 1ton
+
+ ==================>		NAVI
+
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 0
+In mare senza carico a bordo: 1
+
+============================= FINE REPORT GIORNO 5 =============================
+
+
+
+========================================================================
+		REPORT GIORNO 6:
+========================================================================
+
+
+==================>		PORTI
+Porto [8316] in posizione: (0.00, 0.00)
+Banchine libere 6 su 6
+Merci spedite: 1 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 1 ton
+
+Porto [8317] in posizione: (100.00, 0.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8318] in posizione: (0.00, 100.00)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8319] in posizione: (100.00, 100.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+
+
+ ==================>		MERCI
+
+---------->	PER STATI:
+
+Merce in porto: 0ton
+Merce scaduta in porto: 0ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0
+Merce consegnata: 1ton
+
+---------->	PER TIPOLOGIA:
+
+Merce di tipo 1: 1ton
+
+ ==================>		NAVI
+
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 0
+In mare senza carico a bordo: 1
+
+============================= FINE REPORT GIORNO 6 =============================
+
+
+
+========================================================================
+		REPORT GIORNO 7:
+========================================================================
+
+
+==================>		PORTI
+Porto [8316] in posizione: (0.00, 0.00)
+Banchine libere 6 su 6
+Merci spedite: 1 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 1 ton
+
+Porto [8317] in posizione: (100.00, 0.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8318] in posizione: (0.00, 100.00)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8319] in posizione: (100.00, 100.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+
+
+ ==================>		MERCI
+
+---------->	PER STATI:
+
+Merce in porto: 0ton
+Merce scaduta in porto: 0ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0
+Merce consegnata: 1ton
+
+---------->	PER TIPOLOGIA:
+
+Merce di tipo 1: 1ton
+
+ ==================>		NAVI
+
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 0
+In mare senza carico a bordo: 1
+
+============================= FINE REPORT GIORNO 7 =============================
+
+
+
+========================================================================
+		REPORT GIORNO 8:
+========================================================================
+
+
+==================>		PORTI
+Porto [8316] in posizione: (0.00, 0.00)
+Banchine libere 6 su 6
+Merci spedite: 1 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 1 ton
+
+Porto [8317] in posizione: (100.00, 0.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8318] in posizione: (0.00, 100.00)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8319] in posizione: (100.00, 100.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+
+
+ ==================>		MERCI
+
+---------->	PER STATI:
+
+Merce in porto: 0ton
+Merce scaduta in porto: 0ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0
+Merce consegnata: 1ton
+
+---------->	PER TIPOLOGIA:
+
+Merce di tipo 1: 1ton
+
+ ==================>		NAVI
+
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 0
+In mare senza carico a bordo: 1
+
+============================= FINE REPORT GIORNO 8 =============================
+
+
+
+========================================================================
+		REPORT GIORNO 9:
+========================================================================
+
+
+==================>		PORTI
+Porto [8316] in posizione: (0.00, 0.00)
+Banchine libere 6 su 6
+Merci spedite: 1 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 1 ton
+
+Porto [8317] in posizione: (100.00, 0.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8318] in posizione: (0.00, 100.00)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8319] in posizione: (100.00, 100.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+
+
+ ==================>		MERCI
+
+---------->	PER STATI:
+
+Merce in porto: 0ton
+Merce scaduta in porto: 0ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0
+Merce consegnata: 1ton
+
+---------->	PER TIPOLOGIA:
+
+Merce di tipo 1: 1ton
+
+ ==================>		NAVI
+
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 0
+In mare senza carico a bordo: 1
+
+============================= FINE REPORT GIORNO 9 =============================
+
+
+
+========================================================================
+		REPORT GIORNO 10:
+========================================================================
+
+
+==================>		PORTI
+Porto [8316] in posizione: (0.00, 0.00)
+Banchine libere 6 su 6
+Merci spedite: 1 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 1 ton
+
+Porto [8317] in posizione: (100.00, 0.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8318] in posizione: (0.00, 100.00)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8319] in posizione: (100.00, 100.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+
+
+ ==================>		MERCI
+
+---------->	PER STATI:
+
+Merce in porto: 0ton
+Merce scaduta in porto: 0ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0
+Merce consegnata: 1ton
+
+---------->	PER TIPOLOGIA:
+
+Merce di tipo 1: 1ton
+
+ ==================>		NAVI
+
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 0
+In mare senza carico a bordo: 1
+
+============================= FINE REPORT GIORNO 10 =============================
+
+
+
+========================================================================
+		REPORT GIORNO 11:
+========================================================================
+
+
+==================>		PORTI
+Porto [8316] in posizione: (0.00, 0.00)
+Banchine libere 6 su 6
+Merci spedite: 1 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 1 ton
+
+Porto [8317] in posizione: (100.00, 0.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8318] in posizione: (0.00, 100.00)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8319] in posizione: (100.00, 100.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+
+
+ ==================>		MERCI
+
+---------->	PER STATI:
+
+Merce in porto: 0ton
+Merce scaduta in porto: 0ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0
+Merce consegnata: 1ton
+
+---------->	PER TIPOLOGIA:
+
+Merce di tipo 1: 1ton
+
+ ==================>		NAVI
+
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 0
+In mare senza carico a bordo: 1
+
+============================= FINE REPORT GIORNO 11 =============================
+
+
+
+========================================================================
+		REPORT GIORNO 12:
+========================================================================
+
+
+==================>		PORTI
+Porto [8316] in posizione: (0.00, 0.00)
+Banchine libere 6 su 6
+Merci spedite: 1 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 1 ton
+
+Porto [8317] in posizione: (100.00, 0.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8318] in posizione: (0.00, 100.00)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8319] in posizione: (100.00, 100.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+
+
+ ==================>		MERCI
+
+---------->	PER STATI:
+
+Merce in porto: 0ton
+Merce scaduta in porto: 0ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0
+Merce consegnata: 1ton
+
+---------->	PER TIPOLOGIA:
+
+Merce di tipo 1: 1ton
+
+ ==================>		NAVI
+
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 0
+In mare senza carico a bordo: 1
+
+============================= FINE REPORT GIORNO 12 =============================
+
+
+
+========================================================================
+		REPORT GIORNO 13:
+========================================================================
+
+
+==================>		PORTI
+Porto [8316] in posizione: (0.00, 0.00)
+Banchine libere 6 su 6
+Merci spedite: 1 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 1 ton
+
+Porto [8317] in posizione: (100.00, 0.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8318] in posizione: (0.00, 100.00)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8319] in posizione: (100.00, 100.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+
+
+ ==================>		MERCI
+
+---------->	PER STATI:
+
+Merce in porto: 0ton
+Merce scaduta in porto: 0ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0
+Merce consegnata: 1ton
+
+---------->	PER TIPOLOGIA:
+
+Merce di tipo 1: 1ton
+
+ ==================>		NAVI
+
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 0
+In mare senza carico a bordo: 1
+
+============================= FINE REPORT GIORNO 13 =============================
+
+
+
+========================================================================
+		REPORT GIORNO 14:
+========================================================================
+
+
+==================>		PORTI
+Porto [8316] in posizione: (0.00, 0.00)
+Banchine libere 6 su 6
+Merci spedite: 1 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 1 ton
+
+Porto [8317] in posizione: (100.00, 0.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8318] in posizione: (0.00, 100.00)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8319] in posizione: (100.00, 100.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+
+
+ ==================>		MERCI
+
+---------->	PER STATI:
+
+Merce in porto: 0ton
+Merce scaduta in porto: 0ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0
+Merce consegnata: 1ton
+
+---------->	PER TIPOLOGIA:
+
+Merce di tipo 1: 1ton
+
+ ==================>		NAVI
+
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 0
+In mare senza carico a bordo: 1
+
+============================= FINE REPORT GIORNO 14 =============================
+
+
+
+========================================================================
+		REPORT GIORNO 15:
+========================================================================
+
+
+==================>		PORTI
+Porto [8316] in posizione: (0.00, 0.00)
+Banchine libere 6 su 6
+Merci spedite: 1 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 1 ton
+
+Porto [8317] in posizione: (100.00, 0.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8318] in posizione: (0.00, 100.00)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8319] in posizione: (100.00, 100.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+
+
+ ==================>		MERCI
+
+---------->	PER STATI:
+
+Merce in porto: 0ton
+Merce scaduta in porto: 0ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0
+Merce consegnata: 1ton
+
+---------->	PER TIPOLOGIA:
+
+Merce di tipo 1: 1ton
+
+ ==================>		NAVI
+
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 0
+In mare senza carico a bordo: 1
+
+============================= FINE REPORT GIORNO 15 =============================
+
+
+
+========================================================================
+		REPORT GIORNO 16:
+========================================================================
+
+
+==================>		PORTI
+Porto [8316] in posizione: (0.00, 0.00)
+Banchine libere 6 su 6
+Merci spedite: 1 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 1 ton
+
+Porto [8317] in posizione: (100.00, 0.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8318] in posizione: (0.00, 100.00)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8319] in posizione: (100.00, 100.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+
+
+ ==================>		MERCI
+
+---------->	PER STATI:
+
+Merce in porto: 0ton
+Merce scaduta in porto: 0ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0
+Merce consegnata: 1ton
+
+---------->	PER TIPOLOGIA:
+
+Merce di tipo 1: 1ton
+
+ ==================>		NAVI
+
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 0
+In mare senza carico a bordo: 1
+
+============================= FINE REPORT GIORNO 16 =============================
+
+
+
+========================================================================
+		REPORT GIORNO 17:
+========================================================================
+
+
+==================>		PORTI
+Porto [8316] in posizione: (0.00, 0.00)
+Banchine libere 6 su 6
+Merci spedite: 1 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 1 ton
+
+Porto [8317] in posizione: (100.00, 0.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8318] in posizione: (0.00, 100.00)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8319] in posizione: (100.00, 100.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+
+
+ ==================>		MERCI
+
+---------->	PER STATI:
+
+Merce in porto: 0ton
+Merce scaduta in porto: 0ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0
+Merce consegnata: 1ton
+
+---------->	PER TIPOLOGIA:
+
+Merce di tipo 1: 1ton
+
+ ==================>		NAVI
+
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 0
+In mare senza carico a bordo: 1
+
+============================= FINE REPORT GIORNO 17 =============================
+
+
+
+========================================================================
+		REPORT GIORNO 18:
+========================================================================
+
+
+==================>		PORTI
+Porto [8316] in posizione: (0.00, 0.00)
+Banchine libere 6 su 6
+Merci spedite: 1 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 1 ton
+
+Porto [8317] in posizione: (100.00, 0.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8318] in posizione: (0.00, 100.00)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8319] in posizione: (100.00, 100.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+
+
+ ==================>		MERCI
+
+---------->	PER STATI:
+
+Merce in porto: 0ton
+Merce scaduta in porto: 0ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0
+Merce consegnata: 1ton
+
+---------->	PER TIPOLOGIA:
+
+Merce di tipo 1: 1ton
+
+ ==================>		NAVI
+
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 0
+In mare senza carico a bordo: 1
+
+============================= FINE REPORT GIORNO 18 =============================
+
+
+
+========================================================================
+		REPORT GIORNO 19:
+========================================================================
+
+
+==================>		PORTI
+Porto [8316] in posizione: (0.00, 0.00)
+Banchine libere 6 su 6
+Merci spedite: 1 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 1 ton
+
+Porto [8317] in posizione: (100.00, 0.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8318] in posizione: (0.00, 100.00)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [8319] in posizione: (100.00, 100.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+
+
+ ==================>		MERCI
+
+---------->	PER STATI:
+
+Merce in porto: 0ton
+Merce scaduta in porto: 0ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0
+Merce consegnata: 1ton
+
+---------->	PER TIPOLOGIA:
+
+Merce di tipo 1: 1ton
+
+ ==================>		NAVI
+
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 0
+In mare senza carico a bordo: 1
+
+============================= FINE REPORT GIORNO 19 =============================
+
+
+
+========================================================================
+		REPORT FINALE:
+========================================================================
+
+
+==================>		PORTI
+
+
+PORTO[8316] NUMERO 1 (0.00,0.00):
+Merce in porto:0ton
+Merce spedita:1ton
+Merce ricevuta:1ton
+
+
+PORTO[8317] NUMERO 2 (100.00,0.00):
+Merce in porto:1ton
+Merce spedita:0ton
+Merce ricevuta:0ton
+
+
+PORTO[8318] NUMERO 3 (0.00,100.00):
+Merce in porto:1ton
+Merce spedita:0ton
+Merce ricevuta:0ton
+
+
+PORTO[8319] NUMERO 4 (100.00,100.00):
+Merce in porto:1ton
+Merce spedita:0ton
+Merce ricevuta:0ton
+
+
+ ==================>		REPORT MERCI
+
+---------->	PER STATI:
+
+Merce in porto (disponibile): 3ton
+Merce scaduta in porto: 0ton
+Merce consegnata: 1ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0ton
+
+---------->	PER TIPOLOGIA:
+
+
+TOTALE MERCE GENERATA: 4ton
+MERCE DI TIPO 1:
+Merce generata: 4ton
+Merce ferma in porto: 3ton
+Merce scaduta in porto: 0ton
+Merce scaduta in nave: -1ton
+Merce consegnata: 1
+Il porto che ne ha fatto più richiesta è il numero 0 (36ton)
+Il porto che ne ha generato di più è 0 (1ton)
+
+
+SIMULAZIONE FINITA!!!
+

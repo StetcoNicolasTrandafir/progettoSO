@@ -39,4 +39,7 @@ int isOffered(port port, int goodsType);
 /*return 1 if the goods type passed as parameter is already requested in the port, 0 otherwhise*/
 int isRequested(port port, int goodsType);
 
+/*check if goods are expired and updates its state*/
+void updateGoods(port p);
+
 #endif /*_UTILITY_PORT_H*/
