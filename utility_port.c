@@ -139,9 +139,6 @@ void generateOffer(port p, int idx, int sum_offerID, int sem_sum_id){
         clock_gettime(CLOCK_REALTIME, &t);
         goods.dimension = t.tv_nsec % 1000;
 
-
-        sum_offer = shmat(sum_offerID, NULL, 0); TEST_ERROR;
-
         sops.sem_num = 2;
         sops.sem_op = -1;
         semop(sem_sum_id, &sops, 1); TEST_ERROR;

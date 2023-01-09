@@ -22,7 +22,6 @@
 #include "utility_coordinates.h"
 #include "utility_port.h"
 
-
 /*
 SEMAFORI:
 -uno per ogni porto
@@ -210,7 +209,6 @@ void dailyReport(){
 		fflush(stdout);
 		write(1, string, num_bytes);
 	}
-	
     free(string);
 }
 
@@ -239,35 +237,43 @@ void dailyReport(){
     free(port_idx);
 }*/
 
+void sendDailySignal() {
+	int i;
+	for (i = 0; i < SO_PORTI; i++) {
+		kill(port_pids[i], SIGUSR2); TEST_ERROR;
+	}
+	for(i = 0; i < SO_NAVI; i++) {
+		kill(ship_pids[i], SIGUSR2); TEST_ERROR;
+	}
+}
+
 void cleanUp(){
 	int i;
-
-	for(i=0; i< SO_PORTI; i++){
-		kill(port_pids[i], SIGKILL);TEST_ERROR;
+	for(i=0; i< SO_PORTI; i++) {
+		kill(port_pids[i], SIGINT); TEST_ERROR;
 	}
 
 	for(i=0; i< SO_NAVI; i++){
-		kill(ship_pids[i], SIGKILL);TEST_ERROR;
+		kill(ship_pids[i], SIGINT);TEST_ERROR;
 	}
 
 	semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;
 	shmdt(sharedPortPositions); TEST_ERROR;
-	shmctl(port_sharedMemoryID, IPC_RMID, NULL); TEST_ERROR;
 	shmdt(sum_request); TEST_ERROR;
 	shmdt(sum_offer); TEST_ERROR;
-	shmctl(sum_requestID, IPC_RMID, NULL); TEST_ERROR;
 	semctl(sem_sum_id, 0, IPC_RMID); TEST_ERROR;
 	msgctl(msg_id, IPC_RMID, NULL); TEST_ERROR;
 }
 
 void handleSignal(int signal) {
-	char * string;
+	char *string;
 	int numBytes;
 	switch(signal) {
 		case SIGALRM:
 			if(++pastDays==SO_DAYS){
 				finalReport();
 			}else{
+				sendDailySignal();
 
 				string=malloc(31);
 				numBytes=sprintf(string,"\n\nREPORT GIORNALIERO (%d):\n", pastDays);
@@ -277,7 +283,6 @@ void handleSignal(int signal) {
 
 				sum_offer = 0;
 				dailyReport();
-				printf("Ho finito il report\n");
 				/*kill(meteoPid, SIGUSR1); TEST_ERROR;*/
 				free(string);
 				alarm(1);
@@ -338,7 +343,6 @@ int main() {
 	semctl(sem_sync_id, 1, SETVAL, SO_PORTI + SO_NAVI); TEST_ERROR;
 
 	i = semctl(sem_sync_id, 1, GETVAL);
-	printf("VALORE SEMAFORO: %d\n\n", i);
 
 	sem_sum_id = semget(IPC_PRIVATE, 4, 0600); TEST_ERROR;
 	semctl(sem_sum_id, 0, SETVAL, 1); TEST_ERROR; /*write request*/
@@ -443,34 +447,30 @@ int main() {
 			break; 
 	}*/
 
-	sops.sem_num = 0;
+	sops.sem_num = 0; /*semaforo di sincronizzazione*/
 	sops.sem_op = 0;
 	semop(sem_sync_id, &sops, 1); TEST_ERROR;
 
-	printf("Ciao\n");
-
-	shmdt(sum_request); TEST_ERROR;
-	shmdt(sum_offer); TEST_ERROR;
-
 	alarm(1);
-
-	sigemptyset(&set);
-	sigaddset(&set, SIGALRM);
-
-	printf("Ciao\n");
 
 	/*for(i=0; i<SO_DAYS; i++) {
 		printf("MAIN: %d", i);
 		sigwait(&set, ptr_set);
 	}*/
 
+	while(pastDays < SO_DAYS);
+
 	sops.sem_num = 1;
 	sops.sem_op = 0;
-	for(i=0; i<SO_DAYS; i++) {
+	semop(sem_sync_id, &sops, 1); TEST_ERROR;
+
+	/*sops.sem_num = 1;
+	sops.sem_op = 0;
+	for(i=0; i<SO_DAYS + 1; i++) {
 		semop(sem_sync_id, &sops, 1); 
 		if(errno==4)errno=0;
 		else TEST_ERROR;
-	}
+	}*/
 	
 	/*sleep(31); Lo toglieremo , ma se lo tolgo ora, da un errore perchè eliminiamo il semaforo prima che l'ultimo processo abbia fatto il semop per aspettare tutti i processi*/
 
@@ -491,13 +491,14 @@ int main() {
 		shmdt(r);
 	}
 */
-		
-	semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;
+	cleanUp();
+
+	/*semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;
 	semctl(sem_sum_id, 0, IPC_RMID); TEST_ERROR;
 	msgctl(msg_id, IPC_RMID, NULL); TEST_ERROR;
 
 	free(port_pids);
-	free(ship_pids);
+	free(ship_pids);*/
 	
 	
 	string=malloc(25);

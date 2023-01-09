@@ -21,6 +21,10 @@
 #include "utility_coordinates.h"
 #include "utility_ship.h"
 
+struct port_sharedMemory *shared_portCoords;
+ship s;
+int pastDays = 1;
+
 void printShip(ship s) {
 	char *string;
 	int numBytes;
@@ -30,12 +34,11 @@ void printShip(ship s) {
 	fflush(stdout);
 	write(1, string, numBytes);
 	free(string);
-
 }
 
-
-struct port_sharedMemory *shared_portCoords;
-ship s;
+void cleanUp() {
+	shmdt(shared_portCoords);
+}
 
 void handleSignal(int signal) {
 	int index, portsSharedMemoryID;
@@ -44,6 +47,11 @@ void handleSignal(int signal) {
 	int numBytes;
 	switch(signal) {
 		case SIGUSR1:
+			string=malloc(27);
+			numBytes=sprintf(string,"\n[%d]NAVE AFFONDATA!\n", getpid());
+			fflush(stdout);
+			write(1, string, numBytes);
+			cleanUp();
 			/*
 			printf("\nNAVE IN POSIZIONE (%f,%f):\n", s.coords.x, s.coords.y);
 			index= getNearestPort(shared_portCoords, s.coords, 0);
@@ -56,6 +64,9 @@ void handleSignal(int signal) {
         case SIGALRM:
             break;
 
+        case SIGUSR2:
+        	pastDays++;
+        	break;
 
 		/*SIGSTOP:
 			string=malloc(76);
@@ -73,10 +84,7 @@ void handleSignal(int signal) {
 			break;
 
 		case SIGINT:
-			string=malloc(27);
-			numBytes=sprintf(string,"\n[%d]NAVE AFFONDATA!\n", getpid());
-			fflush(stdout);
-			write(1, string, numBytes);
+			cleanUp();
 			//TODO pulire IPCS
 			break;
 	}
@@ -104,6 +112,7 @@ int main(int argc, char *argv[]) {
 	TEST_ERROR;
 	sa.sa_handler = handleSignal;TEST_ERROR;
 	sigaction(SIGUSR1, &sa, NULL);TEST_ERROR;
+	sigaction(SIGUSR2, &sa, NULL);TEST_ERROR;
 	sigaction(SIGALRM, &sa, NULL);TEST_ERROR;
 	sigaction(SIGCONT, &sa, NULL);TEST_ERROR;
 	sigaction(SIGINT, &sa, NULL);TEST_ERROR;
@@ -123,23 +132,18 @@ int main(int argc, char *argv[]) {
 
 
 	msg_id = msgget(getppid(), IPC_CREAT | 0600); TEST_ERROR;
-	shared_portCoords = shmat(portsSharedMemoryID, NULL, 0); TEST_ERROR;
 	
 	negociate(shared_portCoords, s); TEST_ERROR;
 
 	/*getNearestPort(shared_portCoords, s.coords,-1); TEST_ERROR;*/
 
-	sigemptyset(&set);
-	sigaddset(&set, SIGALRM);
-
-	for(i=0; i<SO_DAYS; i++) {
-		sigwait(&set, ptr_set); TEST_ERROR;
-	}
-
+	while(pastDays < SO_DAYS);
 
 	sops.sem_num = 1;
 	sops.sem_op = -1;
 	semop(sem_sync_id, &sops, 1); TEST_ERROR;
+
+	shmdt(shared_portCoords);
 
 	exit(0);
 }
