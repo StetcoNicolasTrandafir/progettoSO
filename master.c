@@ -323,19 +323,25 @@ void sendDailySignal() {
 		kill(port_pids[i], SIGUSR2); TEST_ERROR;
 	}
 	for(i = 0; i < SO_NAVI; i++) {
-		kill(ship_pids[i], SIGUSR2); TEST_ERROR;
+		kill(shared_ship[i].pid, SIGUSR2); TEST_ERROR;
 	}
 }
 
-void cleanUp(){
+void killChildren(){
 	int i;
+		
 	for(i=0; i< SO_PORTI; i++) {
 		kill(port_pids[i], SIGINT); TEST_ERROR;
 	}
 
 	for(i=0; i< SO_NAVI; i++){
-		kill(ship_pids[i], SIGINT);TEST_ERROR;
+		kill(shared_ship[i].pid, SIGINT);TEST_ERROR;
 	}
+
+}
+
+void cleanUp(){
+	int i;
 
 	semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;
 	shmdt(sharedPortPositions); TEST_ERROR;
@@ -353,11 +359,12 @@ void handleSignal(int signal) {
 		case SIGALRM:
 			if(++pastDays==SO_DAYS){
 				finalReport();
+				sendDailySignal();
+				cleanUp();
+				
+
 			}else{
 				sendDailySignal();
-
-
-
 				sum_offer = 0;
 				dailyReport();
 				/*kill(meteoPid, SIGUSR1); TEST_ERROR;*/
@@ -373,6 +380,7 @@ void handleSignal(int signal) {
 			fflush(stdout);
 			write(1, string, numBytes);
 
+			killChildren();
 			cleanUp();
 			string=realloc(string,7);
 			numBytes=sprintf(string,"Done!\n\n");
@@ -582,7 +590,7 @@ int main() {
 	/*semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;
 	semctl(sem_sum_id, 0, IPC_RMID); TEST_ERROR;
 	msgctl(msg_id, IPC_RMID, NULL); TEST_ERROR;
-
+*/
 	free(port_pids);
 	
 	

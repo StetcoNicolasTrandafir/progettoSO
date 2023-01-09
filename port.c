@@ -24,16 +24,15 @@
 
 
 port p;
-int idxOfferts, sum_offerID, sem_sum_id, idx, pastDays = 1;
+int idxOfferts, sum_offerID, sem_sum_id, idx, pastDays = 0;
 struct port_sharedMemory *shared_portCoords;
 
 void cleanUp() {
+	/*free(p.generatedGoods); TEST_ERROR;*/
 	shmdt(p.request); TEST_ERROR;
 	semctl(shared_portCoords[idx].semID, 0, IPC_RMID); TEST_ERROR;
-	shmctl(shared_portCoords[idx].requestID, IPC_RMID, NULL); TEST_ERROR;
 	shmdt(shared_portCoords); TEST_ERROR;
 	shmdt(p.generatedGoods); TEST_ERROR;
-	free(p.generatedGoods); TEST_ERROR;
 }
 
 void printPort(port p, int i) {
@@ -168,11 +167,13 @@ int main(int argc, char *argv[]) {
 
 	while(pastDays < SO_DAYS);
 
+	cleanUp();
+
 	sops.sem_num = 1;
 	sops.sem_op = -1;
 	semop(sem_sync_id, &sops, 1); TEST_ERROR;
 
-	cleanUp();
+
 
 	exit(0);
 }

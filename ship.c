@@ -24,7 +24,7 @@
 struct port_sharedMemory *shared_portCoords;
 struct ship_sharedMemory *shared_shipCoords;
 ship s;
-int pastDays = 1;
+int pastDays = 0;
 
 void printShip(ship s) {
 	char *string;

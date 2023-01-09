@@ -289,14 +289,13 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
 	sops.sem_op = 1; 
 	semop(destinationPortSemID, &sops, 1); TEST_ERROR;
 
-	/*!SECTION
     string=malloc(70);
 	numBytes=sprintf(string,"\n[%d]FINITO DI SCARICARE! Merce portata dal punto A al punto B!\n\n", getpid());
 
 	fflush(stdout);
 	write(1, string, numBytes);
     
-    */
+    
 	free(string);
 
     return destinationPortIndex;
