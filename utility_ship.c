@@ -134,9 +134,39 @@ NEGOZIAZIONE NAVI-PORTI:
 4) se c'è una richiesta, segno come impegnate tot merci sia nella richiesta che nell'offerta
 5) se non c'è nessuna richiesta, considero il prossimo porto più vicino
 6) se non c'è nessun porto che richiede una determinata merce di un offerta, considero la prossima offerta del porto
-7) se non ci sono richieste per nessuna offerta del porto preso in considerazione, prendo in considerazione il seguente porto
-8) se non ci sono offerte e richieste che la nave può soddisfare in nessun porto, mi muovo verso il porto più vicino aspettando la generazione del giorno dopo
+7) se non ci sono richieste per nessuna offerta del porto preso in considerazione, prendo in considerazione ilc
 */
+
+void lockSem(struct sembuf sops,int semID, int semNum){
+    int i=0;
+    sops.sem_num = semNum; 
+	sops.sem_op = -1; 
+
+    while((semop(semID, &sops, 1))==-1) {
+
+        printf("\n\nSONO STATO INTERROTTO %d VOLTE",++i);
+
+        if(errno!=4){
+            TEST_ERROR;
+        }
+        else errno=0;
+    }
+    errno=0;
+}
+
+void unlockSem(struct sembuf sops,int semID, int semNum){
+    int i=0;
+    sops.sem_num = semNum; 
+	sops.sem_op = 1; 
+    while((semop(semID, &sops, 1))==-1) {
+        printf("\n\nSONO STATO INTERROTTO %d VOLTE",++i);
+        if(errno!=4){
+            TEST_ERROR;
+        }
+        else errno=0;
+    }
+    errno=0;
+}
 
 int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory shared_ship){
 
@@ -162,9 +192,12 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
         g= shmat(ports[indexClosestPort].offersID, NULL, 0);TEST_ERROR;
 
         while(g[i].type!=-1 && destinationPortIndex==-1 && i<SO_DAYS ){
-            destinationPortIndex=getValidRequestPort(g[i],ports);
-            if(destinationPortIndex!=-1)
-                goodIndex=i;
+            if(g[i].state==in_port){
+                destinationPortIndex=getValidRequestPort(g[i],ports);
+                if(destinationPortIndex!=-1)
+                    goodIndex=i;
+            }
+            
             i++;
         }
         if(destinationPortIndex==-1){
@@ -173,132 +206,124 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
             
     }
 
-    printf("NEGOZIAZIONE INIZIATA\n\n\n\n");
+    if(goodIndex!=-1){
+        startingPortSemID = ports[indexClosestPort].semID;
+        destinationPortSemID = ports[destinationPortIndex].semID;
+        /*startingPortSemID=semget(ports[indexClosestPort].semID, 3, 0600);TEST_ERROR;
+        destinationPortSemID=semget(ports[destinationPortIndex].semID, 3, 0600); TEST_ERROR; /*[0]=banchine [1]=offerta [2]=richiesta*/
 
-    startingPortSemID = ports[indexClosestPort].semID;
-    destinationPortSemID = ports[destinationPortIndex].semID;
-    /*startingPortSemID=semget(ports[indexClosestPort].semID, 3, 0600);TEST_ERROR;
-    destinationPortSemID=semget(ports[destinationPortIndex].semID, 3, 0600); TEST_ERROR; /*[0]=banchine [1]=offerta [2]=richiesta*/
+        /*TODO AGGIORNO I BOOKED DELLA RICHIESTA E DELL'OFFERTA*/
 
-    /*TODO AGGIORNO I BOOKED DELLA RICHIESTA E DELL'OFFERTA*/
+        /*CAMBIO VALORI RICHIESTA*/
+        lockSem(sops, destinationPortSemID, REQUEST);
+        
+        request = shmat(ports[destinationPortIndex].requestID, NULL, 0); TEST_ERROR;
+        shippedQuantity=min((request->quantity - request->booked), (g[goodIndex].dimension - g[goodIndex].booked));
+        request->booked+=shippedQuantity;
 
-    /*CAMBIO VALORI RICHIESTA*/
-    /*LOCK(destinationPortIndex, 2)*/
-    sops.sem_num = 2; 
-	sops.sem_op = -1; 
-	semop(destinationPortSemID, &sops, 1); TEST_ERROR;
+        unlockSem(sops, destinationPortSemID, REQUEST);
+        /*UNLOCK(destinationPortIndex, 2)*/
 
-    request = shmat(ports[destinationPortIndex].requestID, NULL, 0); TEST_ERROR;
-    shippedQuantity=min((request->quantity - request->booked), (g[goodIndex].dimension - g[goodIndex].booked));
-    request->booked+=shippedQuantity;
+        /*CAMBIO VALORI OFFERTA*/
+        /*LOCK(destinationPortIndex, 2)*/
+        lockSem(sops, startingPortSemID, OFFER);
 
-    sops.sem_num = 2; 
-	sops.sem_op = 1;
-	semop(destinationPortSemID, &sops, 1); TEST_ERROR;
-    /*UNLOCK(destinationPortIndex, 2)*/
+        g[goodIndex].booked+=shippedQuantity;
 
-    /*CAMBIO VALORI OFFERTA*/
-    /*LOCK(destinationPortIndex, 2)*/
-    sops.sem_num = 1; 
-	sops.sem_op = -1; 
-	semop(startingPortSemID, &sops, 1); TEST_ERROR;
-    g[goodIndex].booked+=shippedQuantity;
-    sops.sem_num = 1; 
-	sops.sem_op = 1; 
-	semop(startingPortSemID, &sops, 1);
-
-    /*moving towards the port to load goods*/
-    travelTime= getTravelTime(getDistance(s.coords,ports[indexClosestPort].coords));
-    s.coords.x=-1;
-    s.coords.y=-1;
-    shared_ship.coords=s.coords;
-    
-    time.tv_sec=(int)travelTime;
-    time.tv_nsec=travelTime-time.tv_sec;
-    nanosleep(&time, &rem);
-
-    /*arrived at the port*/
-    s.coords=ports[indexClosestPort].coords;
-    shared_ship.coords=s.coords;
-
-    /*loading goods*/
-    /*LOCK(destinationPortIndex, 2)*/
-    sops.sem_num = 0; 
-	sops.sem_op = -1; 
-	semop(startingPortSemID, &sops, 1); TEST_ERROR;
-    shared_ship.inDock=1;
-    printf("CARICANDO...! inDock: %d, goodsQuantity:%d\n\n\n\n", shared_ship.inDock,shared_ship.goodsQuantity);
-    loadUnload(goodsQuantity, rem);
-    shared_ship.inDock=0;
-    shared_ship.goodsQuantity=shippedQuantity;
-    printf("CARICATO! inDock: %d, goodsQuantity:%d\n\n\n\n", shared_ship.inDock,shared_ship.goodsQuantity);
-
-    sops.sem_num = 0; 
-	sops.sem_op = 1; 
-	semop(startingPortSemID, &sops, 1); TEST_ERROR;
-
-    /*CAMBIO VALORI OFFERTA*/
-    /*LOCK(destinationPortIndex, 2)*/
-    sops.sem_num = 1; 
-	sops.sem_op = -1; 
-	semop(startingPortSemID, &sops, 1); TEST_ERROR;
-    g[goodIndex].shipped+=shippedQuantity;
-    shmdt(g); TEST_ERROR;
-    sops.sem_num = 1; 
-	sops.sem_op = 1; 
-	semop(startingPortSemID, &sops, 1); TEST_ERROR;
-    
-    /*moving towards the port wich made the request*/
-    travelTime= getTravelTime(getDistance(s.coords,ports[destinationPortIndex].coords));
-    s.coords.x=-1;
-    s.coords.y=-1;
-    time.tv_sec=(int)travelTime;
-    time.tv_nsec=travelTime-time.tv_sec;
-    nanosleep(&time, &rem);
+        unlockSem(sops, startingPortSemID, OFFER);
 
 
-    /*arrived at the port, loading the goods*/
-    s.coords=ports[destinationPortIndex].coords;
-    shared_ship.coords=s.coords;
+        /*moving towards the port to load goods*/
+        travelTime= getTravelTime(getDistance(s.coords,ports[indexClosestPort].coords));
+        s.coords.x=-1;
+        s.coords.y=-1;
+        shared_ship.coords=s.coords;
+        
+        time.tv_sec=(int)travelTime;
+        time.tv_nsec=travelTime-time.tv_sec;
+        nanosleep(&time, &rem);
 
-    /*LOCK(destinationPortIndex, 2)*/
-    sops.sem_num = 2; 
-	sops.sem_op = -1; 
-	semop(destinationPortSemID, &sops, 1); TEST_ERROR;
-    shared_ship.inDock=1;
-    printf("SCARICANDO... inDock: %d, goodsQuantity:%d\n\n\n\n", shared_ship.inDock,shared_ship.goodsQuantity);
+        /*arrived at the port*/
+        s.coords=ports[indexClosestPort].coords;
+        shared_ship.coords=s.coords;
 
-    loadUnload(goodsQuantity, rem);
-    printf("SCARICATO! inDock: %d, goodsQuantity:%d\n\n\n\n", shared_ship.inDock,shared_ship.goodsQuantity);
+        /*loading goods*/
+        /*LOCK(destinationPortIndex, 2)*/
+        lockSem(sops, startingPortSemID, DOCK);
 
-    shared_ship.goodsQuantity=0;
-    shared_ship.inDock=0;
-    sops.sem_num = 2; 
-	sops.sem_op = 1; 
-	semop(destinationPortSemID, &sops, 1);
+        shared_ship.inDock=1;
+        loadUnload(goodsQuantity, rem);
+
+        unlockSem(sops, startingPortSemID, DOCK);
+
+        shared_ship.inDock=0;
+        shared_ship.goodsQuantity=shippedQuantity;
+
+        sops.sem_num = 0; 
+        sops.sem_op = 1; 
+        semop(startingPortSemID, &sops, 1); TEST_ERROR;
+
+        /*CAMBIO VALORI OFFERTA*/
+        /*LOCK(destinationPortIndex, 2)*/
+        lockSem(sops, startingPortSemID, OFFER);
+
+        g[goodIndex].shipped+=shippedQuantity;
+        shmdt(g); TEST_ERROR;
+        
+        unlockSem(sops, startingPortSemID, OFFER);
+
+        
+        /*moving towards the port wich made the request*/
+        travelTime= getTravelTime(getDistance(s.coords,ports[destinationPortIndex].coords));
+        s.coords.x=-1;
+        s.coords.y=-1;
+        time.tv_sec=(int)travelTime;
+        time.tv_nsec=travelTime-time.tv_sec;
+        nanosleep(&time, &rem);
 
 
-    /*CAMBIO VALORI RICHIESTA*/
-    /*LOCK(destinationPortIndex, 2)*/
-    sops.sem_num = 2; 
-	sops.sem_op = -1; 
-	semop(destinationPortSemID, &sops, 1); TEST_ERROR;
-    request->satisfied+=shippedQuantity;
-    shmdt(request); TEST_ERROR;
-    sops.sem_num = 2; 
-	sops.sem_op = 1; 
-	semop(destinationPortSemID, &sops, 1); TEST_ERROR;
+        /*arrived at the port, downloading the goods*/
+        s.coords=ports[destinationPortIndex].coords;
+        shared_ship.coords=s.coords;
 
-    string=malloc(70);
-	numBytes=sprintf(string,"\n[%d]FINITO DI SCARICARE! Merce portata dal punto A al punto B!\n\n", getpid());
+        /*LOCK(destinationPortIndex, 2)*/
+        lockSem(sops, destinationPortSemID, DOCK);
 
-	fflush(stdout);
-	write(1, string, numBytes);
-    
-    
-	free(string);
+        shared_ship.inDock=1;
 
-    return destinationPortIndex;
+        loadUnload(goodsQuantity, rem);
+
+        shared_ship.goodsQuantity=0;
+        shared_ship.inDock=0;
+
+        unlockSem(sops, destinationPortSemID, DOCK);
+
+
+        /*CAMBIO VALORI RICHIESTA*/
+        /*LOCK(destinationPortIndex, 2)*/
+        lockSem(sops, destinationPortSemID, REQUEST);
+        TEST_ERROR;
+        request->satisfied+=shippedQuantity;
+        shmdt(request); TEST_ERROR;
+
+        unlockSem(sops, destinationPortSemID, REQUEST);
+
+        
+
+        string=malloc(70);
+        numBytes=sprintf(string,"\n[%d]FINITO DI SCARICARE! Merce portata dal punto A al punto B!\n\n", getpid());
+
+        fflush(stdout);
+        write(1, string, numBytes);
+        
+        
+        free(string);
+
+        return destinationPortIndex;
+    }else{
+        printf("\n\nNessun posto dove andare feeeeega");
+        return -1;
+    }
 }
 
 
@@ -314,7 +339,13 @@ int getValidRequestPort(goods good, struct port_sharedMemory * sh_port) {
     msg_id=msgget(getppid(), 0600); TEST_ERROR;
 
     for (i = 0; i < SO_DAYS; i++) {
-        ret = msgrcv(msg_id, &msg, sizeof(struct msg_request), good.type, IPC_NOWAIT); TEST_ERROR;
+        ret = msgrcv(msg_id, &msg, sizeof(struct msg_request), good.type, IPC_NOWAIT); 
+
+        if(errno!=42){
+            TEST_ERROR;
+        }else 
+            errno=0;
+
         if (ret == -1){
             return -1;
         }   
@@ -329,11 +360,15 @@ int getValidRequestPort(goods good, struct port_sharedMemory * sh_port) {
             sops.sem_num = 1;
             sops.sem_op = 1;
             semop(sem_id, &sops, 1);
-            good.state = delivered;
             msgsnd(msg_id, &msg, sizeof(struct msg_request), 0);
             shmdt(request);
             return msg.idx;
+        }else{
+            sops.sem_num = 1;
+            sops.sem_op = 1;
+            semop(sem_id, &sops, 1);
         }
+        
         if (first_idx == -1) {
             first_idx == msg.idx;
             msgsnd(msg_id, &msg, sizeof(struct msg_request), 0);
