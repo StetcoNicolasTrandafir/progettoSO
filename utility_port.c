@@ -75,8 +75,9 @@ int getRequest(port p, int satisfied){
 int getGeneratedGoods(port p, int flag){
     int i=0;
     int total=0;
-
+    printf("Entrato in generateGoods\n");
     while(i<SO_DAYS && p.generatedGoods[i].type!=-1){
+        printf("Ciclo %d\n", i);
 
         switch(flag){
             case SHIPPED:
@@ -116,13 +117,10 @@ void generateOffer(port p, int idx, int sum_offerID, int sem_sum_id){
     bzero(&sops, sizeof(struct sembuf));
 
     srand(getpid());
-    type = rand() % SO_MERCI;
+    type = rand() % SO_MERCI + 1;
     while(plus < SO_MERCI && isRequested(p, (type + plus) % SO_MERCI)){
         plus++;
     }
-
-
-
 
     if(plus == SO_MERCI){
         string=malloc(90);
@@ -133,8 +131,12 @@ void generateOffer(port p, int idx, int sum_offerID, int sem_sum_id){
     }else{
         sum_offer = shmat(sum_offerID, NULL, 0); TEST_ERROR;
 
+        printf("Generato il tipo\n");
+
         goods = generateGoods((type + plus) % SO_MERCI);
         goods.type++;
+
+        printf("Generata la goods\n");
 
         clock_gettime(CLOCK_REALTIME, &t);
         goods.dimension = t.tv_nsec % 1000;
@@ -144,6 +146,8 @@ void generateOffer(port p, int idx, int sum_offerID, int sem_sum_id){
         semop(sem_sum_id, &sops, 1); TEST_ERROR;
 
         *sum_offer += goods.dimension;
+        printf("memoria condivisa\n");
+
 
         sops.sem_num = 2;
         sops.sem_op = 1;

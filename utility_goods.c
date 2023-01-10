@@ -19,10 +19,11 @@ goods generateGoods(int type){
     g.type=type;
     g.booked=0;
     g.shipped=0;
-    g.dimension= (t.tv_nsec%SO_SIZE)+1;
+    g.dimension = (t.tv_nsec%SO_SIZE) + 1;
     g.state=in_port;
     clock_gettime(CLOCK_REALTIME, &t);
-    g.lifeTime=(t.tv_nsec%(SO_MAX_VITA-SO_MIN_VITA))+SO_MIN_VITA+1;
+    if (SO_MIN_VITA == SO_MAX_VITA) g.lifeTime = SO_MIN_VITA;
+    else g.lifeTime=(t.tv_nsec%(SO_MAX_VITA-SO_MIN_VITA))+SO_MIN_VITA + 1;
 
     return g;
 }

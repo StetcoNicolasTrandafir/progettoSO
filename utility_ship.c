@@ -304,7 +304,7 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
 
 int getValidRequestPort(goods good, struct port_sharedMemory * sh_port) {
     struct msg_request msg;
-    int ret = 0, first_idx = -1, q, request_id, sem_id;
+    int ret = 0, first_idx = -1, q, request_id, sem_id, i;
     struct request *request;
     struct sembuf sops;
     int msg_id;
@@ -313,7 +313,7 @@ int getValidRequestPort(goods good, struct port_sharedMemory * sh_port) {
 
     msg_id=msgget(getppid(), 0600); TEST_ERROR;
 
-    while (1) {
+    for (i = 0; i < SO_DAYS; i++) {
         ret = msgrcv(msg_id, &msg, sizeof(struct msg_request), good.type, IPC_NOWAIT); TEST_ERROR;
         if (ret == -1){
             return -1;

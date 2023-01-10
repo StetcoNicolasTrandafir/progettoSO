@@ -142,7 +142,7 @@ int main(int argc, char *argv[]) {
 	p.coords = coords;
 
 	printPort(p, idx);
-	/*p = */initializeRequestsAndOffer(p);
+	initializeRequestsAndOffer(p);
 	generateRequest(p, sum_requestID, sem_sum_id);
 	generateOffer(p, 0, sum_offerID, sem_sum_id);
 
@@ -150,6 +150,7 @@ int main(int argc, char *argv[]) {
 	msg_request.idx = idx;
 
 	msgsnd(msg_id, &msg_request, sizeof(struct msg_request), 0); TEST_ERROR;
+
 
 	sops.sem_num = 0; /*semaforo di sincronizzazione*/
 	sops.sem_op = -1;
@@ -164,8 +165,11 @@ int main(int argc, char *argv[]) {
 		printf("PORTOOOOOOOOOOOOOOOOOOOOOOOOOOOO%d", i);
 		sigwait(&set, ptr_set); TEST_ERROR;
 	}*/
-
-	while(pastDays < SO_DAYS);
+	for (i = 0; i < SO_DAYS; i++) {
+		pause();
+		if (errno == 4) errno = 0;
+		else TEST_ERROR;
+	}
 
 	cleanUp();
 

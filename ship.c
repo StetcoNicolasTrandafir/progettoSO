@@ -142,14 +142,17 @@ int main(int argc, char *argv[]) {
 
 	/*getNearestPort(shared_portCoords, s.coords,-1); TEST_ERROR;*/
 
-	while(pastDays < SO_DAYS);
+	while (pastDays < SO_DAYS) {
+		pause();
+		if (errno == 4) errno = 0;
+		else TEST_ERROR;
+	}
 
 	sops.sem_num = 1;
 	sops.sem_op = -1;
 	semop(sem_sync_id, &sops, 1); TEST_ERROR;
 
 	shmdt(shared_shipCoords);
-
 	shmdt(shared_portCoords);
 
 	exit(0);
