@@ -17,6 +17,7 @@
 #include <math.h>
 
 #include "macro.h"
+#include "semaphore_library.h"
 #include "types_module.h"
 #include "utility_coordinates.h"
 #include "utility_port.h"
@@ -152,12 +153,12 @@ int main(int argc, char *argv[]) {
 
 	msgsnd(msg_id, &msg_request, sizeof(struct msg_request), 0); TEST_ERROR;
 
-	sops.sem_num = 0; /*semaforo di sincronizzazione*/
-	sops.sem_op = -1;
-	semop(sem_sync_id, &sops, 1); TEST_ERROR;
-	sops.sem_num = 0;
-	sops.sem_op = 0;
-	semop(sem_sync_id, &sops, 1); TEST_ERROR;
+
+	decreaseSem(sops, sem_sync_id,0);
+
+	
+	waitForZero(sops, sem_sync_id,0);
+
 
 	for (i = 0; i < SO_DAYS; i++) {
 		pause();
@@ -167,9 +168,7 @@ int main(int argc, char *argv[]) {
 
 	cleanUp();
 
-	sops.sem_num = 1;
-	sops.sem_op = -1;
-	semop(sem_sync_id, &sops, 1); TEST_ERROR;
+	decreaseSem(sops, sem_sync_id, 1);
 
 	exit(0);
 }

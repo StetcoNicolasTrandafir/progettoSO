@@ -16,6 +16,7 @@
 #include <sys/msg.h>
 
 #include "macro.h"
+#include "semaphore_library.h"
 #include "types_module.h"
 #include "utility_port.h"
 #include "utility_coordinates.h"
@@ -130,11 +131,11 @@ int main(int argc, char *argv[]) {
 	
 	printShip(s);TEST_ERROR;
 	sem_sync_id = atoi(argv[1]);
-	sops.sem_num = 0;
-	sops.sem_op = -1;
-	semop(sem_sync_id, &sops, 1);TEST_ERROR;
-	sops.sem_op = 0;
-	semop(sem_sync_id, &sops, 1);TEST_ERROR;
+
+
+	decreaseSem(sops, sem_sync_id, 0);
+
+	waitForZero(sops, sem_sync_id, 0);
 
 	msg_id = msgget(getppid(), IPC_CREAT | 0600); TEST_ERROR;
 	
@@ -148,9 +149,7 @@ int main(int argc, char *argv[]) {
 		else TEST_ERROR;
 	}
 
-	sops.sem_num = 1;
-	sops.sem_op = -1;
-	semop(sem_sync_id, &sops, 1); TEST_ERROR;
+	decreaseSem(sops, sem_sync_id, 1);
 
 	shmdt(shared_shipCoords);
 	shmdt(shared_portCoords);

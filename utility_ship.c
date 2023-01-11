@@ -14,20 +14,10 @@
 
 
 #include "macro.h"
+#include "semaphore_library.h"
 #include "types_module.h"
 #include "utility_coordinates.h"
 #include "utility_port.h"
-
-
-
-#define LOCK(semId,semNum) sops.sem_num = semNum; \
-	                       sops.sem_op = -1; \
-	                       semop(semId, &sops, 1); TEST_ERROR;
-
-#define UNLOCK(semId,semNum) sops.sem_num = semNum; \
-	                         sops.sem_op = 1; \
-	                         semop(semId, &sops, 1); TEST_ERROR;
-
 
 
 int min(int a, int b){ return (a>b) ? b:a; }
@@ -137,26 +127,7 @@ NEGOZIAZIONE NAVI-PORTI:
 7) se non ci sono richieste per nessuna offerta del porto preso in considerazione, prendo in considerazione ilc
 */
 
-void lockSem(struct sembuf sops,int semID, int semNum){
-    int i=0;
-    sops.sem_num = semNum; 
-	sops.sem_op = -1; 
 
-    while((semop(semID, &sops, 1))==-1 && errno == EINTR) {
-        if(errno!=4){
-            TEST_ERROR;
-        }
-        else errno=0;
-    }
-    errno=0;
-}
-
-void unlockSem(struct sembuf sops,int semID, int semNum){
-    int i=0;
-    sops.sem_num = semNum; 
-	sops.sem_op = 1; 
-    semop(semID, &sops, 1);
-}
 
 int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory shared_ship){
 
@@ -205,22 +176,22 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
         /*TODO AGGIORNO I BOOKED DELLA RICHIESTA E DELL'OFFERTA*/
 
         /*CAMBIO VALORI RICHIESTA*/
-        lockSem(sops, destinationPortSemID, REQUEST);
+        decreaseSem(sops, destinationPortSemID, REQUEST);
         
         request = shmat(ports[destinationPortIndex].requestID, NULL, 0); TEST_ERROR;
         shippedQuantity=min((request->quantity - request->booked), (g[goodIndex].dimension - g[goodIndex].booked));
         request->booked+=shippedQuantity;
 
-        unlockSem(sops, destinationPortSemID, REQUEST);
+        increaseSem(sops, destinationPortSemID, REQUEST);
         /*UNLOCK(destinationPortIndex, 2)*/
 
         /*CAMBIO VALORI OFFERTA*/
         /*LOCK(destinationPortIndex, 2)*/
-        lockSem(sops, startingPortSemID, OFFER);
+        decreaseSem(sops, startingPortSemID, OFFER);
 
         g[goodIndex].booked+=shippedQuantity;
 
-        unlockSem(sops, startingPortSemID, OFFER);
+        increaseSem(sops, startingPortSemID, OFFER);
 
 
         /*moving towards the port to load goods*/
@@ -239,29 +210,24 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
 
         /*loading goods*/
         /*LOCK(destinationPortIndex, 2)*/
-        lockSem(sops, startingPortSemID, DOCK);
+        decreaseSem(sops, startingPortSemID, DOCK);
 
         shared_ship.inDock=1;
         loadUnload(goodsQuantity, rem);
 
-        unlockSem(sops, startingPortSemID, DOCK);
+        increaseSem(sops, startingPortSemID, DOCK);
 
         shared_ship.inDock=0;
         shared_ship.goodsQuantity=shippedQuantity;
 
-        errno = 0;
-        sops.sem_num = 0; 
-        sops.sem_op = 1; 
-        semop(startingPortSemID, &sops, 1); TEST_ERROR;
-
         /*CAMBIO VALORI OFFERTA*/
         /*LOCK(destinationPortIndex, 2)*/
-        lockSem(sops, startingPortSemID, OFFER);
+        decreaseSem(sops, startingPortSemID, OFFER);
 
         g[goodIndex].shipped+=shippedQuantity;
         shmdt(g); TEST_ERROR;
         
-        unlockSem(sops, startingPortSemID, OFFER);
+        increaseSem(sops, startingPortSemID, OFFER);
 
         
         /*moving towards the port wich made the request*/
@@ -278,7 +244,7 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
         shared_ship.coords=s.coords;
 
         /*LOCK(destinationPortIndex, 2)*/
-        lockSem(sops, destinationPortSemID, DOCK);
+        decreaseSem(sops, destinationPortSemID, DOCK);
 
         shared_ship.inDock=1;
 
@@ -287,17 +253,17 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
         shared_ship.goodsQuantity=0;
         shared_ship.inDock=0;
 
-        unlockSem(sops, destinationPortSemID, DOCK);
+        increaseSem(sops, destinationPortSemID, DOCK);
 
 
         /*CAMBIO VALORI RICHIESTA*/
         /*LOCK(destinationPortIndex, 2)*/
-        lockSem(sops, destinationPortSemID, REQUEST);
-        TEST_ERROR;
+        decreaseSem(sops, destinationPortSemID, REQUEST);
+
         request->satisfied+=shippedQuantity;
         shmdt(request); TEST_ERROR;
 
-        unlockSem(sops, destinationPortSemID, REQUEST);
+        increaseSem(sops, destinationPortSemID, REQUEST);
 
         
 
@@ -342,22 +308,20 @@ int getValidRequestPort(goods good, struct port_sharedMemory * sh_port) {
         }   
         sem_id = sh_port[msg.idx].semID;
         request = shmat(sh_port[msg.idx].requestID, NULL, 0); TEST_ERROR;
-        sops.sem_num = 1;
-        sops.sem_op = -1;
-        semop(sem_id, &sops, 1);
+
+        decreaseSem(sops, sem_id,1);
+
         q = min(min(SO_CAPACITY, request -> quantity - request -> booked), good.dimension);
         if (request -> booked < request -> quantity) {
             request -> booked += q;
-            sops.sem_num = 1;
-            sops.sem_op = 1;
-            semop(sem_id, &sops, 1);
+
+            increaseSem(sops,sem_id,1 );
+
             msgsnd(msg_id, &msg, sizeof(struct msg_request), 0);
             shmdt(request);
             return msg.idx;
         }else{
-            sops.sem_num = 1;
-            sops.sem_op = 1;
-            semop(sem_id, &sops, 1);
+            increaseSem(sops,sem_id,1 );
         }
         
         if (first_idx == -1) {

@@ -13,6 +13,7 @@
 #include <math.h>
 
 #include "macro.h"
+#include "semaphore_library.h"
 #include "types_module.h"
 #include "utility_goods.h"
 #include "utility_port.h"
@@ -136,23 +137,15 @@ void generateOffer(port p, int idx, int sum_offerID, int sem_sum_id){
         clock_gettime(CLOCK_REALTIME, &t);
         goods.dimension = t.tv_nsec % 1000;
 
-        sops.sem_num = 2;
-        sops.sem_op = -1;
-        semop(sem_sum_id, &sops, 1); TEST_ERROR;
+        decreaseSem(sops, sem_sum_id, 2);
 
         *sum_offer += goods.dimension;
 
-        sops.sem_num = 2;
-        sops.sem_op = 1;
-        semop(sem_sum_id, &sops, 1); TEST_ERROR;
+        increaseSem(sops, sem_sum_id, 2);
 
-        sops.sem_num = 3;
-        sops.sem_op = -1;
-        semop(sem_sum_id, &sops, 1); TEST_ERROR;
+        decreaseSem(sops, sem_sum_id, 3);
 
-        sops.sem_num = 3;
-        sops.sem_op = 0;
-        semop(sem_sum_id, &sops, 1); TEST_ERROR;
+        waitForZero(sops, sem_sum_id, 3);
 
 
         if((goods.dimension = round((goods.dimension * (SO_FILL / SO_DAYS)) / *sum_offer)) == 0)
@@ -187,23 +180,18 @@ void generateRequest(port p, int sum_requestID, int sem_sum_id){
 
     sum_request = shmat(sum_requestID, NULL, 0); TEST_ERROR;
 
-    sops.sem_num = 0;
-    sops.sem_op = -1;
-    semop(sem_sum_id, &sops, 1); TEST_ERROR;
+
+    decreaseSem(sops, sem_sum_id, 0);
 
     *sum_request += p.request -> quantity;
 
-    sops.sem_num = 0;
-    sops.sem_op = 1;
-    semop(sem_sum_id, &sops, 1); TEST_ERROR;
 
-    sops.sem_num = 1;
-    sops.sem_op = -1;
-    semop(sem_sum_id, &sops, 1); TEST_ERROR;
+    increaseSem(sops, sem_sum_id, 0);
 
-    sops.sem_num = 1;
-    sops.sem_op = 0;
-    semop(sem_sum_id, &sops, 1); TEST_ERROR;
+    decreaseSem(sops, sem_sum_id, 1);
+
+
+    waitForZero(sops, sem_sum_id, 1);
 
     if((p.request -> quantity = round((p.request -> quantity * SO_FILL) / *sum_request)) == 0)
         p.request -> quantity++;

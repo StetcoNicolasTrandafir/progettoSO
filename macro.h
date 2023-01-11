@@ -30,7 +30,6 @@
 					  errno=0;\
 					  }
 
-
 #define REQUEST 2
 #define OFFER 1
 #define DOCK 0

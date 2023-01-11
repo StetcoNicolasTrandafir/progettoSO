@@ -18,6 +18,7 @@
 #include <sys/msg.h>
 
 #include "macro.h"
+#include "semaphore_library.h"
 #include "types_module.h"
 #include "utility_coordinates.h"
 #include "utility_port.h"
@@ -539,9 +540,9 @@ int main() {
 			break; 
 	}*/
 
-	sops.sem_num = 0; /*semaforo di sincronizzazione*/
-	sops.sem_op = 0;
-	semop(sem_sync_id, &sops, 1); TEST_ERROR;
+
+
+	waitForZero(sops, sem_sync_id,0);
 
 	alarm(1);
 
@@ -552,18 +553,8 @@ int main() {
 
 	while(pastDays < SO_DAYS);
 
-	sops.sem_num = 1;
-	sops.sem_op = 0;
-	semop(sem_sync_id, &sops, 1); TEST_ERROR;
+	waitForZero(sops, sem_sync_id,1);
 
-	/*sops.sem_num = 1;
-	sops.sem_op = 0;
-	for(i=0; i<SO_DAYS + 1; i++) {
-		semop(sem_sync_id, &sops, 1); 
-		if(errno==4)errno=0;
-		else TEST_ERROR;
-	}*/
-	
 	/*sleep(31); Lo toglieremo , ma se lo tolgo ora, da un errore perchè eliminiamo il semaforo prima che l'ultimo processo abbia fatto il semop per aspettare tutti i processi*/
 
 	/*for(i = 0; i < SO_NAVI + SO_PORTI; i++) wait(NULL); TEST_ERROR;*/
