@@ -321,7 +321,7 @@ void dailyReport(){
 
 	if(offerSum==0){
 		string=realloc(string,46);TEST_ERROR;
-		numBytes=sprintf(string,"\nNON CI SONO PIÙ OFFERTE, SIMULAZIONE FINITA!");
+		numBytes=sprintf(string,"\nNON CI SONO PIÙ OFFERTE, \nSIMULAZIONE FINITA!");
 		fflush(stdout);
 		write(1, string, numBytes);TEST_ERROR;
 		killChildren();
@@ -330,7 +330,7 @@ void dailyReport(){
 		exit(EXIT_SUCCESS);
 	}else if(requestSum==0){
 		string=realloc(string,48);TEST_ERROR;
-		numBytes=sprintf(string,"\nNON CI SONO PIÙ RICHIESTE, SIMULAZIONE FINITA!");
+		numBytes=sprintf(string,"\nNON CI SONO PIÙ RICHIESTE, \nSIMULAZIONE FINITA!");
 		fflush(stdout);
 		write(1, string, numBytes);TEST_ERROR;
 		killChildren();
@@ -586,7 +586,7 @@ int main() {
 
 	
 	string=malloc(25);
-	numBytes=sprintf(string,"\n\nSIMULAZIONE FINITA!!!\n\n");
+	numBytes=sprintf(string,"\n\nSIMULAZIONE FINITA!");
 	fflush(stdout);
 	write(1, string, numBytes);
 	exit(EXIT_SUCCESS);

@@ -265,8 +265,7 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
 
         increaseSem(sops, destinationPortSemID, REQUEST);
 
-        
-
+    
         string=malloc(70);
         numBytes=sprintf(string,"\n[%d]FINITO DI SCARICARE! Merce portata dal punto A al punto B!\n\n", getpid());
 
@@ -279,6 +278,7 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
         return destinationPortIndex;
     }else{
         printf("\n\nNessun posto dove andare feeeeega");
+
         return -1;
     }
 }
