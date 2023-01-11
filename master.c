@@ -292,30 +292,26 @@ void dailyReport(){
 	free(stateSum);TEST_ERROR;
 }
 
-/*void sendSignalToCasualPorts(){
-
+void sendSignalToCasualPorts(){
 	int i, n_ports, *port_idx, casual_idx;
 	struct timespec now;
 
     clock_gettime(CLOCK_REALTIME, &now);
     n_ports = (now.tv_nsec % SO_PORTI)+1;
     port_idx = calloc(n_ports, sizeof(int));
-    for (i = 0; i < SO_PORTI; i++) {
-    	kill(port_pids[i], SIGUSR2); TEST_ERROR;
-	}
-    /*for (i = 0; i < n_ports; i++) {
+
+    for (i = 0; i < n_ports; i++) {
     	do {
     		clock_gettime(CLOCK_REALTIME, &now);
     		casual_idx = now.tv_nsec % SO_PORTI;
     	}
     	while (elementInArray(casual_idx, port_idx, i));
 		port_idx[i] = casual_idx;
-		printf("invio il segnale 1 al porto %d\n", casual_idx);
     	kill(port_pids[port_idx[i]], SIGUSR1); TEST_ERROR;
     }
-
+    printf("Esco da sendSignalToCasualPorts\n");
     free(port_idx);
-}*/
+}
 
 void sendDailySignal() {
 	int i;
@@ -358,11 +354,11 @@ void handleSignal(int signal) {
 			if(++pastDays==SO_DAYS){
 				finalReport();
 				sendDailySignal();
-				
 
 			}else{
 				sendDailySignal();
 				*sum_offer = 0;
+				sendSignalToCasualPorts();
 				dailyReport();
 				/*kill(meteoPid, SIGUSR1); TEST_ERROR;*/
 

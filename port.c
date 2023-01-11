@@ -24,7 +24,7 @@
 
 
 port p;
-int idxOfferts, sum_offerID, sem_sum_id, idx, pastDays = 0;
+int idxOfferts = 0, sum_offerID, sem_sum_id, idx, pastDays = 0;
 struct port_sharedMemory *shared_portCoords;
 
 void cleanUp() {
@@ -50,7 +50,6 @@ void handleSignal(int signal) {
 	switch(signal) {
 		case SIGUSR1:
 			generateOffer(p, ++idxOfferts, sum_offerID, sem_sum_id);
-			printf("Cazzo\n");
 			break;
 
 		case SIGUSR2:
@@ -58,15 +57,15 @@ void handleSignal(int signal) {
 			break;
 
 		case SIGINT:
-			printf("Preso segnale\n");
 			cleanUp();
 			break;
 	}
 }
 
 int main(int argc, char *argv[]) {
+	char *string;
 	sigset_t set;
-	int i, *ptr_set;
+	int i, *ptr_set, numBytes;
 	int sem_sync_id, portsSharedMemoryID, sum_requestID, *sum_request, msg_id, sh_request_id;
 	coordinates coords;
 	struct sembuf sops;
@@ -143,7 +142,9 @@ int main(int argc, char *argv[]) {
 
 	printPort(p, idx);
 	initializeRequestsAndOffer(p);
+
 	generateRequest(p, sum_requestID, sem_sum_id);
+
 	generateOffer(p, 0, sum_offerID, sem_sum_id);
 
 	msg_request.mtype = p.request -> goodsType;
@@ -159,12 +160,8 @@ int main(int argc, char *argv[]) {
 	sops.sem_op = 0;
 	semop(sem_sync_id, &sops, 1); TEST_ERROR;
 
-	/*sigemptyset(&set);
-	sigaddset(&set, SIGINT);
-	for(i=0; i<SO_DAYS - 1; i++) {
-		printf("PORTOOOOOOOOOOOOOOOOOOOOOOOOOOOO%d", i);
-		sigwait(&set, ptr_set); TEST_ERROR;
-	}*/
+	printTest(164);
+
 	for (i = 0; i < SO_DAYS; i++) {
 		pause();
 		if (errno == 4) errno = 0;

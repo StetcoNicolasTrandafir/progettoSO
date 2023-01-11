@@ -10,6 +10,17 @@
 #include "types_module.h"
 #include "utility_coordinates.h"
 
+void printTest(int riga) {
+    char *string;
+    int numBytes;
+
+    string=malloc(50);
+    numBytes=sprintf(string, "\n==============================> Riga: %d\n", riga);
+
+    fflush(stdout);
+    write(1, string, numBytes);
+    free(string);
+}
 
 coordinates getRandomCoords(){
     double x, y;
