@@ -106,7 +106,7 @@ int getGeneratedGoods(port p, int flag){
     return total;
 }
 
-void generateOffer(port p, int idx, int sum_offerID, int sem_sum_id, int sem_offer_id){
+void generateOffer(port p, int idx, int sum_offerID, int sem_sum_id){
     struct timespec t;
     struct sembuf sops;
     int type, *sum_offer;
@@ -151,11 +151,10 @@ void generateOffer(port p, int idx, int sum_offerID, int sem_sum_id, int sem_off
         if((goods.dimension = round((goods.dimension * (SO_FILL / SO_DAYS)) / *sum_offer)) == 0)
             goods.dimension++;
 
+
         shmdt(sum_offer); TEST_ERROR;
 
-        decreaseSem(sops, sem_offer_id, 1);
         p.generatedGoods[idx] = goods;
-        increaseSem(sops, sem_offer_id, 1);
     }
 }
 
@@ -186,9 +185,11 @@ void generateRequest(port p, int sum_requestID, int sem_sum_id){
 
     *sum_request += p.request -> quantity;
 
+
     increaseSem(sops, sem_sum_id, 0);
 
     decreaseSem(sops, sem_sum_id, 1);
+
 
     waitForZero(sops, sem_sum_id, 1);
 

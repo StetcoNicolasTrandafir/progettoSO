@@ -161,20 +161,18 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
         g= shmat(ports[indexClosestPort].offersID, NULL, 0);TEST_ERROR;
 
         while(g[i].type!=-1 && destinationPortIndex==-1 && i<SO_DAYS ){
-            decreaseSem(sops, ports[indexClosestPort].semID, OFFER);
             if(g[i].state==in_port){
-                increaseSem(sops, ports[indexClosestPort].semID, OFFER);
                 destinationPortIndex=getValidRequestPort(g[i],ports);
                 if(destinationPortIndex!=-1)
                     goodIndex=i;
             }
-            else
-                increaseSem(sops, ports[indexClosestPort].semID, OFFER);
+            
             i++;
         }
         if(destinationPortIndex==-1){
             shmdt(g);TEST_ERROR;
-        }     
+        }
+            
     }
 
     if(goodIndex!=-1){
@@ -197,9 +195,6 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
 
 
         request = shmat(ports[destinationPortIndex].requestID, NULL, 0); TEST_ERROR;
-        
-        decreaseSem(sops, destinationPortSemID, REQUEST);
-
         shippedQuantity=min((request->quantity - request->booked), (g[goodIndex].dimension - g[goodIndex].booked));
         request->booked+=shippedQuantity;
 
@@ -240,12 +235,15 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
         TEST_ERROR;
 
         shared_ship.inDock=1;
-    
+        printf("\n\nCARICANDO");
         loadUnload(g[goodIndex].dimension);
 
         TEST_ERROR;
         increaseSem(sops, startingPortSemID, DOCK);
         TEST_ERROR;
+
+        shared_ship.inDock=0;
+        shared_ship.goodsQuantity=shippedQuantity;
 
         /*CAMBIO VALORI OFFERTA*/
         /*LOCK(destinationPortIndex, 2)*/
@@ -254,12 +252,11 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
         TEST_ERROR;
 
         g[goodIndex].shipped+=shippedQuantity;
+        shmdt(g); TEST_ERROR;
         
         TEST_ERROR;
         increaseSem(sops, startingPortSemID, OFFER);
         TEST_ERROR;
-
-        shmdt(g); TEST_ERROR;
         
         /*moving towards the port wich made the request*/
 
@@ -282,8 +279,8 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
         printf("\n\nSCARICANDO");
         loadUnload(g[goodIndex].dimension);
 
-        shared_ship.inDock=0;
         shared_ship.goodsQuantity=0;
+        shared_ship.inDock=0;
 
         TEST_ERROR;
         increaseSem(sops, destinationPortSemID, DOCK);
@@ -340,24 +337,25 @@ int getValidRequestPort(goods good, struct port_sharedMemory * sh_port) {
         }else 
             errno=0;
 
-        if (ret == -1)
+        if (ret == -1){
             return -1;
-
+        }   
         sem_id = sh_port[msg.idx].semID;
         request = shmat(sh_port[msg.idx].requestID, NULL, 0); TEST_ERROR;
 
-        decreaseSem(sops, sem_id, 1);
+        decreaseSem(sops, sem_id,1);
 
         q = min(min(SO_CAPACITY, request -> quantity - request -> booked), good.dimension);
         if (request -> booked < request -> quantity) {
             request -> booked += q;
-
+            TEST_ERROR;
             increaseSem(sops,sem_id,1 );
 
             msgsnd(msg_id, &msg, sizeof(struct msg_request), 0);
             shmdt(request);
             return msg.idx;
         }else{
+            TEST_ERROR;
             increaseSem(sops,sem_id,1 );
         }
         
