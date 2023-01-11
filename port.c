@@ -49,7 +49,7 @@ void printPort(port p, int i) {
 void handleSignal(int signal) {
 	switch(signal) {
 		case SIGUSR1:
-			generateOffer(p, ++idxOfferts, sum_offerID, sem_sum_id);
+			/*generateOffer(p, ++idxOfferts, sum_offerID, sem_sum_id);*/
 			break;
 
 		case SIGUSR2:
@@ -152,15 +152,12 @@ int main(int argc, char *argv[]) {
 
 	msgsnd(msg_id, &msg_request, sizeof(struct msg_request), 0); TEST_ERROR;
 
-
 	sops.sem_num = 0; /*semaforo di sincronizzazione*/
 	sops.sem_op = -1;
 	semop(sem_sync_id, &sops, 1); TEST_ERROR;
 	sops.sem_num = 0;
 	sops.sem_op = 0;
 	semop(sem_sync_id, &sops, 1); TEST_ERROR;
-
-	printTest(164);
 
 	for (i = 0; i < SO_DAYS; i++) {
 		pause();

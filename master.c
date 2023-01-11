@@ -295,10 +295,17 @@ void dailyReport(){
 void sendSignalToCasualPorts(){
 	int i, n_ports, *port_idx, casual_idx;
 	struct timespec now;
+	struct sembuf sops;
+
+	bzero(&sops, sizeof(struct sembuf));
 
     clock_gettime(CLOCK_REALTIME, &now);
     n_ports = (now.tv_nsec % SO_PORTI)+1;
     port_idx = calloc(n_ports, sizeof(int));
+
+    sops.sem_num = 3;
+	sops.sem_op = n_ports;
+	semop(sem_sum_id, &sops, 1);
 
     for (i = 0; i < n_ports; i++) {
     	do {
@@ -309,7 +316,6 @@ void sendSignalToCasualPorts(){
 		port_idx[i] = casual_idx;
     	kill(port_pids[port_idx[i]], SIGUSR1); TEST_ERROR;
     }
-    printf("Esco da sendSignalToCasualPorts\n");
     free(port_idx);
 }
 
@@ -358,7 +364,7 @@ void handleSignal(int signal) {
 			}else{
 				sendDailySignal();
 				*sum_offer = 0;
-				sendSignalToCasualPorts();
+				/*sendSignalToCasualPorts();*/
 				dailyReport();
 				/*kill(meteoPid, SIGUSR1); TEST_ERROR;*/
 
@@ -402,7 +408,6 @@ int main() {
 	struct 	request *r;
 	char *string;
 	int numBytes;
-
 
 	shipSharedMemoryID=shmget(IPC_PRIVATE, SO_NAVI*sizeof(struct ship_sharedMemory), S_IRUSR | S_IWUSR | IPC_CREAT); TEST_ERROR;
 	shared_ship= shmat(shipSharedMemoryID, NULL, 0); TEST_ERROR;

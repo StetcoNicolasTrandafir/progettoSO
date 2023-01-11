@@ -142,10 +142,7 @@ void lockSem(struct sembuf sops,int semID, int semNum){
     sops.sem_num = semNum; 
 	sops.sem_op = -1; 
 
-    while((semop(semID, &sops, 1))==-1) {
-
-        printf("\n\nSONO STATO INTERROTTO %d VOLTE",++i);
-
+    while((semop(semID, &sops, 1))==-1 && errno == EINTR) {
         if(errno!=4){
             TEST_ERROR;
         }
@@ -158,14 +155,7 @@ void unlockSem(struct sembuf sops,int semID, int semNum){
     int i=0;
     sops.sem_num = semNum; 
 	sops.sem_op = 1; 
-    while((semop(semID, &sops, 1))==-1) {
-        printf("\n\nSONO STATO INTERROTTO %d VOLTE",++i);
-        if(errno!=4){
-            TEST_ERROR;
-        }
-        else errno=0;
-    }
-    errno=0;
+    semop(semID, &sops, 1);
 }
 
 int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory shared_ship){
@@ -259,6 +249,7 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
         shared_ship.inDock=0;
         shared_ship.goodsQuantity=shippedQuantity;
 
+        errno = 0;
         sops.sem_num = 0; 
         sops.sem_op = 1; 
         semop(startingPortSemID, &sops, 1); TEST_ERROR;
