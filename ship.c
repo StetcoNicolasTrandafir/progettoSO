@@ -106,13 +106,9 @@ int main(int argc, char *argv[]) {
 	shared_portCoords = shmat(atoi(argv[2]), NULL, 0); TEST_ERROR;
 	shared_shipCoords= shmat(atoi(argv[3]), NULL, 0); TEST_ERROR;
 
-	/*
-	printf("\n");
-	for(i=0; i<SO_PORTI; i++){
-		printf("\n[%d] (%f, %f)", shared_portCoords[i].pid, shared_portCoords[i].coords.x,shared_portCoords[i].coords.y);
-	}
-	printf("\n");
-	*/
+	shared_shipCoords[shipIndex].goodsID=shmget(IPC_PRIVATE, SO_CAPACITY*sizeof(goods), S_IRUSR | S_IWUSR | IPC_CREAT); TEST_ERROR;
+	s.goods=shmat(shared_shipCoords[shipIndex].goodsID, NULL, 0);
+
 	TEST_ERROR;
 	bzero(&sa, sizeof(sa));TEST_ERROR;
 	TEST_ERROR;

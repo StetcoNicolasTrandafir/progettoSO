@@ -50,6 +50,7 @@ struct request {
 /*each ship needs to keep track of its coordinates and the goods that is carrying on, furthermore a flag determinats if the ship using a dock*/
 typedef struct ship{
     coordinates coords; 
+    int goodsNumber;
     goods *goods; 
     int inDock; 
 }ship;
@@ -59,6 +60,7 @@ struct ship_sharedMemory{
     coordinates coords; 
     int inDock;
     int semID;
+    int goodsID;
     pid_t pid;
     int goodsQuantity;
 };
