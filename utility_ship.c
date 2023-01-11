@@ -153,18 +153,20 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
         g= shmat(ports[indexClosestPort].offersID, NULL, 0);TEST_ERROR;
 
         while(g[i].type!=-1 && destinationPortIndex==-1 && i<SO_DAYS ){
+            decreaseSem(sops, ports[indexClosestPort].semID, OFFER);
             if(g[i].state==in_port){
+                increaseSem(sops, ports[indexClosestPort].semID, OFFER);
                 destinationPortIndex=getValidRequestPort(g[i],ports);
                 if(destinationPortIndex!=-1)
                     goodIndex=i;
             }
-            
+            else
+                increaseSem(sops, ports[indexClosestPort].semID, OFFER);
             i++;
         }
         if(destinationPortIndex==-1){
             shmdt(g);TEST_ERROR;
-        }
-            
+        }     
     }
 
     if(goodIndex!=-1){
@@ -176,9 +178,11 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
         /*TODO AGGIORNO I BOOKED DELLA RICHIESTA E DELL'OFFERTA*/
 
         /*CAMBIO VALORI RICHIESTA*/
-        decreaseSem(sops, destinationPortSemID, REQUEST);
         
         request = shmat(ports[destinationPortIndex].requestID, NULL, 0); TEST_ERROR;
+        
+        decreaseSem(sops, destinationPortSemID, REQUEST);
+
         shippedQuantity=min((request->quantity - request->booked), (g[goodIndex].dimension - g[goodIndex].booked));
         request->booked+=shippedQuantity;
 
@@ -214,21 +218,20 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
 
         shared_ship.inDock=1;
         loadUnload(goodsQuantity, rem);
-
-        increaseSem(sops, startingPortSemID, DOCK);
-
         shared_ship.inDock=0;
         shared_ship.goodsQuantity=shippedQuantity;
+
+        increaseSem(sops, startingPortSemID, DOCK);
 
         /*CAMBIO VALORI OFFERTA*/
         /*LOCK(destinationPortIndex, 2)*/
         decreaseSem(sops, startingPortSemID, OFFER);
 
         g[goodIndex].shipped+=shippedQuantity;
-        shmdt(g); TEST_ERROR;
         
         increaseSem(sops, startingPortSemID, OFFER);
 
+        shmdt(g); TEST_ERROR;
         
         /*moving towards the port wich made the request*/
         travelTime= getTravelTime(getDistance(s.coords,ports[destinationPortIndex].coords));
@@ -250,8 +253,8 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
 
         loadUnload(goodsQuantity, rem);
 
-        shared_ship.goodsQuantity=0;
         shared_ship.inDock=0;
+        shared_ship.goodsQuantity=0;
 
         increaseSem(sops, destinationPortSemID, DOCK);
 
@@ -261,11 +264,10 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
         decreaseSem(sops, destinationPortSemID, REQUEST);
 
         request->satisfied+=shippedQuantity;
-        shmdt(request); TEST_ERROR;
 
         increaseSem(sops, destinationPortSemID, REQUEST);
-
         
+        shmdt(request); TEST_ERROR;
 
         string=malloc(70);
         numBytes=sprintf(string,"\n[%d]FINITO DI SCARICARE! Merce portata dal punto A al punto B!\n\n", getpid());
@@ -303,25 +305,25 @@ int getValidRequestPort(goods good, struct port_sharedMemory * sh_port) {
         }else 
             errno=0;
 
-        if (ret == -1){
+        if (ret == -1)
             return -1;
-        }   
+
         sem_id = sh_port[msg.idx].semID;
         request = shmat(sh_port[msg.idx].requestID, NULL, 0); TEST_ERROR;
 
-        decreaseSem(sops, sem_id,1);
+        decreaseSem(sops, sem_id, 1);
 
         q = min(min(SO_CAPACITY, request -> quantity - request -> booked), good.dimension);
         if (request -> booked < request -> quantity) {
             request -> booked += q;
 
-            increaseSem(sops,sem_id,1 );
+            increaseSem(sops, sem_id, 1);
 
             msgsnd(msg_id, &msg, sizeof(struct msg_request), 0);
             shmdt(request);
             return msg.idx;
         }else{
-            increaseSem(sops,sem_id,1 );
+            increaseSem(sops, sem_id, 1);
         }
         
         if (first_idx == -1) {

@@ -25,15 +25,19 @@
 
 
 port p;
-int idxOfferts = 0, sum_offerID, sem_sum_id, idx, pastDays = 0;
+int idxOfferts = 0, sum_offerID, sem_sum_id, idx, pastDays = 0, sem_sync_id;
 struct port_sharedMemory *shared_portCoords;
 
 void cleanUp() {
+	struct sembuf sops;
+	bzero(&sops, sizeof(struct sembuf));
 	/*free(p.generatedGoods); TEST_ERROR;*/
 	shmdt(p.request); TEST_ERROR;
 	semctl(shared_portCoords[idx].semID, 0, IPC_RMID); TEST_ERROR;
 	shmdt(shared_portCoords); TEST_ERROR;
 	shmdt(p.generatedGoods); TEST_ERROR;
+	
+	decreaseSem(sops, sem_sync_id, 1);
 }
 
 void printPort(port p, int i) {
@@ -50,7 +54,7 @@ void printPort(port p, int i) {
 void handleSignal(int signal) {
 	switch(signal) {
 		case SIGUSR1:
-			/*generateOffer(p, ++idxOfferts, sum_offerID, sem_sum_id);*/
+			/*generateOffer(p, ++idxOfferts, sum_offerID, sem_sum_id, shared_portCoords[idx].semID);*/
 			break;
 
 		case SIGUSR2:
@@ -59,6 +63,7 @@ void handleSignal(int signal) {
 
 		case SIGINT:
 			cleanUp();
+			exit(EXIT_SUCCESS);
 			break;
 	}
 }
@@ -67,7 +72,7 @@ int main(int argc, char *argv[]) {
 	char *string;
 	sigset_t set;
 	int i, *ptr_set, numBytes;
-	int sem_sync_id, portsSharedMemoryID, sum_requestID, *sum_request, msg_id, sh_request_id;
+	int portsSharedMemoryID, sum_requestID, *sum_request, msg_id, sh_request_id;
 	coordinates coords;
 	struct sembuf sops;
 	struct request *shared_request;
@@ -146,29 +151,24 @@ int main(int argc, char *argv[]) {
 
 	generateRequest(p, sum_requestID, sem_sum_id);
 
-	generateOffer(p, 0, sum_offerID, sem_sum_id);
+	generateOffer(p, 0, sum_offerID, sem_sum_id, shared_portCoords[idx].semID);
 
 	msg_request.mtype = p.request -> goodsType;
 	msg_request.idx = idx;
 
 	msgsnd(msg_id, &msg_request, sizeof(struct msg_request), 0); TEST_ERROR;
 
-
-	decreaseSem(sops, sem_sync_id,0);
-
+	decreaseSem(sops, sem_sync_id, 0);
 	
-	waitForZero(sops, sem_sync_id,0);
+	waitForZero(sops, sem_sync_id, 0);
 
-
-	for (i = 0; i < SO_DAYS; i++) {
+	while (pastDays < SO_DAYS) {
 		pause();
 		if (errno == 4) errno = 0;
 		else TEST_ERROR;
 	}
 
 	cleanUp();
-
-	decreaseSem(sops, sem_sync_id, 1);
 
 	exit(0);
 }
