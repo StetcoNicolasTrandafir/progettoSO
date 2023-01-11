@@ -9,23 +9,29 @@
 
 
 void decreaseSem(struct sembuf sops,int semID, int semNum){
-    
     sops.sem_num = semNum; 
 	sops.sem_op = -1; 
-
-    while((semop(semID, &sops, 1))==-1 && errno == EINTR) {
-        if(errno!=4){
+    TEST_ERROR;
+    if(semop(semID, &sops, 1)==-1){
+        if(errno==EINTR){
+            errno=0;
+            decreaseSem(sops, semID, semNum);
+            
+        }
+        else{
             TEST_ERROR;
         }
-        else errno=0;
     }
-    errno=0;
+    TEST_ERROR;
 }
 
 void increaseSem(struct sembuf sops,int semID, int semNum){
+    TEST_ERROR;
     sops.sem_num = semNum; 
 	sops.sem_op = 1; 
     semop(semID, &sops, 1);
+    TEST_ERROR;
+
 }
 
 
@@ -33,8 +39,13 @@ void waitForZero(struct sembuf sops,int semID, int semNum){
     sops.sem_num = semNum; 
 	sops.sem_op = 0; 
 
-    while((semop(semID, &sops, 1))==-1 && errno == EINTR) {
-        if(errno!=4){
+    if(semop(semID, &sops, 1)==-1){
+        if(errno==EINTR){
+            errno=0;
+            waitForZero(sops, semID, semNum);
+            errno=0;
+        }
+        else{
             TEST_ERROR;
         }
     }

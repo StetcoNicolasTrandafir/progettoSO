@@ -4,7 +4,7 @@
 
 /*this function compute the time to cover the distance between the coords passed as parameter,
 and make the nanosleep that simulate the travel*/
-void move(coordinates from, coordinates to, struct timespec rem);
+void move(coordinates from, coordinates to);
 
 /*this function prints all the info about the ship passed as parameter needed for the daily report*/
 /*void printShipRepo(ship ship);*/

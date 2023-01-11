@@ -54,11 +54,13 @@ void handleSignal(int signal) {
 			break;
 
 		case SIGUSR2:
+			updateGoods(p,shared_portCoords[idx].semID);
 			pastDays++;
 			break;
 
 		case SIGINT:
 			cleanUp();
+			exit(EXIT_SUCCESS);
 			break;
 	}
 }

@@ -34,7 +34,6 @@ int pastDays = 0, *sum_request, *sum_offer;
 int sem_sync_id, sem_sum_id;
 int port_sharedMemoryID, sum_requestID, sum_offerID;
 int msg_id;
-pid_t *port_pids;
 struct port_sharedMemory *sharedPortPositions;
 pid_t meteoPid;
 struct ship_sharedMemory *shared_ship;
@@ -46,7 +45,7 @@ void killChildren(){
 	int i;
 		
 	for(i=0; i< SO_PORTI; i++) {
-		kill(port_pids[i], SIGINT); TEST_ERROR;
+		kill(sharedPortPositions[i].pid, SIGINT); TEST_ERROR;
 	}
 
 	for(i=0; i< SO_NAVI; i++){
@@ -309,7 +308,7 @@ void dailyReport(){
 	}
 
 	string=realloc(string,166);TEST_ERROR;
-	numBytes=sprintf(string,"\n\n ==================>\t\tNAVI\n\nNumero di navi facendo operazioni di carico/scarico: %d\nIn mare con un carico a bordo: %d\nIn mare senza carico a bordo: %d", busyDocks,chargedShips, dischargedShips);
+	numBytes=sprintf(string,"\n\n ==================>\t\tNAVI\n\nNumero di navi facendo operazioni di carico/scarico: %d\nIn mare con un carico a bordo: %d\nIn mare senza carico a bordo: %d", busyDocks, chargedShips, dischargedShips);
 	fflush(stdout);
 	write(1, string, numBytes);
 
@@ -319,7 +318,7 @@ void dailyReport(){
 	fflush(stdout);
 	write(1, string, numBytes);TEST_ERROR;
 
-	if(offerSum==0){
+	/*if(offerSum==0 && chargedShips==0){
 		string=realloc(string,46);TEST_ERROR;
 		numBytes=sprintf(string,"\nNON CI SONO PIÙ OFFERTE, \nSIMULAZIONE FINITA!");
 		fflush(stdout);
@@ -328,7 +327,7 @@ void dailyReport(){
 		cleanUp();
 		free(string);
 		exit(EXIT_SUCCESS);
-	}else if(requestSum==0){
+	}else if(requestSum==0 && chargedShips==0){
 		string=realloc(string,48);TEST_ERROR;
 		numBytes=sprintf(string,"\nNON CI SONO PIÙ RICHIESTE, \nSIMULAZIONE FINITA!");
 		fflush(stdout);
@@ -337,7 +336,7 @@ void dailyReport(){
 		cleanUp();
 		free(string);
 		exit(EXIT_SUCCESS);
-	}
+	}*/
 	
     free(string); TEST_ERROR;
 	free(typeSum);TEST_ERROR;
@@ -366,7 +365,7 @@ void sendSignalToCasualPorts(){
     	}
     	while (elementInArray(casual_idx, port_idx, i));
 		port_idx[i] = casual_idx;
-    	kill(port_pids[port_idx[i]], SIGUSR1); TEST_ERROR;
+    	kill(sharedPortPositions[port_idx[i]].pid, SIGUSR1); TEST_ERROR;
     }
     free(port_idx);
 }
@@ -374,7 +373,7 @@ void sendSignalToCasualPorts(){
 void sendDailySignal() {
 	int i;
 	for (i = 0; i < SO_PORTI; i++) {
-		kill(port_pids[i], SIGUSR2); TEST_ERROR;
+		kill(sharedPortPositions[i].pid, SIGUSR2); TEST_ERROR;
 	}
 	for(i = 0; i < SO_NAVI; i++) {
 		kill(shared_ship[i].pid, SIGUSR2); TEST_ERROR;
@@ -446,7 +445,6 @@ int main() {
 
 	sharedPortPositions = calloc(SO_PORTI, sizeof(struct port_sharedMemory));
 	sum_request = malloc(sizeof(int));
-	port_pids = calloc(SO_PORTI, sizeof(pid_t));
 
 	bzero(&sharedPortPositions, sizeof(sharedPortPositions));
 	bzero(&sa, sizeof(sa));
@@ -517,7 +515,6 @@ int main() {
 				
 
 			default:
-				port_pids[i] = fork_rst;
 				break;
 		}
 	}
@@ -582,7 +579,6 @@ int main() {
 
 	cleanUp();
 
-	free(port_pids);
 
 	
 	string=malloc(25);

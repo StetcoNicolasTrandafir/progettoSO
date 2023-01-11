@@ -13,7 +13,7 @@ if [ -z "$1" ]
     export SO_BANCHINE=10
     export SO_FILL=69
     export SO_LOADSPEED=100 
-    export SO_DAYS=1
+    export SO_DAYS=10
     export SO_STORMDURATION=10
     export SO_SWELLDURATION=69
     export SO_MALESTROM=36

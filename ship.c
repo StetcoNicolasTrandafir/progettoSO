@@ -88,6 +88,7 @@ void handleSignal(int signal) {
 
 		case SIGINT:
 			cleanUp();
+			exit(EXIT_SUCCESS);
 			//TODO pulire IPCS
 			break;
 	}

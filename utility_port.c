@@ -210,3 +210,17 @@ int isOffered(port port, int goodsType){
 }
 
 int isRequested(port port, int goodsType){ return (goodsType==port.request -> goodsType && port.request -> quantity > port.request -> satisfied) ? 1:0; }
+
+
+void updateGoods(port port, int semID){
+    int i=0;
+    struct sembuf sops;
+    decreaseSem(sops, semID, OFFER);
+    while(port.generatedGoods[i].type!=-1&&i<SO_DAYS){
+        if(isExpired(port.generatedGoods[i]))
+            port.generatedGoods[i].state=expired_port;
+        i++;
+    }
+
+    increaseSem(sops, semID, OFFER);
+}
