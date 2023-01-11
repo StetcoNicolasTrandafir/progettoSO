@@ -152,7 +152,9 @@ int main(int argc, char *argv[]) {
 		pause();
 		if (errno == 4) errno = 0;
 		else TEST_ERROR;
-	}
+	}	
+
+	cleanUp();
 
 	exit(0);
 }

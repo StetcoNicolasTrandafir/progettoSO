@@ -553,18 +553,17 @@ int main() {
 
 
 
-	waitForZero(sops, sem_sync_id,0);
+	waitForZero(sops, sem_sync_id, 0);
 
 	alarm(1);
 
-	/*for(i=0; i<SO_DAYS; i++) {
-		printf("MAIN: %d", i);
-		sigwait(&set, ptr_set);
-	}*/
+	while (pastDays < SO_DAYS) {
+		pause();
+		if (errno == 4) errno = 0;
+		else TEST_ERROR;
+	}
 
-	while(pastDays < SO_DAYS);
-
-	waitForZero(sops, sem_sync_id,1);
+	waitForZero(sops, sem_sync_id, 1); TEST_ERROR;
 
 	/*sleep(31); Lo toglieremo , ma se lo tolgo ora, da un errore perchè eliminiamo il semaforo prima che l'ultimo processo abbia fatto il semop per aspettare tutti i processi*/
 
