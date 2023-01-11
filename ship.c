@@ -25,7 +25,7 @@
 struct port_sharedMemory *shared_portCoords;
 struct ship_sharedMemory *shared_shipCoords;
 ship s;
-int pastDays = 0;
+int pastDays = 0, sem_sync_id;
 
 void printShip(ship s) {
 	char *string;
@@ -39,7 +39,12 @@ void printShip(ship s) {
 }
 
 void cleanUp() {
+	struct sembuf sops;
+	bzero(&sops, sizeof(struct sembuf));
 	shmdt(shared_portCoords);
+	shmdt(shared_shipCoords);
+
+	decreaseSem(sops, sem_sync_id, 1);
 }
 
 
@@ -89,14 +94,13 @@ void handleSignal(int signal) {
 		case SIGINT:
 			cleanUp();
 			exit(EXIT_SUCCESS);
-			//TODO pulire IPCS
 			break;
 	}
 }
 
 int main(int argc, char *argv[]) {
 	sigset_t set;
-	int sem_sync_id, portsSharedMemoryID;
+	int portsSharedMemoryID;
 	int i, msg_id, *ptr_set;
 	struct sembuf sops;
 	struct msg_request msg_request;
@@ -145,11 +149,6 @@ int main(int argc, char *argv[]) {
 		if (errno == 4) errno = 0;
 		else TEST_ERROR;
 	}
-
-	decreaseSem(sops, sem_sync_id, 1);
-
-	shmdt(shared_shipCoords);
-	shmdt(shared_portCoords);
 
 	exit(0);
 }

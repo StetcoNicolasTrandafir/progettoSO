@@ -31,7 +31,7 @@ void printDailyReport(port port);
 void generateRequest(port port, int sum_requestID, int sem_sum_id);
 
 /*generate an offer and update the relative shared memory, returns the type of the good generated, -1 if it isn't possible*/
-void generateOffer(port port, int idx, int sum_offerID, int sem_sum_id);
+void generateOffer(port port, int idx, int sum_offerID, int sem_sum_id, int sem_offer_id);
 
 /*return 1 if the goods type passed as parameter is already offered in the port, 0 otherwhise*/
 int isOffered(port port, int goodsType);

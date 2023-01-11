@@ -81,6 +81,9 @@ void finalReport(){
 	struct request *r;
 	char *string;
 	int numBytes;
+	struct sembuf sops;
+
+	bzero(&sops, sizeof(struct sembuf));
 
 	goodsReport=calloc(SO_MERCI, sizeof(struct goodsTypeReport));
 	offerSum=calloc(SO_MERCI, sizeof(int));
@@ -99,20 +102,19 @@ void finalReport(){
 		g=shmat(sharedPortPositions[i].offersID, NULL, 0);
 		r=shmat(sharedPortPositions[i].requestID, NULL, 0);
 
-		bzero(offerSum, SO_MERCI* sizeof(int));
+		bzero(offerSum, SO_MERCI * sizeof(int));
 
 		inPortGoods=0;
 		shippedGoods=0;
 		
-
 		for(j=0; j<SO_DAYS && g[j].type!=0; j++){
 
 			totalGoodsSum+=g[j].dimension;
 			offerSum[(g[j].type-1)]+=g[j].dimension;
-
 			goodsReport[(g[j].type-1)].totalSum+=g[j].dimension;
+
+			decreaseSem(sops, sharedPortPositions[i].semID, OFFER);
 			goodsReport[(g[j].type-1)].inPort+=g[j].dimension-g[j].shipped;
-			
 
 			if(g[j].state==expired_port){
 				goodsReport[(g[j].type-1)].expiredInPort+=g[j].dimension-g[j].shipped;
@@ -120,15 +122,15 @@ void finalReport(){
 			}else
 				goodsStateSum[in_port]+=g[j].dimension-g[j].shipped;
 
-			
-
 			inPortGoods+=g[j].dimension-g[j].shipped;
 			shippedGoods+=g[j].shipped;
+           	increaseSem(sops, sharedPortPositions[i].semID, OFFER);
 		}
 
+        decreaseSem(sops, sharedPortPositions[i].semID, REQUEST);
 		goodsReport[(r->goodsType-1)].delivered+=r->satisfied;
-		
 		goodsStateSum[delivered]+=r->satisfied;
+        increaseSem(sops, sharedPortPositions[i].semID, REQUEST);
 
 		for(j=0; j<SO_MERCI; j++){
 			if(goodsReport[j].maxOffer<offerSum[j]){
@@ -137,9 +139,9 @@ void finalReport(){
 			}
 		}
 		
-		if(goodsReport[(r->goodsType-1)].maxRequest<r->quantity){
-			goodsReport[(r->goodsType-1)].maxRequest=r->quantity;
-			goodsReport[(r->goodsType-1)].maxOfferPortIndex=i;
+		if(goodsReport[(r->goodsType-1)].maxRequest < r->quantity){
+			goodsReport[(r->goodsType-1)].maxRequest = r->quantity;
+			goodsReport[(r->goodsType-1)].maxOfferPortIndex = i;
 		}
 
 		string=realloc(string,130);
@@ -227,8 +229,11 @@ void dailyReport(){
 	int busyDocks=0;
 	int chargedShips=0;
 	int dischargedShips=0;
+	struct sembuf sops;
 	int offerSum=0;
 	int requestSum=0;
+
+	bzero(&sops, sizeof(struct sembuf));
 
 	typeSum=calloc(SO_MERCI, sizeof(int));TEST_ERROR;
 	stateSum=calloc(5, sizeof(int));TEST_ERROR;
@@ -253,6 +258,7 @@ void dailyReport(){
 
 		requestSum+=r->quantity-r->satisfied;
 		
+        decreaseSem(sops, sharedPortPositions[i].semID, OFFER);
 		while(j<SO_DAYS && g[j].type!=-1){
 			tonsInPort+=g[j].dimension-g[j].shipped;
 			tonsShipped+=g[j].shipped;
@@ -264,7 +270,11 @@ void dailyReport(){
 				offerSum+=g[j].dimension;
 			j++;
 		}
+        increaseSem(sops, sharedPortPositions[i].semID, OFFER);
+
+        decreaseSem(sops, sharedPortPositions[i].semID, REQUEST);
 		stateSum[delivered]+=(r->quantity-r->satisfied);
+        increaseSem(sops, sharedPortPositions[i].semID, REQUEST);
 		freeDocks= semctl(sharedPortPositions[i].semID, 0, GETVAL);TEST_ERROR;
 
 		numBytes = sprintf(string, "Porto [%d] in posizione: (%.2f, %.2f)\nBanchine libere %d su %d\nMerci spedite: %d ton\nMerci generate ancora in porto: %d ton\nMerci ricevute: %d ton\n\n", sharedPortPositions[i].pid, sharedPortPositions[i].coords.x, sharedPortPositions[i].coords.y, freeDocks, sharedPortPositions[i].docks, shipped, inPort, r->satisfied);
@@ -351,12 +361,12 @@ void sendSignalToCasualPorts(){
 	bzero(&sops, sizeof(struct sembuf));
 
     clock_gettime(CLOCK_REALTIME, &now);
-    n_ports = (now.tv_nsec % SO_PORTI)+1;
+    n_ports = (now.tv_nsec % SO_PORTI) + 1;
     port_idx = calloc(n_ports, sizeof(int));
 
     sops.sem_num = 3;
 	sops.sem_op = n_ports;
-	semop(sem_sum_id, &sops, 1);
+	semop(sem_sum_id, &sops, 1); TEST_ERROR;
 
     for (i = 0; i < n_ports; i++) {
     	do {
@@ -385,19 +395,20 @@ void sendDailySignal() {
 void handleSignal(int signal) {
 	char *string;
 	int numBytes;
+
 	switch(signal) {
 		case SIGALRM:
 			if(++pastDays==SO_DAYS){
 				finalReport();
 				sendDailySignal();
+				killChildren();
 
 			}else{
 				sendDailySignal();
 				*sum_offer = 0;
-				/*sendSignalToCasualPorts();*/
+				sendSignalToCasualPorts();
 				dailyReport();
 				/*kill(meteoPid, SIGUSR1); TEST_ERROR;*/
-
 				alarm(1);
 			}
 			break;
