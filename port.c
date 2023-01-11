@@ -144,7 +144,10 @@ int main(int argc, char *argv[]) {
 	p.coords = coords;
 
 	printPort(p, idx);
-	initializeRequestsAndOffer(p);
+	
+	for(i=0; i<SO_DAYS;i++){
+		p.generatedGoods[i].type=-1;
+	}
 
 	generateRequest(p, sum_requestID, sem_sum_id);
 

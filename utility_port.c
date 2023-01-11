@@ -216,9 +216,15 @@ void updateGoods(port port, int semID){
     int i=0;
     struct sembuf sops;
     decreaseSem(sops, semID, OFFER);
-    while(port.generatedGoods[i].type!=-1&&i<SO_DAYS){
-        if(isExpired(port.generatedGoods[i]))
+    while(port.generatedGoods[i].type!=-1 && i<SO_DAYS){
+
+        printf("\n\nPORTO IN POSIZIONE (%.2f,%.2f) CONTROLLO %dton DI MERCE TI TIPO: %d...", port.coords.x,port.coords.y, port.generatedGoods[i].dimension, port.generatedGoods[i].type);
+
+        if(port.generatedGoods[i].state==in_port &&isExpired(port.generatedGoods[i])){
             port.generatedGoods[i].state=expired_port;
+            printf("SCADUTA!");
+        }
+            
         i++;
     }
 
