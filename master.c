@@ -40,6 +40,31 @@ pid_t meteoPid;
 struct ship_sharedMemory *shared_ship;
 int shipSharedMemoryID;
 
+
+
+void killChildren(){
+	int i;
+		
+	for(i=0; i< SO_PORTI; i++) {
+		kill(port_pids[i], SIGINT); TEST_ERROR;
+	}
+
+	for(i=0; i< SO_NAVI; i++){
+		kill(shared_ship[i].pid, SIGINT);TEST_ERROR;
+	}
+
+}
+
+void cleanUp(){
+	shmdt(sharedPortPositions); TEST_ERROR;
+	shmdt(sum_request); TEST_ERROR;
+	shmdt(shared_ship);TEST_ERROR;
+	shmdt(sum_offer); TEST_ERROR; 	
+	semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;
+	semctl(sem_sum_id, 0, IPC_RMID); TEST_ERROR;
+	msgctl(msg_id, IPC_RMID, NULL); TEST_ERROR;
+}
+
 void finalReport(){
 	int i, j;
 	int maxRequestPortIndex=-1, maxRequest=0;
@@ -203,6 +228,8 @@ void dailyReport(){
 	int busyDocks=0;
 	int chargedShips=0;
 	int dischargedShips=0;
+	int offerSum=0;
+	int requestSum=0;
 
 	typeSum=calloc(SO_MERCI, sizeof(int));TEST_ERROR;
 	stateSum=calloc(5, sizeof(int));TEST_ERROR;
@@ -224,6 +251,8 @@ void dailyReport(){
 		r=shmat(sharedPortPositions[i].requestID, NULL, 0); TEST_ERROR;
 		inPort=0;
 		shipped=0;
+
+		requestSum+=r->quantity-r->satisfied;
 		
 		while(j<SO_DAYS && g[j].type!=-1){
 			tonsInPort+=g[j].dimension-g[j].shipped;
@@ -232,6 +261,8 @@ void dailyReport(){
 			shipped+=g[j].shipped;
 			typeSum[g[j].type-1]+=g[j].dimension;
 			stateSum[g[j].state]+=g[j].dimension-g[j].shipped;
+			if(g[j].state==in_port)
+				offerSum+=g[j].dimension;
 			j++;
 		}
 		stateSum[delivered]+=(r->quantity-r->satisfied);
@@ -287,6 +318,26 @@ void dailyReport(){
 	numBytes=sprintf(string,"\n\n============================= FINE REPORT GIORNO %d =============================\n\n", pastDays);
 	fflush(stdout);
 	write(1, string, numBytes);TEST_ERROR;
+
+	if(offerSum==0){
+		string=realloc(string,46);TEST_ERROR;
+		numBytes=sprintf(string,"\nNON CI SONO PIÙ OFFERTE, SIMULAZIONE FINITA!");
+		fflush(stdout);
+		write(1, string, numBytes);TEST_ERROR;
+		killChildren();
+		cleanUp();
+		free(string);
+		exit(EXIT_SUCCESS);
+	}else if(requestSum==0){
+		string=realloc(string,48);TEST_ERROR;
+		numBytes=sprintf(string,"\nNON CI SONO PIÙ RICHIESTE, SIMULAZIONE FINITA!");
+		fflush(stdout);
+		write(1, string, numBytes);TEST_ERROR;
+		killChildren();
+		cleanUp();
+		free(string);
+		exit(EXIT_SUCCESS);
+	}
 	
     free(string); TEST_ERROR;
 	free(typeSum);TEST_ERROR;
@@ -330,28 +381,7 @@ void sendDailySignal() {
 	}
 }
 
-void killChildren(){
-	int i;
-		
-	for(i=0; i< SO_PORTI; i++) {
-		kill(port_pids[i], SIGINT); TEST_ERROR;
-	}
 
-	for(i=0; i< SO_NAVI; i++){
-		kill(shared_ship[i].pid, SIGINT);TEST_ERROR;
-	}
-
-}
-
-void cleanUp(){
-	shmdt(sharedPortPositions); TEST_ERROR;
-	shmdt(sum_request); TEST_ERROR;
-	shmdt(shared_ship);TEST_ERROR;
-	shmdt(sum_offer); TEST_ERROR; 	
-	semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;
-	semctl(sem_sum_id, 0, IPC_RMID); TEST_ERROR;
-	msgctl(msg_id, IPC_RMID, NULL); TEST_ERROR;
-}
 
 void handleSignal(int signal) {
 	char *string;
@@ -546,40 +576,12 @@ int main() {
 
 	alarm(1);
 
-	/*for(i=0; i<SO_DAYS; i++) {
-		printf("MAIN: %d", i);
-		sigwait(&set, ptr_set);
-	}*/
-
 	while(pastDays < SO_DAYS);
 
 	waitForZero(sops, sem_sync_id,1);
 
-	/*sleep(31); Lo toglieremo , ma se lo tolgo ora, da un errore perchè eliminiamo il semaforo prima che l'ultimo processo abbia fatto il semop per aspettare tutti i processi*/
-
-	/*for(i = 0; i < SO_NAVI + SO_PORTI; i++) wait(NULL); TEST_ERROR;*/
-
-/*
-	printf("\n\n[%d] LETTURA MEMORIA CONDIVISA DAL MASTER:\n", getpid());
-	for(i=0; i< SO_PORTI; i++){
-		
-		printf("\n\nPORTO[%d] NUMERO %d:\n", sharedPortPositions[i].pid, (1+i));
-		g= shmat(sharedPortPositions[i].offersID, NULL, 0);
-		printf("offre merce di tipo %d in quantità %d ton\n", g[0].type, g[0].dimension );
-		shmdt(g);
-		shmctl(sharedPortPositions[i].offersID, IPC_RMID, NULL); TEST_ERROR;
-		
-		r=shmat(sharedPortPositions[i].requestID, NULL, 0); TEST_ERROR;
-		printf("richiesta di tipo %d in quantità %d", r->goodsType, r->quantity);
-		shmdt(r);
-	}
-*/
 	cleanUp();
 
-	/*semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;
-	semctl(sem_sum_id, 0, IPC_RMID); TEST_ERROR;
-	msgctl(msg_id, IPC_RMID, NULL); TEST_ERROR;
-*/
 	free(port_pids);
 
 	
