@@ -33,12 +33,14 @@ void move(coordinates from, coordinates to){
 
     nanosleep(&sleepTime, &rem);
     if(errno==EINTR){
-        errno=0;
+
         while(nanosleep(&rem, &rem)==-1)
         {
             if(errno!=EINTR)
             {
                 TEST_ERROR;
+            }else{
+                errno=0;
             }
         }
     }else
@@ -82,6 +84,8 @@ void loadUnload(int quantity){
             if(errno!=EINTR)
             {
                 TEST_ERROR;
+            }else{
+                errno=0;
             }
         }
     }else{
