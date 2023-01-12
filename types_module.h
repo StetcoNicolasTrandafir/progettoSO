@@ -61,6 +61,7 @@ struct ship_sharedMemory{
     int semID;
     pid_t pid;
     int goodsQuantity;
+    int goodsID;
 };
 
 struct goodsTypeReport{

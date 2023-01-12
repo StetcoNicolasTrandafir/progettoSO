@@ -25,7 +25,7 @@
 struct port_sharedMemory *shared_portCoords;
 struct ship_sharedMemory *shared_shipCoords;
 ship s;
-int pastDays = 0, sem_sync_id;
+int pastDays = 0, sem_sync_id, shipIndex;
 
 void printShip(ship s) {
 	char *string;
@@ -44,8 +44,8 @@ void cleanUp() {
 	decreaseSem(sops, sem_sync_id, 1);
 	shmdt(shared_portCoords);
 	shmdt(shared_shipCoords);
-
-	
+	shmdt(s.goods);
+	semctl(shared_shipCoords[shipIndex].semID, 0, IPC_RMID); TEST_ERROR;
 }
 
 
@@ -106,10 +106,10 @@ int main(int argc, char *argv[]) {
 	struct sembuf sops;
 	struct msg_request msg_request;
 	struct sigaction sa;
-	int shipIndex= atoi(argv[4]);
 
 	shared_portCoords = shmat(atoi(argv[2]), NULL, 0); TEST_ERROR;
 	shared_shipCoords= shmat(atoi(argv[3]), NULL, 0); TEST_ERROR;
+	shipIndex= atoi(argv[4]);
 
 	/*
 	printf("\n");
@@ -118,9 +118,8 @@ int main(int argc, char *argv[]) {
 	}
 	printf("\n");
 	*/
-	TEST_ERROR;
 	bzero(&sa, sizeof(sa));TEST_ERROR;
-	TEST_ERROR;
+
 	sa.sa_handler = handleSignal;TEST_ERROR;
 	sigaction(SIGUSR1, &sa, NULL);TEST_ERROR;
 	sigaction(SIGUSR2, &sa, NULL);TEST_ERROR;
@@ -134,14 +133,21 @@ int main(int argc, char *argv[]) {
 	shared_shipCoords[shipIndex].coords = s.coords;
 	shared_shipCoords[shipIndex].inDock= 0;
 	shared_shipCoords[shipIndex].goodsQuantity= 0;
-	
-	printShip(s);TEST_ERROR;
+
+	shared_shipCoords[shipIndex].goodsID = shmget(IPC_PRIVATE, SO_CAPACITY * sizeof(goods), S_IRUSR | S_IWUSR | IPC_CREAT); TEST_ERROR;
+	s.goods = shmat(shared_shipCoords[shipIndex].goodsID, NULL, 0); TEST_ERROR;
+	shmctl(shared_shipCoords[shipIndex].goodsID, IPC_RMID, NULL); TEST_ERROR;
+	bzero(&s.goods, SO_CAPACITY * sizeof(goods));
+
+	shared_shipCoords[shipIndex].semID = semget(IPC_PRIVATE, 1, IPC_CREAT | 0600); TEST_ERROR;
+	semctl(shared_shipCoords[shipIndex].semID, 0, SETVAL, 1); TEST_ERROR;
+
+	printShip(s); TEST_ERROR;
 	sem_sync_id = atoi(argv[1]);
 
+	decreaseSem(sops, sem_sync_id, 0); TEST_ERROR;
 
-	decreaseSem(sops, sem_sync_id, 0);
-
-	waitForZero(sops, sem_sync_id, 0);
+	waitForZero(sops, sem_sync_id, 0); TEST_ERROR;
 
 	msg_id = msgget(getppid(), IPC_CREAT | 0600); TEST_ERROR;
 	
@@ -155,7 +161,7 @@ int main(int argc, char *argv[]) {
 		else TEST_ERROR;
 	}	
 
-	cleanUp();
+	cleanUp(); 
 
 	exit(0);
 }
