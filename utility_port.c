@@ -106,17 +106,71 @@ int getGeneratedGoods(port p, int flag){
     return total;
 }
 
-void generateOffer(port p, int idx, int sum_offerID, int sem_sum_id, int sem_offer_id){
+int generateOffer(port p, int idx, int numPortShmID, int sem_sum_id, int sem_offer_id){
     struct timespec t;
     struct sembuf sops;
-    int type, *sum_offer;
+    int type, *numPorts;
     int plus = 0;
     int numBytes;
     char *string; 
+    int quantityToGenerate;
+    int generatedQuantity=0;
     goods goods;
+    int i;
+    printTest(119);
 
     bzero(&sops, sizeof(struct sembuf));
 
+    numPorts = shmat(numPortShmID, NULL, 0); TEST_ERROR;
+
+    quantityToGenerate=SO_FILL/SO_DAYS;
+    quantityToGenerate=quantityToGenerate/(*numPorts);
+    
+
+    while(generatedQuantity<quantityToGenerate) {
+        printTest(129);
+        /*!SECTION
+        1)scelta tipo
+        2)controllo se è possibile generare quel tipo
+        3)controllo sulla grandezza
+        4)aggiungi all'array
+        */
+        clock_gettime(CLOCK_REALTIME, &t);
+        type=(t.tv_nsec%SO_MERCI)+1;
+
+        if(p.request->goodsType==type){
+            if(SO_MERCI==1){
+                string=malloc(90);
+                numBytes=sprintf(string,"Impossibile generare un'offerte al porto [%d] in posizione: (%2.f, %2.f)\n", getpid(), p.coords.x, p.coords.y);
+                fflush(stdout);
+                write(1, string, numBytes);
+                free(string);
+                break;
+            }else{
+                type=(type%SO_MERCI)+1;
+            }
+        }
+
+        /*qua type è giusto*/
+        goods = generateGoods(type);
+        printGood(goods);
+        generatedQuantity+=goods.dimension;
+
+        if(generatedQuantity>quantityToGenerate){
+            goods.dimension-=(generatedQuantity-quantityToGenerate);
+        }
+
+        decreaseSem(sops, sem_offer_id, 1);
+        p.generatedGoods[idx++] = goods;
+        increaseSem(sops, sem_offer_id, 1);
+
+    }
+
+    shmdt(numPorts); TEST_ERROR;
+    return idx;
+}
+
+/*
     srand(getpid());
     type = rand() % SO_MERCI + 1;
     while(plus < SO_MERCI && isRequested(p, (type + plus) % SO_MERCI)){
@@ -130,7 +184,7 @@ void generateOffer(port p, int idx, int sum_offerID, int sem_sum_id, int sem_off
         write(1, string, numBytes);
         free(string);
     }else{
-        sum_offer = shmat(sum_offerID, NULL, 0); TEST_ERROR;
+        
 
         goods = generateGoods((type + plus) % SO_MERCI);
         goods.type++;
@@ -151,13 +205,13 @@ void generateOffer(port p, int idx, int sum_offerID, int sem_sum_id, int sem_off
         if((goods.dimension = round((goods.dimension * (SO_FILL / SO_DAYS)) / *sum_offer)) == 0)
             goods.dimension++;
 
-        shmdt(sum_offer); TEST_ERROR;
+        shmdt(numPorts); TEST_ERROR;
 
         decreaseSem(sops, sem_offer_id, 1);
         p.generatedGoods[idx] = goods;
         increaseSem(sops, sem_offer_id, 1);
-    }
-}
+    }*/
+
 
 void generateRequest(port p, int sum_requestID, int sem_sum_id){
     struct timespec t;

@@ -83,7 +83,7 @@ void finalReport(){
 		inPortGoods=0;
 		shippedGoods=0;
 		
-		for(j=0; j<SO_DAYS && g[j].type!=0; j++){
+		for(j=0; j<SO_FILL && g[j].type!=0; j++){
 
 			totalGoodsSum+=g[j].dimension;
 			offerSum[(g[j].type-1)]+=g[j].dimension;
@@ -233,7 +233,7 @@ void dailyReport(){
 		shipped=0;
 		
         decreaseSem(sops, sharedPortPositions[i].semID, OFFER);
-		while(j<SO_DAYS && g[j].type!=-1){
+		while(j<SO_FILL && g[j].type!=0){
 			tonsInPort+=g[j].dimension-g[j].shipped;
 			tonsShipped+=g[j].shipped;
 			inPort+=g[j].dimension-g[j].shipped;
@@ -316,9 +316,7 @@ void sendSignalToCasualPorts(){
     n_ports = (now.tv_nsec % SO_PORTI) + 1;
     port_idx = calloc(n_ports, sizeof(int));
 
-    sops.sem_num = 3;
-	sops.sem_op = n_ports;
-	semop(sem_sum_id, &sops, 1); TEST_ERROR;
+	*sum_offer = n_ports;
 
     for (i = 0; i < n_ports; i++) {
     	do {
@@ -378,7 +376,6 @@ void handleSignal(int signal) {
 
 			}else{
 				sendDailySignal();
-				*sum_offer = 0;
 				sendSignalToCasualPorts();
 				dailyReport();
 				/*kill(meteoPid, SIGUSR1); TEST_ERROR;*/
@@ -462,7 +459,7 @@ int main() {
 
 	sum_offerID = shmget(IPC_PRIVATE, sizeof(int), S_IRUSR | S_IWUSR | IPC_CREAT); TEST_ERROR;
 	sum_offer = shmat(sum_offerID, NULL, 0); TEST_ERROR;
-	*sum_offer = 0;
+	*sum_offer = SO_PORTI;
 	shmctl(sum_offerID, IPC_RMID, NULL); TEST_ERROR;
 
 	msg_id = msgget(getpid(), IPC_CREAT | IPC_EXCL | 0600); TEST_ERROR;

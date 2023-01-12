@@ -43,7 +43,7 @@ if [ -z "$1" ]
                 echo "Setting 'dense, small ship + trashing' configuration..."
                 export SO_NAVI=1000
                 export SO_PORTI=100
-                export SO_MERCI=1
+                export SO_MERCI=10
                 export SO_SIZE=1
                 export SO_MIN_VITA=3
                 export SO_MAX_VITA=10

@@ -23,9 +23,8 @@
 #include "utility_port.h"
 
 
-
 port p;
-int idxOfferts = 0, sum_offerID, sem_sum_id, idx, pastDays = 0, sem_sync_id;
+int idxOffer = 0, sum_offerID, sem_sum_id, idx, pastDays = 0, sem_sync_id;
 struct port_sharedMemory *shared_portCoords;
 
 void cleanUp() {
@@ -54,7 +53,7 @@ void printPort(port p, int i) {
 void handleSignal(int signal) {
 	switch(signal) {
 		case SIGUSR1:
-			/*generateOffer(p, ++idxOfferts, sum_offerID, sem_sum_id, shared_portCoords[idx].semID);*/
+			idxOffer=generateOffer(p, idxOffer, sum_offerID, sem_sum_id, shared_portCoords[idx].semID);
 			break;
 
 		case SIGUSR2:
@@ -131,7 +130,7 @@ int main(int argc, char *argv[]) {
 	/*dopo che il porto inserisci i suoi dati, non ha più bisogno di accedere alla memoria*/
 	shared_portCoords[idx].coords=coords;
 	shared_portCoords[idx].pid=getpid();
-	shared_portCoords[idx].offersID=shmget(IPC_PRIVATE, SO_DAYS*sizeof(goods), S_IRUSR | S_IWUSR | IPC_CREAT); TEST_ERROR;
+	shared_portCoords[idx].offersID=shmget(IPC_PRIVATE, SO_FILL*sizeof(goods), S_IRUSR | S_IWUSR | IPC_CREAT); TEST_ERROR;
 	p.generatedGoods=shmat(shared_portCoords[idx].offersID, NULL, 0);
 	shmctl(shared_portCoords[idx].offersID, IPC_RMID, NULL); TEST_ERROR;
 	shared_portCoords[idx].requestID = shmget(IPC_PRIVATE, sizeof(struct request), S_IRUSR | S_IWUSR | IPC_CREAT); TEST_ERROR;
@@ -148,11 +147,12 @@ int main(int argc, char *argv[]) {
 	p.coords = coords;
 
 	printPort(p, idx);
-	initializeRequestsAndOffer(p);
+	/*initializeRequestsAndOffer(p);*/
+	bzero(p.generatedGoods,SO_FILL*sizeof(goods));
 
 	generateRequest(p, sum_requestID, sem_sum_id);
 
-	generateOffer(p, 0, sum_offerID, sem_sum_id, shared_portCoords[idx].semID);
+	idxOffer=generateOffer(p, 0, sum_offerID, sem_sum_id, shared_portCoords[idx].semID);
 
 	msg_request.mtype = p.request -> goodsType;
 	msg_request.idx = idx;

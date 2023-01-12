@@ -10,6 +10,18 @@
 #include "types_module.h"
 #include "utility_goods.h"
 
+
+void printGood(goods g){
+    char *string;
+	int numBytes;
+	string=malloc(85);
+	numBytes=sprintf(string,"\n\n======>MERCE:\nTipo: %d\nQuantità: %d\nState: %d\nBooked:%d scadenza  il giorno %ld", g.type, g.dimension, g.state, g.booked, g.expiringDate.tv_sec);
+
+	fflush(stdout);
+	write(1, string, numBytes);
+	free(string); 
+}
+
 goods generateGoods(int type){
     goods g;
     struct timespec t;
