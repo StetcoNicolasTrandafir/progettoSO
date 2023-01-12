@@ -59,6 +59,7 @@ void handleSignal(int signal) {
 
 		case SIGUSR2:
 			pastDays++;
+			updateGoods(p,shared_portCoords[idx].semID);
 			break;
 
 		case SIGINT:

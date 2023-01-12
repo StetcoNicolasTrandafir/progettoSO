@@ -90,16 +90,18 @@ void finalReport(){
 			goodsReport[(g[j].type-1)].totalSum+=g[j].dimension;
 
 			decreaseSem(sops, sharedPortPositions[i].semID, OFFER);
-			goodsReport[(g[j].type-1)].inPort+=g[j].dimension-g[j].shipped;
 
-			if(g[j].state==expired_port){
-				goodsReport[(g[j].type-1)].expiredInPort+=g[j].dimension-g[j].shipped;
-				goodsStateSum[expired_port]+=g[j].dimension-g[j].shipped;
-			}else
-				goodsStateSum[in_port]+=g[j].dimension-g[j].shipped;
-
-			inPortGoods+=g[j].dimension-g[j].shipped;
-			shippedGoods+=g[j].shipped;
+			if(g[j].state==in_port){
+				goodsStateSum[in_port]+=g[j].dimension;
+				goodsReport[(g[j].type-1)].inPort+=g[j].dimension;
+				inPortGoods+=g[j].dimension;
+			} else if(g[j].state==expired_port){
+				goodsReport[(g[j].type-1)].expiredInPort+=g[j].dimension;
+				goodsStateSum[expired_port]+=g[j].dimension;
+			}else if(g[j].state==on_ship){
+				shippedGoods+=g[j].dimension;
+			}
+			
            	increaseSem(sops, sharedPortPositions[i].semID, OFFER);
 		}
 

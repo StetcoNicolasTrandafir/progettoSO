@@ -209,3 +209,24 @@ int isOffered(port port, int goodsType){
 }
 
 int isRequested(port port, int goodsType){ return (goodsType==port.request -> goodsType && port.request -> quantity > port.request -> satisfied) ? 1:0; }
+
+void updateGoods(port port, int semID){
+    int i=0;
+    struct sembuf sops;
+    
+    while(port.generatedGoods[i].type!=-1 && i<SO_DAYS){
+
+        /*printf("\n\nPORTO IN POSIZIONE (%.2f,%.2f) CONTROLLO %dton DI MERCE TI TIPO: %d...", port.coords.x,port.coords.y, port.generatedGoods[i].dimension, port.generatedGoods[i].type);*/
+
+        if(port.generatedGoods[i].state==in_port && isExpired(port.generatedGoods[i])){
+            decreaseSem(sops, semID, OFFER);
+            /*printf("\n\nSTATO MERCE PRIMA: %d", port.generatedGoods[i].state);*/
+            port.generatedGoods[i].state=expired_port;
+            /*printf("\n\nSTATO MERCE DOPO: %d", port.generatedGoods[i].state);*/
+
+            increaseSem(sops, semID, OFFER);
+        }
+        i++;
+    }
+
+}

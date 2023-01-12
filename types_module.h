@@ -17,8 +17,7 @@ typedef struct goods{
     int shipped;
     int dimension;
     int booked;
-    int lifeTime;
-    struct timespec generationTime;
+    struct timespec expiringDate;
 }goods;
 
 /*each port is characterized by its coords (unique), its number of docks (number between [1, SO_BANCHINE]),
