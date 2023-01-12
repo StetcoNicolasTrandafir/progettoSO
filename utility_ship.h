@@ -36,4 +36,6 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
 /*returns the index of port in the shared memory wich has a request that can be satisfied, -1 if there's no request satisfiable */
 int getValidRequestPort(goods good, int msg_id, int shm_id);
 
+void checkExpiredGoods(ship s, int goodsNumber, int *shippedGoods);
+
 #endif /*_UTILITY_SHIP_H*/

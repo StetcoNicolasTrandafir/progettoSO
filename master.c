@@ -208,7 +208,8 @@ void dailyReport(){
 	int chargedShips=0;
 	int dischargedShips=0;
 	struct sembuf sops;
-
+	int totalRequest=0;
+	int totalOffer=0;
 	bzero(&sops, sizeof(struct sembuf));
 
 	typeSum=calloc(SO_MERCI, sizeof(int));TEST_ERROR;
@@ -240,11 +241,14 @@ void dailyReport(){
 			shipped+=g[j].shipped;
 			typeSum[g[j].type-1]+=g[j].dimension;
 			stateSum[g[j].state]+=g[j].dimension-g[j].shipped;
+			if(g[j].state==in_port)
+				totalOffer+=g[j].dimension;
 			j++;
 		}
         increaseSem(sops, sharedPortPositions[i].semID, OFFER);
 
         decreaseSem(sops, sharedPortPositions[i].semID, REQUEST);
+		totalRequest+=r->quantity-r->satisfied;
 		stateSum[delivered]+=(r->quantity-r->satisfied);
         increaseSem(sops, sharedPortPositions[i].semID, REQUEST);
 		freeDocks= semctl(sharedPortPositions[i].semID, 0, GETVAL);TEST_ERROR;
@@ -256,18 +260,18 @@ void dailyReport(){
 		shmdt(g);
 		shmdt(r);
 	}
-
+/*
 	for(i=0; i< SO_NAVI; i++){
 		if(shared_ship[i].inDock)
 			busyDocks++;
-		else if(shared_ship[i].goodsQuantity)
+		else if(shared_ship[i].goods[0].type!=0)
 			chargedShips++;
 			else 
 			dischargedShips++;
 
 	}
 
-	
+	*/
 
 
 	string=realloc(string,200);TEST_ERROR;
@@ -300,6 +304,20 @@ void dailyReport(){
 	fflush(stdout);
 	write(1, string, numBytes);TEST_ERROR;
 	
+
+	if(totalOffer==0){
+		string=realloc(string,65);TEST_ERROR;
+		numBytes=sprintf(string,"\n\nNON C'È PIÙ OFFERTA DI ALCUNA MERCE: SIMULAZIONE FINITA!\n");
+		fflush(stdout);
+		write(1, string, numBytes);TEST_ERROR;
+	}else if(totalRequest==0){
+		string=realloc(string,60);TEST_ERROR;
+		numBytes=sprintf(string,"\n\nNON C'È PIÙ RICHIESTA DI ALCUNA MERCE: SIMULAZIONE FINITA!\n");
+		fflush(stdout);
+		write(1, string, numBytes);TEST_ERROR;
+	}
+
+
     free(string); TEST_ERROR;
 	free(typeSum);TEST_ERROR;
 	free(stateSum);TEST_ERROR;

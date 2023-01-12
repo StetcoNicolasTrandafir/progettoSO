@@ -145,14 +145,18 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
     struct sembuf sops;
     char *string;
     int numBytes;
+    int *shippedGoods;
+    int shippedGoodsQuantity=0;
+    int shippedGoodsIndex=0;
 
     bzero(&sops, sizeof(struct sembuf));
+    bzero(s.goods, sizeof(goods)*SO_CAPACITY);
 
     while(j++<SO_NAVI && destinationPortIndex==-1 && indexClosestPort!=-1){
         indexClosestPort= getNearestPort(ports, s.coords, getDistance(s.coords, ports[indexClosestPort].coords));
         g= shmat(ports[indexClosestPort].offersID, NULL, 0);TEST_ERROR;
 
-        while(g[i].type!=-1 && destinationPortIndex==-1 && i<SO_DAYS ){
+        while(g[i].type!=0 && destinationPortIndex==-1 && i<SO_FILL ){
             decreaseSem(sops, ports[indexClosestPort].semID, OFFER);
             if(g[i].state==in_port){
                 increaseSem(sops, ports[indexClosestPort].semID, OFFER);
@@ -169,9 +173,52 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
         }     
     }
 
+
+    
+    /*NOTE: 
+invalid argumento, forse perchè ===>
+    set di semafori non esistente
+    
+    */
+
+
     if(goodIndex!=-1){
+
+        /*!SECTION
+        conosco il tipo di bene per cui c'è richiesta
+        0)load/unload e move
+        1)mi muovo verso il porto
+        2)carico tutte le offerte che non scadono di quel bene
+            -aggiorno tutti gli state dei lotti di offerta
+            -carico tutti i lotti sulla nave
+        3)mi muovo verso la destinazione
+        4)scarico merci
+            -per ogni lotto, prima di scaricare ==> check scadenza
+            -unload lotto
+            -scarico nave ==> aggiorno stati
+        5) negociate
+        */
+
+
+        shippedGoods=calloc(SO_CAPACITY, sizeof(int));
+        shippedGoods[shippedGoodsIndex++]=goodIndex;
+        while(g[i].type!=0){
+            if(g[i].type!=g[goodIndex].type && g[i].dimension+shippedGoodsQuantity<= SO_CAPACITY){
+                shippedGoodsQuantity+=g[i].dimension;
+                shippedGoods=realloc(shippedGoods, sizeof(int)*(shippedGoodsIndex+1));
+                shippedGoods[shippedGoodsIndex++]=i;
+            }
+            i++;
+        }
         startingPortSemID = ports[indexClosestPort].semID;
         destinationPortSemID = ports[destinationPortIndex].semID;
+
+
+        for(i=0; i<shippedGoodsIndex; i++){
+            g[shippedGoods[i]].state=on_ship;
+            s.goods[i]=g[shippedGoods[i]];
+        }
+
         /*startingPortSemID=semget(ports[indexClosestPort].semID, 3, 0600);TEST_ERROR;
         destinationPortSemID=semget(ports[destinationPortIndex].semID, 3, 0600); TEST_ERROR; /*[0]=banchine [1]=offerta [2]=richiesta*/
 
@@ -251,7 +298,12 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
 
         shared_ship.inDock=1;
 
-        loadUnload(goodsQuantity, rem);
+        checkExpiredGoods(s,shippedGoodsIndex,shippedGoods);
+        for(i=0; i< shippedGoodsIndex; i++){
+            if(shippedGoods[i]!=-1)
+                loadUnload(g[shippedGoods[i]].dimension, rem);
+        }
+        
 
         shared_ship.inDock=0;
         shared_ship.goodsQuantity=0;
@@ -275,7 +327,7 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
         fflush(stdout);
         write(1, string, numBytes);
         
-        
+        free(shippedGoods);
         free(string);
 
         return destinationPortIndex;
@@ -334,6 +386,19 @@ int getValidRequestPort(goods good, struct port_sharedMemory * sh_port) {
             msgsnd(msg_id, &msg, sizeof(struct msg_request), 0);
             shmdt(request);
             return -1;
+        }
+    }
+}
+
+
+void checkExpiredGoods(ship s, int goodsNumber, int *shippedGoods){
+    int i;
+    
+    for(i=0; i<goodsNumber; i++){
+        if(isExpired(s.goods[i]))
+        {
+            s.goods[i].state=expired_ship;
+            shippedGoods[i]=-1;
         }
     }
 }
