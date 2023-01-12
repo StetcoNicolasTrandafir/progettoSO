@@ -22,16 +22,29 @@
 
 int min(int a, int b){ return (a>b) ? b:a; }
 
-void move(coordinates from, coordinates to, struct timespec rem){
+void move(coordinates from, coordinates to){
     double travelTime=getDistance(from, to)/SO_SPEED;
     int intero= (int)travelTime;
     double decimal=travelTime-intero;
-    struct timespec sleepTime;
+    struct timespec sleepTime, rem;
 
     sleepTime.tv_nsec=decimal;
     sleepTime.tv_sec=intero;
 
     nanosleep(&sleepTime, &rem);
+    if(errno==EINTR){
+        errno=0;
+        while(nanosleep(&rem, &rem)==-1)
+        {
+            if(errno!=EINTR)
+            {
+                TEST_ERROR;
+            }
+        }
+    }else
+    {
+        TEST_ERROR;
+    }
 }
 
 
@@ -43,6 +56,19 @@ void move(coordinates from, coordinates to, struct timespec rem){
         return ship.coords;
     }
 }*/
+
+
+void checkExpiredGoods(ship s, int goodsNumber, int *shippedGoods){
+    int i;
+    
+    for(i=0; i<goodsNumber; i++){
+        if(isExpired(s.goods[i]))
+        {
+            s.goods[i].state=expired_ship;
+            shippedGoods[i]=-1;
+        }
+    }
+}
 
 
 int getNearestPort(struct port_sharedMemory *ports, coordinates coords, double min){
@@ -58,18 +84,17 @@ int getNearestPort(struct port_sharedMemory *ports, coordinates coords, double m
             minDist= tempDistance;
         }
     }
-
     return minIndex;
 }
 
-void loadUnload(int quantity, struct timespec rem){
-    double neededTime= quantity/SO_LOADSPEED;
+void loadUnload(int quantity){
+    float neededTime= quantity/SO_LOADSPEED;
     struct timespec sleepTime;
 
     sleepTime.tv_sec=(int)neededTime;
-    sleepTime.tv_nsec=neededTime-((int)neededTime);
+    sleepTime.tv_nsec=(neededTime-((int)neededTime))*100000000;
 
-    nanosleep(&sleepTime, &rem);
+    nanosleep(&sleepTime, &sleepTime);
 }
 
 
@@ -157,15 +182,17 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
         g= shmat(ports[indexClosestPort].offersID, NULL, 0);TEST_ERROR;
 
         while(g[i].type!=0 && destinationPortIndex==-1 && i<SO_FILL ){
-            decreaseSem(sops, ports[indexClosestPort].semID, OFFER);
+            decreaseSem(sops, ports[indexClosestPort].semID, OFFER);TEST_ERROR;
             if(g[i].state==in_port){
-                increaseSem(sops, ports[indexClosestPort].semID, OFFER);
+                increaseSem(sops, ports[indexClosestPort].semID, OFFER);TEST_ERROR;
                 destinationPortIndex=getValidRequestPort(g[i],ports);
                 if(destinationPortIndex!=-1)
                     goodIndex=i;
             }
-            else
+            else{
                 increaseSem(sops, ports[indexClosestPort].semID, OFFER);
+                TEST_ERROR;
+            }
             i++;
         }
         if(destinationPortIndex==-1){
@@ -228,65 +255,60 @@ invalid argumento, forse perchè ===>
         
         request = shmat(ports[destinationPortIndex].requestID, NULL, 0); TEST_ERROR;
         
-        decreaseSem(sops, destinationPortSemID, REQUEST);
+        decreaseSem(sops, destinationPortSemID, REQUEST);TEST_ERROR;
 
         shippedQuantity=min((request->quantity - request->booked), (g[goodIndex].dimension - g[goodIndex].booked));
         request->booked+=shippedQuantity;
 
-        increaseSem(sops, destinationPortSemID, REQUEST);
+        increaseSem(sops, destinationPortSemID, REQUEST);TEST_ERROR;
         /*UNLOCK(destinationPortIndex, 2)*/
 
         /*CAMBIO VALORI OFFERTA*/
         /*LOCK(destinationPortIndex, 2)*/
-        decreaseSem(sops, startingPortSemID, OFFER);
+        decreaseSem(sops, startingPortSemID, OFFER);TEST_ERROR;
 
         g[goodIndex].booked+=shippedQuantity;
 
-        increaseSem(sops, startingPortSemID, OFFER);
+        increaseSem(sops, startingPortSemID, OFFER);TEST_ERROR;
 
 
         /*moving towards the port to load goods*/
-        travelTime= getTravelTime(getDistance(s.coords,ports[indexClosestPort].coords));
-        s.coords.x=-1;
-        s.coords.y=-1;
-        shared_ship.coords=s.coords;
-        
-        time.tv_sec=(int)travelTime;
-        time.tv_nsec=travelTime-time.tv_sec;
-        nanosleep(&time, &rem);
 
-        /*arrived at the port*/
-        s.coords=ports[indexClosestPort].coords;
+/*TODO controllo semafori navi*/
+
+        shared_ship.coords.x=-1;
+        shared_ship.coords.x=-1;
+
+        move(s.coords,ports[indexClosestPort].coords); TEST_ERROR;
+
+        s.coords= ports[indexClosestPort].coords;
         shared_ship.coords=s.coords;
 
         /*loading goods*/
         /*LOCK(destinationPortIndex, 2)*/
-        decreaseSem(sops, startingPortSemID, DOCK);
+        decreaseSem(sops, startingPortSemID, DOCK);TEST_ERROR;
 
         shared_ship.inDock=1;
-        loadUnload(goodsQuantity, rem);
+        for(i=0; i< shippedGoodsIndex; i++){
+            loadUnload(g[shippedGoods[i]].dimension);
+            TEST_ERROR;
+        }
+        
         shared_ship.inDock=0;
-        shared_ship.goodsQuantity=shippedQuantity;
 
-        increaseSem(sops, startingPortSemID, DOCK);
+        increaseSem(sops, startingPortSemID, DOCK);TEST_ERROR;
 
         /*CAMBIO VALORI OFFERTA*/
         /*LOCK(destinationPortIndex, 2)*/
-        decreaseSem(sops, startingPortSemID, OFFER);
-
-        g[goodIndex].shipped+=shippedQuantity;
-        
-        increaseSem(sops, startingPortSemID, OFFER);
 
         shmdt(g); TEST_ERROR;
         
         /*moving towards the port wich made the request*/
-        travelTime= getTravelTime(getDistance(s.coords,ports[destinationPortIndex].coords));
-        s.coords.x=-1;
-        s.coords.y=-1;
-        time.tv_sec=(int)travelTime;
-        time.tv_nsec=travelTime-time.tv_sec;
-        nanosleep(&time, &rem);
+
+        shared_ship.coords.x=-1;
+        shared_ship.coords.x=-1;
+
+        move(s.coords,ports[destinationPortIndex].coords); TEST_ERROR;
 
 
         /*arrived at the port, downloading the goods*/
@@ -294,30 +316,31 @@ invalid argumento, forse perchè ===>
         shared_ship.coords=s.coords;
 
         /*LOCK(destinationPortIndex, 2)*/
-        decreaseSem(sops, destinationPortSemID, DOCK);
+        decreaseSem(sops, destinationPortSemID, DOCK);TEST_ERROR;
 
         shared_ship.inDock=1;
 
         checkExpiredGoods(s,shippedGoodsIndex,shippedGoods);
         for(i=0; i< shippedGoodsIndex; i++){
-            if(shippedGoods[i]!=-1)
-                loadUnload(g[shippedGoods[i]].dimension, rem);
+            if(shippedGoods[i]!=-1){
+                loadUnload(g[shippedGoods[i]].dimension);
+                TEST_ERROR;
+            }
+                
         }
         
-
         shared_ship.inDock=0;
-        shared_ship.goodsQuantity=0;
 
-        increaseSem(sops, destinationPortSemID, DOCK);
+        increaseSem(sops, destinationPortSemID, DOCK);TEST_ERROR;
 
 
         /*CAMBIO VALORI RICHIESTA*/
         /*LOCK(destinationPortIndex, 2)*/
-        decreaseSem(sops, destinationPortSemID, REQUEST);
+        decreaseSem(sops, destinationPortSemID, REQUEST);TEST_ERROR;
 
         request->satisfied+=shippedQuantity;
 
-        increaseSem(sops, destinationPortSemID, REQUEST);
+        increaseSem(sops, destinationPortSemID, REQUEST); TEST_ERROR;
         
         shmdt(request); TEST_ERROR;
 
@@ -390,15 +413,3 @@ int getValidRequestPort(goods good, struct port_sharedMemory * sh_port) {
     }
 }
 
-
-void checkExpiredGoods(ship s, int goodsNumber, int *shippedGoods){
-    int i;
-    
-    for(i=0; i<goodsNumber; i++){
-        if(isExpired(s.goods[i]))
-        {
-            s.goods[i].state=expired_ship;
-            shippedGoods[i]=-1;
-        }
-    }
-}

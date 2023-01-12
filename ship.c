@@ -93,6 +93,7 @@ void handleSignal(int signal) {
 			break;
 
 		case SIGINT:
+			printTest(69);
 			cleanUp();
 			exit(EXIT_SUCCESS);
 			break;
