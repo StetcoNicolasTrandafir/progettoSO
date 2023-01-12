@@ -36,7 +36,7 @@ void cleanUp() {
 	shmdt(shared_portCoords); TEST_ERROR;
 	shmdt(p.generatedGoods); TEST_ERROR;
 	
-	decreaseSem(sops, sem_sync_id, 1);
+	decreaseSem(sops, sem_sync_id, 1); TEST_ERROR;
 }
 
 void printPort(port p, int i) {
@@ -53,7 +53,7 @@ void printPort(port p, int i) {
 void handleSignal(int signal) {
 	switch(signal) {
 		case SIGUSR1:
-			/*idxOffer=generateOffer(p, idxOffer, sum_offerID, sem_sum_id, shared_portCoords[idx].semID);*/
+			idxOffer=generateOffer(p, idxOffer, sum_offerID, sem_sum_id, shared_portCoords[idx].semID);
 			break;
 
 		case SIGUSR2:
@@ -169,7 +169,7 @@ int main(int argc, char *argv[]) {
 		else TEST_ERROR;
 	}
 
-	cleanUp();
+	/*cleanUp();*/
 
 	exit(0);
 }

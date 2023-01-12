@@ -58,7 +58,6 @@ void finalReport(){
 	char *string;
 	int numBytes;
 	struct sembuf sops;
-
 	bzero(&sops, sizeof(struct sembuf));
 
 	goodsReport=calloc(SO_MERCI, sizeof(struct goodsTypeReport));
@@ -165,8 +164,6 @@ void finalReport(){
 	numBytes=sprintf(string,"\n\nMerce in porto (disponibile): %dton\nMerce scaduta in porto: %dton\nMerce consegnata: %dton\nMerce in nave: %dton\nMerce scaduta in nave: %dton\n\n---------->\tPER TIPOLOGIA:\n\n\nTOTALE MERCE GENERATA: %dton",goodsStateSum[in_port],goodsStateSum[expired_port],goodsStateSum[delivered],goodsStateSum[on_ship],goodsStateSum[expired_ship],totalGoodsSum);
 	fflush(stdout);
 	write(1, string, numBytes);
-
-
 
 	string=realloc(string,404);
 
@@ -360,7 +357,6 @@ void sendDailySignal() {
 
 void killChildren(){
 	int i;
-		
 	for(i=0; i< SO_PORTI; i++) {
 		kill(port_pids[i], SIGINT); TEST_ERROR;
 	}
@@ -389,7 +385,7 @@ void handleSignal(int signal) {
 		case SIGALRM:
 			if(++pastDays==SO_DAYS){
 				finalReport();
-				sendDailySignal();
+				/*sendDailySignal();*/
 				killChildren();
 
 			}else{
@@ -439,7 +435,7 @@ int main() {
 	int numBytes;
 
 	shipSharedMemoryID=shmget(IPC_PRIVATE, SO_NAVI*sizeof(struct ship_sharedMemory), S_IRUSR | S_IWUSR | IPC_CREAT); TEST_ERROR;
-	shared_ship= shmat(shipSharedMemoryID, NULL, 0); TEST_ERROR;
+	shared_ship = shmat(shipSharedMemoryID, NULL, 0); TEST_ERROR;
 	shmctl(shipSharedMemoryID, IPC_RMID, NULL); TEST_ERROR;
 
 	sharedPortPositions = calloc(SO_PORTI, sizeof(struct port_sharedMemory));
@@ -567,8 +563,6 @@ int main() {
 		default:
 			break; 
 	}*/
-
-
 
 	waitForZero(sops, sem_sync_id,0);
 

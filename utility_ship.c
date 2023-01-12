@@ -154,10 +154,10 @@ NEGOZIAZIONE NAVI-PORTI:
 
 
 
-int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory shared_ship){
-
-    int indexClosestPort= getNearestPort(ports, s.coords, -1);
-    goods *g= shmat(ports[indexClosestPort].offersID, NULL, 0);
+int negociate(int portsID, ship s, struct ship_sharedMemory shared_ship){
+    struct port_sharedMemory *ports = shmat(portsID, NULL, 0);
+    int indexClosestPort= -1;
+    goods *g;
     int i=0, j=0;
     int destinationPortIndex=-1;
     double travelTime;
@@ -178,8 +178,8 @@ int negociate(struct port_sharedMemory *ports, ship s, struct ship_sharedMemory 
     bzero(s.goods, sizeof(goods)*SO_CAPACITY);
 
     while(j++<SO_NAVI && destinationPortIndex==-1 && indexClosestPort!=-1){
-        indexClosestPort= getNearestPort(ports, s.coords, getDistance(s.coords, ports[indexClosestPort].coords));
-        g= shmat(ports[indexClosestPort].offersID, NULL, 0);TEST_ERROR;
+        indexClosestPort = getNearestPort(ports, s.coords, getDistance(s.coords, ports[indexClosestPort].coords));
+        g = shmat(ports[indexClosestPort].offersID, NULL, 0); TEST_ERROR;
 
         while(g[i].type!=0 && destinationPortIndex==-1 && i<SO_FILL ){
             decreaseSem(sops, ports[indexClosestPort].semID, OFFER);TEST_ERROR;
@@ -352,10 +352,16 @@ invalid argumento, forse perchè ===>
         
         free(shippedGoods);
         free(string);
+        shmdt(ports); TEST_ERROR;
 
         return destinationPortIndex;
     }else{
-        printf("\n\nNessun posto dove andare feeeeega");
+        string=malloc(70);
+        numBytes=sprintf(string,"\n[%d]NESSUN PORTO DOVE ANDARE\n\n", getpid());
+
+        fflush(stdout);
+        write(1, string, numBytes);
+        free(string);
         return -1;
     }
 }

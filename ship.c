@@ -41,11 +41,11 @@ void printShip(ship s) {
 void cleanUp() {
 	struct sembuf sops;
 	bzero(&sops, sizeof(struct sembuf));
-	decreaseSem(sops, sem_sync_id, 1);
-	shmdt(shared_portCoords);
-	shmdt(shared_shipCoords);
-	shmdt(s.goods);
+	TEST_ERROR;
 	semctl(shared_shipCoords[shipIndex].semID, 0, IPC_RMID); TEST_ERROR;
+	shmdt(s.goods); TEST_ERROR;
+	shmdt(shared_shipCoords); TEST_ERROR;
+	decreaseSem(sops, sem_sync_id, 1);
 }
 
 
@@ -93,7 +93,6 @@ void handleSignal(int signal) {
 			break;
 
 		case SIGINT:
-			printTest(69);
 			cleanUp();
 			exit(EXIT_SUCCESS);
 			break;
@@ -108,7 +107,7 @@ int main(int argc, char *argv[]) {
 	struct msg_request msg_request;
 	struct sigaction sa;
 
-	shared_portCoords = shmat(atoi(argv[2]), NULL, 0); TEST_ERROR;
+	/*shared_portCoords = shmat(atoi(argv[2]), NULL, 0); TEST_ERROR;*/
 	shared_shipCoords= shmat(atoi(argv[3]), NULL, 0); TEST_ERROR;
 	shipIndex= atoi(argv[4]);
 
@@ -138,7 +137,7 @@ int main(int argc, char *argv[]) {
 	shared_shipCoords[shipIndex].goodsID = shmget(IPC_PRIVATE, SO_CAPACITY * sizeof(goods), S_IRUSR | S_IWUSR | IPC_CREAT); TEST_ERROR;
 	s.goods = shmat(shared_shipCoords[shipIndex].goodsID, NULL, 0); TEST_ERROR;
 	shmctl(shared_shipCoords[shipIndex].goodsID, IPC_RMID, NULL); TEST_ERROR;
-	bzero(&s.goods, SO_CAPACITY * sizeof(goods));
+	bzero(s.goods, SO_CAPACITY * sizeof(goods));
 
 	shared_shipCoords[shipIndex].semID = semget(IPC_PRIVATE, 1, IPC_CREAT | 0600); TEST_ERROR;
 	semctl(shared_shipCoords[shipIndex].semID, 0, SETVAL, 1); TEST_ERROR;
@@ -152,7 +151,7 @@ int main(int argc, char *argv[]) {
 
 	msg_id = msgget(getppid(), IPC_CREAT | 0600); TEST_ERROR;
 	
-	negociate(shared_portCoords, s, shared_shipCoords[shipIndex]); TEST_ERROR;
+	negociate(atoi(argv[2]), s, shared_shipCoords[shipIndex]); TEST_ERROR;
 
 	/*getNearestPort(shared_portCoords, s.coords,-1); TEST_ERROR;*/
 
@@ -162,7 +161,7 @@ int main(int argc, char *argv[]) {
 		else TEST_ERROR;
 	}	
 
-	cleanUp(); 
+	cleanUp();
 
 	exit(0);
 }
