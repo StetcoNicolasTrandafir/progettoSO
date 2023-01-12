@@ -32,7 +32,7 @@ void cleanUp() {
 	struct sembuf sops;
 	bzero(&sops, sizeof(struct sembuf));
 	/*free(p.generatedGoods); TEST_ERROR;*/
-	shmdt(p.request); TEST_ERROR;
+	/*shmdt(p.request); TEST_ERROR;*/
 	semctl(shared_portCoords[idx].semID, 0, IPC_RMID); TEST_ERROR;
 	shmdt(shared_portCoords); TEST_ERROR;
 	shmdt(p.generatedGoods); TEST_ERROR;

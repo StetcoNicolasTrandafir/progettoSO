@@ -41,10 +41,11 @@ void printShip(ship s) {
 void cleanUp() {
 	struct sembuf sops;
 	bzero(&sops, sizeof(struct sembuf));
+	decreaseSem(sops, sem_sync_id, 1);
 	shmdt(shared_portCoords);
 	shmdt(shared_shipCoords);
 
-	decreaseSem(sops, sem_sync_id, 1);
+	
 }
 
 

@@ -567,34 +567,10 @@ int main() {
 
 	waitForZero(sops, sem_sync_id,1);
 
-	/*sleep(31); Lo toglieremo , ma se lo tolgo ora, da un errore perchè eliminiamo il semaforo prima che l'ultimo processo abbia fatto il semop per aspettare tutti i processi*/
-
-	/*for(i = 0; i < SO_NAVI + SO_PORTI; i++) wait(NULL); TEST_ERROR;*/
-
-/*
-	printf("\n\n[%d] LETTURA MEMORIA CONDIVISA DAL MASTER:\n", getpid());
-	for(i=0; i< SO_PORTI; i++){
-		
-		printf("\n\nPORTO[%d] NUMERO %d:\n", sharedPortPositions[i].pid, (1+i));
-		g= shmat(sharedPortPositions[i].offersID, NULL, 0);
-		printf("offre merce di tipo %d in quantità %d ton\n", g[0].type, g[0].dimension );
-		shmdt(g);
-		shmctl(sharedPortPositions[i].offersID, IPC_RMID, NULL); TEST_ERROR;
-		
-		r=shmat(sharedPortPositions[i].requestID, NULL, 0); TEST_ERROR;
-		printf("richiesta di tipo %d in quantità %d", r->goodsType, r->quantity);
-		shmdt(r);
-	}
-*/
 	cleanUp();
 
-	/*semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;
-	semctl(sem_sum_id, 0, IPC_RMID); TEST_ERROR;
-	msgctl(msg_id, IPC_RMID, NULL); TEST_ERROR;
-*/
 	free(port_pids);
 
-	
 	string=malloc(25);
 	numBytes=sprintf(string,"\n\nSIMULAZIONE FINITA!!!\n\n");
 	fflush(stdout);

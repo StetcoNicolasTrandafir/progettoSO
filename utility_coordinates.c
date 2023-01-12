@@ -5,6 +5,8 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <time.h>
+#include <errno.h>
+#include <string.h>
 
 #include "macro.h"
 #include "types_module.h"
@@ -12,14 +14,15 @@
 
 void printTest(int riga) {
     char *string;
-    int numBytes;
+    int numBytes;TEST_ERROR;
 
-    string=malloc(50);
-    numBytes=sprintf(string, "\n==============================> Riga: %d\n", riga);
+    string=malloc(50);TEST_ERROR;
+    numBytes=sprintf(string, "\n==============================> Riga: %d\n", riga);TEST_ERROR;
 
-    fflush(stdout);
-    write(1, string, numBytes);
-    free(string);
+    fflush(stdout);TEST_ERROR;
+    write(1, string, numBytes);TEST_ERROR;
+    free(string);TEST_ERROR;
+    
 }
 
 coordinates getRandomCoords(){
