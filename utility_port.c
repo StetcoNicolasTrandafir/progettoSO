@@ -125,10 +125,8 @@ int generateOffer(port p, int idx, int numPortShmID, int sem_sum_id, int sem_off
 
     quantityToGenerate=SO_FILL/SO_DAYS;
     quantityToGenerate=quantityToGenerate/(*numPorts);
-    
 
     while(generatedQuantity<quantityToGenerate) {
-        printTest(129);
         /*!SECTION
         1)scelta tipo
         2)controllo se è possibile generare quel tipo
@@ -153,7 +151,7 @@ int generateOffer(port p, int idx, int numPortShmID, int sem_sum_id, int sem_off
 
         /*qua type è giusto*/
         goods = generateGoods(type);
-        printGood(goods);
+        /*printGood(goods);*/
         generatedQuantity+=goods.dimension;
 
         if(generatedQuantity>quantityToGenerate){

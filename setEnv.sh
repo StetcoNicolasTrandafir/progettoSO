@@ -62,7 +62,7 @@ if [ -z "$1" ]
                 then
                     echo "Setting 'born tu run' configuration..."
                     export SO_NAVI=10
-                    export SO_PORTI=1000
+                    export SO_PORTI=400
                     export SO_MERCI=100
                     export SO_SIZE=100
                     export SO_MIN_VITA=3
