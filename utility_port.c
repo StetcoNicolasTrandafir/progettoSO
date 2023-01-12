@@ -117,7 +117,7 @@ int generateOffer(port p, int idx, int numPortShmID, int sem_sum_id, int sem_off
     int generatedQuantity=0;
     goods goods;
     int i;
-    printTest(119);
+    
 
     bzero(&sops, sizeof(struct sembuf));
 
