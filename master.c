@@ -88,7 +88,7 @@ void finalReport(){
 			offerSum[(g[j].type-1)]+=g[j].dimension;
 			goodsReport[(g[j].type-1)].totalSum+=g[j].dimension;
 
-			decreaseSem(sops, sharedPortPositions[i].semID, OFFER);
+			/*decreaseSem(sops, sharedPortPositions[i].semID, OFFER);*/
 
 			if(g[j].state==in_port){
 				goodsStateSum[in_port]+=g[j].dimension;
@@ -101,13 +101,13 @@ void finalReport(){
 				shippedGoods+=g[j].dimension;
 			}
 			
-           	increaseSem(sops, sharedPortPositions[i].semID, OFFER);
+           	/*increaseSem(sops, sharedPortPositions[i].semID, OFFER);*/
 		}
 
-        decreaseSem(sops, sharedPortPositions[i].semID, REQUEST);
+        /*decreaseSem(sops, sharedPortPositions[i].semID, REQUEST);*/
 		goodsReport[(r->goodsType-1)].delivered+=r->satisfied;
 		goodsStateSum[delivered]+=r->satisfied;
-        increaseSem(sops, sharedPortPositions[i].semID, REQUEST);
+        /*increaseSem(sops, sharedPortPositions[i].semID, REQUEST);*/
 
 		for(j=0; j<SO_MERCI; j++){
 			if(goodsReport[j].maxOffer<offerSum[j]){
@@ -230,7 +230,7 @@ void dailyReport(){
 		inPort=0;
 		shipped=0;
 		
-        decreaseSem(sops, sharedPortPositions[i].semID, OFFER);
+        /*decreaseSem(sops, sharedPortPositions[i].semID, OFFER);*/
 		while(j<SO_FILL && g[j].type!=0){
 			tonsInPort+=g[j].dimension-g[j].shipped;
 			tonsShipped+=g[j].shipped;
@@ -242,12 +242,12 @@ void dailyReport(){
 				totalOffer+=g[j].dimension;
 			j++;
 		}
-        increaseSem(sops, sharedPortPositions[i].semID, OFFER);
+        /*increaseSem(sops, sharedPortPositions[i].semID, OFFER);
 
-        decreaseSem(sops, sharedPortPositions[i].semID, REQUEST);
+        decreaseSem(sops, sharedPortPositions[i].semID, REQUEST);*/
 		totalRequest+=r->quantity-r->satisfied;
 		stateSum[delivered]+=(r->quantity-r->satisfied);
-        increaseSem(sops, sharedPortPositions[i].semID, REQUEST);
+        /*increaseSem(sops, sharedPortPositions[i].semID, REQUEST);*/
 		freeDocks= semctl(sharedPortPositions[i].semID, 0, GETVAL);TEST_ERROR;
 
 		numBytes = sprintf(string, "Porto [%d] in posizione: (%.2f, %.2f)\nBanchine libere %d su %d\nMerci spedite: %d ton\nMerci generate ancora in porto: %d ton\nMerci ricevute: %d ton\n\n", sharedPortPositions[i].pid, sharedPortPositions[i].coords.x, sharedPortPositions[i].coords.y, freeDocks, sharedPortPositions[i].docks, shipped, inPort, r->satisfied);
