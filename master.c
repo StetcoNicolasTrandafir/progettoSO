@@ -285,7 +285,8 @@ void dailyReport(){
 	}
 
 	for(i=0; i< SO_NAVI; i++){
-		if(shared_ship[i].inDock)
+		if(shared_ship[i].pid!=-1){
+			if(shared_ship[i].inDock)
 			busyDocks++;
 		else {
 			g=shmat(shared_ship[i].goodsID, NULL, 0); TEST_ERROR;
@@ -294,6 +295,7 @@ void dailyReport(){
 			else 
 				dischargedShips++;
 
+			}
 		}
 	}
 
@@ -388,8 +390,10 @@ void sendDailySignal() {
 		kill(port_pids[i], SIGUSR2); TEST_ERROR;
 	}
 	for(i = 0; i < SO_NAVI; i++) {
-		kill(shared_ship[i].pid, SIGUSR2); TEST_ERROR;
+		kill(shared_ship[i].pid, SIGALRM); TEST_ERROR;
 	}
+
+	kill(meteoPid, SIGUSR2); TEST_ERROR;
 }
 
 
@@ -561,9 +565,12 @@ int main() {
 		}
 	}
 
-	/*sprintf(name_file, "meteo");
+	sprintf(name_file, "meteo");
 	args[0] = name_file;
-	args[1]= NULL;
+	args[1]= sem_sync_str;
+	args[2]=shipSharedMemory_str;
+	args[3]=port_sharedMemoryID_STR;
+	args[4]=NULL;
 
 	meteoPid = fork();
 	TEST_ERROR;
@@ -579,7 +586,7 @@ int main() {
 
 		default:
 			break; 
-	}*/
+	}
 
 	waitForZero(sops, sem_sync_id,0);
 

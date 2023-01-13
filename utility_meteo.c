@@ -17,6 +17,7 @@
 #include "macro.h"
 #include "types_module.h"
 #include "utility_ship.h"
+#include "utility_coordinates.h"
 #include "utility_meteo.h"
 
 
@@ -124,12 +125,35 @@ void swell(struct port_sharedMemory *ports, struct ship_sharedMemory *ships){
 }
 
 
-
-struct timespec getMealstromQuantum(){
+struct timespec getStormDuration(){
     struct timespec t;
-    t.tv_sec= (int)(1/24)*SO_MEALSTROM;
-    t.tv_nsec=((int)((1/24)*SO_MEALSTROM)*100000000)%100000000;
+    int h;
+
+    t.tv_sec= (int)(SO_STORM_DURATION/24);
+    h=SO_STORM_DURATION - (t.tv_sec*24);
+    t.tv_nsec=(h*100000000)/24;
 
     return t;
 }
 
+struct timespec getSwellDuration(){
+    struct timespec t;
+    int h;
+
+    t.tv_sec= (int)(SO_SWELL_DURATION/24);
+    h=SO_SWELL_DURATION - (t.tv_sec*24);
+    t.tv_nsec=(h*100000000)/24;
+
+    return t;
+}
+
+struct timespec getMealstromQuantum(){
+    struct timespec t;
+    int h;
+
+    t.tv_sec= (int)(SO_MEALSTROM/24);
+    h=SO_MEALSTROM - (t.tv_sec*24);
+    t.tv_nsec=(h*100000000)/24;
+
+    return t;
+}

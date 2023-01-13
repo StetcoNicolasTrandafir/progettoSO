@@ -4,7 +4,7 @@
 
 /*this function compute the time to cover the distance between the coords passed as parameter,
 and make the nanosleep that simulate the travel*/
-void move(coordinates from, coordinates to, struct timespec rem);
+void move(ship s,coordinates from, coordinates to);
 
 /*this function prints all the info about the ship passed as parameter needed for the daily report*/
 /*void printShipRepo(ship ship);*/
@@ -37,5 +37,8 @@ int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int sh
 int getValidRequestPort(goods good, int msg_id, int shm_id);
 
 void checkExpiredGoods(ship s, int goodsNumber, int *shippedGoods);
+
+
+void badWeather(struct timespec duration);
 
 #endif /*_UTILITY_SHIP_H*/
