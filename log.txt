@@ -1,391 +1,625 @@
-Porto[13689] numero 1: (1000.00, 0.00) - 2 banchine
-Porto[13688] numero 0: (0.00, 0.00) - 2 banchine
-Porto[13705] numero 17: (386.72, 407.58) - 6 banchine
-Porto[13715] numero 27: (155.40, 186.81) - 6 banchine
-Porto[13706] numero 18: (425.85, 440.88) - 10 banchine
-Porto[13701] numero 13: (764.47, 797.31) - 10 banchine
-Porto[13711] numero 23: (876.08, 891.48) - 4 banchine
-Porto[13707] numero 19: (340.11, 355.39) - 9 banchine
-Porto[13712] numero 24: (672.77, 688.11) - 1 banchine
-Porto[13717] numero 29: (526.02, 560.78) - 6 banchine
-Porto[13708] numero 20: (502.38, 535.44) - 2 banchine
-Porto[13713] numero 25: (742.57, 757.58) - 7 banchine
-Porto[13709] numero 21: (736.10, 753.28) - 3 banchine
-Porto[13757] numero 69: (693.51, 708.57) - 5 banchine
-Porto[13714] numero 26: (320.76, 335.46) - 10 banchine
-Porto[13710] numero 22: (538.56, 574.55) - 9 banchine
-Porto[13762] numero 74: (80.30, 99.66) - 9 banchine
-Porto[13716] numero 28: (106.66, 137.43) - 10 banchine
-Porto[13719] numero 31: (377.78, 396.38) - 1 banchine
-Porto[13763] numero 75: (105.59, 148.27) - 3 banchine
-Porto[13718] numero 30: (322.15, 340.42) - 3 banchine
-Porto[13729] numero 41: (304.43, 339.92) - 10 banchine
-Porto[13695] numero 7: (2.29, 28.02) - 6 banchine
-Porto[13703] numero 15: (711.90, 755.18) - 7 banchine
-Porto[13740] numero 52: (641.60, 697.48) - 5 banchine
-Porto[13696] numero 8: (712.16, 812.96) - 4 banchine
-Porto[13720] numero 32: (189.87, 208.76) - 8 banchine
-Porto[13812] numero 124: (827.34, 891.43) - 4 banchine
-Porto[13698] numero 10: (434.81, 458.62) - 9 banchine
-Porto[13721] numero 33: (567.46, 604.52) - 3 banchine
-Porto[13726] numero 38: (634.99, 662.12) - 6 banchine
-Porto[13750] numero 62: (535.82, 557.26) - 9 banchine
-Porto[13704] numero 16: (173.47, 212.97) - 9 banchine
-Porto[13872] numero 184: (58.43, 99.72) - 5 banchine
-Porto[13700] numero 12: (235.95, 288.88) - 10 banchine
-Porto[13702] numero 14: (20.40, 39.32) - 6 banchine
-Porto[13722] numero 34: (362.95, 378.91) - 6 banchine
-Porto[13699] numero 11: (705.79, 720.96) - 4 banchine
-Porto[13723] numero 35: (214.80, 231.79) - 6 banchine
-Porto[13739] numero 51: (593.18, 608.92) - 2 banchine
-Porto[13697] numero 9: (514.86, 532.19) - 2 banchine
-Porto[13864] numero 176: (431.11, 446.45) - 3 banchine
-Porto[13865] numero 177: (631.30, 686.60) - 8 banchine
-Porto[13866] numero 178: (927.74, 945.76) - 6 banchine
-Porto[13741] numero 53: (952.90, 974.43) - 7 banchine
-Porto[13724] numero 36: (417.09, 439.30) - 10 banchine
-Porto[13867] numero 179: (208.29, 248.81) - 9 banchine
-Porto[13880] numero 192: (72.71, 91.85) - 10 banchine
-Porto[13742] numero 54: (273.52, 292.89) - 9 banchine
-Porto[13725] numero 37: (531.84, 548.28) - 2 banchine
-Porto[13881] numero 193: (336.10, 370.63) - 9 banchine
-Porto[13733] numero 45: (859.92, 877.16) - 4 banchine
-Porto[13744] numero 56: (989.67, 6.14) - 3 banchine
-Porto[13734] numero 46: (359.10, 374.91) - 4 banchine
-Porto[13882] numero 194: (863.39, 881.71) - 3 banchine
-Porto[13883] numero 195: (100.70, 147.78) - 3 banchine
-Porto[13745] numero 57: (602.38, 638.95) - 5 banchine
-Porto[13735] numero 47: (120.74, 137.61) - 2 banchine
-Porto[13746] numero 58: (501.06, 517.28) - 10 banchine
-Porto[13736] numero 48: (695.12, 736.43) - 3 banchine
-Porto[13727] numero 39: (272.26, 294.06) - 2 banchine
-Porto[13737] numero 49: (839.56, 856.38) - 4 banchine
-Porto[13728] numero 40: (274.74, 292.52) - 3 banchine
-Porto[13738] numero 50: (549.12, 585.03) - 1 banchine
-Porto[13754] numero 66: (53.85, 72.52) - 8 banchine
-Porto[13730] numero 42: (98.58, 134.78) - 6 banchine
-Porto[13755] numero 67: (507.89, 542.54) - 6 banchine
-Porto[13731] numero 43: (561.77, 578.52) - 10 banchine
-Porto[13756] numero 68: (967.94, 983.84) - 4 banchine
-Porto[13732] numero 44: (731.07, 764.26) - 3 banchine
-Porto[13764] numero 76: (566.99, 589.16) - 5 banchine
-Porto[13878] numero 190: (734.63, 799.72) - 5 banchine
-Porto[13694] numero 6: (411.64, 434.24) - 8 banchine
-Porto[13690] numero 2: (0.00, 1000.00) - 1 banchine
-Porto[13692] numero 4: (214.91, 234.78) - 1 banchine
-Porto[13743] numero 55: (395.17, 417.32) - 7 banchine
-Porto[13747] numero 59: (882.75, 903.81) - 2 banchine
-Porto[13748] numero 60: (299.44, 322.05) - 5 banchine
-Porto[13749] numero 61: (775.49, 791.07) - 2 banchine
-Porto[13765] numero 77: (325.72, 341.00) - 8 banchine
-Porto[13787] numero 99: (644.42, 663.70) - 4 banchine
-Porto[13770] numero 82: (121.30, 155.38) - 8 banchine
-Porto[13788] numero 100: (345.13, 360.39) - 9 banchine
-Porto[13785] numero 97: (959.02, 977.31) - 7 banchine
-Porto[13789] numero 101: (360.58, 375.56) - 1 banchine
-Porto[13782] numero 94: (74.37, 89.75) - 7 banchine
-Porto[13771] numero 83: (256.23, 269.97) - 6 banchine
-Porto[13790] numero 102: (171.43, 202.60) - 10 banchine
-Porto[13781] numero 93: (385.64, 408.28) - 6 banchine
-Porto[13786] numero 98: (726.10, 762.98) - 3 banchine
-Porto[13780] numero 92: (184.13, 217.26) - 8 banchine
-Porto[13779] numero 91: (292.75, 313.34) - 6 banchine
-Porto[13772] numero 84: (996.51, 16.33) - 7 banchine
-Porto[13784] numero 96: (550.96, 568.48) - 4 banchine
-Porto[13795] numero 107: (621.89, 640.32) - 3 banchine
-Porto[13766] numero 78: (103.70, 120.81) - 2 banchine
-Porto[13773] numero 85: (688.47, 705.56) - 1 banchine
-Porto[13783] numero 95: (311.68, 329.34) - 4 banchine
-Porto[13796] numero 108: (961.04, 978.35) - 3 banchine
-Porto[13774] numero 86: (539.56, 556.33) - 8 banchine
-Porto[13791] numero 103: (678.07, 694.61) - 6 banchine
-Porto[13797] numero 109: (257.43, 277.55) - 9 banchine
-Porto[13792] numero 104: (116.82, 138.90) - 3 banchine
-Porto[13793] numero 105: (410.45, 432.68) - 3 banchine
-Porto[13768] numero 80: (545.82, 592.60) - 8 banchine
-Porto[13794] numero 106: (814.18, 860.68) - 6 banchine
-Porto[13769] numero 81: (695.88, 731.57) - 7 banchine
-Porto[13767] numero 79: (541.85, 559.81) - 7 banchine
-Porto[13751] numero 63: (136.89, 155.46) - 6 banchine
-Porto[13798] numero 110: (139.78, 159.16) - 2 banchine
-Porto[13752] numero 64: (412.94, 431.69) - 4 banchine
-Porto[13775] numero 87: (799.61, 819.46) - 10 banchine
-Porto[13691] numero 3: (1000.00, 1000.00) - 1 banchine
-Porto[13799] numero 111: (963.58, 982.52) - 3 banchine
-Porto[13753] numero 65: (407.99, 454.83) - 2 banchine
-Porto[13800] numero 112: (236.09, 278.40) - 8 banchine
-Porto[13801] numero 113: (776.42, 800.21) - 4 banchine
-Porto[13802] numero 114: (285.82, 304.63) - 1 banchine
-Porto[13806] numero 118: (290.82, 335.14) - 5 banchine
-Porto[13803] numero 115: (820.82, 844.41) - 8 banchine
-Porto[13804] numero 116: (606.61, 624.12) - 4 banchine
-Porto[13693] numero 5: (425.04, 441.99) - 8 banchine
-Porto[13805] numero 117: (247.33, 271.09) - 9 banchine
-Porto[13810] numero 122: (883.92, 902.78) - 6 banchine
-Porto[13758] numero 70: (930.96, 946.74) - 4 banchine
-Porto[13820] numero 132: (182.89, 199.26) - 4 banchine
-Porto[13823] numero 135: (331.05, 365.68) - 7 banchine
-Porto[13759] numero 71: (678.57, 709.33) - 4 banchine
-Porto[13824] numero 136: (953.45, 967.79) - 2 banchine
-Porto[13815] numero 127: (704.24, 721.01) - 6 banchine
-Porto[13827] numero 139: (315.74, 331.04) - 5 banchine
-Porto[13819] numero 131: (723.50, 739.18) - 9 banchine
-Porto[13828] numero 140: (453.07, 473.84) - 6 banchine
-Porto[13814] numero 126: (339.69, 397.17) - 2 banchine
-Porto[13816] numero 128: (166.17, 214.12) - 2 banchine
-Porto[13835] numero 147: (874.95, 893.29) - 2 banchine
-Porto[13817] numero 129: (725.68, 743.53) - 7 banchine
-Porto[13821] numero 133: (864.57, 882.10) - 3 banchine
-Porto[13822] numero 134: (432.00, 454.20) - 3 banchine
-Porto[13836] numero 148: (15.39, 65.44) - 8 banchine
-Porto[13832] numero 144: (758.48, 778.48) - 1 banchine
-Porto[13761] numero 73: (465.26, 487.55) - 10 banchine
-Porto[13840] numero 152: (194.84, 242.27) - 5 banchine
-Porto[13839] numero 151: (916.86, 939.58) - 6 banchine
-Porto[13760] numero 72: (949.89, 997.71) - 5 banchine
-Porto[13813] numero 125: (672.34, 694.81) - 9 banchine
-Porto[13843] numero 155: (974.88, 995.47) - 3 banchine
-Porto[13818] numero 130: (26.41, 77.11) - 7 banchine
-Porto[13844] numero 156: (408.84, 426.83) - 3 banchine
-Porto[13808] numero 120: (989.73, 9.83) - 1 banchine
-Porto[13834] numero 146: (297.76, 333.65) - 4 banchine
-Porto[13807] numero 119: (120.67, 137.79) - 6 banchine
-Porto[13809] numero 121: (500.63, 685.54) - 1 banchine
-Porto[13838] numero 150: (312.95, 350.45) - 4 banchine
-Porto[13837] numero 149: (595.11, 643.78) - 4 banchine
-Porto[13811] numero 123: (950.87, 974.41) - 7 banchine
-Porto[13845] numero 157: (167.56, 192.24) - 3 banchine
-Porto[13841] numero 153: (38.37, 63.04) - 3 banchine
-Porto[13846] numero 158: (58.95, 79.95) - 2 banchine
-Porto[13826] numero 138: (803.73, 834.39) - 8 banchine
-Porto[13825] numero 137: (646.11, 671.31) - 5 banchine
-Porto[13833] numero 145: (310.84, 348.91) - 2 banchine
-Porto[13830] numero 142: (971.34, 3.39) - 3 banchine
-Porto[13831] numero 143: (67.01, 99.62) - 8 banchine
-Porto[13829] numero 141: (494.47, 509.32) - 6 banchine
-Porto[13776] numero 88: (488.09, 563.69) - 7 banchine
-Porto[13777] numero 89: (505.93, 529.94) - 8 banchine
-Porto[13851] numero 163: (579.63, 603.25) - 5 banchine
-Porto[13852] numero 164: (549.91, 579.69) - 6 banchine
-Porto[13920] numero 232: (370.80, 406.53) - 10 banchine
-Porto[13853] numero 165: (672.88, 712.16) - 5 banchine
-Porto[13854] numero 166: (46.85, 92.11) - 3 banchine
-Porto[13778] numero 90: (632.70, 656.64) - 10 banchine
-Porto[13856] numero 168: (190.17, 221.86) - 5 banchine
-Porto[13857] numero 169: (748.01, 765.70) - 1 banchine
-Porto[13858] numero 170: (93.55, 131.26) - 2 banchine
-Porto[13859] numero 171: (902.07, 918.75) - 1 banchine
-Porto[13860] numero 172: (94.59, 109.99) - 7 banchine
-Porto[13848] numero 160: (565.98, 583.61) - 1 banchine
-Porto[13849] numero 161: (397.46, 432.28) - 6 banchine
-Porto[13847] numero 159: (996.36, 21.73) - 3 banchine
-Porto[13861] numero 173: (392.35, 426.57) - 8 banchine
-Porto[13855] numero 167: (124.50, 167.41) - 8 banchine
-Porto[13850] numero 162: (10.31, 32.24) - 10 banchine
-Porto[13868] numero 180: (820.18, 850.77) - 2 banchine
-Porto[13869] numero 181: (596.98, 611.19) - 10 banchine
-Porto[13870] numero 182: (849.10, 863.45) - 7 banchine
-Porto[13871] numero 183: (224.19, 359.33) - 2 banchine
-Porto[13873] numero 185: (685.33, 702.12) - 6 banchine
-Porto[13876] numero 188: (588.01, 611.66) - 4 banchine
-Porto[13863] numero 175: (242.12, 284.19) - 5 banchine
-Porto[13842] numero 154: (334.29, 372.07) - 3 banchine
-Porto[13877] numero 189: (344.83, 361.98) - 1 banchine
-Porto[13912] numero 224: (408.75, 447.49) - 4 banchine
-Porto[13910] numero 222: (97.69, 128.87) - 8 banchine
-Porto[13909] numero 221: (885.89, 900.57) - 9 banchine
-Porto[13908] numero 220: (356.85, 371.33) - 9 banchine
-Porto[13907] numero 219: (826.39, 842.68) - 10 banchine
-Porto[13906] numero 218: (984.18, 16.15) - 9 banchine
-Porto[13905] numero 217: (602.35, 616.72) - 3 banchine
-Porto[13904] numero 216: (671.88, 685.90) - 4 banchine
-Porto[13913] numero 225: (355.31, 377.83) - 6 banchine
-Porto[13914] numero 226: (755.93, 794.14) - 3 banchine
-Porto[13921] numero 233: (876.04, 890.65) - 4 banchine
-Porto[13915] numero 227: (277.07, 330.51) - 4 banchine
-Porto[13916] numero 228: (836.70, 881.19) - 2 banchine
-Porto[13917] numero 229: (798.92, 854.14) - 1 banchine
-Porto[13924] numero 236: (870.52, 910.95) - 2 banchine
-Porto[13918] numero 230: (123.28, 165.53) - 2 banchine
-Porto[13925] numero 237: (806.23, 825.36) - 3 banchine
-Porto[13923] numero 235: (165.26, 185.71) - 9 banchine
-Porto[13931] numero 243: (271.99, 291.33) - 1 banchine
-Porto[13926] numero 238: (230.58, 247.82) - 3 banchine
-Porto[13911] numero 223: (791.90, 814.12) - 7 banchine
-Porto[13928] numero 240: (505.65, 522.88) - 8 banchine
-Porto[13919] numero 231: (453.36, 488.38) - 4 banchine
-Porto[13929] numero 241: (801.41, 816.26) - 3 banchine
-Porto[13930] numero 242: (746.85, 761.25) - 3 banchine
-Porto[13927] numero 239: (223.65, 238.66) - 7 banchine
-Porto[13922] numero 234: (523.13, 538.91) - 4 banchine
-Porto[13875] numero 187: (238.09, 291.76) - 3 banchine
-Porto[13862] numero 174: (500.11, 544.01) - 4 banchine
-Porto[13879] numero 191: (727.46, 762.58) - 7 banchine
-Porto[13897] numero 209: (693.00, 713.04) - 2 banchine
-Porto[13891] numero 203: (379.18, 395.25) - 3 banchine
-Porto[13898] numero 210: (254.20, 269.63) - 10 banchine
-Porto[13899] numero 211: (554.38, 570.86) - 4 banchine
-Porto[13890] numero 202: (41.41, 79.46) - 6 banchine
-Porto[13889] numero 201: (230.17, 245.67) - 7 banchine
-Porto[13896] numero 208: (270.80, 305.68) - 6 banchine
-Porto[13900] numero 212: (81.57, 98.25) - 4 banchine
-Porto[13901] numero 213: (120.45, 156.79) - 3 banchine
-Porto[13902] numero 214: (65.43, 96.72) - 9 banchine
-Porto[13893] numero 205: (575.49, 592.56) - 8 banchine
-Porto[13932] numero 244: (151.72, 167.62) - 6 banchine
-Porto[13892] numero 204: (285.83, 321.39) - 7 banchine
-Porto[13887] numero 199: (732.50, 758.13) - 2 banchine
-Porto[13888] numero 200: (808.90, 832.22) - 9 banchine
-Porto[13903] numero 215: (955.28, 994.73) - 6 banchine
-Porto[13933] numero 245: (517.63, 560.81) - 9 banchine
-Porto[13943] numero 255: (638.27, 725.54) - 6 banchine
-Porto[13936] numero 248: (714.16, 752.27) - 6 banchine
-Porto[13937] numero 249: (670.74, 687.55) - 4 banchine
-Porto[13946] numero 258: (739.53, 758.60) - 1 banchine
-Porto[13944] numero 256: (854.07, 890.10) - 3 banchine
-Porto[13884] numero 196: (204.49, 237.49) - 6 banchine
-Porto[13886] numero 198: (738.80, 761.12) - 8 banchine
-Porto[13942] numero 254: (153.04, 204.43) - 8 banchine
-Porto[13939] numero 251: (101.73, 122.53) - 9 banchine
-Porto[13935] numero 247: (982.92, 2.06) - 2 banchine
-Porto[13938] numero 250: (470.63, 487.74) - 10 banchine
-Porto[13894] numero 206: (610.11, 657.60) - 3 banchine
-Porto[13895] numero 207: (911.67, 930.03) - 5 banchine
-Porto[13885] numero 197: (119.40, 164.34) - 10 banchine
-Porto[13941] numero 253: (739.04, 782.53) - 1 banchine
-Porto[13874] numero 186: (389.80, 429.91) - 3 banchine
-Porto[13934] numero 246: (759.17, 807.09) - 8 banchine
-Porto[13947] numero 259: (642.53, 659.62) - 6 banchine
-Porto[13940] numero 252: (111.79, 202.07) - 3 banchine
-Porto[13949] numero 261: (732.43, 782.88) - 4 banchine
-Porto[13950] numero 262: (425.84, 466.21) - 7 banchine
-Porto[13951] numero 263: (479.85, 504.11) - 8 banchine
-Porto[13953] numero 265: (160.15, 178.53) - 7 banchine
-Porto[13954] numero 266: (981.87, 996.99) - 9 banchine
-Porto[13955] numero 267: (336.52, 352.35) - 1 banchine
-Porto[13956] numero 268: (492.05, 529.52) - 8 banchine
-Porto[13957] numero 269: (312.57, 331.34) - 3 banchine
-Porto[13958] numero 270: (593.02, 608.15) - 5 banchine
-Porto[13960] numero 272: (642.39, 675.76) - 7 banchine
-Porto[13962] numero 274: (426.95, 454.88) - 1 banchine
-Porto[13963] numero 275: (34.93, 71.64) - 8 banchine
-Porto[13964] numero 276: (821.39, 838.14) - 9 banchine
-Porto[13965] numero 277: (584.32, 604.40) - 5 banchine
-Porto[13967] numero 279: (627.96, 688.16) - 8 banchine
-Porto[13945] numero 257: (907.27, 954.79) - 5 banchine
-Porto[13966] numero 278: (927.13, 96.68) - 3 banchine
-Porto[13968] numero 280: (802.83, 828.77) - 4 banchine
-Porto[13979] numero 291: (564.53, 616.82) - 2 banchine
-Porto[13980] numero 292: (939.67, 961.06) - 4 banchine
-Porto[13983] numero 295: (339.99, 389.97) - 8 banchine
-Porto[13959] numero 271: (951.41, 996.73) - 8 banchine
-Porto[13948] numero 260: (147.41, 191.93) - 4 banchine
-Porto[13978] numero 290: (805.48, 859.08) - 10 banchine
-Porto[13987] numero 299: (248.14, 273.99) - 2 banchine
-Porto[13989] numero 301: (864.38, 907.71) - 10 banchine
-Porto[13974] numero 286: (905.72, 928.78) - 6 banchine
-Porto[13970] numero 282: (975.25, 17.85) - 5 banchine
-Porto[13975] numero 287: (847.81, 875.05) - 5 banchine
-Porto[13988] numero 300: (607.73, 632.62) - 5 banchine
-Porto[13973] numero 285: (79.11, 124.29) - 5 banchine
-Porto[13971] numero 283: (582.04, 639.58) - 7 banchine
-Porto[13990] numero 302: (520.61, 544.85) - 8 banchine
-Porto[13981] numero 293: (435.53, 457.85) - 4 banchine
-Porto[13998] numero 310: (238.10, 261.26) - 9 banchine
-Porto[13982] numero 294: (357.72, 375.39) - 8 banchine
-Porto[13984] numero 296: (935.65, 965.50) - 1 banchine
-Porto[13986] numero 298: (550.42, 572.04) - 3 banchine
-Porto[13952] numero 264: (392.29, 420.85) - 2 banchine
-Porto[13972] numero 284: (38.79, 67.43) - 6 banchine
-Porto[14000] numero 312: (190.91, 241.09) - 5 banchine
-Porto[13969] numero 281: (864.50, 882.27) - 4 banchine
-Porto[13977] numero 289: (4.61, 29.92) - 2 banchine
-Porto[13991] numero 303: (774.86, 800.29) - 6 banchine
-Porto[13993] numero 305: (894.97, 915.98) - 5 banchine
-Porto[13976] numero 288: (113.79, 131.43) - 4 banchine
-Porto[13995] numero 307: (263.51, 279.32) - 4 banchine
-Porto[13996] numero 308: (918.28, 933.53) - 1 banchine
-Porto[13985] numero 297: (729.94, 755.05) - 9 banchine
-Porto[14001] numero 313: (888.64, 947.53) - 9 banchine
-Porto[13999] numero 311: (248.07, 300.43) - 4 banchine
-Porto[13994] numero 306: (491.97, 515.36) - 6 banchine
-Porto[13997] numero 309: (637.04, 669.47) - 4 banchine
-Porto[13992] numero 304: (389.86, 410.32) - 6 banchine
-Porto[14003] numero 315: (191.34, 207.92) - 9 banchine
-Porto[14002] numero 314: (730.34, 752.00) - 5 banchine
-Porto[14023] numero 335: (383.51, 418.37) - 6 banchine
-Porto[14004] numero 316: (248.49, 505.29) - 4 banchine
-Porto[14008] numero 320: (845.11, 873.42) - 10 banchine
-Porto[14009] numero 321: (548.52, 569.12) - 8 banchine
-Porto[14010] numero 322: (144.13, 200.53) - 6 banchine
-Porto[14006] numero 318: (162.37, 209.06) - 2 banchine
-Porto[14007] numero 319: (922.34, 963.43) - 2 banchine
-Porto[14020] numero 332: (254.79, 289.39) - 3 banchine
-Porto[14022] numero 334: (313.33, 337.64) - 8 banchine
-Porto[14021] numero 333: (99.86, 138.46) - 10 banchine
-Porto[14019] numero 331: (673.96, 692.82) - 8 banchine
-Porto[14011] numero 323: (804.02, 848.07) - 5 banchine
-Porto[14012] numero 324: (728.82, 747.13) - 2 banchine
-Porto[14016] numero 328: (273.84, 311.45) - 5 banchine
-Porto[14018] numero 330: (645.89, 663.95) - 5 banchine
-Porto[14057] numero 366: (277.75, 306.76) - 1 banchine
-Porto[14048] numero 357: (0.42, 54.09) - 4 banchine
-Porto[14068] numero 377: (615.40, 648.48) - 6 banchine
-Porto[14046] numero 355: (424.46, 454.99) - 8 banchine
-Porto[14055] numero 364: (183.70, 200.45) - 6 banchine
-Porto[14053] numero 362: (413.46, 596.94) - 4 banchine
-Porto[14024] numero 336: (634.04, 672.01) - 6 banchine
-Porto[14017] numero 329: (482.64, 502.90) - 1 banchine
-Porto[14028] numero 337: (289.57, 309.30) - 7 banchine
-Porto[14030] numero 339: (181.98, 217.36) - 5 banchine
-Porto[14032] numero 341: (583.04, 601.02) - 3 banchine
-Porto[14034] numero 343: (19.38, 54.27) - 7 banchine
-Porto[14036] numero 345: (969.75, 986.66) - 7 banchine
-Porto[14037] numero 346: (489.32, 506.60) - 6 banchine
-Porto[14039] numero 348: (576.03, 597.50) - 10 banchine
-Porto[14059] numero 368: (480.58, 499.77) - 3 banchine
-Porto[14040] numero 349: (950.85, 984.17) - 7 banchine
-Porto[14041] numero 350: (556.97, 571.91) - 9 banchine
-Porto[14042] numero 351: (495.06, 537.67) - 9 banchine
-Porto[14043] numero 352: (244.57, 261.49) - 6 banchine
-Porto[14044] numero 353: (588.60, 604.86) - 7 banchine
-Porto[14045] numero 354: (63.82, 85.02) - 7 banchine
-Porto[14031] numero 340: (243.43, 281.47) - 7 banchine
-Porto[14047] numero 356: (527.07, 550.02) - 7 banchine
-Porto[14013] numero 325: (152.80, 176.67) - 1 banchine
-Porto[14050] numero 359: (581.22, 627.89) - 1 banchine
-Porto[14060] numero 369: (195.99, 228.37) - 5 banchine
-Porto[14061] numero 370: (989.44, 21.26) - 6 banchine
-Porto[14062] numero 371: (752.82, 795.68) - 8 banchine
-Porto[14067] numero 376: (21.14, 36.51) - 3 banchine
-Porto[14049] numero 358: (636.51, 676.09) - 2 banchine
-Porto[14035] numero 344: (793.34, 834.50) - 4 banchine
-Porto[14038] numero 347: (741.99, 773.40) - 1 banchine
-Porto[14033] numero 342: (394.28, 417.99) - 10 banchine
-Porto[14072] numero 381: (887.26, 921.51) - 3 banchine
-Porto[14063] numero 372: (875.95, 931.38) - 3 banchine
-Porto[14065] numero 374: (883.12, 915.01) - 4 banchine
-Porto[14074] numero 383: (467.87, 507.71) - 2 banchine
-Porto[14075] numero 384: (856.84, 875.44) - 2 banchine
-Porto[14077] numero 386: (66.69, 84.99) - 9 banchine
-Porto[14066] numero 375: (11.44, 35.16) - 8 banchine
-Porto[14078] numero 387: (871.92, 908.45) - 8 banchine
-Porto[14064] numero 373: (201.97, 224.75) - 1 banchine
-Porto[14079] numero 388: (834.55, 871.24) - 4 banchine
-Porto[14080] numero 389: (399.51, 415.35) - 6 banchine
-Porto[14076] numero 385: (888.93, 908.63) - 7 banchine
-Porto[14073] numero 382: (428.37, 447.07) - 10 banchine
-Porto[14058] numero 367: (446.31, 465.02) - 3 banchine
-Porto[14005] numero 317: (896.96, 972.22) - 4 banchine
-Porto[13961] numero 273: (718.65, 737.34) - 2 banchine
-Porto[14056] numero 365: (223.63, 243.65) - 6 banchine
-Porto[14070] numero 379: (4.81, 24.29) - 3 banchine
-Porto[14015] numero 327: (411.42, 448.32) - 5 banchine
-Porto[14071] numero 380: (876.70, 896.94) - 2 banchine
-Porto[14069] numero 378: (941.39, 961.58) - 7 banchine
-Porto[14052] numero 361: (89.21, 107.23) - 8 banchine
-Porto[14029] numero 338: (269.23, 309.33) - 1 banchine
-Porto[14054] numero 363: (940.07, 979.43) - 10 banchine
-Porto[14014] numero 326: (877.59, 925.35) - 6 banchine
-Porto[14082] numero 390: (447.87, 482.88) - 2 banchine
-Porto[14051] numero 360: (443.34, 463.60) - 3 banchine
+Porto[18697] numero 0: (0.00, 0.00) - 1 banchine
+Porto[18698] numero 1: (100.00, 0.00) - 5 banchine
+Porto[18700] numero 3: (100.00, 100.00) - 8 banchine
+Ship[18701]: (8.40, 43.75)
+Porto[18699] numero 2: (0.00, 100.00) - 9 banchine
+Impossibile generare un'offerte al porto [18699] in posizione: ( 0, 100)
+Impossibile generare un'offerte al porto [18700] in posizione: (100, 100)
+Impossibile generare un'offerte al porto [18697] in posizione: ( 0,  0)
+Impossibile generare un'offerte al porto [18698] in posizione: (100,  0)
+
+[18701]NESSUN PORTO DOVE ANDARE
+
+
+
+========================================================================
+		REPORT GIORNO 1:
+========================================================================
+
+
+==================>		PORTI
+Porto [18697] in posizione: (0.00, 0.00)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [18698] in posizione: (100.00, 0.00)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Impossibile generare un'offerte al porto [18697] in posizione: ( 0,  0)
+Porto [18699] in posizione: (0.00, 100.00)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [18700] in posizione: (100.00, 100.00)
+Banchine libere 8 su 8
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+
+
+ ==================>		MERCI
+
+---------->	PER STATI:
+
+Merce in porto: 0ton
+Merce scaduta in porto: 0ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0
+Merce consegnata: 67ton
+
+---------->	PER TIPOLOGIA:
+
+Merce di tipo 1: 0tonImpossibile generare un'offerte al porto [18698] in posizione: (100,  0)
+
+
+ ==================>		NAVI
+
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 0
+In mare senza carico a bordo: 0
+
+============================= FINE REPORT GIORNO 1 =============================
+
+
+
+NON C'È PIÙ OFFERTA DI ALCUNA MERCE: SIMULAZIONE FINITA!
+Impossibile generare un'offerte al porto [18700] in posizione: (100, 100)
+Impossibile generare un'offerte al porto [18699] in posizione: ( 0, 100)
+
+
+========================================================================
+		REPORT GIORNO 2:
+========================================================================
+
+
+==================>		PORTI
+Porto [18697] in posizione: (0.00, 0.00)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Impossibile generare un'offerte al porto [18698] in posizione: (100,  0)
+Porto [18698] in posizione: (100.00, 0.00)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Impossibile generare un'offerte al porto [18699] in posizione: ( 0, 100)
+Porto [18699] in posizione: (0.00, 100.00)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Impossibile generare un'offerte al porto [18700] in posizione: (100, 100)
+Porto [18700] in posizione: (100.00, 100.00)
+Banchine libere 8 su 8
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+
+
+ ==================>		MERCI
+
+---------->	PER STATI:
+
+Merce in porto: 0ton
+Merce scaduta in porto: 0ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0
+Merce consegnata: 67ton
+
+---------->	PER TIPOLOGIA:
+
+Merce di tipo 1: 0ton
+
+ ==================>		NAVI
+
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 0
+In mare senza carico a bordo: 0
+
+============================= FINE REPORT GIORNO 2 =============================
+
+
+
+NON C'È PIÙ OFFERTA DI ALCUNA MERCE: SIMULAZIONE FINITA!
+
+
+========================================================================
+		REPORT GIORNO 3:
+========================================================================
+
+
+==================>		PORTI
+Porto [18697] in posizione: (0.00, 0.00)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Impossibile generare un'offerte al porto [18700] in posizione: (100, 100)
+Porto [18698] in posizione: (100.00, 0.00)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [18699] in posizione: (0.00, 100.00)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [18700] in posizione: (100.00, 100.00)
+Banchine libere 8 su 8
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+
+
+ ==================>		MERCI
+
+---------->	PER STATI:
+
+Merce in porto: 0ton
+Merce scaduta in porto: 0ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0
+Merce consegnata: 67ton
+
+---------->	PER TIPOLOGIA:
+
+Merce di tipo 1: 0ton
+
+ ==================>		NAVI
+
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 0
+In mare senza carico a bordo: 0
+
+============================= FINE REPORT GIORNO 3 =============================
+
+
+
+NON C'È PIÙ OFFERTA DI ALCUNA MERCE: SIMULAZIONE FINITA!
+
+
+========================================================================
+		REPORT GIORNO 4:
+========================================================================
+
+
+==================>		PORTI
+Impossibile generare un'offerte al porto [18697] in posizione: ( 0,  0)
+Porto [18697] in posizione: (0.00, 0.00)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Impossibile generare un'offerte al porto [18700] in posizione: (100, 100)
+Porto [18698] in posizione: (100.00, 0.00)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Impossibile generare un'offerte al porto [18699] in posizione: ( 0, 100)
+Porto [18699] in posizione: (0.00, 100.00)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [18700] in posizione: (100.00, 100.00)
+Banchine libere 8 su 8
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+
+
+ ==================>		MERCI
+
+---------->	PER STATI:
+
+Merce in porto: 0ton
+Merce scaduta in porto: 0ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0
+Merce consegnata: 67ton
+
+---------->	PER TIPOLOGIA:
+
+Merce di tipo 1: 0ton
+
+ ==================>		NAVI
+
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 0
+In mare senza carico a bordo: 0
+
+============================= FINE REPORT GIORNO 4 =============================
+
+
+
+NON C'È PIÙ OFFERTA DI ALCUNA MERCE: SIMULAZIONE FINITA!
+
+
+========================================================================
+		REPORT GIORNO 5:
+========================================================================
+
+
+==================>		PORTI
+Porto [18697] in posizione: (0.00, 0.00)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Impossibile generare un'offerte al porto [18700] in posizione: (100, 100)
+Porto [18698] in posizione: (100.00, 0.00)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [18699] in posizione: (0.00, 100.00)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [18700] in posizione: (100.00, 100.00)
+Banchine libere 8 su 8
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+
+
+ ==================>		MERCI
+
+---------->	PER STATI:
+
+Merce in porto: 0ton
+Merce scaduta in porto: 0ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0
+Merce consegnata: 67ton
+
+---------->	PER TIPOLOGIA:
+
+Merce di tipo 1: 0ton
+
+ ==================>		NAVI
+
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 0
+In mare senza carico a bordo: 0
+
+============================= FINE REPORT GIORNO 5 =============================
+
+
+
+NON C'È PIÙ OFFERTA DI ALCUNA MERCE: SIMULAZIONE FINITA!
+
+
+========================================================================
+		REPORT GIORNO 6:
+========================================================================
+
+
+==================>		PORTI
+Impossibile generare un'offerte al porto [18697] in posizione: ( 0,  0)
+Porto [18697] in posizione: (0.00, 0.00)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Impossibile generare un'offerte al porto [18698] in posizione: (100,  0)
+Porto [18698] in posizione: (100.00, 0.00)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Impossibile generare un'offerte al porto [18700] in posizione: (100, 100)
+Porto [18699] in posizione: (0.00, 100.00)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Impossibile generare un'offerte al porto [18699] in posizione: ( 0, 100)
+Porto [18700] in posizione: (100.00, 100.00)
+Banchine libere 8 su 8
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+
+
+ ==================>		MERCI
+
+---------->	PER STATI:
+
+Merce in porto: 0ton
+Merce scaduta in porto: 0ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0
+Merce consegnata: 67ton
+
+---------->	PER TIPOLOGIA:
+
+Merce di tipo 1: 0ton
+
+ ==================>		NAVI
+
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 0
+In mare senza carico a bordo: 0
+
+============================= FINE REPORT GIORNO 6 =============================
+
+
+
+NON C'È PIÙ OFFERTA DI ALCUNA MERCE: SIMULAZIONE FINITA!
+
+
+========================================================================
+		REPORT GIORNO 7:
+========================================================================
+
+
+==================>		PORTI
+Impossibile generare un'offerte al porto [18698] in posizione: (100,  0)
+Porto [18697] in posizione: (0.00, 0.00)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Impossibile generare un'offerte al porto [18699] in posizione: ( 0, 100)
+Porto [18698] in posizione: (100.00, 0.00)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [18699] in posizione: (0.00, 100.00)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [18700] in posizione: (100.00, 100.00)
+Banchine libere 8 su 8
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+
+
+ ==================>		MERCI
+
+---------->	PER STATI:
+
+Merce in porto: 0ton
+Merce scaduta in porto: 0ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0
+Merce consegnata: 67ton
+
+---------->	PER TIPOLOGIA:
+
+Merce di tipo 1: 0ton
+
+ ==================>		NAVI
+
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 0
+In mare senza carico a bordo: 0
+
+============================= FINE REPORT GIORNO 7 =============================
+
+
+
+NON C'È PIÙ OFFERTA DI ALCUNA MERCE: SIMULAZIONE FINITA!
+
+
+========================================================================
+		REPORT GIORNO 8:
+========================================================================
+
+
+==================>		PORTI
+Porto [18697] in posizione: (0.00, 0.00)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Impossibile generare un'offerte al porto [18698] in posizione: (100,  0)
+Porto [18698] in posizione: (100.00, 0.00)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [18699] in posizione: (0.00, 100.00)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [18700] in posizione: (100.00, 100.00)
+Banchine libere 8 su 8
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+
+
+ ==================>		MERCI
+
+---------->	PER STATI:
+
+Merce in porto: 0ton
+Merce scaduta in porto: 0ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0
+Merce consegnata: 67ton
+
+---------->	PER TIPOLOGIA:
+
+Merce di tipo 1: 0ton
+
+ ==================>		NAVI
+
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 0
+In mare senza carico a bordo: 0
+
+============================= FINE REPORT GIORNO 8 =============================
+
+
+
+NON C'È PIÙ OFFERTA DI ALCUNA MERCE: SIMULAZIONE FINITA!
+
+
+========================================================================
+		REPORT GIORNO 9:
+========================================================================
+
+
+==================>		PORTI
+Porto [18697] in posizione: (0.00, 0.00)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [18698] in posizione: (100.00, 0.00)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Porto [18699] in posizione: (0.00, 100.00)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+Impossibile generare un'offerte al porto [18700] in posizione: (100, 100)
+Porto [18700] in posizione: (100.00, 100.00)
+Banchine libere 8 su 8
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+
+
+ ==================>		MERCI
+
+---------->	PER STATI:
+
+Merce in porto: 0ton
+Merce scaduta in porto: 0ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0
+Merce consegnata: 67ton
+
+---------->	PER TIPOLOGIA:
+
+Merce di tipo 1: 0ton
+
+ ==================>		NAVI
+
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 0
+In mare senza carico a bordo: 0
+
+============================= FINE REPORT GIORNO 9 =============================
+
+
+
+NON C'È PIÙ OFFERTA DI ALCUNA MERCE: SIMULAZIONE FINITA!
+Impossibile generare un'offerte al porto [18698] in posizione: (100,  0)
+Impossibile generare un'offerte al porto [18699] in posizione: ( 0, 100)
+
+
+========================================================================
+		REPORT FINALE:
+========================================================================
+
+
+==================>		PORTI
+
+
+PORTO[18697] NUMERO 1 (0.00,0.00):
+Merce in porto:0ton
+Merce spedita:0ton
+Merce ricevuta:0ton
+
+
+PORTO[18698] NUMERO 2 (100.00,0.00):
+Merce in porto:0ton
+Merce spedita:0ton
+Merce ricevuta:0ton
+
+
+PORTO[18699] NUMERO 3 (0.00,100.00):
+Merce in porto:0ton
+Merce spedita:0ton
+Merce ricevuta:0ton
+
+
+PORTO[18700] NUMERO 4 (100.00,100.00):
+Merce in porto:0ton
+Merce spedita:0ton
+Merce ricevuta:0ton
+
+
+ ==================>		REPORT MERCI
+
+---------->	PER STATI:
+
+Merce in porto (disponibile): 0ton
+Merce scaduta in porto: 0ton
+Merce consegnata: 0ton
+Merce in nave: 0ton
+Merce scaduta in nave: 0ton
+
+---------->	PER TIPOLOGIA:
+
+
+TOTALE MERCE GENERATA: 0ton
+MERCE DI TIPO 1:
+Merce generata: 0ton
+Merce ferma in porto: 0ton
+Merce scaduta in porto: 0ton
+Merce scaduta in nave: -1ton
+Merce consegnata: 0
+Il porto che ne ha fatto più richiesta è il numero 0 (22ton)
+Il porto che ne ha generato di più è 2 (0ton)
+
+
+SIMULAZIONE FINITA!!!
+

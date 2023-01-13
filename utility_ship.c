@@ -45,6 +45,9 @@ void move(coordinates from, coordinates to){
     {
         TEST_ERROR;
     }
+
+    if(errno==4)
+        errno=0;
 }
 
 
@@ -89,12 +92,28 @@ int getNearestPort(struct port_sharedMemory *ports, coordinates coords, double m
 
 void loadUnload(int quantity){
     float neededTime= quantity/SO_LOADSPEED;
-    struct timespec sleepTime;
+    struct timespec sleepTime, rem;
 
     sleepTime.tv_sec=(int)neededTime;
     sleepTime.tv_nsec=(neededTime-((int)neededTime))*100000000;
 
-    nanosleep(&sleepTime, &sleepTime);
+    nanosleep(&sleepTime, &rem);
+    if(errno==EINTR){
+        errno=0;
+        while(nanosleep(&rem, &rem)==-1)
+        {
+            if(errno!=EINTR)
+            {
+                TEST_ERROR;
+            }
+        }
+    }else
+    {
+        TEST_ERROR;
+    }
+
+    if(errno==4)
+        errno=0;
 }
 
 
@@ -156,7 +175,7 @@ NEGOZIAZIONE NAVI-PORTI:
 
 int negociate(int portsID, ship s, struct ship_sharedMemory shared_ship){
     struct port_sharedMemory *ports = shmat(portsID, NULL, 0);
-    int indexClosestPort= -1;
+    int indexClosestPort= getNearestPort(ports, s.coords,-1);
     goods *g;
     int i=0, j=0;
     int destinationPortIndex=-1;
@@ -179,7 +198,13 @@ int negociate(int portsID, ship s, struct ship_sharedMemory shared_ship){
 
     while(j++<SO_NAVI && destinationPortIndex==-1 && indexClosestPort!=-1){
         indexClosestPort = getNearestPort(ports, s.coords, getDistance(s.coords, ports[indexClosestPort].coords));
-        g = shmat(ports[indexClosestPort].offersID, NULL, 0); TEST_ERROR;
+        if(indexClosestPort!=-1){
+            g = shmat(ports[indexClosestPort].offersID, NULL, 0); TEST_ERROR;
+        }
+        else 
+        {
+            break;
+        }
 
         while(g[i].type!=0 && destinationPortIndex==-1 && i<SO_FILL ){
             decreaseSem(sops, ports[indexClosestPort].semID, OFFER);TEST_ERROR;
@@ -392,7 +417,7 @@ int getValidRequestPort(goods good, struct port_sharedMemory * sh_port) {
         sem_id = sh_port[msg.idx].semID;
         request = shmat(sh_port[msg.idx].requestID, NULL, 0); TEST_ERROR;
 
-        decreaseSem(sops, sem_id, 1);
+        decreaseSem(sops, sem_id, 1);TEST_ERROR;
 
         q = min(min(SO_CAPACITY, request -> quantity - request -> booked), good.dimension);
         if (request -> booked < request -> quantity) {
@@ -404,7 +429,7 @@ int getValidRequestPort(goods good, struct port_sharedMemory * sh_port) {
             shmdt(request);
             return msg.idx;
         }else{
-            increaseSem(sops, sem_id, 1);
+            increaseSem(sops, sem_id, 1);TEST_ERROR;
         }
         
         if (first_idx == -1) {
