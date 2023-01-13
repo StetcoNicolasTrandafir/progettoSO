@@ -46,12 +46,8 @@ goods generateGoods(int type){
 int isExpired(goods g){
     
     struct timespec now;
-
-    printTest(50);
     
     clock_gettime(CLOCK_REALTIME, &now);
-
-    printTest(54);
 
     if(now.tv_sec>g.expiringDate.tv_sec) return 1;
     else if (now.tv_sec<g.expiringDate.tv_sec) return 0;

@@ -40,6 +40,32 @@ pid_t meteoPid;
 struct ship_sharedMemory *shared_ship;
 int shipSharedMemoryID;
 
+void killChildren(){
+	int i;
+	for(i=0; i< SO_PORTI; i++) {
+		kill(port_pids[i], SIGINT); TEST_ERROR;
+	}
+
+	for(i=0; i< SO_NAVI; i++){
+		kill(shared_ship[i].pid, SIGINT); TEST_ERROR;
+	}
+
+}
+
+void cleanUp(){
+	struct sembuf sops;
+
+	waitForZero(sops, sem_sync_id,1);
+
+	shmdt(sharedPortPositions); TEST_ERROR;
+	shmdt(sum_request); TEST_ERROR;
+	shmdt(shared_ship);TEST_ERROR;
+	shmdt(sum_offer); TEST_ERROR; 	
+	semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;
+	semctl(sem_sum_id, 0, IPC_RMID); TEST_ERROR;
+	msgctl(msg_id, IPC_RMID, NULL); TEST_ERROR;
+}
+
 void finalReport(){
 	int i, j;
 	int maxRequestPortIndex=-1, maxRequest=0;
@@ -304,16 +330,25 @@ void dailyReport(){
 	write(1, string, numBytes);TEST_ERROR;
 	
 
-	if(totalOffer==0){
+	if(totalOffer==0 && chargedShips==0){
 		string=realloc(string,65);TEST_ERROR;
 		numBytes=sprintf(string,"\n\nNON C'È PIÙ OFFERTA DI ALCUNA MERCE: SIMULAZIONE FINITA!\n");
 		fflush(stdout);
 		write(1, string, numBytes);TEST_ERROR;
+		
+		finalReport();
+		killChildren();
+		cleanUp();
+		exit(EXIT_SUCCESS);
 	}else if(totalRequest==0){
 		string=realloc(string,60);TEST_ERROR;
 		numBytes=sprintf(string,"\n\nNON C'È PIÙ RICHIESTA DI ALCUNA MERCE: SIMULAZIONE FINITA!\n");
 		fflush(stdout);
 		write(1, string, numBytes);TEST_ERROR;
+		finalReport();
+		killChildren();
+		cleanUp();
+		exit(EXIT_SUCCESS);
 	}
 
 
@@ -357,27 +392,7 @@ void sendDailySignal() {
 	}
 }
 
-void killChildren(){
-	int i;
-	for(i=0; i< SO_PORTI; i++) {
-		kill(port_pids[i], SIGINT); TEST_ERROR;
-	}
 
-	for(i=0; i< SO_NAVI; i++){
-		kill(shared_ship[i].pid, SIGINT); TEST_ERROR;
-	}
-
-}
-
-void cleanUp(){
-	shmdt(sharedPortPositions); TEST_ERROR;
-	shmdt(sum_request); TEST_ERROR;
-	shmdt(shared_ship);TEST_ERROR;
-	shmdt(sum_offer); TEST_ERROR; 	
-	semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;
-	semctl(sem_sum_id, 0, IPC_RMID); TEST_ERROR;
-	msgctl(msg_id, IPC_RMID, NULL); TEST_ERROR;
-}
 
 void handleSignal(int signal) {
 	char *string;
@@ -576,7 +591,6 @@ int main() {
 		else TEST_ERROR;
 	}
 
-	waitForZero(sops, sem_sync_id,1);
 
 	cleanUp();
 
