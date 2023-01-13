@@ -257,18 +257,20 @@ void dailyReport(){
 		shmdt(g);
 		shmdt(r);
 	}
-/*
+
 	for(i=0; i< SO_NAVI; i++){
 		if(shared_ship[i].inDock)
 			busyDocks++;
-		else if(shared_ship[i].goods[0].type!=0)
-			chargedShips++;
+		else {
+			g=shmat(shared_ship[i].goodsID, NULL, 0); TEST_ERROR;
+			if(g[0].type!=0)
+				chargedShips++;
 			else 
-			dischargedShips++;
+				dischargedShips++;
 
+		}
 	}
 
-	*/
 
 
 	string=realloc(string,200);TEST_ERROR;

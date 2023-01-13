@@ -151,7 +151,7 @@ int main(int argc, char *argv[]) {
 
 	msg_id = msgget(getppid(), IPC_CREAT | 0600); TEST_ERROR;
 	
-	negociate(atoi(argv[2]), s, shared_shipCoords[shipIndex]); TEST_ERROR;
+	negociate(atoi(argv[2]), s, shared_shipCoords,shipIndex); TEST_ERROR;
 
 	/*getNearestPort(shared_portCoords, s.coords,-1); TEST_ERROR;*/
 

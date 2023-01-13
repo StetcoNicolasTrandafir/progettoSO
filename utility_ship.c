@@ -158,7 +158,7 @@ pid_t * getShipsInPort(struct ship_sharedMemory *ships, coordinates portCoords){
 }
 
 
-int negociate(int portsID, ship s, struct ship_sharedMemory shared_ship){
+int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int shipIndex){
     struct port_sharedMemory *ports = shmat(portsID, NULL, 0);
     int indexClosestPort= getNearestPort(ports, s.coords,-1);
     goods *g;
@@ -178,7 +178,6 @@ int negociate(int portsID, ship s, struct ship_sharedMemory shared_ship){
     int shippedGoodsIndex=0;
 
     bzero(&sops, sizeof(struct sembuf));
-    bzero(s.goods, sizeof(goods)*SO_CAPACITY);
 
     while(j++<SO_NAVI && destinationPortIndex==-1 && indexClosestPort!=-1){
         if(j!=1)
@@ -249,15 +248,15 @@ int negociate(int portsID, ship s, struct ship_sharedMemory shared_ship){
 
 
         /*moving towards the port to load goods*/
-        shared_ship.coords.x=-1;
-        shared_ship.coords.y=-1;
+        shared_ship[shipIndex].coords.x=-1;
+        shared_ship[shipIndex].coords.y=-1;
         move(s.coords,ports[indexClosestPort].coords); TEST_ERROR;
         s.coords= ports[indexClosestPort].coords;
-        shared_ship.coords=s.coords;
+        shared_ship[shipIndex].coords=s.coords;
 
 
         /*loading goods*/
-        shared_ship.inDock=1;
+        shared_ship[shipIndex].inDock=1;
         decreaseSem(sops, startingPortSemID, DOCK);TEST_ERROR;
 
         for(i=0; i< shippedGoodsIndex; i++){
@@ -269,18 +268,18 @@ int negociate(int portsID, ship s, struct ship_sharedMemory shared_ship){
             increaseSem(sops, startingPortSemID, OFFER);TEST_ERROR;
         }
         increaseSem(sops, startingPortSemID, DOCK);TEST_ERROR;
-        shared_ship.inDock=0;        
+        shared_ship[shipIndex].inDock=0;        
 
         /*moving towards the port wich made the request*/
-        shared_ship.coords.x=-1;
-        shared_ship.coords.y=-1;
+        shared_ship[shipIndex].coords.x=-1;
+        shared_ship[shipIndex].coords.y=-1;
         move(s.coords,ports[destinationPortIndex].coords); TEST_ERROR;
         s.coords=ports[destinationPortIndex].coords;
-        shared_ship.coords=s.coords;
+        shared_ship[shipIndex].coords=s.coords;
 
         
         /*scarico merce*/
-        shared_ship.inDock=1;
+        shared_ship[shipIndex].inDock=1;
         decreaseSem(sops, destinationPortSemID, DOCK);TEST_ERROR;
         for(i=0; i< shippedGoodsIndex; i++){
 
@@ -292,7 +291,7 @@ int negociate(int portsID, ship s, struct ship_sharedMemory shared_ship){
             }
         }
         increaseSem(sops, destinationPortSemID, DOCK);TEST_ERROR;
-        shared_ship.inDock=0;
+        shared_ship[shipIndex].inDock=0;
 
 
         /*CAMBIO VALORI RICHIESTA*/
@@ -309,6 +308,9 @@ int negociate(int portsID, ship s, struct ship_sharedMemory shared_ship){
         fflush(stdout);
         write(1, string, numBytes);
         
+
+        bzero(s.goods, sizeof(goods)*SO_CAPACITY);
+
         free(shippedGoods);
         free(string);
         shmdt(ports); TEST_ERROR;
