@@ -46,9 +46,13 @@ goods generateGoods(int type){
 int isExpired(goods g){
     
     struct timespec now;
+
+    printTest(50);
     
     clock_gettime(CLOCK_REALTIME, &now);
-    
+
+    printTest(54);
+
     if(now.tv_sec>g.expiringDate.tv_sec) return 1;
     else if (now.tv_sec<g.expiringDate.tv_sec) return 0;
     else if (now.tv_nsec> g.expiringDate.tv_nsec) return 1;
@@ -56,11 +60,11 @@ int isExpired(goods g){
 }
 
 
-int willExpire(goods g, int quantity, ship s, port startingPort, port destinationPort){
+int willExpire(goods g, ship s, coordinates from ,coordinates to){
     double totalTime=0;
     struct timespec endTravelDate;
-    totalTime+=getTravelTime(getDistance(startingPort.coords, s.coords)+getDistance(startingPort.coords, destinationPort.coords));
-    totalTime+=2*(quantity*SO_LOADSPEED);
+    totalTime+=getTravelTime(getDistance(from, s.coords)+getDistance(from, to));
+    totalTime+=2*(g.dimension*SO_LOADSPEED);
 
     clock_gettime(CLOCK_REALTIME, &endTravelDate);
 

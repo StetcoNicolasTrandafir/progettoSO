@@ -3,7 +3,7 @@ if [ -z "$1" ]
     echo "Setting custom configuration..."
     export SO_NAVI=1
     export SO_PORTI=4
-    export SO_MERCI=1
+    export SO_MERCI=2
     export SO_MIN_VITA=100000
     export SO_MAX_VITA=10000000
     export SO_SIZE=10
@@ -13,7 +13,7 @@ if [ -z "$1" ]
     export SO_BANCHINE=10
     export SO_FILL=69
     export SO_LOADSPEED=100 
-    export SO_DAYS=1
+    export SO_DAYS=10
     export SO_STORMDURATION=10
     export SO_SWELLDURATION=69
     export SO_MALESTROM=36

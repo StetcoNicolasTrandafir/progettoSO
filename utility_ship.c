@@ -158,21 +158,6 @@ pid_t * getShipsInPort(struct ship_sharedMemory *ships, coordinates portCoords){
 }
 
 
-
-
-/*
-NEGOZIAZIONE NAVI-PORTI:
-1) verifico i porti in ordine di vicinanza rispetto alla nave
-2) controllo le richieste del porto
-3) per ogni offerta, controllo se c'è un porto (sempre in ordine di prossimità) che fa richiesta di quel bene e se ci arrivo (per la scadenza)
-4) se c'è una richiesta, segno come impegnate tot merci sia nella richiesta che nell'offerta
-5) se non c'è nessuna richiesta, considero il prossimo porto più vicino
-6) se non c'è nessun porto che richiede una determinata merce di un offerta, considero la prossima offerta del porto
-7) se non ci sono richieste per nessuna offerta del porto preso in considerazione, prendo in considerazione ilc
-*/
-
-
-
 int negociate(int portsID, ship s, struct ship_sharedMemory shared_ship){
     struct port_sharedMemory *ports = shmat(portsID, NULL, 0);
     int indexClosestPort= getNearestPort(ports, s.coords,-1);
@@ -181,7 +166,6 @@ int negociate(int portsID, ship s, struct ship_sharedMemory shared_ship){
     int destinationPortIndex=-1;
     double travelTime;
     struct timespec time, rem; 
-    int goodsQuantity;
     int startingPortSemID, destinationPortSemID;
     int shippedQuantity=0;
     int goodIndex=-1;
@@ -197,7 +181,9 @@ int negociate(int portsID, ship s, struct ship_sharedMemory shared_ship){
     bzero(s.goods, sizeof(goods)*SO_CAPACITY);
 
     while(j++<SO_NAVI && destinationPortIndex==-1 && indexClosestPort!=-1){
-        indexClosestPort = getNearestPort(ports, s.coords, getDistance(s.coords, ports[indexClosestPort].coords));
+        if(j!=1)
+            indexClosestPort = getNearestPort(ports, s.coords, getDistance(s.coords, ports[indexClosestPort].coords));
+
         if(indexClosestPort!=-1){
             g = shmat(ports[indexClosestPort].offersID, NULL, 0); TEST_ERROR;
         }
@@ -225,43 +211,19 @@ int negociate(int portsID, ship s, struct ship_sharedMemory shared_ship){
         }     
     }
 
-
-    
-    /*NOTE: 
-invalid argumento, forse perchè ===>
-    set di semafori non esistente
-    
-    */
-
-
     if(goodIndex!=-1){
-
-        /*!SECTION
-        conosco il tipo di bene per cui c'è richiesta
-        0)load/unload e move
-        1)mi muovo verso il porto
-        2)carico tutte le offerte che non scadono di quel bene
-            -aggiorno tutti gli state dei lotti di offerta
-            -carico tutti i lotti sulla nave
-        3)mi muovo verso la destinazione
-        4)scarico merci
-            -per ogni lotto, prima di scaricare ==> check scadenza
-            -unload lotto
-            -scarico nave ==> aggiorno stati
-        5) negociate
-        */
-
 
         shippedGoods=calloc(SO_CAPACITY, sizeof(int));
         shippedGoods[shippedGoodsIndex++]=goodIndex;
         while(g[i].type!=0){
-            if(g[i].type!=g[goodIndex].type && g[i].dimension+shippedGoodsQuantity<= SO_CAPACITY){
+            if(g[i].type!=g[goodIndex].type && g[i].dimension+shippedGoodsQuantity<= SO_CAPACITY && !willExpire(g[i], s, ports[indexClosestPort].coords,ports[destinationPortIndex].coords)){
                 shippedGoodsQuantity+=g[i].dimension;
                 shippedGoods=realloc(shippedGoods, sizeof(int)*(shippedGoodsIndex+1));
                 shippedGoods[shippedGoodsIndex++]=i;
             }
             i++;
         }
+
         startingPortSemID = ports[indexClosestPort].semID;
         destinationPortSemID = ports[destinationPortIndex].semID;
 
@@ -271,103 +233,75 @@ invalid argumento, forse perchè ===>
             s.goods[i]=g[shippedGoods[i]];
         }
 
-        /*startingPortSemID=semget(ports[indexClosestPort].semID, 3, 0600);TEST_ERROR;
-        destinationPortSemID=semget(ports[destinationPortIndex].semID, 3, 0600); TEST_ERROR; /*[0]=banchine [1]=offerta [2]=richiesta*/
-
-        /*TODO AGGIORNO I BOOKED DELLA RICHIESTA E DELL'OFFERTA*/
-
-        /*CAMBIO VALORI RICHIESTA*/
-        
         request = shmat(ports[destinationPortIndex].requestID, NULL, 0); TEST_ERROR;
-        
+
+
+        /*CAMBIO VALORI RICHIESTA*/      
         decreaseSem(sops, destinationPortSemID, REQUEST);TEST_ERROR;
-
-        shippedQuantity=min((request->quantity - request->booked), (g[goodIndex].dimension - g[goodIndex].booked));
-        request->booked+=shippedQuantity;
-
+        request->booked+=shippedGoodsQuantity;
         increaseSem(sops, destinationPortSemID, REQUEST);TEST_ERROR;
-        /*UNLOCK(destinationPortIndex, 2)*/
+
 
         /*CAMBIO VALORI OFFERTA*/
-        /*LOCK(destinationPortIndex, 2)*/
         decreaseSem(sops, startingPortSemID, OFFER);TEST_ERROR;
-
-        g[goodIndex].booked+=shippedQuantity;
-
+        g[goodIndex].booked=1;
         increaseSem(sops, startingPortSemID, OFFER);TEST_ERROR;
 
 
         /*moving towards the port to load goods*/
-
-/*TODO controllo semafori navi*/
-
         shared_ship.coords.x=-1;
-        shared_ship.coords.x=-1;
-
+        shared_ship.coords.y=-1;
         move(s.coords,ports[indexClosestPort].coords); TEST_ERROR;
-
         s.coords= ports[indexClosestPort].coords;
         shared_ship.coords=s.coords;
 
+
         /*loading goods*/
-        /*LOCK(destinationPortIndex, 2)*/
+        shared_ship.inDock=1;
         decreaseSem(sops, startingPortSemID, DOCK);TEST_ERROR;
 
-        shared_ship.inDock=1;
         for(i=0; i< shippedGoodsIndex; i++){
-            loadUnload(g[shippedGoods[i]].dimension);
-            TEST_ERROR;
+
+            loadUnload(g[shippedGoods[i]].dimension);TEST_ERROR;
+
+            decreaseSem(sops, startingPortSemID, OFFER);TEST_ERROR;
+            g[shippedGoods[i]].state=on_ship;
+            increaseSem(sops, startingPortSemID, OFFER);TEST_ERROR;
         }
-        
-        shared_ship.inDock=0;
-
         increaseSem(sops, startingPortSemID, DOCK);TEST_ERROR;
+        shared_ship.inDock=0;        
 
-        /*CAMBIO VALORI OFFERTA*/
-        /*LOCK(destinationPortIndex, 2)*/
-
-        shmdt(g); TEST_ERROR;
-        
         /*moving towards the port wich made the request*/
-
         shared_ship.coords.x=-1;
-        shared_ship.coords.x=-1;
-
+        shared_ship.coords.y=-1;
         move(s.coords,ports[destinationPortIndex].coords); TEST_ERROR;
-
-
-        /*arrived at the port, downloading the goods*/
         s.coords=ports[destinationPortIndex].coords;
         shared_ship.coords=s.coords;
 
-        /*LOCK(destinationPortIndex, 2)*/
-        decreaseSem(sops, destinationPortSemID, DOCK);TEST_ERROR;
-
-        shared_ship.inDock=1;
-
-        checkExpiredGoods(s,shippedGoodsIndex,shippedGoods);
-        for(i=0; i< shippedGoodsIndex; i++){
-            if(shippedGoods[i]!=-1){
-                loadUnload(g[shippedGoods[i]].dimension);
-                TEST_ERROR;
-            }
-                
-        }
         
-        shared_ship.inDock=0;
+        /*scarico merce*/
+        shared_ship.inDock=1;
+        decreaseSem(sops, destinationPortSemID, DOCK);TEST_ERROR;
+        for(i=0; i< shippedGoodsIndex; i++){
 
+            if(isExpired(g[shippedGoods[i]])){
+                loadUnload(g[shippedGoods[i]].dimension);TEST_ERROR;
+            }
+            else{
+                g[shippedGoods[i]].state=expired_ship;
+            }
+        }
         increaseSem(sops, destinationPortSemID, DOCK);TEST_ERROR;
+        shared_ship.inDock=0;
 
 
         /*CAMBIO VALORI RICHIESTA*/
-        /*LOCK(destinationPortIndex, 2)*/
         decreaseSem(sops, destinationPortSemID, REQUEST);TEST_ERROR;
-
-        request->satisfied+=shippedQuantity;
-
+        request->satisfied+=shippedGoodsQuantity;
         increaseSem(sops, destinationPortSemID, REQUEST); TEST_ERROR;
         
         shmdt(request); TEST_ERROR;
+        shmdt(g); TEST_ERROR;
 
         string=malloc(70);
         numBytes=sprintf(string,"\n[%d]FINITO DI SCARICARE! Merce portata dal punto A al punto B!\n\n", getpid());
@@ -394,7 +328,7 @@ invalid argumento, forse perchè ===>
 
 int getValidRequestPort(goods good, struct port_sharedMemory * sh_port) {
     struct msg_request msg;
-    int ret = 0, first_idx = -1, q, request_id, sem_id, i;
+    int ret = 0, first_idx = -1, request_id, sem_id, i;
     struct request *request;
     struct sembuf sops;
     int msg_id;
@@ -403,7 +337,7 @@ int getValidRequestPort(goods good, struct port_sharedMemory * sh_port) {
 
     msg_id=msgget(getppid(), 0600); TEST_ERROR;
 
-    for (i = 0; i < SO_DAYS; i++) {
+    for (i = 0; i < SO_PORTI; i++) {
         ret = msgrcv(msg_id, &msg, sizeof(struct msg_request), good.type, IPC_NOWAIT); 
 
         if(errno!=42){
@@ -419,12 +353,8 @@ int getValidRequestPort(goods good, struct port_sharedMemory * sh_port) {
 
         decreaseSem(sops, sem_id, 1);TEST_ERROR;
 
-        q = min(min(SO_CAPACITY, request -> quantity - request -> booked), good.dimension);
-        if (request -> booked < request -> quantity) {
-            request -> booked += q;
-
+        if (request -> satisfied < request -> quantity) {
             increaseSem(sops, sem_id, 1);
-
             msgsnd(msg_id, &msg, sizeof(struct msg_request), 0);
             shmdt(request);
             return msg.idx;
