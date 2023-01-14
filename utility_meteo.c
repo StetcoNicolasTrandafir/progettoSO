@@ -139,6 +139,8 @@ struct timespec getStormDuration(){
 struct timespec getSwellDuration(){
     struct timespec t;
     int h;
+    int numBytes;
+    char *string;
 
     t.tv_sec= (int)(SO_SWELL_DURATION/24);
     h=SO_SWELL_DURATION - (t.tv_sec*24);

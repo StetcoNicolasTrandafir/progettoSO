@@ -48,7 +48,7 @@ void handleSignal(int signal) {
     		randomShip = now.tv_nsec % SO_NAVI;
 			while((ships[(randomShip+plus)%SO_NAVI].pid==-1 || ships[(randomShip+plus)%SO_NAVI].inDock==1) && plus < SO_NAVI) plus++;
 			if(plus!=SO_NAVI){
-				printf("\n\nPID: %d (%.2lf,%.2lf)",ships[(randomShip + plus)%SO_NAVI].pid,ships[(randomShip + plus)%SO_NAVI].coords.x,ships[(randomShip + plus)%SO_NAVI].coords.y);
+				/*printf("\n\nPID: %d (%.2lf,%.2lf)",ships[(randomShip + plus)%SO_NAVI].pid,ships[(randomShip + plus)%SO_NAVI].coords.x,ships[(randomShip + plus)%SO_NAVI].coords.y);*/
 				kill(ships[randomShip].pid, SIGUSR2); TEST_ERROR;
 			}
 

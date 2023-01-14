@@ -160,8 +160,10 @@ int main(int argc, char *argv[]) {
 
 	msgsnd(msg_id, &msg_request, sizeof(struct msg_request), 0); TEST_ERROR;
 
+
 	decreaseSem(sops, sem_sync_id, 0);
-	
+
+
 	waitForZero(sops, sem_sync_id, 0);
 
 	while (pastDays < SO_DAYS) {

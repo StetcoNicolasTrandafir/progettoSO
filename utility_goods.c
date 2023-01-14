@@ -29,7 +29,6 @@ goods generateGoods(int type){
     clock_gettime(CLOCK_REALTIME, &t);
     g.type=type;
     g.booked=0;
-    g.shipped=0;
     g.dimension = (t.tv_nsec%SO_SIZE) + 1;
     g.state=in_port;
     clock_gettime(CLOCK_REALTIME, &t);

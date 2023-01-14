@@ -335,27 +335,29 @@ int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int sh
         shmdt(request); TEST_ERROR;
         shmdt(g); TEST_ERROR;
 
-        string=malloc(70);
+        /*string=malloc(70);
         numBytes=sprintf(string,"\n[%d]FINITO DI SCARICARE! Merce portata dal punto A al punto B!\n\n", getpid());
 
         fflush(stdout);
         write(1, string, numBytes);
-        
+        free(string);
+        */
 
         bzero(s.goods, sizeof(goods)*SO_CAPACITY);
 
         free(shippedGoods);
-        free(string);
+        
         shmdt(ports); TEST_ERROR;
 
         return destinationPortIndex;
     }else{
+        /*
         string=malloc(70);
         numBytes=sprintf(string,"\n[%d]NESSUN PORTO DOVE ANDARE\n\n", getpid());
 
         fflush(stdout);
         write(1, string, numBytes);
-        free(string);
+        free(string);*/
         return -1;
     }
 }

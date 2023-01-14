@@ -217,7 +217,7 @@ int elementInArray(int element, int array[], int limit) {
 
 void dailyReport(){
 	int i,j = 0;
-	int tonsShipped = 0, tonsInPort = 0, freeDocks = 0;
+	int  freeDocks = 0;
 	char *string;
 	int numBytes;
 	goods *g;
@@ -232,6 +232,7 @@ void dailyReport(){
 	struct sembuf sops;
 	int totalRequest=0;
 	int totalOffer=0;
+	int sinked=0;
 	bzero(&sops, sizeof(struct sembuf));
 
 	typeSum=calloc(SO_MERCI, sizeof(int));TEST_ERROR;
@@ -255,23 +256,34 @@ void dailyReport(){
 		inPort=0;
 		shipped=0;
 		
+
+		/*in_port expired_port*/
         /*decreaseSem(sops, sharedPortPositions[i].semID, OFFER);*/
 		while(j<SO_FILL && g[j].type!=0){
-			tonsInPort+=g[j].dimension-g[j].shipped;
-			tonsShipped+=g[j].shipped;
-			inPort+=g[j].dimension-g[j].shipped;
-			shipped+=g[j].shipped;
-			typeSum[g[j].type-1]+=g[j].dimension;
-			stateSum[g[j].state]+=g[j].dimension-g[j].shipped;
-			if(g[j].state==in_port)
+
+			if(g[j].state==in_port){
 				totalOffer+=g[j].dimension;
+				stateSum[in_port]+=g[j].dimension;
+				inPort+=g[j].dimension;
+			}else 
+			if(g[j].state==on_ship){
+				shipped+=g[j].dimension;
+			}else 
+			if(g[j].state==expired_port){
+				stateSum[expired_port]+=g[j].dimension;
+			}
+			
+			typeSum[g[j].type-1]+=g[j].dimension;
+			
 			j++;
 		}
         /*increaseSem(sops, sharedPortPositions[i].semID, OFFER);
 
         decreaseSem(sops, sharedPortPositions[i].semID, REQUEST);*/
 		totalRequest+=r->quantity-r->satisfied;
-		stateSum[delivered]+=(r->quantity-r->satisfied);
+
+		/*delivered*/
+		stateSum[delivered]+=r->satisfied;
         /*increaseSem(sops, sharedPortPositions[i].semID, REQUEST);*/
 		freeDocks= semctl(sharedPortPositions[i].semID, 0, GETVAL);TEST_ERROR;
 
@@ -283,6 +295,8 @@ void dailyReport(){
 		shmdt(r);
 	}
 
+
+	/*on_ship == MANCA EXPIRED ON SHIP==> MEMORIA CONDIVISA*/
 	for(i=0; i< SO_NAVI; i++){
 		if(shared_ship[i].pid!=-1){
 			if(shared_ship[i].inDock)
@@ -293,9 +307,9 @@ void dailyReport(){
 				chargedShips++;
 			else 
 				dischargedShips++;
-
 			}
-		}
+		}else 
+			sinked++;
 	}
 
 
@@ -319,8 +333,8 @@ void dailyReport(){
 		write(1, string, numBytes);
 	}
 
-	string=realloc(string,166);TEST_ERROR;
-	numBytes=sprintf(string,"\n\n ==================>\t\tNAVI\n\nNumero di navi facendo operazioni di carico/scarico: %d\nIn mare con un carico a bordo: %d\nIn mare senza carico a bordo: %d", busyDocks,chargedShips, dischargedShips);
+	string=realloc(string,187);TEST_ERROR;
+	numBytes=sprintf(string,"\n\n ==================>\t\tNAVI\n\nNavi affondate: %d\nNumero di navi facendo operazioni di carico/scarico: %d\nIn mare con un carico a bordo: %d\nIn mare senza carico a bordo: %d",sinked, busyDocks,chargedShips, dischargedShips);
 	fflush(stdout);
 	write(1, string, numBytes);
 
@@ -331,22 +345,37 @@ void dailyReport(){
 	write(1, string, numBytes);TEST_ERROR;
 	
 
-	if(totalOffer==0 && chargedShips==0){
+	if(sinked==SO_NAVI){
+		finalReport();
+
+		string=realloc(string,65);TEST_ERROR;
+		numBytes=sprintf(string,"\n\nTUTTE LE NAVI SONO STATE AFFONDATE: SIMULAZIONE FINITA!\n");
+		fflush(stdout);
+		write(1, string, numBytes);TEST_ERROR;
+		
+		
+		killChildren();
+		cleanUp();
+		exit(EXIT_SUCCESS);
+	}else if(totalOffer==0 && chargedShips==0){
+
+		finalReport();
+
 		string=realloc(string,65);TEST_ERROR;
 		numBytes=sprintf(string,"\n\nNON C'È PIÙ OFFERTA DI ALCUNA MERCE: SIMULAZIONE FINITA!\n");
 		fflush(stdout);
 		write(1, string, numBytes);TEST_ERROR;
 		
-		finalReport();
 		killChildren();
 		cleanUp();
 		exit(EXIT_SUCCESS);
 	}else if(totalRequest==0){
+		finalReport();
+
 		string=realloc(string,60);TEST_ERROR;
 		numBytes=sprintf(string,"\n\nNON C'È PIÙ RICHIESTA DI ALCUNA MERCE: SIMULAZIONE FINITA!\n");
 		fflush(stdout);
 		write(1, string, numBytes);TEST_ERROR;
-		finalReport();
 		killChildren();
 		cleanUp();
 		exit(EXIT_SUCCESS);

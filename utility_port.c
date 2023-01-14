@@ -76,9 +76,7 @@ int getRequest(port p, int satisfied){
 int getGeneratedGoods(port p, int flag){
     int i=0;
     int total=0;
-    printf("Entrato in generateGoods\n");
     while(i<SO_DAYS && p.generatedGoods[i].type!=-1){
-        printf("Ciclo %d\n", i);
 
         switch(flag){
             case SHIPPED:

@@ -28,6 +28,7 @@ struct port_sharedMemory *shared_portCoords;
 struct ship_sharedMemory *shared_shipCoords;
 ship s;
 int pastDays = 0, sem_sync_id, shipIndex;
+struct timespec stormDuration, swellDuration;
 
 void printShip(ship s) {
 	char *string;
@@ -70,6 +71,7 @@ void handleSignal(int signal) {
 	int i;
 	char *string;
 	int numBytes;
+	
 	switch(signal) {
 		case SIGUSR1:
 			printTest(75);
@@ -77,9 +79,7 @@ void handleSignal(int signal) {
 			break;
 
 		case SIGUSR2:
-			printTime();
-			badWeather(getStormDuration());
-			printTime();
+			badWeather(stormDuration);
         	break;
 
         case SIGALRM:
@@ -130,6 +130,9 @@ int main(int argc, char *argv[]) {
 	printf("\n");
 	*/
 	bzero(&sa, sizeof(sa));TEST_ERROR;
+
+	swellDuration=getSwellDuration();
+	stormDuration=getStormDuration();
 
 	sa.sa_handler = handleSignal;TEST_ERROR;
 	sigaction(SIGUSR1, &sa, NULL);TEST_ERROR;
