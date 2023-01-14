@@ -39,6 +39,8 @@ struct port_sharedMemory *sharedPortPositions;
 pid_t meteoPid;
 struct ship_sharedMemory *shared_ship;
 int shipSharedMemoryID;
+int expiredGoodsSharedMemoryID;
+int *expiredGoods;
 
 void killChildren(){
 	int i;
@@ -60,6 +62,7 @@ void cleanUp(){
 	shmdt(sharedPortPositions); TEST_ERROR;
 	shmdt(sum_request); TEST_ERROR;
 	shmdt(shared_ship);TEST_ERROR;
+	shmdt(expiredGoods);TEST_ERROR;
 	shmdt(sum_offer); TEST_ERROR; 	
 	semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;
 	semctl(sem_sum_id, 0, IPC_RMID); TEST_ERROR;
@@ -136,6 +139,7 @@ void finalReport(){
         /*increaseSem(sops, sharedPortPositions[i].semID, REQUEST);*/
 
 		for(j=0; j<SO_MERCI; j++){
+
 			if(goodsReport[j].maxOffer<offerSum[j]){
 				goodsReport[j].maxOffer=offerSum[j];
 				goodsReport[j].maxOfferPortIndex=i;
@@ -194,7 +198,7 @@ void finalReport(){
 	string=realloc(string,404);
 
 	for(i=0; i<SO_MERCI; i++){
-		numBytes=sprintf(string,"\nMERCE DI TIPO %d:\nMerce generata: %dton\nMerce ferma in porto: %dton\nMerce scaduta in porto: %dton\nMerce scaduta in nave: %dton\nMerce consegnata: %d\nIl porto che ne ha fatto più richiesta è il numero %d (%dton)\nIl porto che ne ha generato di più è %d (%dton)\n",(i+1), goodsReport[i].totalSum, goodsReport[i].inPort, goodsReport[i].expiredInPort, -1, goodsReport[i].delivered, goodsReport[i].maxRequestPortIndex, goodsReport[i].maxRequest, goodsReport[i].maxOfferPortIndex, goodsReport[i].maxOffer);
+		numBytes=sprintf(string,"\nMERCE DI TIPO %d:\nMerce generata: %dton\nMerce ferma in porto: %dton\nMerce scaduta in porto: %dton\nMerce scaduta in nave: %dton\nMerce consegnata: %d\nIl porto che ne ha fatto più richiesta è il numero %d (%dton)\nIl porto che ne ha generato di più è %d (%dton)\n",(i+1), goodsReport[i].totalSum, goodsReport[i].inPort, goodsReport[i].expiredInPort, expiredGoods[i], goodsReport[i].delivered, goodsReport[i].maxRequestPortIndex, goodsReport[i].maxRequest, goodsReport[i].maxOfferPortIndex, goodsReport[i].maxOffer);
 		fflush(stdout);
 		write(1, string, numBytes);
 	}
@@ -233,6 +237,7 @@ void dailyReport(){
 	int totalRequest=0;
 	int totalOffer=0;
 	int sinked=0;
+	int expiredOnShip=0;
 	bzero(&sops, sizeof(struct sembuf));
 
 	typeSum=calloc(SO_MERCI, sizeof(int));TEST_ERROR;
@@ -285,7 +290,7 @@ void dailyReport(){
         /*increaseSem(sops, sharedPortPositions[i].semID, REQUEST);*/
 		freeDocks= semctl(sharedPortPositions[i].semID, 0, GETVAL);TEST_ERROR;
 
-		numBytes = sprintf(string, "Porto [%d] in posizione: (%.2f, %.2f)\nBanchine libere %d su %d\nMerci spedite: %d ton\nMerci generate ancora in porto: %d ton\nMerci ricevute: %d ton\n\n", sharedPortPositions[i].pid, sharedPortPositions[i].coords.x, sharedPortPositions[i].coords.y, freeDocks, sharedPortPositions[i].docks, shipped, inPort, r->satisfied);
+		numBytes = sprintf(string, "PORTO[%d] NUMERO %d in posizione: (%.2f, %.2f)\nBanchine libere %d su %d\nMerci spedite: %d ton\nMerci generate ancora in porto: %d ton\nMerci ricevute: %d ton\n\n", sharedPortPositions[i].pid, i,sharedPortPositions[i].coords.x, sharedPortPositions[i].coords.y, freeDocks, sharedPortPositions[i].docks, shipped, inPort, r->satisfied);
 		fflush(stdout);
 		write(1, string, numBytes);
 
@@ -293,21 +298,35 @@ void dailyReport(){
 		shmdt(r);
 	}
 
+	
 
 	/*on_ship == MANCA EXPIRED ON SHIP==> MEMORIA CONDIVISA*/
 	for(i=0; i< SO_NAVI; i++){
+		
 		if(shared_ship[i].pid!=-1){
 			if(shared_ship[i].inDock)
 			busyDocks++;
 		else {
+			j=0;
 			g=shmat(shared_ship[i].goodsID, NULL, 0); TEST_ERROR;
 			if(g[0].type!=0)
 				chargedShips++;
 			else 
 				dischargedShips++;
 			}
+			/*NOTE si blocca qui*/
+			/*while(g[j].type!=0 && j< SO_CAPACITY){
+				if(isExpired(g[j])){
+					g[j].state=expired_ship;
+					expiredGoods[g[j].type-1]=g[j].dimension;
+				}
+			}*/
 		}else 
 			sinked++;
+	}
+
+	for(i=0; i<SO_MERCI; i++){
+		stateSum[expired_ship]+=expiredGoods[i];
 	}
 
 
@@ -470,7 +489,7 @@ int main() {
 	struct sigaction sa;
 	int i, j, *ptr_set;
 	coordinates coord_c;
-	char  *args[9], name_file[100], sem_sync_str[3 * sizeof(int) + 1], i_str[3 * sizeof(int) + 1], port_sharedMemoryID_STR[3*sizeof(int)+1], sum_requestID_STR[3 * sizeof(int) + 1], sem_request_str[3 * sizeof(int) + 1], msg_str[3 * sizeof(int) + 1], sum_offerID_STR[3 * sizeof(int) + 1];
+	char  *args[10], name_file[100], sem_sync_str[3 * sizeof(int) + 1], expiredGoods_STR[3 * sizeof(int) + 1],i_str[3 * sizeof(int) + 1], port_sharedMemoryID_STR[3*sizeof(int)+1], sum_requestID_STR[3 * sizeof(int) + 1], sem_request_str[3 * sizeof(int) + 1], msg_str[3 * sizeof(int) + 1], sum_offerID_STR[3 * sizeof(int) + 1];
 	pid_t fork_rst;
 	char  shipSharedMemory_str[3 * sizeof(int) + 1];
 	struct sembuf sops;
@@ -484,6 +503,10 @@ int main() {
 	shipSharedMemoryID=shmget(IPC_PRIVATE, SO_NAVI*sizeof(struct ship_sharedMemory), S_IRUSR | S_IWUSR | IPC_CREAT); TEST_ERROR;
 	shared_ship = shmat(shipSharedMemoryID, NULL, 0); TEST_ERROR;
 	shmctl(shipSharedMemoryID, IPC_RMID, NULL); TEST_ERROR;
+
+	expiredGoodsSharedMemoryID= shmget(IPC_PRIVATE, SO_MERCI*sizeof(int),S_IRUSR | S_IWUSR | IPC_CREAT); TEST_ERROR;
+	expiredGoods=shmat(expiredGoodsSharedMemoryID, NULL, 0);
+	bzero(expiredGoods,SO_MERCI*sizeof(int));
 
 	sharedPortPositions = calloc(SO_PORTI, sizeof(struct port_sharedMemory));
 	sum_request = malloc(sizeof(int));
@@ -532,6 +555,8 @@ int main() {
 	sprintf(sem_request_str, "%d", sem_sum_id);
 	sprintf(msg_str, "%d", msg_id);
 	sprintf(sum_offerID_STR, "%d", sum_offerID);
+	sprintf(expiredGoods_STR, "%d", expiredGoodsSharedMemoryID);
+	
 
 	args[0] = name_file;
 	args[1] = sem_sync_str;
@@ -567,7 +592,8 @@ int main() {
 	sprintf(shipSharedMemory_str, "%d",shipSharedMemoryID);
 	args[0] = name_file;
 	args[3]=shipSharedMemory_str;
-	args[5] = NULL;
+	args[5] = expiredGoods_STR;
+	args[6] = NULL;
 	
 	
 	for (i = 0; i < SO_NAVI; i++) {

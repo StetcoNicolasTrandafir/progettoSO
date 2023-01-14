@@ -58,7 +58,6 @@ void handleSignal(int signal) {
 			break;
 
 		case SIGUSR2:
-			printTest(61);
 			break;
 
 		case SIGALRM:

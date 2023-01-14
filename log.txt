@@ -1,108 +1,108 @@
-Porto[113006] numero 0: (0.00, 0.00) - 6 banchine
-Porto[113007] numero 1: (1000.00, 0.00) - 1 banchine
-Ship[113016]: (588.95, 592.54)
-Ship[113041]: (318.43, 323.17)
-Ship[113072]: (206.82, 209.88)
-Ship[113090]: (742.39, 745.77)
-Ship[113032]: (238.55, 242.11)
-Ship[113017]: (190.07, 193.64)
-Ship[113033]: (552.91, 556.49)
-Ship[113015]: (835.87, 839.56)
-Ship[113014]: (696.38, 700.02)
-Ship[113074]: (593.22, 596.35)
-Ship[113029]: (410.36, 413.83)
-Ship[113034]: (191.50, 195.08)
-Ship[113030]: (633.26, 636.63)
-Ship[113031]: (349.74, 352.99)
-Porto[113009] numero 3: (1000.00, 1000.00) - 1 banchine
-Ship[113058]: (603.69, 609.38)
-Ship[113063]: (778.60, 781.98)
-Ship[113056]: (276.42, 279.64)
-Ship[113053]: (682.71, 685.89)
-Ship[113052]: (299.79, 302.93)
-Ship[113035]: (622.83, 626.20)
-Ship[113036]: (140.18, 143.68)
-Ship[113037]: (576.17, 579.28)
-Ship[113018]: (896.52, 899.53)
-Ship[113013]: (710.24, 713.70)
-Ship[113012]: (789.37, 792.57)
-Ship[113075]: (941.76, 946.03)
-Ship[113027]: (258.12, 261.33)
-Ship[113011]: (23.31, 26.45)
-Ship[113023]: (424.95, 427.96)
-Ship[113038]: (509.05, 512.44)
-Ship[113024]: (904.77, 909.23)
-Ship[113039]: (577.31, 581.29)
-Ship[113025]: (688.49, 691.96)
-Ship[113040]: (38.64, 43.22)
-Ship[113026]: (715.79, 720.27)
-Ship[113028]: (473.12, 476.60)
-Porto[113010] numero 4: (47.24, 62.15) - 10 banchine
-Ship[113042]: (142.88, 147.85)
-Ship[113060]: (844.53, 847.54)
-Ship[113043]: (494.98, 499.46)
-Ship[113044]: (541.95, 546.30)
-Ship[113045]: (991.08, 994.61)
-Ship[113046]: (693.75, 697.33)
-Ship[113069]: (421.56, 425.43)
-Ship[113047]: (126.58, 129.69)
-Ship[113071]: (619.56, 622.66)
-Ship[113048]: (859.37, 862.54)
-Ship[113073]: (439.77, 442.80)
-Ship[113062]: (55.60, 58.48)
-Ship[113084]: (581.07, 584.00)
-Ship[113019]: (224.49, 227.47)
-Ship[113097]: (73.99, 77.38)
-Ship[113085]: (585.49, 588.48)
-Ship[113020]: (186.09, 188.96)
-Ship[113086]: (592.00, 594.84)
-Ship[113021]: (629.74, 632.95)
-Ship[113092]: (982.90, 985.68)
-Ship[113022]: (624.10, 627.07)
-Ship[113093]: (797.61, 800.59)
-Ship[113068]: (540.93, 543.75)
-Ship[113066]: (13.37, 16.20)
-Ship[113094]: (487.24, 490.23)
-Ship[113067]: (15.82, 18.78)
-Ship[113070]: (300.85, 303.95)
-Ship[113079]: (937.05, 939.81)
-Ship[113081]: (933.43, 936.78)
-Ship[113089]: (137.19, 140.44)
-Ship[113080]: (345.61, 348.85)
-Ship[113091]: (881.24, 884.39)
-Ship[113051]: (112.13, 116.90)
-Ship[113061]: (716.70, 721.58)
-Ship[113065]: (839.04, 843.51)
-Ship[113095]: (301.60, 305.94)
-Ship[113057]: (194.27, 198.46)
-Ship[113050]: (972.87, 979.39)
-Ship[113049]: (493.33, 497.24)
-Ship[113054]: (342.98, 349.62)
-Ship[113064]: (969.65, 989.54)
-Ship[113059]: (643.53, 647.20)
-Ship[113055]: (824.02, 827.75)
-Ship[113087]: (502.34, 514.33)
-Ship[113076]: (611.41, 614.94)
-Ship[113082]: (959.57, 962.95)
-Ship[113098]: (110.51, 113.95)
-Ship[113099]: (112.63, 115.89)
-Ship[113078]: (456.83, 460.36)
-Ship[113101]: (108.98, 112.70)
-Ship[113083]: (318.35, 321.18)
-Ship[113108]: (119.26, 122.43)
-Ship[113077]: (349.91, 352.92)
-Ship[113096]: (550.05, 553.70)
-Ship[113109]: (133.52, 137.56)
-Ship[113088]: (942.30, 945.79)
-Ship[113107]: (770.46, 773.87)
-Ship[113110]: (321.53, 325.95)
-Ship[113102]: (168.85, 172.80)
-Ship[113103]: (143.78, 148.27)
-Porto[113008] numero 2: (0.00, 1000.00) - 2 banchine
-Ship[113106]: (967.28, 972.63)
-Ship[113105]: (545.15, 548.29)
-Ship[113100]: (305.35, 310.73)
-Ship[113104]: (881.18, 885.15)
+Porto[157267] numero 0: (0.00, 0.00) - 3 banchine
+Ship[157272]: (726.67, 738.23)
+Ship[157277]: (422.77, 430.50)
+Ship[157278]: (884.40, 896.30)
+Porto[157269] numero 2: (0.00, 1000.00) - 4 banchine
+Porto[157268] numero 1: (1000.00, 0.00) - 4 banchine
+Ship[157276]: (327.32, 335.85)
+Ship[157282]: (728.09, 737.94)
+Ship[157283]: (493.39, 500.95)
+Porto[157271] numero 4: (643.34, 673.12) - 9 banchine
+Ship[157273]: (50.09, 54.50)
+Ship[157274]: (569.77, 573.19)
+Ship[157286]: (180.18, 184.20)
+Ship[157279]: (914.49, 919.15)
+Ship[157287]: (186.31, 191.75)
+Ship[157285]: (962.73, 966.40)
+Ship[157280]: (925.01, 946.30)
+Ship[157288]: (441.75, 462.63)
+Ship[157290]: (813.08, 828.96)
+Ship[157284]: (946.31, 980.20)
+Ship[157289]: (886.58, 899.22)
+Porto[157270] numero 3: (1000.00, 1000.00) - 2 banchine
+Ship[157275]: (128.17, 140.15)
+Ship[157291]: (500.63, 510.04)
+Ship[157294]: (670.37, 679.05)
+Ship[157296]: (757.31, 764.81)
+Ship[157311]: (715.16, 721.27)
+Ship[157312]: (643.22, 649.63)
+Ship[157313]: (984.33, 990.19)
+Ship[157301]: (727.62, 732.69)
+Ship[157316]: (874.76, 881.08)
+Ship[157304]: (763.02, 773.80)
+Ship[157300]: (399.61, 405.77)
+Ship[157295]: (924.56, 930.06)
+Ship[157303]: (811.27, 816.30)
+Ship[157297]: (679.66, 683.91)
+Ship[157315]: (202.85, 212.43)
+Ship[157302]: (194.07, 200.04)
+Ship[157317]: (148.15, 152.48)
+Ship[157299]: (753.10, 758.49)
+Ship[157314]: (17.61, 22.37)
+Ship[157318]: (999.08, 4.12)
+Ship[157324]: (599.70, 606.59)
+Ship[157319]: (253.48, 260.11)
+Ship[157325]: (731.28, 736.34)
+Ship[157293]: (774.99, 779.46)
+Ship[157298]: (570.16, 579.53)
+Ship[157281]: (83.50, 108.62)
+Ship[157326]: (23.00, 28.37)
+Ship[157320]: (93.67, 99.35)
+Ship[157306]: (251.93, 255.51)
+Ship[157329]: (957.09, 960.86)
+Ship[157310]: (512.14, 515.68)
+Ship[157321]: (69.05, 72.60)
+Ship[157307]: (563.20, 568.56)
+Ship[157322]: (261.34, 265.24)
+Ship[157338]: (492.09, 495.53)
+Ship[157323]: (533.44, 537.39)
+Ship[157339]: (373.03, 376.56)
+Ship[157327]: (668.97, 672.61)
+Ship[157328]: (648.27, 652.68)
+Ship[157330]: (853.13, 856.74)
+Ship[157331]: (976.21, 981.28)
+Ship[157305]: (335.43, 340.26)
+Ship[157308]: (941.60, 952.76)
+Ship[157292]: (600.31, 603.37)
+Ship[157342]: (753.05, 766.02)
+Ship[157332]: (51.44, 63.97)
+Ship[157309]: (989.84, 23.43)
+Ship[157336]: (993.02, 4.05)
+Ship[157333]: (460.43, 471.11)
+Ship[157334]: (438.59, 450.40)
+Ship[157343]: (127.97, 150.70)
+Ship[157337]: (268.25, 277.42)
+Ship[157340]: (354.19, 367.74)
+Ship[157341]: (910.22, 920.37)
+Ship[157351]: (106.45, 114.82)
+Ship[157344]: (729.98, 735.82)
+Ship[157357]: (872.59, 878.47)
+Ship[157358]: (800.94, 807.54)
+Ship[157359]: (549.19, 554.19)
+Ship[157360]: (609.92, 614.54)
+Ship[157361]: (547.16, 552.05)
+Ship[157335]: (269.70, 274.92)
+Ship[157362]: (215.06, 219.86)
+Ship[157356]: (486.12, 490.86)
+Ship[157354]: (7.04, 13.79)
+Ship[157352]: (372.12, 376.75)
+Ship[157355]: (400.57, 405.34)
+Ship[157350]: (302.65, 307.56)
+Ship[157366]: (147.58, 151.69)
+Ship[157363]: (808.50, 814.51)
+Ship[157348]: (756.68, 760.83)
+Ship[157369]: (145.93, 149.78)
+Ship[157367]: (888.69, 892.71)
+Ship[157365]: (635.98, 640.55)
+Ship[157353]: (595.44, 600.22)
+Ship[157349]: (276.24, 283.66)
+Ship[157364]: (524.12, 529.51)
+Ship[157345]: (34.91, 40.26)
+Ship[157346]: (544.68, 550.10)
+Ship[157371]: (681.35, 686.86)
+Ship[157347]: (414.51, 418.09)
+Ship[157370]: (973.51, 977.65)
+Ship[157368]: (31.30, 36.33)
 
 
 ========================================================================
@@ -111,32 +111,32 @@ Ship[113104]: (881.18, 885.15)
 
 
 ==================>		PORTI
-Porto [113006] in posizione: (0.00, 0.00)
-Banchine libere 6 su 6
-Merci spedite: 160 ton
-Merci generate ancora in porto: 20099 ton
+PORTO[157267] NUMERO 0 in posizione: (0.00, 0.00)
+Banchine libere 3 su 3
+Merci spedite: 1227 ton
+Merci generate ancora in porto: 18622 ton
 Merci ricevute: 0 ton
 
-Porto [113007] in posizione: (1000.00, 0.00)
-Banchine libere 1 su 1
+PORTO[157268] NUMERO 1 in posizione: (1000.00, 0.00)
+Banchine libere 4 su 4
 Merci spedite: 0 ton
-Merci generate ancora in porto: 891 ton
+Merci generate ancora in porto: 1191 ton
 Merci ricevute: 0 ton
 
-Porto [113008] in posizione: (0.00, 1000.00)
+PORTO[157269] NUMERO 2 in posizione: (0.00, 1000.00)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+PORTO[157270] NUMERO 3 in posizione: (1000.00, 1000.00)
 Banchine libere 2 su 2
 Merci spedite: 0 ton
-Merci generate ancora in porto: 0 ton
+Merci generate ancora in porto: 29 ton
 Merci ricevute: 0 ton
 
-Porto [113009] in posizione: (1000.00, 1000.00)
-Banchine libere 1 su 1
-Merci spedite: 0 ton
-Merci generate ancora in porto: 0 ton
-Merci ricevute: 0 ton
-
-Porto [113010] in posizione: (47.24, 62.15)
-Banchine libere 10 su 10
+PORTO[157271] NUMERO 4 in posizione: (643.34, 673.12)
+Banchine libere 8 su 9
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
@@ -147,31 +147,31 @@ Merci ricevute: 0 ton
 
 ---------->	PER STATI:
 
-Merce in porto: 20990ton
-Merce scaduta in porto: 401ton
+Merce in porto: 19842ton
+Merce scaduta in porto: 151ton
 Merce in nave: 0ton
 Merce scaduta in nave: 0
 Merce consegnata: 0ton
 
 ---------->	PER TIPOLOGIA:
 
-Merce di tipo 1: 1878ton
+Merce di tipo 1: 2126ton
 Merce di tipo 2: 2020ton
-Merce di tipo 3: 2556ton
-Merce di tipo 4: 1942ton
-Merce di tipo 5: 2325ton
-Merce di tipo 6: 190ton
-Merce di tipo 7: 4187ton
-Merce di tipo 8: 2147ton
-Merce di tipo 9: 1598ton
-Merce di tipo 10: 2708ton
+Merce di tipo 3: 125ton
+Merce di tipo 4: 3895ton
+Merce di tipo 5: 2029ton
+Merce di tipo 6: 1971ton
+Merce di tipo 7: 2243ton
+Merce di tipo 8: 2368ton
+Merce di tipo 9: 2467ton
+Merce di tipo 10: 1976ton
 
  ==================>		NAVI
 
 Navi affondate: 0
-Numero di navi facendo operazioni di carico/scarico: 0
-In mare con un carico a bordo: 100
-In mare senza carico a bordo: 0
+Numero di navi facendo operazioni di carico/scarico: 1
+In mare con un carico a bordo: 69
+In mare senza carico a bordo: 30
 
 ============================= FINE REPORT GIORNO 1 =============================
 
@@ -183,32 +183,32 @@ In mare senza carico a bordo: 0
 
 
 ==================>		PORTI
-Porto [113006] in posizione: (0.00, 0.00)
-Banchine libere 6 su 6
-Merci spedite: 212 ton
-Merci generate ancora in porto: 44387 ton
+PORTO[157267] NUMERO 0 in posizione: (0.00, 0.00)
+Banchine libere 1 su 3
+Merci spedite: 1456 ton
+Merci generate ancora in porto: 18393 ton
 Merci ricevute: 0 ton
 
-Porto [113007] in posizione: (1000.00, 0.00)
-Banchine libere 1 su 1
+PORTO[157268] NUMERO 1 in posizione: (1000.00, 0.00)
+Banchine libere 4 su 4
 Merci spedite: 0 ton
-Merci generate ancora in porto: 0 ton
+Merci generate ancora in porto: 33385 ton
 Merci ricevute: 0 ton
 
-Porto [113008] in posizione: (0.00, 1000.00)
+PORTO[157269] NUMERO 2 in posizione: (0.00, 1000.00)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 883 ton
+Merci ricevute: 0 ton
+
+PORTO[157270] NUMERO 3 in posizione: (1000.00, 1000.00)
 Banchine libere 2 su 2
 Merci spedite: 0 ton
-Merci generate ancora in porto: 1740 ton
-Merci ricevute: 24000 ton
-
-Porto [113009] in posizione: (1000.00, 1000.00)
-Banchine libere 1 su 1
-Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 
-Porto [113010] in posizione: (47.24, 62.15)
-Banchine libere 10 su 10
+PORTO[157271] NUMERO 4 in posizione: (643.34, 673.12)
+Banchine libere 9 su 9
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
@@ -219,31 +219,31 @@ Merci ricevute: 0 ton
 
 ---------->	PER STATI:
 
-Merce in porto: 46127ton
-Merce scaduta in porto: 401ton
+Merce in porto: 52661ton
+Merce scaduta in porto: 151ton
 Merce in nave: 0ton
 Merce scaduta in nave: 0
-Merce consegnata: 24000ton
+Merce consegnata: 0ton
 
 ---------->	PER TIPOLOGIA:
 
-Merce di tipo 1: 4748ton
-Merce di tipo 2: 3841ton
-Merce di tipo 3: 5819ton
-Merce di tipo 4: 4479ton
-Merce di tipo 5: 4398ton
-Merce di tipo 6: 189ton
-Merce di tipo 7: 8964ton
-Merce di tipo 8: 4834ton
-Merce di tipo 9: 4281ton
-Merce di tipo 10: 5187ton
+Merce di tipo 1: 5222ton
+Merce di tipo 2: 4259ton
+Merce di tipo 3: 4081ton
+Merce di tipo 4: 3895ton
+Merce di tipo 5: 8634ton
+Merce di tipo 6: 5473ton
+Merce di tipo 7: 5469ton
+Merce di tipo 8: 5988ton
+Merce di tipo 9: 5734ton
+Merce di tipo 10: 5513ton
 
  ==================>		NAVI
 
 Navi affondate: 0
-Numero di navi facendo operazioni di carico/scarico: 0
-In mare con un carico a bordo: 97
-In mare senza carico a bordo: 3
+Numero di navi facendo operazioni di carico/scarico: 1
+In mare con un carico a bordo: 28
+In mare senza carico a bordo: 71
 
 ============================= FINE REPORT GIORNO 2 =============================
 
@@ -255,34 +255,34 @@ In mare senza carico a bordo: 3
 
 
 ==================>		PORTI
-Porto [113006] in posizione: (0.00, 0.00)
-Banchine libere 6 su 6
-Merci spedite: 219 ton
-Merci generate ancora in porto: 44380 ton
+PORTO[157267] NUMERO 0 in posizione: (0.00, 0.00)
+Banchine libere 3 su 3
+Merci spedite: 2288 ton
+Merci generate ancora in porto: 18051 ton
 Merci ricevute: 0 ton
 
-Porto [113007] in posizione: (1000.00, 0.00)
-Banchine libere 1 su 1
+PORTO[157268] NUMERO 1 in posizione: (1000.00, 0.00)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 52601 ton
+Merci ricevute: 0 ton
+
+PORTO[157269] NUMERO 2 in posizione: (0.00, 1000.00)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 30591 ton
+Merci ricevute: 0 ton
+
+PORTO[157270] NUMERO 3 in posizione: (1000.00, 1000.00)
+Banchine libere 0 su 2
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 
-Porto [113008] in posizione: (0.00, 1000.00)
-Banchine libere 2 su 2
-Merci spedite: 0 ton
-Merci generate ancora in porto: 50501 ton
-Merci ricevute: 57000 ton
-
-Porto [113009] in posizione: (1000.00, 1000.00)
-Banchine libere 0 su 1
+PORTO[157271] NUMERO 4 in posizione: (643.34, 673.12)
+Banchine libere 9 su 9
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
-Merci ricevute: 0 ton
-
-Porto [113010] in posizione: (47.24, 62.15)
-Banchine libere 10 su 10
-Merci spedite: 0 ton
-Merci generate ancora in porto: 1679 ton
 Merci ricevute: 0 ton
 
 
@@ -291,31 +291,31 @@ Merci ricevute: 0 ton
 
 ---------->	PER STATI:
 
-Merce in porto: 96560ton
-Merce scaduta in porto: 401ton
+Merce in porto: 101243ton
+Merce scaduta in porto: 151ton
 Merce in nave: 0ton
 Merce scaduta in nave: 0
-Merce consegnata: 57000ton
+Merce consegnata: 0ton
 
 ---------->	PER TIPOLOGIA:
 
-Merce di tipo 1: 9553ton
-Merce di tipo 2: 4153ton
-Merce di tipo 3: 15869ton
-Merce di tipo 4: 9523ton
-Merce di tipo 5: 9706ton
-Merce di tipo 6: 4263ton
-Merce di tipo 7: 13819ton
-Merce di tipo 8: 11095ton
-Merce di tipo 9: 8592ton
-Merce di tipo 10: 10607ton
+Merce di tipo 1: 10231ton
+Merce di tipo 2: 9124ton
+Merce di tipo 3: 9743ton
+Merce di tipo 4: 3928ton
+Merce di tipo 5: 17475ton
+Merce di tipo 6: 9708ton
+Merce di tipo 7: 11919ton
+Merce di tipo 8: 10599ton
+Merce di tipo 9: 10756ton
+Merce di tipo 10: 10199ton
 
  ==================>		NAVI
 
 Navi affondate: 0
-Numero di navi facendo operazioni di carico/scarico: 4
-In mare con un carico a bordo: 95
-In mare senza carico a bordo: 1
+Numero di navi facendo operazioni di carico/scarico: 2
+In mare con un carico a bordo: 70
+In mare senza carico a bordo: 28
 
 ============================= FINE REPORT GIORNO 3 =============================
 
@@ -327,34 +327,34 @@ In mare senza carico a bordo: 1
 
 
 ==================>		PORTI
-Porto [113006] in posizione: (0.00, 0.00)
-Banchine libere 6 su 6
-Merci spedite: 377 ton
-Merci generate ancora in porto: 44222 ton
+PORTO[157267] NUMERO 0 in posizione: (0.00, 0.00)
+Banchine libere 0 su 3
+Merci spedite: 3082 ton
+Merci generate ancora in porto: 36767 ton
 Merci ricevute: 0 ton
 
-Porto [113007] in posizione: (1000.00, 0.00)
-Banchine libere 1 su 1
+PORTO[157268] NUMERO 1 in posizione: (1000.00, 0.00)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 34855 ton
+Merci ricevute: 0 ton
+
+PORTO[157269] NUMERO 2 in posizione: (0.00, 1000.00)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 50591 ton
+Merci ricevute: 0 ton
+
+PORTO[157270] NUMERO 3 in posizione: (1000.00, 1000.00)
+Banchine libere 0 su 2
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 
-Porto [113008] in posizione: (0.00, 1000.00)
-Banchine libere 2 su 2
-Merci spedite: 0 ton
-Merci generate ancora in porto: 83834 ton
-Merci ricevute: 83000 ton
-
-Porto [113009] in posizione: (1000.00, 1000.00)
-Banchine libere 1 su 1
+PORTO[157271] NUMERO 4 in posizione: (643.34, 673.12)
+Banchine libere 4 su 9
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
-Merci ricevute: 0 ton
-
-Porto [113010] in posizione: (47.24, 62.15)
-Banchine libere 10 su 10
-Merci spedite: 0 ton
-Merci generate ancora in porto: 3239 ton
 Merci ricevute: 0 ton
 
 
@@ -363,31 +363,31 @@ Merci ricevute: 0 ton
 
 ---------->	PER STATI:
 
-Merce in porto: 131295ton
-Merce scaduta in porto: 401ton
+Merce in porto: 122213ton
+Merce scaduta in porto: 151ton
 Merce in nave: 0ton
 Merce scaduta in nave: 0
-Merce consegnata: 83000ton
+Merce consegnata: 0ton
 
 ---------->	PER TIPOLOGIA:
 
-Merce di tipo 1: 13390ton
-Merce di tipo 2: 4277ton
-Merce di tipo 3: 22152ton
-Merce di tipo 4: 13819ton
-Merce di tipo 5: 13651ton
-Merce di tipo 6: 7658ton
-Merce di tipo 7: 16699ton
-Merce di tipo 8: 14628ton
-Merce di tipo 9: 11979ton
-Merce di tipo 10: 13820ton
+Merce di tipo 1: 12002ton
+Merce di tipo 2: 11994ton
+Merce di tipo 3: 10193ton
+Merce di tipo 4: 7518ton
+Merce di tipo 5: 19602ton
+Merce di tipo 6: 12053ton
+Merce di tipo 7: 14200ton
+Merce di tipo 8: 12747ton
+Merce di tipo 9: 13242ton
+Merce di tipo 10: 11895ton
 
  ==================>		NAVI
 
 Navi affondate: 0
-Numero di navi facendo operazioni di carico/scarico: 0
-In mare con un carico a bordo: 99
-In mare senza carico a bordo: 1
+Numero di navi facendo operazioni di carico/scarico: 10
+In mare con un carico a bordo: 37
+In mare senza carico a bordo: 53
 
 ============================= FINE REPORT GIORNO 4 =============================
 
@@ -399,32 +399,32 @@ In mare senza carico a bordo: 1
 
 
 ==================>		PORTI
-Porto [113006] in posizione: (0.00, 0.00)
-Banchine libere 6 su 6
-Merci spedite: 695 ton
-Merci generate ancora in porto: 43904 ton
+PORTO[157267] NUMERO 0 in posizione: (0.00, 0.00)
+Banchine libere 3 su 3
+Merci spedite: 3468 ton
+Merci generate ancora in porto: 56381 ton
 Merci ricevute: 0 ton
 
-Porto [113007] in posizione: (1000.00, 0.00)
-Banchine libere 1 su 1
+PORTO[157268] NUMERO 1 in posizione: (1000.00, 0.00)
+Banchine libere 4 su 4
 Merci spedite: 0 ton
-Merci generate ancora in porto: 132633 ton
+Merci generate ancora in porto: 34633 ton
 Merci ricevute: 0 ton
 
-Porto [113008] in posizione: (0.00, 1000.00)
+PORTO[157269] NUMERO 2 in posizione: (0.00, 1000.00)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 51583 ton
+Merci ricevute: 0 ton
+
+PORTO[157270] NUMERO 3 in posizione: (1000.00, 1000.00)
 Banchine libere 2 su 2
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
-Merci ricevute: 102000 ton
-
-Porto [113009] in posizione: (1000.00, 1000.00)
-Banchine libere 1 su 1
-Merci spedite: 0 ton
-Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 
-Porto [113010] in posizione: (47.24, 62.15)
-Banchine libere 10 su 10
+PORTO[157271] NUMERO 4 in posizione: (643.34, 673.12)
+Banchine libere 9 su 9
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
@@ -435,31 +435,31 @@ Merci ricevute: 0 ton
 
 ---------->	PER STATI:
 
-Merce in porto: 176537ton
-Merce scaduta in porto: 401ton
+Merce in porto: 142597ton
+Merce scaduta in porto: 151ton
 Merce in nave: 0ton
 Merce scaduta in nave: 0
-Merce consegnata: 102000ton
+Merce consegnata: 0ton
 
 ---------->	PER TIPOLOGIA:
 
-Merce di tipo 1: 4664ton
-Merce di tipo 2: 30527ton
-Merce di tipo 3: 18496ton
-Merce di tipo 4: 16873ton
-Merce di tipo 5: 17937ton
-Merce di tipo 6: 13550ton
-Merce di tipo 7: 22644ton
-Merce di tipo 8: 17979ton
-Merce di tipo 9: 16319ton
-Merce di tipo 10: 18644ton
+Merce di tipo 1: 13889ton
+Merce di tipo 2: 14232ton
+Merce di tipo 3: 9237ton
+Merce di tipo 4: 11776ton
+Merce di tipo 5: 22393ton
+Merce di tipo 6: 14779ton
+Merce di tipo 7: 15192ton
+Merce di tipo 8: 14440ton
+Merce di tipo 9: 15610ton
+Merce di tipo 10: 14668ton
 
  ==================>		NAVI
 
 Navi affondate: 0
 Numero di navi facendo operazioni di carico/scarico: 0
-In mare con un carico a bordo: 85
-In mare senza carico a bordo: 15
+In mare con un carico a bordo: 65
+In mare senza carico a bordo: 35
 
 ============================= FINE REPORT GIORNO 5 =============================
 
@@ -471,32 +471,32 @@ In mare senza carico a bordo: 15
 
 
 ==================>		PORTI
-Porto [113006] in posizione: (0.00, 0.00)
-Banchine libere 5 su 6
-Merci spedite: 1006 ton
-Merci generate ancora in porto: 43593 ton
+PORTO[157267] NUMERO 0 in posizione: (0.00, 0.00)
+Banchine libere 3 su 3
+Merci spedite: 3932 ton
+Merci generate ancora in porto: 55917 ton
 Merci ricevute: 0 ton
 
-Porto [113007] in posizione: (1000.00, 0.00)
-Banchine libere 1 su 1
+PORTO[157268] NUMERO 1 in posizione: (1000.00, 0.00)
+Banchine libere 4 su 4
 Merci spedite: 0 ton
-Merci generate ancora in porto: 132633 ton
+Merci generate ancora in porto: 34633 ton
 Merci ricevute: 0 ton
 
-Porto [113008] in posizione: (0.00, 1000.00)
+PORTO[157269] NUMERO 2 in posizione: (0.00, 1000.00)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 84916 ton
+Merci ricevute: 0 ton
+
+PORTO[157270] NUMERO 3 in posizione: (1000.00, 1000.00)
 Banchine libere 2 su 2
-Merci spedite: 0 ton
-Merci generate ancora in porto: 1510 ton
-Merci ricevute: 111000 ton
-
-Porto [113009] in posizione: (1000.00, 1000.00)
-Banchine libere 1 su 1
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 
-Porto [113010] in posizione: (47.24, 62.15)
-Banchine libere 10 su 10
+PORTO[157271] NUMERO 4 in posizione: (643.34, 673.12)
+Banchine libere 9 su 9
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
@@ -507,31 +507,31 @@ Merci ricevute: 0 ton
 
 ---------->	PER STATI:
 
-Merce in porto: 177736ton
-Merce scaduta in porto: 401ton
+Merce in porto: 175466ton
+Merce scaduta in porto: 151ton
 Merce in nave: 0ton
 Merce scaduta in nave: 0
-Merce consegnata: 111000ton
+Merce consegnata: 0ton
 
 ---------->	PER TIPOLOGIA:
 
-Merce di tipo 1: 4770ton
-Merce di tipo 2: 30527ton
-Merce di tipo 3: 18697ton
-Merce di tipo 4: 16917ton
-Merce di tipo 5: 18052ton
-Merce di tipo 6: 13645ton
-Merce di tipo 7: 22984ton
-Merce di tipo 8: 18208ton
-Merce di tipo 9: 16635ton
+Merce di tipo 1: 16559ton
+Merce di tipo 2: 16771ton
+Merce di tipo 3: 12455ton
+Merce di tipo 4: 11776ton
+Merce di tipo 5: 29110ton
+Merce di tipo 6: 18027ton
+Merce di tipo 7: 18853ton
+Merce di tipo 8: 17456ton
+Merce di tipo 9: 19834ton
 Merce di tipo 10: 18708ton
 
  ==================>		NAVI
 
 Navi affondate: 0
-Numero di navi facendo operazioni di carico/scarico: 2
-In mare con un carico a bordo: 98
-In mare senza carico a bordo: 0
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 42
+In mare senza carico a bordo: 58
 
 ============================= FINE REPORT GIORNO 6 =============================
 
@@ -543,34 +543,34 @@ In mare senza carico a bordo: 0
 
 
 ==================>		PORTI
-Porto [113006] in posizione: (0.00, 0.00)
-Banchine libere 6 su 6
-Merci spedite: 1081 ton
-Merci generate ancora in porto: 50932 ton
+PORTO[157267] NUMERO 0 in posizione: (0.00, 0.00)
+Banchine libere 3 su 3
+Merci spedite: 4254 ton
+Merci generate ancora in porto: 88928 ton
 Merci ricevute: 0 ton
 
-Porto [113007] in posizione: (1000.00, 0.00)
-Banchine libere 1 su 1
+PORTO[157268] NUMERO 1 in posizione: (1000.00, 0.00)
+Banchine libere 4 su 4
 Merci spedite: 0 ton
-Merci generate ancora in porto: 157859 ton
+Merci generate ancora in porto: 1238 ton
 Merci ricevute: 0 ton
 
-Porto [113008] in posizione: (0.00, 1000.00)
-Banchine libere 1 su 2
+PORTO[157269] NUMERO 2 in posizione: (0.00, 1000.00)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 118249 ton
+Merci ricevute: 0 ton
+
+PORTO[157270] NUMERO 3 in posizione: (1000.00, 1000.00)
+Banchine libere 2 su 2
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
-Merci ricevute: 134000 ton
-
-Porto [113009] in posizione: (1000.00, 1000.00)
-Banchine libere 1 su 1
-Merci spedite: 0 ton
-Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 
-Porto [113010] in posizione: (47.24, 62.15)
-Banchine libere 10 su 10
+PORTO[157271] NUMERO 4 in posizione: (643.34, 673.12)
+Banchine libere 9 su 9
 Merci spedite: 0 ton
-Merci generate ancora in porto: 452 ton
+Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 
 
@@ -579,31 +579,31 @@ Merci ricevute: 0 ton
 
 ---------->	PER STATI:
 
-Merce in porto: 209243ton
-Merce scaduta in porto: 401ton
+Merce in porto: 208415ton
+Merce scaduta in porto: 151ton
 Merce in nave: 0ton
 Merce scaduta in nave: 0
-Merce consegnata: 134000ton
+Merce consegnata: 0ton
 
 ---------->	PER TIPOLOGIA:
 
-Merce di tipo 1: 5597ton
-Merce di tipo 2: 36303ton
-Merce di tipo 3: 21707ton
-Merce di tipo 4: 20682ton
-Merce di tipo 5: 20703ton
-Merce di tipo 6: 16300ton
-Merce di tipo 7: 26707ton
-Merce di tipo 8: 21321ton
-Merce di tipo 9: 19211ton
-Merce di tipo 10: 22194ton
+Merce di tipo 1: 19776ton
+Merce di tipo 2: 20389ton
+Merce di tipo 3: 12382ton
+Merce di tipo 4: 18040ton
+Merce di tipo 5: 32743ton
+Merce di tipo 6: 21946ton
+Merce di tipo 7: 23069ton
+Merce di tipo 8: 20048ton
+Merce di tipo 9: 23246ton
+Merce di tipo 10: 21181ton
 
  ==================>		NAVI
 
 Navi affondate: 0
-Numero di navi facendo operazioni di carico/scarico: 1
-In mare con un carico a bordo: 96
-In mare senza carico a bordo: 3
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 57
+In mare senza carico a bordo: 43
 
 ============================= FINE REPORT GIORNO 7 =============================
 
@@ -615,32 +615,32 @@ In mare senza carico a bordo: 3
 
 
 ==================>		PORTI
-Porto [113006] in posizione: (0.00, 0.00)
-Banchine libere 6 su 6
-Merci spedite: 1151 ton
-Merci generate ancora in porto: 68448 ton
+PORTO[157267] NUMERO 0 in posizione: (0.00, 0.00)
+Banchine libere 3 su 3
+Merci spedite: 5004 ton
+Merci generate ancora in porto: 188178 ton
 Merci ricevute: 0 ton
 
-Porto [113007] in posizione: (1000.00, 0.00)
-Banchine libere 1 su 1
-Merci spedite: 0 ton
-Merci generate ancora in porto: 186330 ton
-Merci ricevute: 0 ton
-
-Porto [113008] in posizione: (0.00, 1000.00)
-Banchine libere 1 su 2
-Merci spedite: 0 ton
-Merci generate ancora in porto: 0 ton
-Merci ricevute: 164000 ton
-
-Porto [113009] in posizione: (1000.00, 1000.00)
-Banchine libere 0 su 1
+PORTO[157268] NUMERO 1 in posizione: (1000.00, 0.00)
+Banchine libere 4 su 4
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 
-Porto [113010] in posizione: (47.24, 62.15)
-Banchine libere 10 su 10
+PORTO[157269] NUMERO 2 in posizione: (0.00, 1000.00)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 17466 ton
+Merci ricevute: 0 ton
+
+PORTO[157270] NUMERO 3 in posizione: (1000.00, 1000.00)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+
+PORTO[157271] NUMERO 4 in posizione: (643.34, 673.12)
+Banchine libere 9 su 9
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
@@ -651,31 +651,31 @@ Merci ricevute: 0 ton
 
 ---------->	PER STATI:
 
-Merce in porto: 254778ton
-Merce scaduta in porto: 401ton
+Merce in porto: 205644ton
+Merce scaduta in porto: 151ton
 Merce in nave: 0ton
 Merce scaduta in nave: 0
-Merce consegnata: 164000ton
+Merce consegnata: 0ton
 
 ---------->	PER TIPOLOGIA:
 
-Merce di tipo 1: 6905ton
-Merce di tipo 2: 41937ton
-Merce di tipo 3: 26470ton
-Merce di tipo 4: 25490ton
-Merce di tipo 5: 27654ton
-Merce di tipo 6: 19330ton
-Merce di tipo 7: 33132ton
-Merce di tipo 8: 26733ton
-Merce di tipo 9: 21926ton
-Merce di tipo 10: 26753ton
+Merce di tipo 1: 19280ton
+Merce di tipo 2: 20106ton
+Merce di tipo 3: 1625ton
+Merce di tipo 4: 38015ton
+Merce di tipo 5: 24240ton
+Merce di tipo 6: 21300ton
+Merce di tipo 7: 21216ton
+Merce di tipo 8: 20240ton
+Merce di tipo 9: 21688ton
+Merce di tipo 10: 23089ton
 
  ==================>		NAVI
 
 Navi affondate: 0
-Numero di navi facendo operazioni di carico/scarico: 1
-In mare con un carico a bordo: 98
-In mare senza carico a bordo: 1
+Numero di navi facendo operazioni di carico/scarico: 0
+In mare con un carico a bordo: 44
+In mare senza carico a bordo: 56
 
 ============================= FINE REPORT GIORNO 8 =============================
 
@@ -687,34 +687,34 @@ In mare senza carico a bordo: 1
 
 
 ==================>		PORTI
-Porto [113006] in posizione: (0.00, 0.00)
-Banchine libere 6 su 6
-Merci spedite: 1422 ton
-Merci generate ancora in porto: 76763 ton
+PORTO[157267] NUMERO 0 in posizione: (0.00, 0.00)
+Banchine libere 3 su 3
+Merci spedite: 5262 ton
+Merci generate ancora in porto: 187920 ton
 Merci ricevute: 0 ton
 
-Porto [113007] in posizione: (1000.00, 0.00)
-Banchine libere 1 su 1
+PORTO[157268] NUMERO 1 in posizione: (1000.00, 0.00)
+Banchine libere 4 su 4
 Merci spedite: 0 ton
-Merci generate ancora in porto: 230881 ton
+Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 
-Porto [113008] in posizione: (0.00, 1000.00)
+PORTO[157269] NUMERO 2 in posizione: (0.00, 1000.00)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 17466 ton
+Merci ricevute: 0 ton
+
+PORTO[157270] NUMERO 3 in posizione: (1000.00, 1000.00)
 Banchine libere 2 su 2
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
-Merci ricevute: 210000 ton
-
-Porto [113009] in posizione: (1000.00, 1000.00)
-Banchine libere 1 su 1
-Merci spedite: 0 ton
-Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 
-Porto [113010] in posizione: (47.24, 62.15)
-Banchine libere 10 su 10
+PORTO[157271] NUMERO 4 in posizione: (643.34, 673.12)
+Banchine libere 9 su 9
 Merci spedite: 0 ton
-Merci generate ancora in porto: 0 ton
+Merci generate ancora in porto: 15736 ton
 Merci ricevute: 0 ton
 
 
@@ -723,31 +723,31 @@ Merci ricevute: 0 ton
 
 ---------->	PER STATI:
 
-Merce in porto: 307644ton
-Merce scaduta in porto: 401ton
+Merce in porto: 221122ton
+Merce scaduta in porto: 151ton
 Merce in nave: 0ton
 Merce scaduta in nave: 0
-Merce consegnata: 210000ton
+Merce consegnata: 0ton
 
 ---------->	PER TIPOLOGIA:
 
-Merce di tipo 1: 7506ton
-Merce di tipo 2: 50639ton
-Merce di tipo 3: 32523ton
-Merce di tipo 4: 31373ton
-Merce di tipo 5: 33105ton
-Merce di tipo 6: 23637ton
-Merce di tipo 7: 39620ton
-Merce di tipo 8: 32737ton
-Merce di tipo 9: 27264ton
-Merce di tipo 10: 31063ton
+Merce di tipo 1: 20414ton
+Merce di tipo 2: 21528ton
+Merce di tipo 3: 3329ton
+Merce di tipo 4: 39771ton
+Merce di tipo 5: 25762ton
+Merce di tipo 6: 22785ton
+Merce di tipo 7: 23315ton
+Merce di tipo 8: 21541ton
+Merce di tipo 9: 21688ton
+Merce di tipo 10: 26402ton
 
  ==================>		NAVI
 
 Navi affondate: 0
 Numero di navi facendo operazioni di carico/scarico: 0
-In mare con un carico a bordo: 99
-In mare senza carico a bordo: 1
+In mare con un carico a bordo: 58
+In mare senza carico a bordo: 42
 
 ============================= FINE REPORT GIORNO 9 =============================
 
@@ -761,33 +761,33 @@ In mare senza carico a bordo: 1
 ==================>		PORTI
 
 
-PORTO[113006] NUMERO 1 (0.00,0.00):
-Merce in porto:118066ton
-Merce spedita:1533ton
+PORTO[157267] NUMERO 1 (0.00,0.00):
+Merce in porto:212475ton
+Merce spedita:5707ton
 Merce ricevuta:0ton
 
 
-PORTO[113007] NUMERO 2 (1000.00,0.00):
-Merce in porto:311239ton
+PORTO[157268] NUMERO 2 (1000.00,0.00):
+Merce in porto:91938ton
+Merce spedita:965ton
+Merce ricevuta:0ton
+
+
+PORTO[157269] NUMERO 3 (0.00,1000.00):
+Merce in porto:234182ton
 Merce spedita:0ton
 Merce ricevuta:0ton
 
 
-PORTO[113008] NUMERO 3 (0.00,1000.00):
-Merce in porto:219400ton
-Merce spedita:0ton
-Merce ricevuta:238000ton
-
-
-PORTO[113009] NUMERO 4 (1000.00,1000.00):
-Merce in porto:113913ton
-Merce spedita:14272ton
+PORTO[157270] NUMERO 4 (1000.00,1000.00):
+Merce in porto:198384ton
+Merce spedita:2996ton
 Merce ricevuta:0ton
 
 
-PORTO[113010] NUMERO 5 (47.24,62.15):
-Merce in porto:113608ton
-Merce spedita:106391ton
+PORTO[157271] NUMERO 5 (643.34,673.12):
+Merce in porto:242334ton
+Merce spedita:8933ton
 Merce ricevuta:0ton
 
 
@@ -795,9 +795,9 @@ Merce ricevuta:0ton
 
 ---------->	PER STATI:
 
-Merce in porto (disponibile): 876226ton
-Merce scaduta in porto: 1575ton
-Merce consegnata: 238000ton
+Merce in porto (disponibile): 979313ton
+Merce scaduta in porto: 2083ton
+Merce consegnata: 0ton
 Merce in nave: 0ton
 Merce scaduta in nave: 0ton
 
@@ -806,94 +806,94 @@ Merce scaduta in nave: 0ton
 
 TOTALE MERCE GENERATA: 999997ton
 MERCE DI TIPO 1:
-Merce generata: 78995ton
-Merce ferma in porto: 53096ton
-Merce scaduta in porto: 205ton
-Merce scaduta in nave: -1ton
+Merce generata: 96822ton
+Merce ferma in porto: 96301ton
+Merce scaduta in porto: 521ton
+Merce scaduta in nave: 0ton
 Merce consegnata: 0
-Il porto che ne ha fatto più richiesta è il numero 0 (279108ton)
-Il porto che ne ha generato di più è 4 (45712ton)
+Il porto che ne ha fatto più richiesta è il numero 0 (0ton)
+Il porto che ne ha generato di più è 4 (24299ton)
 
 MERCE DI TIPO 2:
-Merce generata: 118885ton
-Merce ferma in porto: 100017ton
-Merce scaduta in porto: 230ton
-Merce scaduta in nave: -1ton
-Merce consegnata: 238000
-Il porto che ne ha fatto più richiesta è il numero 0 (219240ton)
-Il porto che ne ha generato di più è 2 (60050ton)
+Merce generata: 75584ton
+Merce ferma in porto: 70419ton
+Merce scaduta in porto: 81ton
+Merce scaduta in nave: 0ton
+Merce consegnata: 0
+Il porto che ne ha fatto più richiesta è il numero 0 (263740ton)
+Il porto che ne ha generato di più è 4 (23544ton)
 
 MERCE DI TIPO 3:
-Merce generata: 125873ton
-Merce ferma in porto: 116261ton
-Merce scaduta in porto: 122ton
-Merce scaduta in nave: -1ton
+Merce generata: 100170ton
+Merce ferma in porto: 95863ton
+Merce scaduta in porto: 0ton
+Merce scaduta in nave: 0ton
 Merce consegnata: 0
-Il porto che ne ha fatto più richiesta è il numero 0 (0ton)
-Il porto che ne ha generato di più è 2 (45287ton)
+Il porto che ne ha fatto più richiesta è il numero 0 (127862ton)
+Il porto che ne ha generato di più è 3 (39333ton)
 
 MERCE DI TIPO 4:
-Merce generata: 96007ton
-Merce ferma in porto: 86934ton
-Merce scaduta in porto: 57ton
-Merce scaduta in nave: -1ton
+Merce generata: 87468ton
+Merce ferma in porto: 80791ton
+Merce scaduta in porto: 0ton
+Merce scaduta in nave: 0ton
 Merce consegnata: 0
-Il porto che ne ha fatto più richiesta è il numero 0 (0ton)
-Il porto che ne ha generato di più è 1 (32302ton)
+Il porto che ne ha fatto più richiesta è il numero 0 (192366ton)
+Il porto che ne ha generato di più è 1 (42810ton)
 
 MERCE DI TIPO 5:
-Merce generata: 104149ton
-Merce ferma in porto: 93937ton
-Merce scaduta in porto: 306ton
-Merce scaduta in nave: -1ton
+Merce generata: 136626ton
+Merce ferma in porto: 136533ton
+Merce scaduta in porto: 93ton
+Merce scaduta in nave: 0ton
 Merce consegnata: 0
 Il porto che ne ha fatto più richiesta è il numero 0 (0ton)
-Il porto che ne ha generato di più è 1 (33033ton)
+Il porto che ne ha generato di più è 2 (45132ton)
 
 MERCE DI TIPO 6:
-Merce generata: 88483ton
-Merce ferma in porto: 72634ton
-Merce scaduta in porto: 0ton
-Merce scaduta in nave: -1ton
+Merce generata: 100438ton
+Merce ferma in porto: 100121ton
+Merce scaduta in porto: 317ton
+Merce scaduta in nave: 0ton
 Merce consegnata: 0
-Il porto che ne ha fatto più richiesta è il numero 0 (65235ton)
-Il porto che ne ha generato di più è 1 (32865ton)
+Il porto che ne ha fatto più richiesta è il numero 0 (0ton)
+Il porto che ne ha generato di più è 4 (25453ton)
 
 MERCE DI TIPO 7:
-Merce generata: 110504ton
-Merce ferma in porto: 100934ton
-Merce scaduta in porto: 256ton
-Merce scaduta in nave: -1ton
+Merce generata: 105675ton
+Merce ferma in porto: 105485ton
+Merce scaduta in porto: 190ton
+Merce scaduta in nave: 0ton
 Merce consegnata: 0
 Il porto che ne ha fatto più richiesta è il numero 0 (0ton)
-Il porto che ne ha generato di più è 1 (32879ton)
+Il porto che ne ha generato di più è 4 (27359ton)
 
 MERCE DI TIPO 8:
-Merce generata: 106925ton
-Merce ferma in porto: 96200ton
-Merce scaduta in porto: 169ton
-Merce scaduta in nave: -1ton
+Merce generata: 94612ton
+Merce ferma in porto: 94384ton
+Merce scaduta in porto: 228ton
+Merce scaduta in nave: 0ton
 Merce consegnata: 0
 Il porto che ne ha fatto più richiesta è il numero 0 (0ton)
-Il porto che ne ha generato di più è 1 (30946ton)
+Il porto che ne ha generato di più è 4 (22200ton)
 
 MERCE DI TIPO 9:
-Merce generata: 91961ton
-Merce ferma in porto: 82072ton
-Merce scaduta in porto: 42ton
-Merce scaduta in nave: -1ton
+Merce generata: 74482ton
+Merce ferma in porto: 71734ton
+Merce scaduta in porto: 215ton
+Merce scaduta in nave: 0ton
 Merce consegnata: 0
-Il porto che ne ha fatto più richiesta è il numero 0 (0ton)
-Il porto che ne ha generato di più è 1 (27177ton)
+Il porto che ne ha fatto più richiesta è il numero 0 (349618ton)
+Il porto che ne ha generato di più è 4 (24499ton)
 
 MERCE DI TIPO 10:
-Merce generata: 78215ton
-Merce ferma in porto: 74141ton
-Merce scaduta in porto: 188ton
-Merce scaduta in nave: -1ton
+Merce generata: 128120ton
+Merce ferma in porto: 127682ton
+Merce scaduta in porto: 438ton
+Merce scaduta in nave: 0ton
 Merce consegnata: 0
-Il porto che ne ha fatto più richiesta è il numero 0 (205202ton)
-Il porto che ne ha generato di più è 4 (30191ton)
+Il porto che ne ha fatto più richiesta è il numero 0 (0ton)
+Il porto che ne ha generato di più è 4 (48946ton)
 
 
 SIMULAZIONE FINITA!!!

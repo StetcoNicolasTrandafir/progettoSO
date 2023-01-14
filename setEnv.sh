@@ -1,14 +1,14 @@
 if [ -z "$1" ] 
     then
     echo "Setting custom configuration..."
-    export SO_NAVI=2
-    export SO_PORTI=4
+    export SO_NAVI=100
+    export SO_PORTI=50
     export SO_MERCI=2
     export SO_MIN_VITA=100000
     export SO_MAX_VITA=10000000
     export SO_SIZE=10
     export SO_SPEED=50
-    export SO_LATO=100
+    export SO_LATO=10000
     export SO_CAPACITY=10
     export SO_BANCHINE=10
     export SO_FILL=100000
