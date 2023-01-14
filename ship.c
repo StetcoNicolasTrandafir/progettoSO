@@ -41,11 +41,11 @@ void printShip(ship s) {
 void cleanUp() {
 	struct sembuf sops;
 	bzero(&sops, sizeof(struct sembuf));
-	TEST_ERROR;
 	semctl(shared_shipCoords[shipIndex].semID, 0, IPC_RMID); TEST_ERROR;
 	shmdt(s.goods); TEST_ERROR;
 	shmdt(shared_shipCoords); TEST_ERROR;
-	decreaseSem(sops, sem_sync_id, 1);
+	
+	decreaseSem(sops, sem_sync_id, 2);
 }
 
 
@@ -151,16 +151,15 @@ int main(int argc, char *argv[]) {
 
 	msg_id = msgget(getppid(), IPC_CREAT | 0600); TEST_ERROR;
 	
-	negociate(atoi(argv[2]), s, shared_shipCoords,shipIndex); TEST_ERROR;
-
-	/*getNearestPort(shared_portCoords, s.coords,-1); TEST_ERROR;*/
-
 	while (pastDays < SO_DAYS) {
-		pause();
-		if (errno == 4) errno = 0;
-		else TEST_ERROR;
+		if(negociate(atoi(argv[2]), s, shared_shipCoords,shipIndex)== -1) {
+			pause();
+			if (errno == 4) errno = 0;
+			else TEST_ERROR;
+		}
 	}	
-
+	pause();
+	
 	cleanUp();
 
 	exit(0);

@@ -54,7 +54,6 @@ void killChildren(){
 
 void cleanUp(){
 	struct sembuf sops;
-
 	waitForZero(sops, sem_sync_id,1);
 
 	shmdt(sharedPortPositions); TEST_ERROR;
@@ -402,7 +401,7 @@ void handleSignal(int signal) {
 		case SIGALRM:
 			if(++pastDays==SO_DAYS){
 				finalReport();
-				/*sendDailySignal();*/
+				sendDailySignal();
 				killChildren();
 
 			}else{
@@ -467,9 +466,10 @@ int main() {
 	sigaction(SIGALRM, &sa, NULL);
 	sigaction(SIGINT, &sa, NULL);
 
-	sem_sync_id = semget(IPC_PRIVATE, 2, 0600); TEST_ERROR;
+	sem_sync_id = semget(IPC_PRIVATE, 3, 0600); TEST_ERROR;
 	semctl(sem_sync_id, 0, SETVAL, SO_PORTI + SO_NAVI); TEST_ERROR;
-	semctl(sem_sync_id, 1, SETVAL, SO_PORTI + SO_NAVI); TEST_ERROR;
+	semctl(sem_sync_id, 1, SETVAL, SO_PORTI); TEST_ERROR;
+	semctl(sem_sync_id, 2, SETVAL, SO_NAVI); TEST_ERROR;
 
 	i = semctl(sem_sync_id, 1, GETVAL);
 

@@ -30,8 +30,9 @@ struct port_sharedMemory *shared_portCoords;
 void cleanUp() {
 	struct sembuf sops;
 	bzero(&sops, sizeof(struct sembuf));
+	waitForZero(sops, sem_sync_id, 2); TEST_ERROR;
 	/*free(p.generatedGoods); TEST_ERROR;*/
-	/*shmdt(p.request); TEST_ERROR;*/
+	shmdt(p.request); TEST_ERROR;
 	semctl(shared_portCoords[idx].semID, 0, IPC_RMID); TEST_ERROR;
 	shmdt(shared_portCoords); TEST_ERROR;
 	shmdt(p.generatedGoods); TEST_ERROR;
@@ -169,6 +170,7 @@ int main(int argc, char *argv[]) {
 		else TEST_ERROR;
 	}
 
+	pause();
 	/*cleanUp();*/
 
 	exit(0);

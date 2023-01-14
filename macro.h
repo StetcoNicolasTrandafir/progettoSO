@@ -20,7 +20,7 @@
 #define SO_MEALSTROM atoi(getenv("SO_MEALSTROM"))
 
 
-#define TEST_ERROR    if (errno) {fprintf(stderr, \
+#define TEST_ERROR    if (errno && errno != EINTR) {fprintf(stderr, \
 					  "\x1b[31m%s at line %d: PID=%5d, Error %d: %s\n\x1b[37m", \
 					  __FILE__,			\
 					  __LINE__,			\

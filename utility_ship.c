@@ -224,7 +224,7 @@ int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int sh
         }
 
         startingPortSemID = ports[indexClosestPort].semID;
-        destinationPortSemID = ports[destinationPortIndex].semID;
+        destinationPortSemID = ports[destinationPortIndex].semID; 
 
 
         for(i=0; i<shippedGoodsIndex; i++){
@@ -232,7 +232,14 @@ int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int sh
             s.goods[i]=g[shippedGoods[i]];
         }
 
-        request = shmat(ports[destinationPortIndex].requestID, NULL, 0); TEST_ERROR;
+        request = shmat(ports[destinationPortIndex].requestID, NULL, 0); 
+        if (request == (void *)-1) {
+            if (errno == 22) {
+                errno = 0;
+                return -1;
+            }
+            else {TEST_ERROR;}
+        }
 
 
         /*CAMBIO VALORI RICHIESTA*/      
@@ -358,7 +365,7 @@ int getValidRequestPort(goods good, struct port_sharedMemory * sh_port) {
         if (request -> satisfied < request -> quantity) {
             increaseSem(sops, sem_id, 1);
             msgsnd(msg_id, &msg, sizeof(struct msg_request), 0);
-            shmdt(request);
+            shmdt(request); TEST_ERROR;
             return msg.idx;
         }else{
             increaseSem(sops, sem_id, 1);TEST_ERROR;
