@@ -20,11 +20,21 @@
 #include "macro.h"
 #include "types_module.h"
 #include "utility_coordinates.h"
+#include "semaphore_library.h"
 #include "utility_meteo.h"
 
 
 struct ship_sharedMemory *ships;
 struct port_sharedMemory *ports;
+int sem_sync_id, pastDays = 0;
+
+void cleanUp() {
+	struct sembuf sops;
+	bzero(&sops, sizeof(struct sembuf));
+	shmdt(ports); TEST_ERROR;
+	shmdt(ships); TEST_ERROR;
+	decreaseSem(sops, sem_sync_id, 3);
+}
 
 void handleSignal(int signal) {
 	struct timespec now;
@@ -43,7 +53,7 @@ void handleSignal(int signal) {
 			break;
 
 		case SIGUSR2:
-
+			pastDays++;
 			clock_gettime(CLOCK_REALTIME, &now);
     		randomShip = now.tv_nsec % SO_NAVI;
 			while((ships[(randomShip+plus)%SO_NAVI].pid==-1 || ships[(randomShip+plus)%SO_NAVI].inDock==1) && plus < SO_NAVI) plus++;
@@ -69,6 +79,11 @@ void handleSignal(int signal) {
         case SIGALRM:
 			/*printf("\n\n[%d]METEO: vortice! la nave %d verrà affondata", getpid(),-1);*/
 			break;
+
+		case SIGINT:
+			cleanUp();
+			exit(EXIT_SUCCESS);
+			break;
 	}
 }
 
@@ -79,7 +94,9 @@ int main(int argc, char *argv[]){
 	struct timespec mealstromQuantum;
 	int numBytes;
 	char *string;
+	struct sembuf sops;
 
+	sem_sync_id = atoi(argv[1]);
 	ports = shmat(atoi(argv[3]), NULL, 0);
 	ships = shmat(atoi(argv[2]), NULL, 0);
 
@@ -91,15 +108,24 @@ int main(int argc, char *argv[]){
 
 	write(1, string, numBytes);*/
 
-
+	bzero(&sops, sizeof(struct sembuf));
     bzero(&sa, sizeof(sa));
 	
 	sa.sa_handler = handleSignal;
 	sigaction(SIGALRM, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
+	sigaction(SIGINT, &sa, NULL);
 
-	for(i=0; i<SO_DAYS; i++)
-    	sleep(20);
+	decreaseSem(sops, sem_sync_id, 0);
+	waitForZero(sops, sem_sync_id, 0);
 
-	free(string);
+	while (pastDays < SO_DAYS) {
+		pause();
+		if (errno == 4) errno = 0;
+		else TEST_ERROR;
+	}
+    
+    cleanUp();
+    exit(EXIT_SUCCESS);
+
 }

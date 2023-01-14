@@ -43,11 +43,14 @@ void printShip(ship s) {
 void cleanUp() {
 	struct sembuf sops;
 	bzero(&sops, sizeof(struct sembuf));
+	if (shared_shipCoords[shipIndex].pid != -1){
+		waitForZero(sops, sem_sync_id, 3); TEST_ERROR;
+	}
 	semctl(shared_shipCoords[shipIndex].semID, 0, IPC_RMID); TEST_ERROR;
 	shmdt(s.goods); TEST_ERROR;
 	shmdt(shared_shipCoords); TEST_ERROR;
 	
-	decreaseSem(sops, sem_sync_id, 2);
+	decreaseSem(sops, sem_sync_id, 2); TEST_ERROR;
 }
 void printTime(){
     int numBytes;
@@ -72,7 +75,6 @@ void handleSignal(int signal) {
 	int numBytes;
 	switch(signal) {
 		case SIGUSR1:
-			printTest(75);
 			badWeather(getSwellDuration());
 			break;
 

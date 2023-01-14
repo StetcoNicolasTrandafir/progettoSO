@@ -42,14 +42,15 @@ int shipSharedMemoryID;
 
 void killChildren(){
 	int i;
+	kill(meteoPid, SIGINT); TEST_ERROR;
+	for(i=0; i< SO_NAVI; i++){
+		if (shared_ship[i].pid != -1) {
+			kill(shared_ship[i].pid, SIGINT); TEST_ERROR;
+		}
+	}
 	for(i=0; i< SO_PORTI; i++) {
 		kill(port_pids[i], SIGINT); TEST_ERROR;
 	}
-
-	for(i=0; i< SO_NAVI; i++){
-		kill(shared_ship[i].pid, SIGINT); TEST_ERROR;
-	}
-
 }
 
 void cleanUp(){
@@ -214,7 +215,6 @@ int elementInArray(int element, int array[], int limit) {
 	return 0;
 }
 
-
 void dailyReport(){
 	int i,j = 0;
 	int tonsShipped = 0, tonsInPort = 0, freeDocks = 0;
@@ -240,14 +240,12 @@ void dailyReport(){
 	bzero(typeSum, SO_MERCI*sizeof(int));
 	bzero(stateSum, 5*sizeof(int));
 
-
 	string=malloc(200);TEST_ERROR;
 	numBytes=sprintf(string,"\n\n========================================================================\n\t\tREPORT GIORNO %d:\n========================================================================\n\n\n==================>\t\tPORTI\n", pastDays);
 	TEST_ERROR;
 
 	fflush(stdout);
 	write(1, string, numBytes);
-
 
 	for(i=0; i< SO_PORTI; i++){
 		g=shmat(sharedPortPositions[i].offersID, NULL, 0); TEST_ERROR;
@@ -470,12 +468,11 @@ int main() {
 	sigaction(SIGALRM, &sa, NULL);
 	sigaction(SIGINT, &sa, NULL);
 
-	sem_sync_id = semget(IPC_PRIVATE, 3, 0600); TEST_ERROR;
-	semctl(sem_sync_id, 0, SETVAL, SO_PORTI + SO_NAVI); TEST_ERROR;
+	sem_sync_id = semget(IPC_PRIVATE, 4, 0600); TEST_ERROR;
+	semctl(sem_sync_id, 0, SETVAL, SO_PORTI + SO_NAVI + 1); TEST_ERROR;
 	semctl(sem_sync_id, 1, SETVAL, SO_PORTI); TEST_ERROR;
 	semctl(sem_sync_id, 2, SETVAL, SO_NAVI); TEST_ERROR;
-
-	i = semctl(sem_sync_id, 1, GETVAL);
+	semctl(sem_sync_id, 3, SETVAL, 1); TEST_ERROR;
 
 	sem_sum_id = semget(IPC_PRIVATE, 4, 0600); TEST_ERROR;
 	semctl(sem_sum_id, 0, SETVAL, 1); TEST_ERROR; 
