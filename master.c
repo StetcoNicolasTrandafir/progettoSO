@@ -290,7 +290,7 @@ void dailyReport(){
         /*increaseSem(sops, sharedPortPositions[i].semID, REQUEST);*/
 		freeDocks= semctl(sharedPortPositions[i].semID, 0, GETVAL);TEST_ERROR;
 
-		numBytes = sprintf(string, "PORTO[%d] NUMERO %d in posizione: (%.2f, %.2f)\nBanchine libere %d su %d\nMerci spedite: %d ton\nMerci generate ancora in porto: %d ton\nMerci ricevute: %d ton\n\n", sharedPortPositions[i].pid, i,sharedPortPositions[i].coords.x, sharedPortPositions[i].coords.y, freeDocks, sharedPortPositions[i].docks, shipped, inPort, r->satisfied);
+		numBytes = sprintf(string, "Porto [%d] in posizione: (%.2f, %.2f)\nBanchine libere %d su %d\nMerci richiesta %d/%d di tipo %d\nMerci spedite: %d ton\nMerci generate ancora in porto: %d ton\nMerci ricevute: %d ton\n\n", sharedPortPositions[i].pid, sharedPortPositions[i].coords.x, sharedPortPositions[i].coords.y, freeDocks, sharedPortPositions[i].docks, r->satisfied, r->quantity, r->goodsType, shipped, inPort, r->satisfied);
 		fflush(stdout);
 		write(1, string, numBytes);
 
