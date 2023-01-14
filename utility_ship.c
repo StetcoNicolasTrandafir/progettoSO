@@ -285,7 +285,7 @@ int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int sh
         shared_ship[shipIndex].coords.x=-1;
         shared_ship[shipIndex].coords.y=-1;
         move(s,s.coords,ports[indexClosestPort].coords); TEST_ERROR;
-        shared_ship[shipIndex].coords=s.coords;
+        shared_ship[shipIndex].coords=ports[indexClosestPort].coords;
 
 
         /*loading goods*/
@@ -307,8 +307,8 @@ int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int sh
         shared_ship[shipIndex].coords.x=-1;
         shared_ship[shipIndex].coords.y=-1;
         move(s,s.coords,ports[destinationPortIndex].coords); TEST_ERROR;
-        
-        shared_ship[shipIndex].coords=s.coords;
+        shared_ship[shipIndex].coords=ports[destinationPortIndex].coords;
+
 
         
         /*scarico merce*/

@@ -59,20 +59,20 @@ void handleSignal(int signal) {
 			while((ships[(randomShip+plus)%SO_NAVI].pid==-1 || ships[(randomShip+plus)%SO_NAVI].inDock==1) && plus < SO_NAVI) plus++;
 			if(plus!=SO_NAVI){
 				/*printf("\n\nPID: %d (%.2lf,%.2lf)",ships[(randomShip + plus)%SO_NAVI].pid,ships[(randomShip + plus)%SO_NAVI].coords.x,ships[(randomShip + plus)%SO_NAVI].coords.y);*/
-				kill(ships[randomShip].pid, SIGUSR2); TEST_ERROR;
+				kill(ships[(randomShip+plus)%SO_NAVI].pid, SIGUSR2); TEST_ERROR;
 			}
 
 			randomPort=now.tv_nsec%SO_PORTI;
 			/*TODO - SEMAFORO BANCHINE PORTO*/
+
+/*			kill(ports[randomPort].pid, SIGUSR2); TEST_ERROR;
 			for(i=0; i< SO_NAVI;i++){
 				if(ships[i].coords.x==ports[randomPort].coords.x && ships[i].coords.y==ports[randomPort].coords.y){
-					kill(ships[randomShip].pid, SIGUSR1); TEST_ERROR;
-
+					kill(ships[i].pid, SIGUSR1); TEST_ERROR;
 				}
-					
 			}
 
-
+*/
 
 			break;
 

@@ -413,7 +413,7 @@ void sendSignalToCasualPorts(){
 void sendDailySignal() {
 	int i;
 	for (i = 0; i < SO_PORTI; i++) {
-		kill(port_pids[i], SIGUSR2); TEST_ERROR;
+		kill(port_pids[i], SIGALRM); TEST_ERROR;
 	}
 	for(i = 0; i < SO_NAVI; i++) {
 		kill(shared_ship[i].pid, SIGALRM); TEST_ERROR;

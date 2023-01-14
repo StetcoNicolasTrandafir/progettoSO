@@ -58,6 +58,10 @@ void handleSignal(int signal) {
 			break;
 
 		case SIGUSR2:
+			printTest(61);
+			break;
+
+		case SIGALRM:
 			pastDays++;
 			updateGoods(p,shared_portCoords[idx].semID);
 			break;
@@ -86,6 +90,7 @@ int main(int argc, char *argv[]) {
 	bzero(&sops, sizeof(sops));
 
 	sa.sa_handler = handleSignal;
+	sigaction(SIGALRM, &sa, NULL);
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	sigaction(SIGINT, &sa, NULL);
