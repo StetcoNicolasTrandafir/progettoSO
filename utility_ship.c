@@ -17,12 +17,13 @@
 #include "semaphore_library.h"
 #include "types_module.h"
 #include "utility_coordinates.h"
+#include "utility_meteo.h"
 #include "utility_port.h"
 
 
 int min(int a, int b){ return (a>b) ? b:a; }
 
-void move(coordinates from, coordinates to){
+void move(ship s,coordinates from, coordinates to){
     double travelTime=getDistance(from, to)/SO_SPEED;
     int intero= (int)travelTime;
     double decimal=travelTime-intero;
@@ -30,6 +31,9 @@ void move(coordinates from, coordinates to){
 
     sleepTime.tv_nsec=decimal;
     sleepTime.tv_sec=intero;
+
+    s.coords.x=-1;
+    s.coords.y=-1;
 
     nanosleep(&sleepTime, &rem);
     if(errno==EINTR){
@@ -48,6 +52,8 @@ void move(coordinates from, coordinates to){
 
     if(errno==4)
         errno=0;
+
+    s.coords=to;
 }
 
 
@@ -89,6 +95,27 @@ int getNearestPort(struct port_sharedMemory *ports, coordinates coords, double m
     }
     return minIndex;
 }
+
+void badWeather(struct timespec duration){
+    nanosleep(&duration, &duration);
+    if(errno==EINTR){
+        errno=0;
+        while(nanosleep(&duration, &duration)==-1)
+        {
+            if(errno!=EINTR)
+            {
+                TEST_ERROR;
+            }
+        }
+    }else
+    {
+        TEST_ERROR;
+    }
+
+    if(errno==4)
+        errno=0;
+}
+
 
 void loadUnload(int quantity){
     float neededTime= quantity/SO_LOADSPEED;
@@ -257,8 +284,7 @@ int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int sh
         /*moving towards the port to load goods*/
         shared_ship[shipIndex].coords.x=-1;
         shared_ship[shipIndex].coords.y=-1;
-        move(s.coords,ports[indexClosestPort].coords); TEST_ERROR;
-        s.coords= ports[indexClosestPort].coords;
+        move(s,s.coords,ports[indexClosestPort].coords); TEST_ERROR;
         shared_ship[shipIndex].coords=s.coords;
 
 
@@ -280,8 +306,8 @@ int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int sh
         /*moving towards the port wich made the request*/
         shared_ship[shipIndex].coords.x=-1;
         shared_ship[shipIndex].coords.y=-1;
-        move(s.coords,ports[destinationPortIndex].coords); TEST_ERROR;
-        s.coords=ports[destinationPortIndex].coords;
+        move(s,s.coords,ports[destinationPortIndex].coords); TEST_ERROR;
+        
         shared_ship[shipIndex].coords=s.coords;
 
         
@@ -333,6 +359,7 @@ int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int sh
         return -1;
     }
 }
+
 
 
 int getValidRequestPort(goods good, struct port_sharedMemory * sh_port) {

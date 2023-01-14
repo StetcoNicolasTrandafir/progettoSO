@@ -14,9 +14,9 @@ if [ -z "$1" ]
     export SO_FILL=69
     export SO_LOADSPEED=100 
     export SO_DAYS=10
-    export SO_STORMDURATION=10
+    export SO_STORMDURATION=24
     export SO_SWELLDURATION=69
-    export SO_MALESTROM=36
+    export SO_MEALSTROM=30
     echo "Done!"
     else if [ $1 == 1 ] 
         then
@@ -36,7 +36,7 @@ if [ -z "$1" ]
             export SO_DAYS=10
             export SO_STORM_DURATION=6
             export SO_SWELL_DURATION=24
-            export SO_MALESTROM=1
+            export SO_MEALSTROM=1
             echo "Done!"
         else if [ $1 == 2 ] 
             then
@@ -56,7 +56,7 @@ if [ -z "$1" ]
                 export SO_DAYS=10
                 export SO_STORM_DURATION=6
                 export SO_SWELL_DURATION=24
-                export SO_MALESTROM=1
+                export SO_MEALSTROM=1
                 echo "Done!"
             else if [ $1 == 3 ] 
                 then
@@ -76,7 +76,7 @@ if [ -z "$1" ]
                     export SO_DAYS=10
                     export SO_STORM_DURATION=6
                     export SO_SWELL_DURATION=24
-                    export SO_MALESTROM=60
+                    export SO_MEALSTROM=60
                     echo "Done!"
                 else if [ $1 == 4 ] 
                     then
@@ -96,7 +96,7 @@ if [ -z "$1" ]
                         export SO_DAYS=10
                         export SO_STORM_DURATION=6
                         export SO_SWELL_DURATION=24
-                        export SO_MALESTROM=24
+                        export SO_MEALSTROM=24
                         echo "Done!"
                     else if [ $1 == 5 ] 
                         then
@@ -116,7 +116,7 @@ if [ -z "$1" ]
                             export SO_DAYS=10
                             export SO_STORM_DURATION=12
                             export SO_SWELL_DURATION=10
-                            export SO_MALESTROM=1
+                            export SO_MEALSTROM=1
                             echo "Done!"
                         else if [ $1 == 0 ] 
                             then
@@ -136,7 +136,7 @@ if [ -z "$1" ]
                                 export SO_DAYS=30
                                 export SO_STORMDURATION=10
                                 export SO_SWELLDURATION=69
-                                export SO_MALESTROM=69 
+                                export SO_MEALSTROM=69 
                                 echo "Done!"
                             else 
                                 echo "Invalid argument: please insert a number of the interval [0,5]"

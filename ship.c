@@ -14,6 +14,7 @@
 #include <sys/sem.h>
 #include <sys/shm.h>
 #include <sys/msg.h>
+#include <time.h>
 
 #include "macro.h"
 #include "semaphore_library.h"
@@ -21,6 +22,7 @@
 #include "utility_port.h"
 #include "utility_coordinates.h"
 #include "utility_ship.h"
+#include "utility_meteo.h"
 
 struct port_sharedMemory *shared_portCoords;
 struct ship_sharedMemory *shared_shipCoords;
@@ -47,6 +49,20 @@ void cleanUp() {
 	
 	decreaseSem(sops, sem_sync_id, 2);
 }
+void printTime(){
+    int numBytes;
+    char *string;
+    struct timespec now;
+    clock_gettime(CLOCK_REALTIME, &now);
+
+    
+    string=malloc(70);
+    numBytes=sprintf(string,"\n[%d]GIORNO: %ld MILLISECONDI: %ld\n", getpid(), now.tv_sec, now.tv_nsec);
+
+    fflush(stdout);
+    write(1, string, numBytes);
+    free(string);
+}
 
 
 void handleSignal(int signal) {
@@ -56,26 +72,21 @@ void handleSignal(int signal) {
 	int numBytes;
 	switch(signal) {
 		case SIGUSR1:
-			string=malloc(27);
-			numBytes=sprintf(string,"\n[%d]NAVE AFFONDATA!\n", getpid());
-			fflush(stdout);
-			write(1, string, numBytes);
-			cleanUp();
-			/*
-			printf("\nNAVE IN POSIZIONE (%f,%f):\n", s.coords.x, s.coords.y);
-			index= getNearestPort(shared_portCoords, s.coords, 0);
-			printf("\n\nINDICE === %d", index);
-			printf("Il porto più vicino a questo porto è in posizione (%f,%f) (PID: %d)) \n", shared_portCoords[index].coords.x, shared_portCoords[index].coords.y,shared_portCoords[index].pid);
-			printf("\nSegnale personalizzato della nave [%d] intercettato\n", getpid());
-			*/
+			printTest(75);
+			badWeather(getSwellDuration());
 			break;
 
+		case SIGUSR2:
+			printTime();
+			badWeather(getStormDuration());
+			printTime();
+        	break;
+
         case SIGALRM:
+			pastDays++;
             break;
 
-        case SIGUSR2:
-        	pastDays++;
-        	break;
+
 
 		/*SIGSTOP:
 			string=malloc(76);
