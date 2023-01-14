@@ -14,8 +14,8 @@ if [ -z "$1" ]
     export SO_FILL=69
     export SO_LOADSPEED=100 
     export SO_DAYS=10
-    export SO_STORMDURATION=24
-    export SO_SWELLDURATION=69
+    export SO_STORM_DURATION=24
+    export SO_SWELL_DURATION=69
     export SO_MEALSTROM=30
     echo "Done!"
     else if [ $1 == 1 ] 
@@ -134,8 +134,8 @@ if [ -z "$1" ]
                                 export SO_FILL=69
                                 export SO_LOADSPEED=69 
                                 export SO_DAYS=30
-                                export SO_STORMDURATION=10
-                                export SO_SWELLDURATION=69
+                                export SO_STORMD_URATION=10
+                                export SO_SWELL_DURATION=69
                                 export SO_MEALSTROM=69 
                                 echo "Done!"
                             else 
