@@ -149,6 +149,7 @@ int main(int argc, char *argv[]){
 		if (errno == 4) errno = 0;
 		else TEST_ERROR;
 	}
+	pause();
     
     cleanUp();
     exit(EXIT_SUCCESS);

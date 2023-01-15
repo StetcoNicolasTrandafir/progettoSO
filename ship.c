@@ -188,7 +188,7 @@ int main(int argc, char *argv[]) {
 	msg_id = msgget(getppid(), IPC_CREAT | 0600); TEST_ERROR;
 	
 	while (pastDays < SO_DAYS) {
-		if(negociate(atoi(argv[2]), s, shared_shipCoords,shipIndex,expiredGoods, sem_expired_goods_id)== -1, expiredGoods) {
+		if(negociate(atoi(argv[2]), s, shared_shipCoords,shipIndex,expiredGoods, sem_expired_goods_id)== -1) {
 			pause();
 			if (errno == 4) errno = 0;
 			else TEST_ERROR;

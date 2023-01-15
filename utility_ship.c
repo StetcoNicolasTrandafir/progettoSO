@@ -401,7 +401,13 @@ int getValidRequestPort(goods good, struct port_sharedMemory * sh_port) {
 
     bzero(&sops, sizeof(sops));
 
-    msg_id=msgget(getppid(), 0600); TEST_ERROR;
+    msg_id=msgget(getppid(), 0600);
+    if (errno == 2) {
+        errno = 0;
+        return -1;
+    }
+    else
+        {TEST_ERROR;}
 
     for (i = 0; i < SO_PORTI; i++) {
         ret = msgrcv(msg_id, &msg, sizeof(struct msg_request), good.type, IPC_NOWAIT); 
