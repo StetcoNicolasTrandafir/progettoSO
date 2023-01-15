@@ -217,8 +217,12 @@ int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int sh
 
         while(g[i].type!=0 && destinationPortIndex==-1 && i<SO_FILL ){
             decreaseSem(sops, ports[indexClosestPort].semID, OFFER);TEST_ERROR;
+            s.semLastID=ports[indexClosestPort].semID;
+            s.semLastNum=OFFER;
             if(g[i].state==in_port){
                 increaseSem(sops, ports[indexClosestPort].semID, OFFER);TEST_ERROR;
+                s.semLastNum=-1;
+                s.semLastID=-1;
                 destinationPortIndex=getValidRequestPort(g[i],ports);
                 if(destinationPortIndex!=-1){
                     if(willExpire(g[i], s, ports[indexClosestPort].coords, ports[destinationPortIndex].coords))
@@ -229,6 +233,8 @@ int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int sh
             }
             else{
                 increaseSem(sops, ports[indexClosestPort].semID, OFFER);
+                s.semLastNum=-1;
+                s.semLastID=-1;
                 TEST_ERROR;
             }
             i++;
@@ -267,14 +273,22 @@ int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int sh
 
         /*CAMBIO VALORI RICHIESTA*/      
         decreaseSem(sops, destinationPortSemID, REQUEST);TEST_ERROR;
+        s.semLastNum=REQUEST;
+        s.semLastID=destinationPortSemID;
         request->booked+=shippedGoodsQuantity;
         increaseSem(sops, destinationPortSemID, REQUEST);TEST_ERROR;
+        s.semLastNum=-1;
+        s.semLastID=-1;
 
 
         /*CAMBIO VALORI OFFERTA*/
         decreaseSem(sops, startingPortSemID, OFFER);TEST_ERROR;
+        s.semLastNum=OFFER;
+        s.semLastID=startingPortSemID;
         g[goodIndex].booked=1;
         increaseSem(sops, startingPortSemID, OFFER);TEST_ERROR;
+        s.semLastNum=-1;
+        s.semLastID=-1;
 
 
         /*moving towards the port to load goods*/
@@ -282,6 +296,7 @@ int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int sh
         shared_ship[shipIndex].coords.x=-1;
         shared_ship[shipIndex].coords.y=-1;
         increaseSem(sops,shared_ship[shipIndex].semID, COORDS);
+        
         move(s,s.coords,ports[indexClosestPort].coords); TEST_ERROR;
         decreaseSem(sops,shared_ship[shipIndex].semID, COORDS);
         shared_ship[shipIndex].coords=ports[indexClosestPort].coords;
@@ -300,8 +315,12 @@ int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int sh
             loadUnload(g[shippedGoods[i]].dimension);TEST_ERROR;
 
             decreaseSem(sops, startingPortSemID, OFFER);TEST_ERROR;
+            s.semLastNum=OFFER;
+            s.semLastID=startingPortSemID;
             g[shippedGoods[i]].state=on_ship;
             increaseSem(sops, startingPortSemID, OFFER);TEST_ERROR;
+            s.semLastNum=-1;
+            s.semLastID=-1;
 
             decreaseSem(sops,shared_ship[shipIndex].semID, GOODS);
             s.goods[i]=g[shippedGoods[i]];
@@ -345,8 +364,12 @@ int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int sh
             else{
 
                 decreaseSem(sops,destinationPortSemID, OFFER);
+                s.semLastNum=OFFER;
+                s.semLastID=destinationPortSemID;
                 g[shippedGoods[i]].state=expired_ship;
                 increaseSem(sops,destinationPortSemID, OFFER);
+                s.semLastNum=-1;
+                s.semLastID=-1;
                 decreaseSem(sops, sem_expired_goods_id, 0); TEST_ERROR;
                 expiredGood[(g[shippedGoods[i]].type)-1]+=g[shippedGoods[i]].dimension;
                 increaseSem(sops, sem_expired_goods_id, 0); TEST_ERROR;
@@ -361,8 +384,12 @@ int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int sh
 
         /*CAMBIO VALORI RICHIESTA*/
         decreaseSem(sops, destinationPortSemID, REQUEST);TEST_ERROR;
+        s.semLastID=destinationPortSemID;
+        s.semLastNum=REQUEST;
         request->satisfied+=shippedGoodsQuantity;
         increaseSem(sops, destinationPortSemID, REQUEST); TEST_ERROR;
+        s.semLastNum=-1;
+        s.semLastID=-1;
         
         shmdt(request); TEST_ERROR;
         shmdt(g); TEST_ERROR;
