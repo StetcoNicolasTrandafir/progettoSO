@@ -52,7 +52,6 @@ void cleanUp() {
 	increaseSem(sops,shared_shipCoords[shipIndex].semID,PID); TEST_ERROR;
 
 	shmdt(expiredGoods); TEST_ERROR;
-	semctl(shared_shipCoords[shipIndex].semID, 0, IPC_RMID); TEST_ERROR;
 	shmdt(s.goods); TEST_ERROR;
 	shmdt(shared_shipCoords); TEST_ERROR;
 	
@@ -110,9 +109,7 @@ void handleSignal(int signal) {
 			break;
 
 		case SIGINT:
-			printTest(113);
 			cleanUp();
-			printTest(114);
 			exit(EXIT_SUCCESS);
 			break;
 	}
@@ -160,7 +157,6 @@ int main(int argc, char *argv[]) {
 
 	shared_shipCoords[shipIndex].goodsID = shmget(IPC_PRIVATE, SO_CAPACITY * sizeof(goods), S_IRUSR | S_IWUSR | IPC_CREAT); TEST_ERROR;
 	s.goods = shmat(shared_shipCoords[shipIndex].goodsID, NULL, 0); TEST_ERROR;
-	shmctl(shared_shipCoords[shipIndex].goodsID, IPC_RMID, NULL); TEST_ERROR;
 	bzero(s.goods, SO_CAPACITY * sizeof(goods));
 
 
@@ -178,15 +174,12 @@ int main(int argc, char *argv[]) {
 	semctl(shared_shipCoords[shipIndex].semID, 3, SETVAL, 1); TEST_ERROR; /*pid*/
 	semctl(shared_shipCoords[shipIndex].semID, 3, SETVAL, 1); TEST_ERROR; /*storm*/
 
-
 	printShip(s); TEST_ERROR;
 	sem_sync_id = atoi(argv[1]);
 
 	decreaseSem(sops, sem_sync_id, 0); TEST_ERROR;
 
 	waitForZero(sops, sem_sync_id, 0); TEST_ERROR;
-
-	msg_id = msgget(getppid(), IPC_CREAT | 0600); TEST_ERROR;
 	
 	while (pastDays < SO_DAYS) {
 		if(negociate(atoi(argv[2]), s, shared_shipCoords,shipIndex,expiredGoods, sem_expired_goods_id)== -1) {

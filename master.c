@@ -34,7 +34,6 @@ int pastDays = 0, *sum_request, *sum_offer;
 int sem_sync_id, sem_sum_id;
 int port_sharedMemoryID, sum_requestID, sum_offerID;
 int msg_id;
-pid_t *port_pids;
 struct port_sharedMemory *sharedPortPositions;
 pid_t meteoPid;
 struct ship_sharedMemory *shared_ship;
@@ -52,13 +51,18 @@ void killChildren(){
 		}
 	}
 	for(i=0; i< SO_PORTI; i++) {
-		kill(port_pids[i], SIGINT); TEST_ERROR;
+		kill(sharedPortPositions[i].pid, SIGINT); TEST_ERROR;
 	}
 }
 
 void cleanUp(){
 	struct sembuf sops;
-	waitForZero(sops, sem_sync_id,1);
+	int i;
+	waitForZero(sops, sem_sync_id,1); TEST_ERROR;
+	for(i = 0; i < SO_NAVI; i++) {
+		semctl(shared_ship[i].semID, 0, IPC_RMID); TEST_ERROR;
+		shmctl(shared_ship[i].goodsID, IPC_RMID, NULL); TEST_ERROR;
+	}
 
 	shmdt(sharedPortPositions); TEST_ERROR;
 	shmdt(sum_request); TEST_ERROR;
@@ -446,7 +450,7 @@ void sendSignalToCasualPorts(){
     	}
     	while (elementInArray(casual_idx, port_idx, i));
 		port_idx[i] = casual_idx;
-    	kill(port_pids[port_idx[i]], SIGUSR1); TEST_ERROR;
+    	kill(sharedPortPositions[port_idx[i]].pid, SIGUSR1); TEST_ERROR;
     }
     free(port_idx);
 }
@@ -454,7 +458,7 @@ void sendSignalToCasualPorts(){
 void sendDailySignal() {
 	int i;
 	for (i = 0; i < SO_PORTI; i++) {
-		kill(port_pids[i], SIGALRM); TEST_ERROR;
+		kill(sharedPortPositions[i].pid, SIGALRM); TEST_ERROR;
 	}
 	for(i = 0; i < SO_NAVI; i++) {
 		kill(shared_ship[i].pid, SIGALRM); TEST_ERROR;
@@ -485,8 +489,6 @@ void handleSignal(int signal) {
 			break;
 
 		case SIGINT:
-
-
 
 			string=malloc(85);
 			numBytes=sprintf(string,"\n\n\nINTERRUZIONE INASPETTATA DEL PROGRAMMA\nPulizia processi figli, IPCs, etc. ...\n");
@@ -534,7 +536,6 @@ int main() {
 
 	sharedPortPositions = calloc(SO_PORTI, sizeof(struct port_sharedMemory));
 	sum_request = malloc(sizeof(int));
-	port_pids = calloc(SO_PORTI, sizeof(pid_t));
 
 	bzero(&sharedPortPositions, sizeof(sharedPortPositions));
 	bzero(&sa, sizeof(sa));
@@ -545,7 +546,7 @@ int main() {
 	sigaction(SIGINT, &sa, NULL);
 
 	sem_sync_id = semget(IPC_PRIVATE, 4, 0600); TEST_ERROR;
-	semctl(sem_sync_id, 0, SETVAL, SO_PORTI + SO_NAVI + 1); TEST_ERROR;
+	semctl(sem_sync_id, 0, SETVAL, SO_PORTI + SO_NAVI + 1); TEST_ERROR; /**/
 	semctl(sem_sync_id, 1, SETVAL, SO_PORTI); TEST_ERROR;
 	semctl(sem_sync_id, 2, SETVAL, SO_NAVI); TEST_ERROR;
 	semctl(sem_sync_id, 3, SETVAL, 1); TEST_ERROR;
@@ -607,10 +608,6 @@ int main() {
 				TEST_ERROR;
 				exit(EXIT_FAILURE);
 				
-
-			default:
-				port_pids[i] = fork_rst;
-				break;
 		}
 	}
 
@@ -668,7 +665,7 @@ int main() {
 			break; 
 	}
 
-	waitForZero(sops, sem_sync_id,0);
+	waitForZero(sops, sem_sync_id, 0);
 
 	alarm(1);
 	
@@ -680,8 +677,6 @@ int main() {
 
 
 	cleanUp();
-
-	free(port_pids);
 
 	string=malloc(25);
 	numBytes=sprintf(string,"\n\nSIMULAZIONE FINITA!!!\n\n");

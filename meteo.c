@@ -35,7 +35,7 @@ void cleanUp() {
 	bzero(&sops, sizeof(struct sembuf));
 	shmdt(ports); TEST_ERROR;
 	shmdt(ships); TEST_ERROR;
-	decreaseSem(sops, sem_sync_id, 3);
+	decreaseSem(sops, sem_sync_id, 3); TEST_ERROR;
 }
 
 void handleSignal(int signal) {
@@ -48,6 +48,12 @@ void handleSignal(int signal) {
 
     
 	switch(signal) {
+
+		case SIGINT:
+			printTest(53);
+			cleanUp();
+			exit(EXIT_SUCCESS);
+			break;
 
 		case SIGUSR2:
 			bzero(&sops, sizeof(struct sembuf));
@@ -146,13 +152,6 @@ void handleSignal(int signal) {
 					/*setitimer(ITIMER_REAL, &mealstromQuantum, NULL); TEST_ERROR;*/
 				}
 			}
-			break;
-
-		case SIGINT:
-			printTest(155);
-			cleanUp();
-			printTest(157);
-			exit(EXIT_SUCCESS);
 			break;
 	}
 }
