@@ -41,23 +41,39 @@ void handleSignal(int signal) {
 	pid_t randomPort, randomShip;
 	int plus=0;
 	int i=0;
+	int endWhile=0;
+	struct sembuf sops;
 
     
 	switch(signal) {
-        
-		case SIGUSR1:
-			clock_gettime(CLOCK_REALTIME, &now);
-    		randomPort = now.tv_nsec % SO_PORTI;
-
-			/*printf("\n\n[%d]METEO: sto per colpire il porto con indice %d con una mareggiata e la nave %d con una tempesta", getpid(),randomPort,-1);*/
-			break;
 
 		case SIGUSR2:
+			bzero(&sops, sizeof(struct sembuf));
+
 			pastDays++;
 			if (pastDays < SO_DAYS) {
 				clock_gettime(CLOCK_REALTIME, &now);
 	    		randomShip = now.tv_nsec % SO_NAVI;
-				while((ships[(randomShip+plus)%SO_NAVI].pid==-1 || ships[(randomShip+plus)%SO_NAVI].inDock==1) && plus < SO_NAVI) plus++;
+				
+
+				while( !endWhile && plus < SO_NAVI) {
+					
+					decreaseSem(sops,ships[i].semID, PID); TEST_ERROR;
+					if(ships[(randomShip+plus)%SO_NAVI].pid!=-1){
+						increaseSem(sops,ships[i].semID, PID); TEST_ERROR;
+
+						decreaseSem(sops,ships[i].semID, INDOCK); TEST_ERROR;
+						if( ships[(randomShip+plus)%SO_NAVI].inDock==0)
+							endWhile++;
+						increaseSem(sops,ships[i].semID, INDOCK); TEST_ERROR;
+
+					}else{
+						increaseSem(sops,ships[i].semID, PID); TEST_ERROR;
+					}
+
+
+					plus++;
+				}
 				if(plus!=SO_NAVI){
 					/*printf("\n\nPID: %d (%.2lf,%.2lf)",ships[(randomShip + plus)%SO_NAVI].pid,ships[(randomShip + plus)%SO_NAVI].coords.x,ships[(randomShip + plus)%SO_NAVI].coords.y);*/
 					kill(ships[(randomShip+plus)%SO_NAVI].pid, SIGUSR2); TEST_ERROR;
@@ -67,10 +83,20 @@ void handleSignal(int signal) {
 				/*TODO - SEMAFORO BANCHINE PORTO*/
 
 				kill(ports[randomPort].pid, SIGUSR2); TEST_ERROR;
+
 				for(i=0; i< SO_NAVI;i++){
+					decreaseSem(sops,ships[i].semID, COORDS); TEST_ERROR;
 					if(ships[i].coords.x==ports[randomPort].coords.x && ships[i].coords.y==ports[randomPort].coords.y){
-						kill(ships[i].pid, SIGUSR1); TEST_ERROR;
+						
+						decreaseSem(sops,ships[i].semID, PID); TEST_ERROR;
+
+						if(ships[i].pid!=-1)
+						{
+							kill(ships[i].pid, SIGUSR1); TEST_ERROR;
+						}
+						increaseSem(sops,ships[i].semID, PID); TEST_ERROR;
 					}
+					increaseSem(sops,ships[i].semID, COORDS); TEST_ERROR;
 				}
 			}
 			break;

@@ -254,11 +254,6 @@ int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int sh
         destinationPortSemID = ports[destinationPortIndex].semID; 
 
 
-        for(i=0; i<shippedGoodsIndex; i++){
-            g[shippedGoods[i]].state=on_ship;
-            s.goods[i]=g[shippedGoods[i]];
-        }
-
         request = shmat(ports[destinationPortIndex].requestID, NULL, 0); 
         if (request == (void *)-1) {
             if (errno == 22) {
@@ -282,14 +277,21 @@ int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int sh
 
 
         /*moving towards the port to load goods*/
+        decreaseSem(sops,shared_ship[shipIndex].semID, COORDS);
         shared_ship[shipIndex].coords.x=-1;
         shared_ship[shipIndex].coords.y=-1;
+        increaseSem(sops,shared_ship[shipIndex].semID, COORDS);
         move(s,s.coords,ports[indexClosestPort].coords); TEST_ERROR;
+        decreaseSem(sops,shared_ship[shipIndex].semID, COORDS);
         shared_ship[shipIndex].coords=ports[indexClosestPort].coords;
+        increaseSem(sops,shared_ship[shipIndex].semID, COORDS);
 
 
         /*loading goods*/
+        decreaseSem(sops,shared_ship[shipIndex].semID, INDOCK);
         shared_ship[shipIndex].inDock=1;
+        increaseSem(sops,shared_ship[shipIndex].semID, INDOCK);
+
         decreaseSem(sops, startingPortSemID, DOCK);TEST_ERROR;
 
         for(i=0; i< shippedGoodsIndex; i++){
@@ -299,20 +301,37 @@ int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int sh
             decreaseSem(sops, startingPortSemID, OFFER);TEST_ERROR;
             g[shippedGoods[i]].state=on_ship;
             increaseSem(sops, startingPortSemID, OFFER);TEST_ERROR;
+
+            decreaseSem(sops,shared_ship[shipIndex].semID, GOODS);
+            s.goods[i]=g[shippedGoods[i]];
+            increaseSem(sops,shared_ship[shipIndex].semID, GOODS);
+
+            
         }
         increaseSem(sops, startingPortSemID, DOCK);TEST_ERROR;
-        shared_ship[shipIndex].inDock=0;        
+
+        decreaseSem(sops,shared_ship[shipIndex].semID, INDOCK);
+        shared_ship[shipIndex].inDock=0;
+        increaseSem(sops,shared_ship[shipIndex].semID, INDOCK);
+
 
         /*moving towards the port wich made the request*/
+        decreaseSem(sops,shared_ship[shipIndex].semID, COORDS);
         shared_ship[shipIndex].coords.x=-1;
         shared_ship[shipIndex].coords.y=-1;
+        increaseSem(sops,shared_ship[shipIndex].semID, COORDS);
         move(s,s.coords,ports[destinationPortIndex].coords); TEST_ERROR;
+        decreaseSem(sops,shared_ship[shipIndex].semID, COORDS);
         shared_ship[shipIndex].coords=ports[destinationPortIndex].coords;
+        increaseSem(sops,shared_ship[shipIndex].semID, COORDS);
 
 
         
         /*scarico merce*/
+        decreaseSem(sops,shared_ship[shipIndex].semID, INDOCK);
         shared_ship[shipIndex].inDock=1;
+        increaseSem(sops,shared_ship[shipIndex].semID, INDOCK);
+
         decreaseSem(sops, destinationPortSemID, DOCK);TEST_ERROR;
         for(i=0; i< shippedGoodsIndex; i++){
             if(g[shippedGoods[i]].state==on_ship &&isExpired(g[shippedGoods[i]])){
@@ -320,15 +339,20 @@ int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int sh
                 loadUnload(g[shippedGoods[i]].dimension);TEST_ERROR;
             }
             else{
-                
+
+                decreaseSem(sops,destinationPortSemID, OFFER);
                 g[shippedGoods[i]].state=expired_ship;
+                increaseSem(sops,destinationPortSemID, OFFER);
                 decreaseSem(sops, sem_expired_goods_id, 0); TEST_ERROR;
                 expiredGood[(g[shippedGoods[i]].type)-1]+=g[shippedGoods[i]].dimension;
                 increaseSem(sops, sem_expired_goods_id, 0); TEST_ERROR;
             }
         }
         increaseSem(sops, destinationPortSemID, DOCK);TEST_ERROR;
+
+        decreaseSem(sops,shared_ship[shipIndex].semID, INDOCK);
         shared_ship[shipIndex].inDock=0;
+        increaseSem(sops,shared_ship[shipIndex].semID, INDOCK);
 
 
         /*CAMBIO VALORI RICHIESTA*/
