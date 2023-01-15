@@ -45,6 +45,8 @@ void handleSignal(int signal) {
 	int i=0;
 	int endWhile=0, flag = 0;
 	struct sembuf sops;
+	int prevErrno=errno;
+	errno=0;
 
     
 	switch(signal) {
@@ -154,6 +156,7 @@ void handleSignal(int signal) {
 			}
 			break;
 	}
+	errno=prevErrno;
 }
 
 

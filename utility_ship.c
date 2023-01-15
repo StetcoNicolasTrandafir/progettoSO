@@ -220,8 +220,12 @@ int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int sh
             if(g[i].state==in_port){
                 increaseSem(sops, ports[indexClosestPort].semID, OFFER);TEST_ERROR;
                 destinationPortIndex=getValidRequestPort(g[i],ports);
-                if(destinationPortIndex!=-1)
-                    goodIndex=i;
+                if(destinationPortIndex!=-1){
+                    if(willExpire(g[i], s, ports[indexClosestPort].coords, ports[destinationPortIndex].coords))
+                        destinationPortIndex=-1;
+                    else
+                        goodIndex=i;
+                }
             }
             else{
                 increaseSem(sops, ports[indexClosestPort].semID, OFFER);

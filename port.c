@@ -52,6 +52,8 @@ void printPort(port p, int i) {
 }
 
 void handleSignal(int signal) {
+	int prevErrno=errno;
+	errno=0;
 	switch(signal) {
 		case SIGUSR1:
 			idxOffer=generateOffer(p, idxOffer, sum_offerID, sem_sum_id, shared_portCoords[idx].semID);
@@ -70,6 +72,7 @@ void handleSignal(int signal) {
 			exit(EXIT_SUCCESS);
 			break;
 	}
+	errno=prevErrno;
 }
 
 int main(int argc, char *argv[]) {

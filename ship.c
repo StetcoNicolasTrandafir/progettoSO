@@ -78,6 +78,9 @@ void handleSignal(int signal) {
 	int i;
 	char *string;
 	int numBytes;
+	int prevErrno=errno;
+
+	errno=0;
 	
 	switch(signal) {
 		case SIGUSR1:
@@ -113,6 +116,7 @@ void handleSignal(int signal) {
 			exit(EXIT_SUCCESS);
 			break;
 	}
+	errno=prevErrno;
 }
 
 int main(int argc, char *argv[]) {

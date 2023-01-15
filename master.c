@@ -93,6 +93,10 @@ void finalReport(){
 	char *string;
 	int numBytes;
 	struct sembuf sops;
+	int sinked=0;
+	int busyDocks=0;
+	int dischargedShips=0;
+	int chargedShips=0;
 	bzero(&sops, sizeof(struct sembuf));
 
 	goodsReport=calloc(SO_MERCI, sizeof(struct goodsTypeReport));
@@ -102,6 +106,26 @@ void finalReport(){
 	bzero(goodsReport, SO_MERCI*sizeof(struct goodsTypeReport));
 	bzero(goodsStateSum, 5*sizeof(int));
 
+
+
+/*!SECTION
+
+>PORTI
+	-merce presente
+	-merce spedita
+	-merce ricevuta
+>MERCI
+	-per tipo
+		+suddivisione per stato
+	-per stato
+>NAVI
+	-in mare cariche
+	-in mare scariche
+	-facendo carico/scarico
+>METEO
+	-già sai
+
+*/
 	string=malloc(200);
 	numBytes=sprintf(string,"\n\n========================================================================\n\t\tREPORT FINALE:\n========================================================================\n\n\n==================>\t\tPORTI\n");
 
@@ -117,13 +141,14 @@ void finalReport(){
 		inPortGoods=0;
 		shippedGoods=0;
 		
+		
 		for(j=0; j<SO_FILL && g[j].type!=0; j++){
 
 			totalGoodsSum+=g[j].dimension;
 			offerSum[(g[j].type-1)]+=g[j].dimension;
 			goodsReport[(g[j].type-1)].totalSum+=g[j].dimension;
 
-			/*decreaseSem(sops, sharedPortPositions[i].semID, OFFER);*/
+			decreaseSem(sops, sharedPortPositions[i].semID, OFFER);
 
 			if(g[j].state==in_port){
 				goodsStateSum[in_port]+=g[j].dimension;
@@ -136,13 +161,13 @@ void finalReport(){
 				shippedGoods+=g[j].dimension;
 			}
 			
-           	/*increaseSem(sops, sharedPortPositions[i].semID, OFFER);*/
+           	increaseSem(sops, sharedPortPositions[i].semID, OFFER);
 		}
 
-        /*decreaseSem(sops, sharedPortPositions[i].semID, REQUEST);*/
+        decreaseSem(sops, sharedPortPositions[i].semID, REQUEST);
 		goodsReport[(r->goodsType-1)].delivered+=r->satisfied;
 		goodsStateSum[delivered]+=r->satisfied;
-        /*increaseSem(sops, sharedPortPositions[i].semID, REQUEST);*/
+        increaseSem(sops, sharedPortPositions[i].semID, REQUEST);
 
 		for(j=0; j<SO_MERCI; j++){
 
@@ -152,49 +177,90 @@ void finalReport(){
 			}
 		}
 		
+
+
+		decreaseSem(sops, sharedPortPositions[i].semID, REQUEST);
 		if(goodsReport[(r->goodsType-1)].maxRequest < r->quantity){
 			goodsReport[(r->goodsType-1)].maxRequest = r->quantity;
-			goodsReport[(r->goodsType-1)].maxOfferPortIndex = i;
+			goodsReport[(r->goodsType-1)].maxRequestPortIndex = i;
 		}
+		increaseSem(sops, sharedPortPositions[i].semID, REQUEST);
+
+
+		
 
 		string=realloc(string,130);
+		decreaseSem(sops, sharedPortPositions[i].semID, REQUEST);
 		numBytes=sprintf(string,"\n\nPORTO[%d] NUMERO %d (%.2f,%.2f):\nMerce in porto:%dton\nMerce spedita:%dton\nMerce ricevuta:%dton\n",  sharedPortPositions[i].pid,(i+1),sharedPortPositions[i].coords.x,sharedPortPositions[i].coords.y, inPortGoods,shippedGoods,r-> satisfied);
+		increaseSem(sops, sharedPortPositions[i].semID, REQUEST);
+
 		fflush(stdout);
 		write(1, string, numBytes);
 
 		shmdt(g);
 		shmdt(r);
-
 		
 	}
 	free(offerSum);
 
+	for(i=0; i< SO_NAVI; i++){
+
+		decreaseSem(sops,shared_ship[i].semID, PID);
+		
+		if(shared_ship[i].pid!=-1){
+			
+			decreaseSem(sops,shared_ship[i].semID, INDOCK);
+			if(shared_ship[i].inDock) {
+				busyDocks++;
+				increaseSem(sops,shared_ship[i].semID, INDOCK);
+			}
+
+			else {
+				increaseSem(sops,shared_ship[i].semID, INDOCK);
+				j=0;
+				g=shmat(shared_ship[i].goodsID, NULL, 0); TEST_ERROR;
+				if(g[0].type!=0)
+					chargedShips++;
+				else 
+					dischargedShips++;
+				}
+
+			while(g[j].type!=0 && j< SO_CAPACITY){
+				decreaseSem(sops,shared_ship[i].semID, GOODS);
+				if(g[j].state==on_ship && isExpired(g[j])){
+					g[j].state=expired_ship;
+					decreaseSem(sops, sem_expired_goods_id, 0); TEST_ERROR;
+					expiredGoods[g[j].type-1]=g[j].dimension;
+					increaseSem(sops, sem_expired_goods_id, 0); TEST_ERROR;
+				}else{
+					goodsStateSum[on_ship]+=g[j].dimension;
+				}
+				increaseSem(sops,shared_ship[i].semID, GOODS);
+				j++;
+			}
+		}else 
+			sinked++;
+		increaseSem(sops,shared_ship[i].semID, PID);
+	}
 
 
-	/*TODO ships handling:
-	-Quante occupano una banchina => darei un occhio al semaforo, ma non so come ritornare il valore iniziale del semaforo
-	-Quante affondate da un vortice? => farei tenere il conto al processo meteo
-	-Quanti rallentati da una mareggiata=> farei tenere il conto al processo meteo(perchè bisogna tenere conto anche dei porti che hanno subito la mareggiata)
-	-Quanta merce persa?
-	-Quanta merce scaduta in nave? 
-	*/
+	decreaseSem(sops, sem_expired_goods_id, 0); TEST_ERROR;
+	for(i=0; i<SO_MERCI; i++){
+		goodsStateSum[expired_ship]+=expiredGoods[i];
+	}
+	increaseSem(sops, sem_expired_goods_id, 0); TEST_ERROR;
 
 
+	string=realloc(string,187);TEST_ERROR;
+	numBytes=sprintf(string,"\n\n ==================>\t\tNAVI\n\nNavi affondate: %d\nNumero di navi facendo operazioni di carico/scarico: %d\nIn mare con un carico a bordo: %d\nIn mare senza carico a bordo: %d",sinked, busyDocks,chargedShips, dischargedShips);
+	fflush(stdout);
+	write(1, string, numBytes);
 
 	string=realloc(string,65);
 	numBytes=sprintf(string,"\n\n ==================>\t\tREPORT MERCI\n\n---------->\tPER STATI:");
 	fflush(stdout);
 	write(1, string, numBytes);
 
-	/*NOTE
-	FATTI: 
-	-in porto
-	-scaduta in porto
-	-consegnata
-	DA FARE:
-	-in nave
-	-scaduta in nave
-	*/
 
 	string=realloc(string,240);
 	numBytes=sprintf(string,"\n\nMerce in porto (disponibile): %dton\nMerce scaduta in porto: %dton\nMerce consegnata: %dton\nMerce in nave: %dton\nMerce scaduta in nave: %dton\n\n---------->\tPER TIPOLOGIA:\n\n\nTOTALE MERCE GENERATA: %dton",goodsStateSum[in_port],goodsStateSum[expired_port],goodsStateSum[delivered],goodsStateSum[on_ship],goodsStateSum[expired_ship],totalGoodsSum);
@@ -252,7 +318,7 @@ void dailyReport(){
 	bzero(typeSum, SO_MERCI*sizeof(int));
 	bzero(stateSum, 5*sizeof(int));
 
-	string=malloc(200);TEST_ERROR;
+	string=malloc(210);TEST_ERROR;
 	numBytes=sprintf(string,"\n\n========================================================================\n\t\tREPORT GIORNO %d:\n========================================================================\n\n\n==================>\t\tPORTI\n", pastDays);
 	TEST_ERROR;
 
@@ -264,7 +330,6 @@ void dailyReport(){
 		r=shmat(sharedPortPositions[i].requestID, NULL, 0); TEST_ERROR;
 		inPort=0;
 		shipped=0;
-		
 
 		/*in_port expired_port*/
         decreaseSem(sops, sharedPortPositions[i].semID, OFFER);
@@ -297,7 +362,7 @@ void dailyReport(){
 		/*delivered*/
 		stateSum[delivered]+=r->satisfied;
 
-		numBytes = sprintf(string, "Porto [%d] in posizione: (%.2f, %.2f)\nBanchine libere %d su %d\nMerci richiesta %d/%d di tipo %d\nMerci spedite: %d ton\nMerci generate ancora in porto: %d ton\nMerci ricevute: %d ton\n\n", sharedPortPositions[i].pid, sharedPortPositions[i].coords.x, sharedPortPositions[i].coords.y, freeDocks, sharedPortPositions[i].docks, r->satisfied, r->quantity, r->goodsType, shipped, inPort, r->satisfied);
+		numBytes = sprintf(string, "Porto numero %d [%d] in posizione: (%.2f, %.2f)\nBanchine libere %d su %d\nMerci richiesta %d/%d di tipo %d\nMerci spedite: %d ton\nMerci generate ancora in porto: %d ton\nMerci ricevute: %d ton\n\n", (i+1), sharedPortPositions[i].pid, sharedPortPositions[i].coords.x, sharedPortPositions[i].coords.y, freeDocks, sharedPortPositions[i].docks, r->satisfied, r->quantity, r->goodsType, shipped, inPort, r->satisfied);
 		fflush(stdout);
 		write(1, string, numBytes);
 		increaseSem(sops,sharedPortPositions[i].semID, REQUEST);
@@ -320,7 +385,6 @@ void dailyReport(){
 				busyDocks++;
 				increaseSem(sops,shared_ship[i].semID, INDOCK);
 			}
-
 			else {
 				increaseSem(sops,shared_ship[i].semID, INDOCK);
 				j=0;
@@ -330,7 +394,6 @@ void dailyReport(){
 				else 
 					dischargedShips++;
 				}
-			/*NOTE si blocca qui*/
 
 			while(g[j].type!=0 && j< SO_CAPACITY){
 				decreaseSem(sops,shared_ship[i].semID, GOODS);
@@ -349,6 +412,8 @@ void dailyReport(){
 			sinked++;
 		increaseSem(sops,shared_ship[i].semID, PID);
 	}
+
+
 	decreaseSem(sops, sem_expired_goods_id, 0); TEST_ERROR;
 	for(i=0; i<SO_MERCI; i++){
 		stateSum[expired_ship]+=expiredGoods[i];
@@ -472,6 +537,8 @@ void sendDailySignal() {
 void handleSignal(int signal) {
 	char *string;
 	int numBytes;
+	int prevErrno=errno;
+	errno=0;
 
 	switch(signal) {
 		case SIGALRM:
