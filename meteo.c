@@ -67,7 +67,7 @@ void handleSignal(int signal) {
 
 				while(!endWhile && plus < SO_NAVI) {
 					TEST_ERROR;
-					if(ships[(randomShip+plus)%SO_NAVI].pid!=-1){
+					if(ships[(randomShip+plus)%SO_NAVI].sinked!=1){
 
 						decreaseSem(sops,ships[i].semID, INDOCK); TEST_ERROR;
 						if( ships[(randomShip+plus)%SO_NAVI].inDock==0)
@@ -100,14 +100,11 @@ void handleSignal(int signal) {
 				for(i=0; i< SO_NAVI;i++){
 					decreaseSem(sops,ships[i].semID, COORDS); TEST_ERROR;
 					if(ships[i].coords.x==ports[randomPort].coords.x && ships[i].coords.y==ports[randomPort].coords.y){
-						
-						decreaseSem(sops,ships[i].semID, PID); TEST_ERROR;
 
-						if(ships[i].pid!=-1)
+						if(ships[i].sinked!=1)
 						{
 							kill(ships[i].pid, SIGUSR1); TEST_ERROR;
 						}
-						increaseSem(sops,ships[i].semID, PID); TEST_ERROR;
 					}
 					increaseSem(sops,ships[i].semID, COORDS); TEST_ERROR;
 				}
@@ -119,14 +116,12 @@ void handleSignal(int signal) {
         		clock_gettime(CLOCK_REALTIME, &now);
 		    	randomShip = now.tv_nsec % SO_NAVI;
 		    	while(!endWhile && plus < SO_NAVI)  {
-		    		decreaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, PID); TEST_ERROR;
-		    		if (ships[(randomShip+plus)%SO_NAVI].pid!=-1) {
+		    		if (ships[(randomShip+plus)%SO_NAVI].sinked!=1) {
 		    			endWhile++;
 		    		}
 		    		else {
 		    			plus++;
 		    		}
-		    		increaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, PID); TEST_ERROR;
 		    	}
 				if(plus < SO_NAVI){
 		    		decreaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, INDOCK); TEST_ERROR;
@@ -147,15 +142,10 @@ void handleSignal(int signal) {
 					else {
 		    			increaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, INDOCK); TEST_ERROR;
 					}
-					printTest(ships[(randomShip+plus)%SO_NAVI].pid);
 		    		decreaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, PID); TEST_ERROR;
-		    		printTest(153);
 		    		ships[(randomShip+plus)%SO_NAVI].sinked = 1;
 					kill(ships[(randomShip+plus)%SO_NAVI].pid, SIGINT); TEST_ERROR;
-					/*ships[(randomShip+plus)%SO_NAVI].pid = -1;*/
-					printTest(155);
 		    		increaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, PID); TEST_ERROR;
-		    		printTest(157);
 
 					setitimer(ITIMER_REAL, &mealstromQuantum, NULL); TEST_ERROR;
 				}

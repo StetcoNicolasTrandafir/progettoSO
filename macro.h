@@ -38,8 +38,7 @@
 #define GOODS 0
 #define COORDS 1
 #define INDOCK 2 
-#define PID 3
-#define STORM 4
+#define STORM 3
 
 
 #endif /*_MACRO_H*/

@@ -377,7 +377,7 @@ void dailyReport(){
 
 	for(i=0; i< SO_NAVI; i++){
 
-		if(shared_ship[i].pid!=1){
+		if(shared_ship[i].sinked!=1){
 			decreaseSem(sops,shared_ship[i].semID, STORM);
 			if(shared_ship[i].storm) stormed++;
 			increaseSem(sops,shared_ship[i].semID, STORM);
@@ -533,7 +533,9 @@ void sendDailySignal() {
 		kill(sharedPortPositions[i].pid, SIGALRM); TEST_ERROR;
 	}
 	for(i = 0; i < SO_NAVI; i++) {
-		kill(shared_ship[i].pid, SIGALRM); TEST_ERROR;
+		if (shared_ship[i].sinked != 1) {
+			kill(shared_ship[i].pid, SIGALRM); TEST_ERROR;
+		}
 	}
 
 	kill(meteoPid, SIGUSR2); TEST_ERROR;
