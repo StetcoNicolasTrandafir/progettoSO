@@ -117,14 +117,16 @@ void handleSignal(int signal) {
 
         case SIGALRM:
 			if (pastDays < SO_DAYS) {
-	        	clock_gettime(CLOCK_REALTIME, &now);
+        		clock_gettime(CLOCK_REALTIME, &now);
 		    	randomShip = now.tv_nsec % SO_NAVI;
 		    	while(!endWhile && plus < SO_NAVI)  {
 		    		decreaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, PID); TEST_ERROR;
-		    		if (ships[(randomShip+plus)%SO_NAVI].pid!=-1)
+		    		if (ships[(randomShip+plus)%SO_NAVI].pid!=-1) {
 		    			endWhile++;
-		    		else
+		    		}
+		    		else {
 		    			plus++;
+		    		}
 		    		increaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, PID); TEST_ERROR;
 		    	}
 				if(plus < SO_NAVI){
@@ -146,17 +148,22 @@ void handleSignal(int signal) {
 					else {
 		    			increaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, INDOCK); TEST_ERROR;
 					}
+					printTest(ships[(randomShip+plus)%SO_NAVI].pid);
 		    		decreaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, PID); TEST_ERROR;
+		    		printTest(153);
+		    		ships[(randomShip+plus)%SO_NAVI].sinked = 1;
 					kill(ships[(randomShip+plus)%SO_NAVI].pid, SIGINT); TEST_ERROR;
-					ships[(randomShip+plus)%SO_NAVI].pid = -1;
+					/*ships[(randomShip+plus)%SO_NAVI].pid = -1;*/
+					printTest(155);
 		    		increaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, PID); TEST_ERROR;
+		    		printTest(157);
 
-					/*setitimer(ITIMER_REAL, &mealstromQuantum, NULL); TEST_ERROR;*/
+					setitimer(ITIMER_REAL, &mealstromQuantum, NULL); TEST_ERROR;
 				}
 			}
 			break;
 	}
-	errno=prevErrno;
+	errno = prevErrno;
 }
 
 
@@ -172,7 +179,10 @@ int main(int argc, char *argv[]){
 	ports = shmat(atoi(argv[3]), NULL, 0);
 	ships = shmat(atoi(argv[2]), NULL, 0);
 
-	/*mealstromQuantum=getMealstromQuantum();*/
+	mealstromQuantum.it_value.tv_sec = (SO_MEALSTROM/24);
+    h = SO_MEALSTROM - (mealstromQuantum.it_value.tv_sec*24);
+    mealstromQuantum.it_value.tv_usec=(h*100000)/24;
+    mealstromQuantum.it_interval = mealstromQuantum.it_value;
 
 	/*string=realloc(string,120);
 	numBytes=sprintf(string,"\n\nUNA NAVE VERRÀ AFFONDATA OGNI %ld,%ld giorni", mealstromQuantum.tv_sec,mealstromQuantum.tv_nsec);
@@ -190,6 +200,8 @@ int main(int argc, char *argv[]){
 
 	decreaseSem(sops, sem_sync_id, 0); TEST_ERROR;
 	waitForZero(sops, sem_sync_id, 0); TEST_ERROR;
+
+	setitimer(ITIMER_REAL, &mealstromQuantum, NULL); TEST_ERROR;
 
 	while (1) {
 		pause();
