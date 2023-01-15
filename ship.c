@@ -46,7 +46,7 @@ void cleanUp() {
 	struct sembuf sops;
 	bzero(&sops, sizeof(struct sembuf));
 	decreaseSem(sops,shared_shipCoords[shipIndex].semID,PID); TEST_ERROR;
-	if (shared_shipCoords[shipIndex].pid != -1){
+	if (shared_shipCoords[shipIndex].sinked != -1){
 		waitForZero(sops, sem_sync_id, 3); TEST_ERROR;
 	}
 	increaseSem(sops,shared_shipCoords[shipIndex].semID,PID); TEST_ERROR;
@@ -112,6 +112,7 @@ void handleSignal(int signal) {
 			break;
 
 		case SIGINT:
+			printTest(115);
 			cleanUp();
 			exit(EXIT_SUCCESS);
 			break;
@@ -156,9 +157,9 @@ int main(int argc, char *argv[]) {
 	
 	s.coords = getRandomCoords();
 	shared_shipCoords[shipIndex].coords = s.coords;
-	shared_shipCoords[shipIndex].inDock= 0;
-	shared_shipCoords[shipIndex].storm= 0;
-
+	shared_shipCoords[shipIndex].inDock = 0;
+	shared_shipCoords[shipIndex].storm = 0;
+	shared_shipCoords[shipIndex].sinked = 0;
 
 	shared_shipCoords[shipIndex].goodsID = shmget(IPC_PRIVATE, SO_CAPACITY * sizeof(goods), S_IRUSR | S_IWUSR | IPC_CREAT); TEST_ERROR;
 	s.goods = shmat(shared_shipCoords[shipIndex].goodsID, NULL, 0); TEST_ERROR;

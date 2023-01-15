@@ -46,7 +46,7 @@ void killChildren(){
 	int i;
 	kill(meteoPid, SIGINT); TEST_ERROR;
 	for(i=0; i< SO_NAVI; i++){
-		if (shared_ship[i].pid != -1) {
+		if (shared_ship[i].sinked != 1) {
 			kill(shared_ship[i].pid, SIGINT); TEST_ERROR;
 		}
 	}
@@ -97,8 +97,6 @@ void finalReport(){
 	int busyDocks=0;
 	int dischargedShips=0;
 	int chargedShips=0;
-	int swellPort=0;
-	int stormed=0;
 	bzero(&sops, sizeof(struct sembuf));
 
 	goodsReport=calloc(SO_MERCI, sizeof(struct goodsTypeReport));
@@ -109,12 +107,31 @@ void finalReport(){
 	bzero(goodsStateSum, 5*sizeof(int));
 
 
+
+/*!SECTION
+
+>PORTI
+	-merce presente
+	-merce spedita
+	-merce ricevuta
+>MERCI
+	-per tipo
+		+suddivisione per stato
+	-per stato
+>NAVI
+	-in mare cariche
+	-in mare scariche
+	-facendo carico/scarico
+>METEO
+	-già sai
+
+*/
 	string=malloc(200);
 	numBytes=sprintf(string,"\n\n========================================================================\n\t\tREPORT FINALE:\n========================================================================\n\n\n==================>\t\tPORTI\n");
 
 	fflush(stdout);
 	write(1, string, numBytes);
-	string=realloc(string,150);
+	
 	for(i=0; i<SO_PORTI; i++){
 		g=shmat(sharedPortPositions[i].offersID, NULL, 0);
 		r=shmat(sharedPortPositions[i].requestID, NULL, 0);
@@ -161,6 +178,7 @@ void finalReport(){
 		}
 		
 
+
 		decreaseSem(sops, sharedPortPositions[i].semID, REQUEST);
 		if(goodsReport[(r->goodsType-1)].maxRequest < r->quantity){
 			goodsReport[(r->goodsType-1)].maxRequest = r->quantity;
@@ -170,12 +188,10 @@ void finalReport(){
 
 
 		
-		decreaseSem(sops, sharedPortPositions[i].semID, REQUEST);
-		decreaseSem(sops, sharedPortPositions[i].semID, SWELL);
-		if(sharedPortPositions[i].swell) swellPort++;
 
-		numBytes=sprintf(string,"\n\nPORTO[%d] NUMERO %d (%.2f,%.2f):\nMerce in porto:%dton\nMerce spedita:%dton\nMerce ricevuta:%dton\nPorto colpito da mareggiata %d volte\n",  sharedPortPositions[i].pid,(i+1),sharedPortPositions[i].coords.x,sharedPortPositions[i].coords.y, inPortGoods,shippedGoods,r-> satisfied, sharedPortPositions[i].swell);
-		increaseSem(sops, sharedPortPositions[i].semID, SWELL);
+		string=realloc(string,130);
+		decreaseSem(sops, sharedPortPositions[i].semID, REQUEST);
+		numBytes=sprintf(string,"\n\nPORTO[%d] NUMERO %d (%.2f,%.2f):\nMerce in porto:%dton\nMerce spedita:%dton\nMerce ricevuta:%dton\n",  sharedPortPositions[i].pid,(i+1),sharedPortPositions[i].coords.x,sharedPortPositions[i].coords.y, inPortGoods,shippedGoods,r-> satisfied);
 		increaseSem(sops, sharedPortPositions[i].semID, REQUEST);
 
 		fflush(stdout);
@@ -190,11 +206,7 @@ void finalReport(){
 	for(i=0; i< SO_NAVI; i++){
 
 		
-		if(shared_ship[i].pid!=-1){
-
-			decreaseSem(sops,shared_ship[i].semID, STORM);
-			if(shared_ship[i].storm) stormed++;
-			increaseSem(sops,shared_ship[i].semID, STORM);
+		if(shared_ship[i].sinked!=1){
 			
 			decreaseSem(sops,shared_ship[i].semID, INDOCK);
 			if(shared_ship[i].inDock) {
@@ -247,7 +259,8 @@ void finalReport(){
 	fflush(stdout);
 	write(1, string, numBytes);
 
-	string=realloc(string,260);
+
+	string=realloc(string,240);
 	numBytes=sprintf(string,"\n\nMerce in porto (disponibile): %dton\nMerce scaduta in porto: %dton\nMerce consegnata: %dton\nMerce in nave: %dton\nMerce scaduta in nave: %dton\n\n---------->\tPER TIPOLOGIA:\n\n\nTOTALE MERCE GENERATA: %dton",goodsStateSum[in_port],goodsStateSum[expired_port],goodsStateSum[delivered],goodsStateSum[on_ship],goodsStateSum[expired_ship],totalGoodsSum);
 	fflush(stdout);
 	write(1, string, numBytes);
@@ -259,15 +272,6 @@ void finalReport(){
 		fflush(stdout);
 		write(1, string, numBytes);
 	}
-
-
-
-	string=realloc(string,143);
-	numBytes=sprintf(string,"\n\n ==================>\t\tREPORT METEO\n\nNavi affondate dal vortice: %d\nPorti colpiti da mareggiata: %d\nNavi rallentate dalla tempesta: %d", sinked, swellPort,stormed);
-	fflush(stdout);
-	write(1, string, numBytes);
-
-
 	free(goodsReport);
 	free(goodsStateSum);
 
@@ -276,7 +280,7 @@ void finalReport(){
 
 int elementInArray(int element, int array[], int limit) {
 	int i;
-	
+
 	for (i = 0; i < limit; i++) {
 		if (array[i] == element) {
 			return 1;
@@ -304,8 +308,6 @@ void dailyReport(){
 	int totalOffer=0;
 	int sinked=0;
 	int expiredOnShip=0;
-	int stormed=0;
-	int swellPort=0;
 	bzero(&sops, sizeof(struct sembuf));
 
 	typeSum=calloc(SO_MERCI, sizeof(int));TEST_ERROR;
@@ -314,7 +316,7 @@ void dailyReport(){
 	bzero(typeSum, SO_MERCI*sizeof(int));
 	bzero(stateSum, 5*sizeof(int));
 
-	string=malloc(220);TEST_ERROR;
+	string=malloc(210);TEST_ERROR;
 	numBytes=sprintf(string,"\n\n========================================================================\n\t\tREPORT GIORNO %d:\n========================================================================\n\n\n==================>\t\tPORTI\n", pastDays);
 	TEST_ERROR;
 
@@ -327,6 +329,7 @@ void dailyReport(){
 		inPort=0;
 		shipped=0;
 
+		/*in_port expired_port*/
         decreaseSem(sops, sharedPortPositions[i].semID, OFFER);
 		while(j<SO_FILL && g[j].type!=0){
 
@@ -349,45 +352,30 @@ void dailyReport(){
 
         increaseSem(sops, sharedPortPositions[i].semID, OFFER);
 
-		freeDocks= semctl(sharedPortPositions[i].semID, 0, GETVAL);TEST_ERROR;
-
         decreaseSem(sops, sharedPortPositions[i].semID, REQUEST);
 		totalRequest+=r->quantity-r->satisfied;
+
+		freeDocks= semctl(sharedPortPositions[i].semID, 0, GETVAL);TEST_ERROR;
+
 		/*delivered*/
 		stateSum[delivered]+=r->satisfied;
 
-		decreaseSem(sops, sharedPortPositions[i].semID, SWELL);
-		if(sharedPortPositions[i].swell) swellPort++;
-
-		numBytes = sprintf(string, "Porto numero %d [%d] in posizione: (%.2f, %.2f)\nBanchine libere %d su %d\nMerci spedite: %d ton\nMerci generate ancora in porto: %d ton\nMerci ricevute: %d ton\nPorto colpito da mareggiata %d volte\n\n", (i+1), sharedPortPositions[i].pid, sharedPortPositions[i].coords.x, sharedPortPositions[i].coords.y, freeDocks, sharedPortPositions[i].docks, shipped, inPort, r->satisfied,sharedPortPositions[i].swell);
-		increaseSem(sops, sharedPortPositions[i].semID, SWELL);
-		increaseSem(sops,sharedPortPositions[i].semID, REQUEST);
-
-
-
-
+		numBytes = sprintf(string, "Porto numero %d [%d] in posizione: (%.2f, %.2f)\nBanchine libere %d su %d\nMerci richiesta %d/%d di tipo %d\nMerci spedite: %d ton\nMerci generate ancora in porto: %d ton\nMerci ricevute: %d ton\n\n", (i+1), sharedPortPositions[i].pid, sharedPortPositions[i].coords.x, sharedPortPositions[i].coords.y, freeDocks, sharedPortPositions[i].docks, r->satisfied, r->quantity, r->goodsType, shipped, inPort, r->satisfied);
 		fflush(stdout);
 		write(1, string, numBytes);
-		
+		increaseSem(sops,sharedPortPositions[i].semID, REQUEST);
 
 		shmdt(g);
 		shmdt(r);
 	}
 
-
-	printTest(384);
+	
+	/*on_ship == MANCA EXPIRED ON SHIP==> MEMORIA CONDIVISA*/
 	for(i=0; i< SO_NAVI; i++){
-		printTest(390);
-		printTest(i);
-
-		
-		if(shared_ship[i].pid!=-1){
-			printTest(391);
+		if(shared_ship[i].sinked != 1){
 			decreaseSem(sops,shared_ship[i].semID, STORM);
 			if(shared_ship[i].storm) stormed++;
 			increaseSem(sops,shared_ship[i].semID, STORM);
-			
-			printTest(396);
 			decreaseSem(sops,shared_ship[i].semID, INDOCK);
 			if(shared_ship[i].inDock){
 				busyDocks++; 
@@ -403,8 +391,7 @@ void dailyReport(){
 					chargedShips++;
 				else 
 					dischargedShips++;
-				}
-
+			}
 			while(g[j].type!=0 && j< SO_CAPACITY){
 				decreaseSem(sops,shared_ship[i].semID, GOODS);
 				if(g[j].state==on_ship && isExpired(g[j])){
@@ -422,13 +409,11 @@ void dailyReport(){
 			sinked++;
 	}
 
-
 	decreaseSem(sops, sem_expired_goods_id, 0); TEST_ERROR;
 	for(i=0; i<SO_MERCI; i++){
 		stateSum[expired_ship]+=expiredGoods[i];
 	}
 	increaseSem(sops, sem_expired_goods_id, 0); TEST_ERROR;
-
 
 
 	string=realloc(string,200);TEST_ERROR;
@@ -452,12 +437,6 @@ void dailyReport(){
 
 	string=realloc(string,187);TEST_ERROR;
 	numBytes=sprintf(string,"\n\n ==================>\t\tNAVI\n\nNavi affondate: %d\nNumero di navi facendo operazioni di carico/scarico: %d\nIn mare con un carico a bordo: %d\nIn mare senza carico a bordo: %d",sinked, busyDocks,chargedShips, dischargedShips);
-	fflush(stdout);
-	write(1, string, numBytes);
-
-
-	string=realloc(string,143);
-	numBytes=sprintf(string,"\n\n ==================>\t\tREPORT METEO\n\nNavi affondate dal vortice: %d\nPorti colpiti da mareggiata: %d\nNavi rallentate dalla tempesta: %d", sinked, swellPort,stormed);
 	fflush(stdout);
 	write(1, string, numBytes);
 

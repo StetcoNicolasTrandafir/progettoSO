@@ -62,6 +62,7 @@ struct ship_sharedMemory{
     pid_t pid;
     int goodsID;
     int storm;
+    int sinked;
 };
 
 struct goodsTypeReport{
