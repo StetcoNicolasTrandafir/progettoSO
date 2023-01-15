@@ -29,7 +29,7 @@
 					  strerror(errno)); \
 					  errno=0;\
 					  }
-
+#define SWELL 3
 #define REQUEST 2
 #define OFFER 1
 #define DOCK 0
@@ -39,6 +39,7 @@
 #define COORDS 1
 #define INDOCK 2 
 #define PID 3
+#define STORM 4
 
 
 #endif /*_MACRO_H*/

@@ -16,6 +16,7 @@
 #include <sys/shm.h>
 #include <sys/msg.h>
 #include <time.h>
+#include <sys/time.h>
 
 #include "macro.h"
 #include "types_module.h"
@@ -27,6 +28,7 @@
 struct ship_sharedMemory *ships;
 struct port_sharedMemory *ports;
 int sem_sync_id, pastDays = 0;
+struct itimerval mealstromQuantum;
 
 void cleanUp() {
 	struct sembuf sops;
@@ -41,7 +43,7 @@ void handleSignal(int signal) {
 	pid_t randomPort, randomShip;
 	int plus=0;
 	int i=0;
-	int endWhile=0;
+	int endWhile=0, flag = 0;
 	struct sembuf sops;
 
     
@@ -56,33 +58,37 @@ void handleSignal(int signal) {
 	    		randomShip = now.tv_nsec % SO_NAVI;
 				
 
-				while( !endWhile && plus < SO_NAVI) {
-					
-					decreaseSem(sops,ships[i].semID, PID); TEST_ERROR;
+				while(!endWhile && plus < SO_NAVI) {
+					TEST_ERROR;
 					if(ships[(randomShip+plus)%SO_NAVI].pid!=-1){
-						increaseSem(sops,ships[i].semID, PID); TEST_ERROR;
 
 						decreaseSem(sops,ships[i].semID, INDOCK); TEST_ERROR;
 						if( ships[(randomShip+plus)%SO_NAVI].inDock==0)
 							endWhile++;
+						else
+							plus++;
 						increaseSem(sops,ships[i].semID, INDOCK); TEST_ERROR;
 
 					}else{
-						increaseSem(sops,ships[i].semID, PID); TEST_ERROR;
+						plus++;
 					}
-
-
-					plus++;
 				}
+
 				if(plus!=SO_NAVI){
 					/*printf("\n\nPID: %d (%.2lf,%.2lf)",ships[(randomShip + plus)%SO_NAVI].pid,ships[(randomShip + plus)%SO_NAVI].coords.x,ships[(randomShip + plus)%SO_NAVI].coords.y);*/
 					kill(ships[(randomShip+plus)%SO_NAVI].pid, SIGUSR2); TEST_ERROR;
+					decreaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, STORM); TEST_ERROR;
+					ships[(randomShip+plus)%SO_NAVI].storm++;
+					increaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, STORM); TEST_ERROR;
 				}
 
 				randomPort=now.tv_nsec%SO_PORTI;
 				/*TODO - SEMAFORO BANCHINE PORTO*/
 
 				kill(ports[randomPort].pid, SIGUSR2); TEST_ERROR;
+				decreaseSem(sops, ports[randomPort].semID, SWELL); TEST_ERROR;
+				ports[randomPort].swell++;
+				increaseSem(sops, ports[randomPort].semID, SWELL); TEST_ERROR;
 
 				for(i=0; i< SO_NAVI;i++){
 					decreaseSem(sops,ships[i].semID, COORDS); TEST_ERROR;
@@ -102,11 +108,50 @@ void handleSignal(int signal) {
 			break;
 
         case SIGALRM:
-			/*printf("\n\n[%d]METEO: vortice! la nave %d verrà affondata", getpid(),-1);*/
+			if (pastDays < SO_DAYS) {
+	        	clock_gettime(CLOCK_REALTIME, &now);
+		    	randomShip = now.tv_nsec % SO_NAVI;
+		    	while(!endWhile && plus < SO_NAVI)  {
+		    		decreaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, PID); TEST_ERROR;
+		    		if (ships[(randomShip+plus)%SO_NAVI].pid!=-1)
+		    			endWhile++;
+		    		else
+		    			plus++;
+		    		increaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, PID); TEST_ERROR;
+		    	}
+				if(plus < SO_NAVI){
+		    		decreaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, INDOCK); TEST_ERROR;
+					if (!ships[(randomShip+plus)%SO_NAVI].inDock) {
+		    			increaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, INDOCK); TEST_ERROR;
+						for (i = 0; i < SO_PORTI && !flag; i++) {
+			    			decreaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, COORDS); TEST_ERROR;
+							if (ports[i].coords.x == ships[(randomShip+plus)%SO_NAVI].coords.x && ports[i].coords.y == ships[(randomShip+plus)%SO_NAVI].coords.y) {
+			    				increaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, COORDS); TEST_ERROR;
+								increaseSem(sops, ports[i].semID, DOCK); TEST_ERROR;
+								flag++;
+							}
+							else {
+			    				increaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, COORDS); TEST_ERROR;
+							}
+						}
+					}
+					else {
+		    			increaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, INDOCK); TEST_ERROR;
+					}
+		    		decreaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, PID); TEST_ERROR;
+					kill(ships[(randomShip+plus)%SO_NAVI].pid, SIGINT); TEST_ERROR;
+					ships[(randomShip+plus)%SO_NAVI].pid = -1;
+		    		increaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, PID); TEST_ERROR;
+
+					/*setitimer(ITIMER_REAL, &mealstromQuantum, NULL); TEST_ERROR;*/
+				}
+			}
 			break;
 
 		case SIGINT:
+			printTest(155);
 			cleanUp();
+			printTest(157);
 			exit(EXIT_SUCCESS);
 			break;
 	}
@@ -115,8 +160,8 @@ void handleSignal(int signal) {
 
 int main(int argc, char *argv[]){
     int i;
+    int h;	
 	struct sigaction sa;
-	struct timespec mealstromQuantum;
 	int numBytes;
 	char *string;
 	struct sembuf sops;
@@ -125,7 +170,7 @@ int main(int argc, char *argv[]){
 	ports = shmat(atoi(argv[3]), NULL, 0);
 	ships = shmat(atoi(argv[2]), NULL, 0);
 
-	mealstromQuantum=getMealstromQuantum();
+	/*mealstromQuantum=getMealstromQuantum();*/
 
 	/*string=realloc(string,120);
 	numBytes=sprintf(string,"\n\nUNA NAVE VERRÀ AFFONDATA OGNI %ld,%ld giorni", mealstromQuantum.tv_sec,mealstromQuantum.tv_nsec);
@@ -141,17 +186,12 @@ int main(int argc, char *argv[]){
 	sigaction(SIGUSR2, &sa, NULL);
 	sigaction(SIGINT, &sa, NULL);
 
-	decreaseSem(sops, sem_sync_id, 0);
-	waitForZero(sops, sem_sync_id, 0);
+	decreaseSem(sops, sem_sync_id, 0); TEST_ERROR;
+	waitForZero(sops, sem_sync_id, 0); TEST_ERROR;
 
-	while (pastDays < SO_DAYS) {
+	while (1) {
 		pause();
-		if (errno == 4) errno = 0;
-		else TEST_ERROR;
 	}
-	pause();
-    
-    cleanUp();
     exit(EXIT_SUCCESS);
 
 }

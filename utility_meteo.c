@@ -1,5 +1,5 @@
-
 #define _GNU_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
@@ -11,8 +11,7 @@
 #include <sys/sem.h>
 #include <errno.h>
 #include <string.h>
-       
-       
+#include <sys/time.h>       
 
 #include "macro.h"
 #include "types_module.h"
@@ -149,13 +148,17 @@ struct timespec getSwellDuration(){
     return t;
 }
 
-struct timespec getMealstromQuantum(){
-    struct timespec t;
+struct itimerval getMealstromQuantum() {
+    struct itimerval t;
     int h;
 
-    t.tv_sec= (int)(SO_MEALSTROM/24);
-    h=SO_MEALSTROM - (t.tv_sec*24);
-    t.tv_nsec=(h*100000000)/24;
-
-    return t;
+    t.it_value.tv_sec = (SO_MEALSTROM/24);
+    printTest(t.it_value.tv_sec);
+    h = SO_MEALSTROM - (t.it_value.tv_sec*24);
+    t.it_value.tv_usec=(h*100000)/24;
+    printTest(t.it_value.tv_usec);
+    t.it_interval = t.it_value;
+    printTest(t.it_value.tv_sec);
+    printTest(t.it_value.tv_usec);
+    
 }

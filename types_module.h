@@ -36,6 +36,7 @@ struct port_sharedMemory {
     int offersID;
     int requestID;
     int semID;
+    int swell;
 };
 
 /*the struct request is made up by the requested goods' type, the quantity and a couple of ints usefull in the negociation process*/
@@ -60,6 +61,7 @@ struct ship_sharedMemory{
     int semID;
     pid_t pid;
     int goodsID;
+    int storm;
 };
 
 struct goodsTypeReport{

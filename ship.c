@@ -45,13 +45,13 @@ void printShip(ship s) {
 void cleanUp() {
 	struct sembuf sops;
 	bzero(&sops, sizeof(struct sembuf));
-	decreaseSem(sops,shared_shipCoords[shipIndex].semID,PID);
+	decreaseSem(sops,shared_shipCoords[shipIndex].semID,PID); TEST_ERROR;
 	if (shared_shipCoords[shipIndex].pid != -1){
 		waitForZero(sops, sem_sync_id, 3); TEST_ERROR;
 	}
-	increaseSem(sops,shared_shipCoords[shipIndex].semID,PID);
+	increaseSem(sops,shared_shipCoords[shipIndex].semID,PID); TEST_ERROR;
 
-	shmdt(expiredGoods);
+	shmdt(expiredGoods); TEST_ERROR;
 	semctl(shared_shipCoords[shipIndex].semID, 0, IPC_RMID); TEST_ERROR;
 	shmdt(s.goods); TEST_ERROR;
 	shmdt(shared_shipCoords); TEST_ERROR;
@@ -110,7 +110,9 @@ void handleSignal(int signal) {
 			break;
 
 		case SIGINT:
+			printTest(113);
 			cleanUp();
+			printTest(114);
 			exit(EXIT_SUCCESS);
 			break;
 	}
@@ -163,19 +165,18 @@ int main(int argc, char *argv[]) {
 
 
 	/*!SECTION
-	
 	inDock
 	coords
 	pid
 	goods
-	
 	*/
 
-	shared_shipCoords[shipIndex].semID = semget(IPC_PRIVATE, 4, IPC_CREAT | 0600); TEST_ERROR;
+	shared_shipCoords[shipIndex].semID = semget(IPC_PRIVATE, 5, IPC_CREAT | 0600); TEST_ERROR;
 	semctl(shared_shipCoords[shipIndex].semID, 0, SETVAL, 1); TEST_ERROR; /*goods*/
 	semctl(shared_shipCoords[shipIndex].semID, 1, SETVAL, 1); TEST_ERROR; /*coords*/
 	semctl(shared_shipCoords[shipIndex].semID, 2, SETVAL, 1); TEST_ERROR; /*inDock*/
 	semctl(shared_shipCoords[shipIndex].semID, 3, SETVAL, 1); TEST_ERROR; /*pid*/
+	semctl(shared_shipCoords[shipIndex].semID, 3, SETVAL, 1); TEST_ERROR; /*storm*/
 
 
 	printShip(s); TEST_ERROR;
@@ -190,14 +191,12 @@ int main(int argc, char *argv[]) {
 	while (pastDays < SO_DAYS) {
 		if(negociate(atoi(argv[2]), s, shared_shipCoords,shipIndex,expiredGoods, sem_expired_goods_id)== -1) {
 			pause();
-			if (errno == 4) errno = 0;
-			else TEST_ERROR;
 		}
 	}	
 
-	pause();
-	
-	cleanUp();
+	while(1) {
+		pause();
+	}
 
 	exit(0);
 }

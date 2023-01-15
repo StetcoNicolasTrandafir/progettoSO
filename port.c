@@ -66,7 +66,9 @@ void handleSignal(int signal) {
 			break;
 
 		case SIGINT:
+			printTest(69);
 			cleanUp();
+			printTest(71);
 			exit(EXIT_SUCCESS);
 			break;
 	}
@@ -132,7 +134,6 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	/*dopo che il porto inserisci i suoi dati, non ha più bisogno di accedere alla memoria*/
 	shared_portCoords[idx].coords=coords;
 	shared_portCoords[idx].pid=getpid();
 	shared_portCoords[idx].offersID=shmget(IPC_PRIVATE, SO_FILL*sizeof(goods), S_IRUSR | S_IWUSR | IPC_CREAT); TEST_ERROR;
@@ -145,10 +146,11 @@ int main(int argc, char *argv[]) {
 	srand(getpid());
 	p.docks = rand() % SO_BANCHINE + 1;
 	shared_portCoords[idx].docks=p.docks;
-	shared_portCoords[idx].semID = semget(IPC_PRIVATE, 3, IPC_CREAT | 0600); /*3 semaphores: sem[0]=docks, sem[1]= offers handling, sem[2]=request handling*/ TEST_ERROR;
+	shared_portCoords[idx].semID = semget(IPC_PRIVATE, 4, IPC_CREAT | 0600); /*3 semaphores: sem[0]=docks, sem[1]= offers handling, sem[2]=request handling, sem[3]=swell*/ TEST_ERROR;
 	semctl(shared_portCoords[idx].semID, 0, SETVAL, p.docks); TEST_ERROR;
 	semctl(shared_portCoords[idx].semID, 1, SETVAL, 1); TEST_ERROR;
 	semctl(shared_portCoords[idx].semID, 2, SETVAL, 1); TEST_ERROR;
+	semctl(shared_portCoords[idx].semID, 3, SETVAL, 1); TEST_ERROR;
 	p.coords = coords;
 
 	printPort(p, idx);
@@ -170,14 +172,11 @@ int main(int argc, char *argv[]) {
 
 	waitForZero(sops, sem_sync_id, 0);
 
-	while (pastDays < SO_DAYS) {
+	while (1) {
 		pause();
 		if (errno == 4) errno = 0;
 		else TEST_ERROR;
 	}
-
-	pause();
-	/*cleanUp();*/
 
 	exit(0);
 }

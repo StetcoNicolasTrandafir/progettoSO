@@ -50,9 +50,6 @@ void move(ship s,coordinates from, coordinates to){
         TEST_ERROR;
     }
 
-    if(errno==4)
-        errno=0;
-
     s.coords=to;
 }
 
