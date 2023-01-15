@@ -328,8 +328,8 @@ void dailyReport(){
 				}
 			/*NOTE si blocca qui*/
 
-			/*while(g[j].type!=0 && j< SO_CAPACITY){
-				decrease(sops,shared_ship[i].semID, GOODS);
+			while(g[j].type!=0 && j< SO_CAPACITY){
+				decreaseSem(sops,shared_ship[i].semID, GOODS);
 				if(g[j].state==on_ship && isExpired(g[j])){
 					g[j].state=expired_ship;
 					decreaseSem(sops, sem_expired_goods_id, 0); TEST_ERROR;
@@ -340,7 +340,7 @@ void dailyReport(){
 				}
 				increaseSem(sops,shared_ship[i].semID, GOODS);
 				j++;
-			}*/
+			}
 		}else 
 			sinked++;
 		increaseSem(sops,shared_ship[i].semID, PID);

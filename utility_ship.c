@@ -326,7 +326,6 @@ int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int sh
         increaseSem(sops,shared_ship[shipIndex].semID, COORDS);
 
 
-        
         /*scarico merce*/
         decreaseSem(sops,shared_ship[shipIndex].semID, INDOCK);
         shared_ship[shipIndex].inDock=1;
@@ -337,6 +336,10 @@ int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int sh
             if(g[shippedGoods[i]].state==on_ship &&isExpired(g[shippedGoods[i]])){
                 
                 loadUnload(g[shippedGoods[i]].dimension);TEST_ERROR;
+                decreaseSem(sops, shared_ship[shipIndex].semID, GOODS); TEST_ERROR;
+                s.goods[i].state = delivered;
+                increaseSem(sops, shared_ship[shipIndex].semID, GOODS); TEST_ERROR;
+
             }
             else{
 
@@ -370,8 +373,9 @@ int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int sh
         write(1, string, numBytes);
         free(string);
         */
-
+        decreaseSem(sops, shared_ship[shipIndex].semID, GOODS);
         bzero(s.goods, sizeof(goods)*SO_CAPACITY);
+        increaseSem(sops, shared_ship[shipIndex].semID, GOODS);
 
         free(shippedGoods);
         
