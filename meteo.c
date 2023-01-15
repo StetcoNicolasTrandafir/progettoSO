@@ -142,10 +142,8 @@ void handleSignal(int signal) {
 					else {
 		    			increaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, INDOCK); TEST_ERROR;
 					}
-		    		decreaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, PID); TEST_ERROR;
 		    		ships[(randomShip+plus)%SO_NAVI].sinked = 1;
 					kill(ships[(randomShip+plus)%SO_NAVI].pid, SIGINT); TEST_ERROR;
-		    		increaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, PID); TEST_ERROR;
 
 					setitimer(ITIMER_REAL, &mealstromQuantum, NULL); TEST_ERROR;
 				}
