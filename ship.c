@@ -157,6 +157,7 @@ int main(int argc, char *argv[]) {
 	s.coords = getRandomCoords();
 	shared_shipCoords[shipIndex].coords = s.coords;
 	shared_shipCoords[shipIndex].inDock= 0;
+	shared_shipCoords[shipIndex].storm= 0;
 
 
 	shared_shipCoords[shipIndex].goodsID = shmget(IPC_PRIVATE, SO_CAPACITY * sizeof(goods), S_IRUSR | S_IWUSR | IPC_CREAT); TEST_ERROR;
@@ -164,19 +165,12 @@ int main(int argc, char *argv[]) {
 	bzero(s.goods, SO_CAPACITY * sizeof(goods));
 
 
-	/*!SECTION
-	inDock
-	coords
-	pid
-	goods
-	*/
-
 	shared_shipCoords[shipIndex].semID = semget(IPC_PRIVATE, 5, IPC_CREAT | 0600); TEST_ERROR;
 	semctl(shared_shipCoords[shipIndex].semID, 0, SETVAL, 1); TEST_ERROR; /*goods*/
 	semctl(shared_shipCoords[shipIndex].semID, 1, SETVAL, 1); TEST_ERROR; /*coords*/
 	semctl(shared_shipCoords[shipIndex].semID, 2, SETVAL, 1); TEST_ERROR; /*inDock*/
 	semctl(shared_shipCoords[shipIndex].semID, 3, SETVAL, 1); TEST_ERROR; /*pid*/
-	semctl(shared_shipCoords[shipIndex].semID, 3, SETVAL, 1); TEST_ERROR; /*storm*/
+	semctl(shared_shipCoords[shipIndex].semID, 4, SETVAL, 1); TEST_ERROR; /*storm*/
 
 	printShip(s); TEST_ERROR;
 	sem_sync_id = atoi(argv[1]);
