@@ -286,14 +286,15 @@ void dailyReport(){
         decreaseSem(sops, sharedPortPositions[i].semID, REQUEST);
 		totalRequest+=r->quantity-r->satisfied;
 
+		freeDocks= semctl(sharedPortPositions[i].semID, 0, GETVAL);TEST_ERROR;
+
 		/*delivered*/
 		stateSum[delivered]+=r->satisfied;
-        increaseSem(sops, sharedPortPositions[i].semID, REQUEST);
-		freeDocks= semctl(sharedPortPositions[i].semID, 0, GETVAL);TEST_ERROR;
 
 		numBytes = sprintf(string, "Porto [%d] in posizione: (%.2f, %.2f)\nBanchine libere %d su %d\nMerci richiesta %d/%d di tipo %d\nMerci spedite: %d ton\nMerci generate ancora in porto: %d ton\nMerci ricevute: %d ton\n\n", sharedPortPositions[i].pid, sharedPortPositions[i].coords.x, sharedPortPositions[i].coords.y, freeDocks, sharedPortPositions[i].docks, r->satisfied, r->quantity, r->goodsType, shipped, inPort, r->satisfied);
 		fflush(stdout);
 		write(1, string, numBytes);
+		increaseSem(sops,sharedPortPositions[i].semID, REQUEST);
 
 		shmdt(g);
 		shmdt(r);
@@ -303,10 +304,16 @@ void dailyReport(){
 
 	/*on_ship == MANCA EXPIRED ON SHIP==> MEMORIA CONDIVISA*/
 	for(i=0; i< SO_NAVI; i++){
+
+		decreaseSem(sops,shared_ship[i].semID, PID);
 		
 		if(shared_ship[i].pid!=-1){
+			
+			decreaseSem(sops,shared_ship[i].semID, INDOCK);
 			if(shared_ship[i].inDock)
-			busyDocks++;
+				busyDocks++;
+			increaseSem(sops,shared_ship[i].semID, INDOCK);
+
 		else {
 			j=0;
 			g=shmat(shared_ship[i].goodsID, NULL, 0); TEST_ERROR;
@@ -318,17 +325,35 @@ void dailyReport(){
 			/*NOTE si blocca qui*/
 
 			/*while(g[j].type!=0 && j< SO_CAPACITY){
+				decrease(sops,shared_ship[i].semID, GOODS);
 				if(g[j].state==on_ship && isExpired(g[j])){
 					g[j].state=expired_ship;
 					expiredGoods[g[j].type-1]=g[j].dimension;
 				}else{
 					stateSum[on_ship]+=g[j].dimension;
 				}
+				increaseSem(sops,shared_ship[i].semID, GOODS);
 				j++;
 			}*/
 		}else 
 			sinked++;
+		increaseSem(sops,shared_ship[i].semID, PID);
 	}
+
+
+/*!SECTION
+
+PORTI
+-docks
+	-master
+	-porto
+-request
+-offer
+
+NAVI
+
+
+*/
 
 	for(i=0; i<SO_MERCI; i++){
 		stateSum[expired_ship]+=expiredGoods[i];
@@ -469,6 +494,8 @@ void handleSignal(int signal) {
 
 		case SIGINT:
 
+
+
 			string=malloc(85);
 			numBytes=sprintf(string,"\n\n\nINTERRUZIONE INASPETTATA DEL PROGRAMMA\nPulizia processi figli, IPCs, etc. ...\n");
 			fflush(stdout);
@@ -476,7 +503,7 @@ void handleSignal(int signal) {
 
 			killChildren();
 			cleanUp();
-			string=realloc(string,7);
+			string=realloc(string,8);
 			numBytes=sprintf(string,"Done!\n\n");
 			fflush(stdout);
 			write(1, string, numBytes);
@@ -509,8 +536,8 @@ int main() {
 	shmctl(shipSharedMemoryID, IPC_RMID, NULL); TEST_ERROR;
 
 	expiredGoodsSharedMemoryID= shmget(IPC_PRIVATE, SO_MERCI*sizeof(int),S_IRUSR | S_IWUSR | IPC_CREAT); TEST_ERROR;
-	expiredGoods=shmat(expiredGoodsSharedMemoryID, NULL, 0);TEST_ERROR:
-	shmctl(expiredGoodsSharedMemoryID, IPC_RMID, NULL);	TEST_ERROR:
+	expiredGoods=shmat(expiredGoodsSharedMemoryID, NULL, 0);TEST_ERROR;
+	shmctl(expiredGoodsSharedMemoryID, IPC_RMID, NULL);	TEST_ERROR;
 	bzero(expiredGoods,SO_MERCI*sizeof(int));
 
 	sharedPortPositions = calloc(SO_PORTI, sizeof(struct port_sharedMemory));
