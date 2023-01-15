@@ -35,6 +35,12 @@
 #define DOCK 0
 
 
+#define GOODS 0
+#define COORDS 1
+#define INDOCK 2 
+#define PID 3
+
+
 #endif /*_MACRO_H*/
 
 

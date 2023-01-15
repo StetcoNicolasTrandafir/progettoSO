@@ -59,7 +59,6 @@ struct ship_sharedMemory{
     int inDock;
     int semID;
     pid_t pid;
-    int goodsQuantity;
     int goodsID;
 };
 
