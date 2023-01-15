@@ -41,6 +41,7 @@ struct ship_sharedMemory *shared_ship;
 int shipSharedMemoryID;
 int expiredGoodsSharedMemoryID;
 int *expiredGoods;
+int sem_expired_goods_id;
 
 void killChildren(){
 	int i;
@@ -311,18 +312,20 @@ void dailyReport(){
 		if(shared_ship[i].pid!=-1){
 			
 			decreaseSem(sops,shared_ship[i].semID, INDOCK);
-			if(shared_ship[i].inDock)
+			if(shared_ship[i].inDock) {
 				busyDocks++;
-			increaseSem(sops,shared_ship[i].semID, INDOCK);
-
-		else {
-			j=0;
-			g=shmat(shared_ship[i].goodsID, NULL, 0); TEST_ERROR;
-			if(g[0].type!=0)
-				chargedShips++;
-			else 
-				dischargedShips++;
+				increaseSem(sops,shared_ship[i].semID, INDOCK);
 			}
+
+			else {
+				increaseSem(sops,shared_ship[i].semID, INDOCK);
+				j=0;
+				g=shmat(shared_ship[i].goodsID, NULL, 0); TEST_ERROR;
+				if(g[0].type!=0)
+					chargedShips++;
+				else 
+					dischargedShips++;
+				}
 			/*NOTE si blocca qui*/
 
 			/*while(g[j].type!=0 && j< SO_CAPACITY){
