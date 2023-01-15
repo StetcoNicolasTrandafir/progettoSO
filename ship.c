@@ -157,6 +157,8 @@ int main(int argc, char *argv[]) {
 	shared_shipCoords[shipIndex].inDock = 0;
 	shared_shipCoords[shipIndex].storm = 0;
 	shared_shipCoords[shipIndex].sinked = 0;
+	shared_shipCoords[shipIndex].semLastID = -1;
+	shared_shipCoords[shipIndex].semLastNum = -1;
 
 	shared_shipCoords[shipIndex].goodsID = shmget(IPC_PRIVATE, SO_CAPACITY * sizeof(goods), S_IRUSR | S_IWUSR | IPC_CREAT); TEST_ERROR;
 	s.goods = shmat(shared_shipCoords[shipIndex].goodsID, NULL, 0); TEST_ERROR;
