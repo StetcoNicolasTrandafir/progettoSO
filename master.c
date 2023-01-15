@@ -189,7 +189,6 @@ void finalReport(){
 
 	for(i=0; i< SO_NAVI; i++){
 
-		decreaseSem(sops,shared_ship[i].semID, PID);
 		
 		if(shared_ship[i].pid!=-1){
 
@@ -228,7 +227,6 @@ void finalReport(){
 			}
 		}else 
 			sinked++;
-		increaseSem(sops,shared_ship[i].semID, PID);
 	}
 
 
@@ -377,22 +375,27 @@ void dailyReport(){
 	}
 
 
+	printTest(384);
 	for(i=0; i< SO_NAVI; i++){
+		printTest(390);
+		printTest(i);
 
-		decreaseSem(sops,shared_ship[i].semID, PID);
 		
 		if(shared_ship[i].pid!=-1){
-
+			printTest(391);
 			decreaseSem(sops,shared_ship[i].semID, STORM);
 			if(shared_ship[i].storm) stormed++;
 			increaseSem(sops,shared_ship[i].semID, STORM);
 			
+			printTest(396);
 			decreaseSem(sops,shared_ship[i].semID, INDOCK);
-			if(shared_ship[i].inDock) {
-				busyDocks++;
+			if(shared_ship[i].inDock){
+				busyDocks++; 
+				printTest(399); 
 				increaseSem(sops,shared_ship[i].semID, INDOCK);
 			}
 			else {
+				printTest(403);
 				increaseSem(sops,shared_ship[i].semID, INDOCK);
 				j=0;
 				g=shmat(shared_ship[i].goodsID, NULL, 0); TEST_ERROR;
@@ -417,7 +420,6 @@ void dailyReport(){
 			}
 		}else 
 			sinked++;
-		increaseSem(sops,shared_ship[i].semID, PID);
 	}
 
 
@@ -755,7 +757,7 @@ int main() {
 		else TEST_ERROR;
 	}
 
-
+	killChildren();
 	cleanUp();
 
 	string=malloc(25);

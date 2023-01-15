@@ -1,108 +1,154 @@
-Porto[79150] numero 1: (1000.00, 0.00) - 9 banchine
-Porto[79149] numero 0: (0.00, 0.00) - 5 banchine
-Ship[79154]: (486.40, 489.95)
-Ship[79223]: (173.25, 177.10)
-Ship[79173]: (952.11, 956.60)
-Porto[79153] numero 4: (950.45, 968.03) - 6 banchine
-Ship[79155]: (427.37, 430.93)
-Ship[79167]: (459.95, 463.40)
-Ship[79232]: (732.06, 735.99)
-Ship[79247]: (118.46, 123.05)
-Porto[79151] numero 2: (0.00, 1000.00) - 8 banchine
-Ship[79235]: (673.95, 678.32)
-Ship[79243]: (845.77, 851.87)
-Ship[79176]: (58.69, 62.17)
-Ship[79159]: (373.09, 376.45)
-Ship[79182]: (221.23, 224.71)
-Ship[79166]: (655.23, 658.56)
-Ship[79183]: (587.41, 590.48)
-Ship[79179]: (649.48, 652.89)
-Ship[79177]: (618.79, 622.93)
-Ship[79178]: (487.95, 491.62)
-Ship[79184]: (235.90, 239.52)
-Ship[79181]: (530.18, 533.17)
-Ship[79186]: (52.92, 55.95)
-Ship[79174]: (755.43, 758.37)
-Ship[79188]: (99.09, 102.12)
-Ship[79187]: (638.94, 641.83)
-Ship[79171]: (812.33, 815.19)
-Ship[79189]: (564.91, 568.06)
-Ship[79190]: (702.28, 705.41)
-Ship[79165]: (884.46, 887.49)
-Ship[79192]: (227.44, 230.29)
-Ship[79191]: (746.20, 750.03)
-Ship[79160]: (87.03, 90.07)
-Ship[79193]: (9.73, 12.88)
-Ship[79194]: (901.34, 904.21)
-Ship[79161]: (677.00, 680.69)
-Ship[79197]: (608.32, 611.89)
-Ship[79195]: (626.24, 629.54)
-Ship[79170]: (698.83, 701.73)
-Ship[79198]: (573.46, 576.63)
-Ship[79196]: (557.91, 561.03)
-Ship[79175]: (808.44, 811.39)
-Ship[79201]: (67.15, 71.81)
-Ship[79199]: (417.90, 421.65)
-Ship[79156]: (878.48, 882.10)
-Ship[79164]: (341.53, 345.05)
-Ship[79200]: (301.29, 305.09)
-Ship[79202]: (57.49, 61.97)
-Ship[79203]: (465.25, 468.41)
-Ship[79157]: (834.05, 838.51)
-Ship[79206]: (514.24, 517.59)
-Ship[79204]: (771.66, 775.33)
-Ship[79207]: (80.52, 83.60)
-Ship[79205]: (691.82, 695.04)
-Ship[79158]: (246.22, 249.58)
-Ship[79208]: (600.48, 603.49)
-Ship[79209]: (570.87, 573.89)
-Ship[79213]: (891.86, 895.13)
-Ship[79210]: (193.36, 196.56)
-Ship[79214]: (576.61, 579.42)
-Ship[79185]: (911.71, 916.76)
-Ship[79172]: (421.10, 424.78)
-Ship[79215]: (41.25, 45.41)
-Porto[79152] numero 3: (1000.00, 1000.00) - 3 banchine
-Ship[79220]: (770.00, 773.30)
-Ship[79222]: (943.12, 947.12)
-Ship[79162]: (350.46, 354.99)
-Ship[79218]: (714.78, 719.61)
-Ship[79221]: (427.07, 431.61)
-Ship[79219]: (811.61, 816.28)
-Ship[79211]: (984.14, 988.63)
-Ship[79230]: (814.57, 819.14)
-Ship[79212]: (322.25, 325.79)
-Ship[79163]: (882.70, 886.60)
-Ship[79224]: (713.73, 717.07)
-Ship[79225]: (463.74, 467.27)
-Ship[79231]: (718.22, 722.45)
-Ship[79216]: (167.58, 171.10)
-Ship[79226]: (566.41, 569.92)
-Ship[79233]: (763.77, 767.30)
-Ship[79217]: (708.11, 711.68)
-Ship[79234]: (181.02, 184.03)
-Ship[79227]: (862.55, 865.84)
-Ship[79228]: (625.41, 628.73)
-Ship[79169]: (56.55, 60.67)
-Ship[79168]: (795.30, 798.93)
-Ship[79237]: (493.63, 497.27)
-Ship[79236]: (68.52, 72.48)
-Ship[79229]: (113.38, 118.76)
-Ship[79180]: (785.19, 790.37)
-Ship[79248]: (230.36, 234.79)
-Ship[79244]: (915.35, 918.63)
-Ship[79245]: (86.90, 90.04)
-Ship[79249]: (235.30, 239.30)
-Ship[79251]: (423.18, 426.09)
-Ship[79250]: (617.21, 620.96)
-Ship[79252]: (331.60, 334.76)
-Ship[79253]: (162.36, 165.32)
-Ship[79241]: (422.97, 426.70)
-Ship[79242]: (102.41, 106.51)
-Ship[79246]: (193.91, 198.81)
-Ship[79240]: (807.80, 812.40)
-Ship[79239]: (118.44, 123.38)
-Ship[79238]: (464.38, 469.45)
+./simulation
+Porto[79273] numero 0: (0.00, 0.00) - 7 banchine
+Porto[79274] numero 1: (10000.00, 0.00) - 5 banchine
+Porto[79297] numero 24: (9927.35, 9966.04) - 2 banchine
+Porto[79288] numero 15: (5969.39, 5985.92) - 4 banchine
+Porto[79298] numero 25: (7473.20, 7493.64) - 5 banchine
+Porto[79281] numero 8: (6078.68, 6115.88) - 9 banchine
+Porto[79296] numero 23: (6972.91, 6991.01) - 1 banchine
+Porto[79287] numero 14: (9450.87, 9466.93) - 6 banchine
+Porto[79299] numero 26: (9457.11, 9472.48) - 8 banchine
+Porto[79290] numero 17: (9360.27, 9401.37) - 7 banchine
+Porto[79303] numero 30: (7445.61, 7466.27) - 9 banchine
+Porto[79286] numero 13: (8537.43, 8585.77) - 7 banchine
+Porto[79307] numero 34: (8245.70, 8273.55) - 4 banchine
+Porto[79294] numero 21: (1773.67, 1802.13) - 10 banchine
+Porto[79305] numero 32: (1616.30, 1633.65) - 1 banchine
+Porto[79313] numero 40: (4595.93, 4614.93) - 10 banchine
+Porto[79283] numero 10: (4132.26, 4164.34) - 9 banchine
+Porto[79280] numero 7: (8298.90, 8319.71) - 7 banchine
+Ship[79330]: (5649.56, 5654.01)
+Porto[79295] numero 22: (246.03, 262.26) - 4 banchine
+Porto[79282] numero 9: (1110.26, 1141.73) - 1 banchine
+Porto[79289] numero 16: (1613.85, 1634.73) - 1 banchine
+Porto[79293] numero 20: (8359.22, 8404.54) - 4 banchine
+Porto[79302] numero 29: (9920.78, 9942.51) - 10 banchine
+Porto[79292] numero 19: (2685.98, 2709.92) - 1 banchine
+Ship[79331]: (8753.12, 8758.29)
+Ship[79332]: (4318.87, 4323.57)
+Ship[79340]: (4950.50, 4961.30)
+Ship[79333]: (9478.28, 9483.38)
+Ship[79341]: (9868.94, 9874.11)
+Ship[79334]: (4411.05, 4416.02)
+Ship[79335]: (1185.58, 1190.24)
+Ship[79336]: (337.82, 345.86)
+Porto[79284] numero 11: (3588.45, 3611.92) - 7 banchine
+Porto[79291] numero 18: (5337.13, 5354.65) - 4 banchine
+Ship[79338]: (3253.10, 3262.79)
+Porto[79309] numero 36: (5910.32, 5931.11) - 7 banchine
+Ship[79354]: (8866.12, 8871.01)
+Ship[79355]: (4442.83, 4447.59)
+Ship[79337]: (8528.38, 8533.51)
+Ship[79356]: (3625.89, 3630.56)
+Ship[79357]: (8529.53, 8534.57)
+Ship[79358]: (3760.12, 3765.21)
+Porto[79278] numero 5: (452.90, 470.44) - 7 banchine
+Porto[79301] numero 28: (5161.70, 5176.58) - 3 banchine
+Porto[79304] numero 31: (1209.48, 1266.93) - 8 banchine
+Porto[79285] numero 12: (5867.63, 5883.67) - 2 banchine
+Ship[79324]: (4670.51, 4680.13)
+Porto[79279] numero 6: (5871.83, 5886.42) - 2 banchine
+Porto[79311] numero 38: (1884.42, 1922.06) - 10 banchine
+Porto[79312] numero 39: (2251.14, 2279.36) - 3 banchine
+Porto[79322] numero 49: (4753.45, 4782.33) - 4 banchine
+Porto[79277] numero 4: (3018.78, 3049.77) - 6 banchine
+Ship[79363]: (247.58, 257.81)
+Ship[79364]: (2062.23, 2069.66)
+Ship[79365]: (3654.23, 3662.07)
+Ship[79366]: (4584.72, 4593.80)
+Ship[79367]: (821.97, 826.37)
+Ship[79368]: (5511.45, 5516.47)
+Ship[79375]: (4224.26, 4228.93)
+Porto[79306] numero 33: (7211.36, 7255.88) - 9 banchine
+Ship[79376]: (294.84, 299.67)
+Ship[79323]: (3729.71, 3734.84)
+Porto[79308] numero 35: (4437.84, 4460.93) - 5 banchine
+Ship[79379]: (5633.31, 5638.44)
+Porto[79321] numero 48: (9809.44, 9827.56) - 3 banchine
+Ship[79380]: (917.26, 922.08)
+Ship[79381]: (8016.51, 8023.18)
+Ship[79382]: (9028.90, 9042.46)
+Ship[79385]: (7498.70, 7505.12)
+Ship[79387]: (8132.25, 8137.19)
+Ship[79373]: (3728.96, 3734.20)
+Ship[79360]: (8857.93, 8862.55)
+Ship[79347]: (5384.57, 5389.68)
+Porto[79316] numero 43: (734.21, 750.51) - 9 banchine
+Ship[79325]: (962.68, 967.18)
+Porto[79315] numero 42: (4253.12, 4269.21) - 5 banchine
+Ship[79326]: (5733.06, 5737.83)
+Porto[79317] numero 44: (5636.38, 5671.46) - 2 banchine
+Porto[79310] numero 37: (5856.66, 5873.67) - 6 banchine
+Ship[79400]: (8654.14, 8658.63)
+Porto[79314] numero 41: (119.82, 135.93) - 4 banchine
+Ship[79401]: (7062.84, 7069.73)
+Ship[79404]: (4193.81, 4199.90)
+Ship[79406]: (4704.86, 4714.76)
+Ship[79407]: (2953.90, 2959.64)
+Ship[79374]: (7642.81, 7661.84)
+Ship[79410]: (6649.58, 6656.78)
+Ship[79411]: (4872.68, 4878.49)
+Ship[79412]: (1615.32, 1621.52)
+Ship[79413]: (1031.26, 1040.00)
+Ship[79414]: (1296.26, 1301.32)
+Ship[79422]: (1297.40, 1303.18)
+Porto[79318] numero 45: (667.58, 701.99) - 6 banchine
+Ship[79327]: (997.32, 1002.41)
+Porto[79276] numero 3: (10000.00, 10000.00) - 9 banchine
+Ship[79353]: (1510.72, 1515.47)
+Ship[79402]: (5057.94, 5062.34)
+Ship[79361]: (8706.48, 8713.38)
+Porto[79300] numero 27: (4421.12, 4465.05) - 6 banchine
+Porto[79319] numero 46: (5637.20, 5651.58) - 10 banchine
+Ship[79328]: (5655.30, 5659.87)
+Ship[79329]: (1130.79, 1134.91)
+Porto[79320] numero 47: (1418.12, 1433.00) - 10 banchine
+Ship[79339]: (9974.82, 9980.68)
+Ship[79362]: (3188.93, 3203.98)
+Ship[79346]: (1323.91, 1329.95)
+Ship[79345]: (8185.66, 8190.61)
+Ship[79390]: (264.46, 269.42)
+Ship[79344]: (3628.63, 3633.07)
+Porto[79275] numero 2: (0.00, 10000.00) - 4 banchine
+Ship[79386]: (8038.47, 8043.62)
+Ship[79343]: (8849.94, 8854.53)
+Ship[79359]: (2841.53, 2845.87)
+Ship[79372]: (3272.85, 3286.95)
+Ship[79384]: (6073.69, 6078.10)
+Ship[79349]: (1471.48, 1477.14)
+Ship[79391]: (5647.79, 5660.82)
+Ship[79350]: (8787.84, 8793.85)
+Ship[79392]: (2751.08, 2758.20)
+Ship[79351]: (5242.12, 5247.93)
+Ship[79393]: (7984.23, 7989.76)
+Ship[79394]: (4695.20, 4700.45)
+Ship[79352]: (6568.51, 6573.01)
+Ship[79389]: (9461.33, 9465.35)
+Ship[79396]: (22.59, 27.05)
+Ship[79388]: (2933.32, 2942.93)
+Ship[79397]: (4500.71, 4505.06)
+Ship[79395]: (8755.29, 8759.71)
+Ship[79398]: (8989.09, 8993.43)
+Ship[79378]: (5808.20, 5812.67)
+Ship[79383]: (9955.84, 9959.95)
+Ship[79377]: (1445.43, 1450.11)
+Ship[79348]: (9230.58, 9235.41)
+Ship[79371]: (2525.72, 2530.34)
+Ship[79369]: (82.28, 88.76)
+Ship[79370]: (3654.18, 3663.27)
+Ship[79399]: (4006.10, 4010.62)
+Ship[79408]: (67.06, 73.52)
+Ship[79409]: (8776.81, 8783.44)
+Ship[79418]: (6673.07, 6677.40)
+Ship[79342]: (7864.04, 7868.62)
+Ship[79420]: (3488.88, 3493.15)
+Ship[79403]: (3681.41, 3685.75)
+Ship[79415]: (7118.60, 7123.50)
+Ship[79421]: (7999.45, 8004.60)
+Ship[79417]: (4872.84, 4877.74)
+Ship[79416]: (9461.91, 9468.38)
+Ship[79419]: (2117.45, 2123.28)
+Ship[79405]: (1987.46, 1992.74)
 
 
 ========================================================================
@@ -111,36 +157,351 @@ Ship[79238]: (464.38, 469.45)
 
 
 ==================>		PORTI
-Porto numero 1 [79149] in posizione: (0.00, 0.00)
+Porto numero 1 [79273] in posizione: (0.00, 0.00)
+Banchine libere 7 su 7
+Merci spedite: 5 ton
+Merci generate ancora in porto: 128 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 2 [79274] in posizione: (10000.00, 0.00)
 Banchine libere 5 su 5
 Merci spedite: 0 ton
-Merci generate ancora in porto: 19657 ton
+Merci generate ancora in porto: 35 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 3 [79275] in posizione: (0.00, 10000.00)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 30 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 4 [79276] in posizione: (10000.00, 10000.00)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 5 [79277] in posizione: (3018.78, 3049.77)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 6 [79278] in posizione: (452.90, 470.44)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 7 [79279] in posizione: (5871.83, 5886.42)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 326 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 8 [79280] in posizione: (8298.90, 8319.71)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 9 [79281] in posizione: (6078.68, 6115.88)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 10 [79282] in posizione: (1110.26, 1141.73)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 11 [79283] in posizione: (4132.26, 4164.34)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 12 [79284] in posizione: (3588.45, 3611.92)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 13 [79285] in posizione: (5867.63, 5883.67)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 14 [79286] in posizione: (8537.43, 8585.77)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 15 [79287] in posizione: (9450.87, 9466.93)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 16 [79288] in posizione: (5969.39, 5985.92)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 17 [79289] in posizione: (1613.85, 1634.73)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 18 [79290] in posizione: (9360.27, 9401.37)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 14 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 19 [79291] in posizione: (5337.13, 5354.65)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 20 [79292] in posizione: (2685.98, 2709.92)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 1 volte
 
-Porto numero 2 [79150] in posizione: (1000.00, 0.00)
-Banchine libere 9 su 9
+Porto numero 21 [79293] in posizione: (8359.22, 8404.54)
+Banchine libere 4 su 4
 Merci spedite: 0 ton
-Merci generate ancora in porto: 1891 ton
+Merci generate ancora in porto: 10 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 0 volte
 
-Porto numero 3 [79151] in posizione: (0.00, 1000.00)
+Porto numero 22 [79294] in posizione: (1773.67, 1802.13)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 23 [79295] in posizione: (246.03, 262.26)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 24 [79296] in posizione: (6972.91, 6991.01)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 25 [79297] in posizione: (9927.35, 9966.04)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 26 [79298] in posizione: (7473.20, 7493.64)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 27 [79299] in posizione: (9457.11, 9472.48)
 Banchine libere 8 su 8
 Merci spedite: 0 ton
-Merci generate ancora in porto: 13005 ton
+Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 0 volte
 
-Porto numero 4 [79152] in posizione: (1000.00, 1000.00)
+Porto numero 28 [79300] in posizione: (4421.12, 4465.05)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 29 [79301] in posizione: (5161.70, 5176.58)
 Banchine libere 3 su 3
 Merci spedite: 0 ton
-Merci generate ancora in porto: 9904 ton
+Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 0 volte
 
-Porto numero 5 [79153] in posizione: (950.45, 968.03)
+Porto numero 30 [79302] in posizione: (9920.78, 9942.51)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 31 [79303] in posizione: (7445.61, 7466.27)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 32 [79304] in posizione: (1209.48, 1266.93)
+Banchine libere 8 su 8
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 33 [79305] in posizione: (1616.30, 1633.65)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 34 [79306] in posizione: (7211.36, 7255.88)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 35 [79307] in posizione: (8245.70, 8273.55)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 36 [79308] in posizione: (4437.84, 4460.93)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 37 [79309] in posizione: (5910.32, 5931.11)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 38 [79310] in posizione: (5856.66, 5873.67)
 Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 39 [79311] in posizione: (1884.42, 1922.06)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 40 [79312] in posizione: (2251.14, 2279.36)
+Banchine libere 3 su 3
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 41 [79313] in posizione: (4595.93, 4614.93)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 42 [79314] in posizione: (119.82, 135.93)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 43 [79315] in posizione: (4253.12, 4269.21)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 44 [79316] in posizione: (734.21, 750.51)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 33 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 45 [79317] in posizione: (5636.38, 5671.46)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 46 [79318] in posizione: (667.58, 701.99)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 47 [79319] in posizione: (5637.20, 5651.58)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 48 [79320] in posizione: (1418.12, 1433.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 49 [79321] in posizione: (9809.44, 9827.56)
+Banchine libere 3 su 3
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 50 [79322] in posizione: (4753.45, 4782.33)
+Banchine libere 4 su 4
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
@@ -1154,31 +1515,23 @@ Porto colpito da mareggiata 0 volte
 
 ---------->	PER STATI:
 
-Merce in porto: 44457ton
-Merce scaduta in porto: 611ton
+Merce in porto: 576ton
+Merce scaduta in porto: 67ton
 Merce in nave: 0ton
-Merce scaduta in nave: 0
+Merce scaduta in nave: 9
 Merce consegnata: 0ton
 
 ---------->	PER TIPOLOGIA:
 
-Merce di tipo 1: 3696ton
-Merce di tipo 2: 4137ton
-Merce di tipo 3: 2967ton
-Merce di tipo 4: 6478ton
-Merce di tipo 5: 2347ton
-Merce di tipo 6: 7207ton
-Merce di tipo 7: 4593ton
-Merce di tipo 8: 3155ton
-Merce di tipo 9: 5598ton
-Merce di tipo 10: 4890ton
+Merce di tipo 1: 366ton
+Merce di tipo 2: 282ton
 
  ==================>		NAVI
 
 Navi affondate: 0
 Numero di navi facendo operazioni di carico/scarico: 0
-In mare con un carico a bordo: 0
-In mare senza carico a bordo: 100
+In mare con un carico a bordo: 34
+In mare senza carico a bordo: 66
 
  ==================>		REPORT METEO
 
@@ -1196,40 +1549,355 @@ Navi rallentate dalla tempesta: 1
 
 
 ==================>		PORTI
-Porto numero 1 [79149] in posizione: (0.00, 0.00)
+Porto numero 1 [79273] in posizione: (0.00, 0.00)
+Banchine libere 7 su 7
+Merci spedite: 5 ton
+Merci generate ancora in porto: 472 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 2 [79274] in posizione: (10000.00, 0.00)
 Banchine libere 5 su 5
 Merci spedite: 0 ton
-Merci generate ancora in porto: 44448 ton
+Merci generate ancora in porto: 68 ton
 Merci ricevute: 0 ton
-Porto colpito da mareggiata 1 volte
+Porto colpito da mareggiata 0 volte
 
-Porto numero 2 [79150] in posizione: (1000.00, 0.00)
+Porto numero 3 [79275] in posizione: (0.00, 10000.00)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 4 [79276] in posizione: (10000.00, 10000.00)
 Banchine libere 9 su 9
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 0 volte
 
-Porto numero 3 [79151] in posizione: (0.00, 1000.00)
+Porto numero 5 [79277] in posizione: (3018.78, 3049.77)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 618 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 1 volte
+
+Porto numero 6 [79278] in posizione: (452.90, 470.44)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 370 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 7 [79279] in posizione: (5871.83, 5886.42)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 8 [79280] in posizione: (8298.90, 8319.71)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 9 [79281] in posizione: (6078.68, 6115.88)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 10 [79282] in posizione: (1110.26, 1141.73)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 11 [79283] in posizione: (4132.26, 4164.34)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 12 [79284] in posizione: (3588.45, 3611.92)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 13 [79285] in posizione: (5867.63, 5883.67)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 14 [79286] in posizione: (8537.43, 8585.77)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 15 [79287] in posizione: (9450.87, 9466.93)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 16 [79288] in posizione: (5969.39, 5985.92)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 17 [79289] in posizione: (1613.85, 1634.73)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 18 [79290] in posizione: (9360.27, 9401.37)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 19 [79291] in posizione: (5337.13, 5354.65)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 20 [79292] in posizione: (2685.98, 2709.92)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 1 volte
+
+Porto numero 21 [79293] in posizione: (8359.22, 8404.54)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 22 [79294] in posizione: (1773.67, 1802.13)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 23 [79295] in posizione: (246.03, 262.26)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 24 [79296] in posizione: (6972.91, 6991.01)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 25 [79297] in posizione: (9927.35, 9966.04)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 26 [79298] in posizione: (7473.20, 7493.64)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 27 [79299] in posizione: (9457.11, 9472.48)
 Banchine libere 8 su 8
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 0 volte
 
-Porto numero 4 [79152] in posizione: (1000.00, 1000.00)
+Porto numero 28 [79300] in posizione: (4421.12, 4465.05)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 29 [79301] in posizione: (5161.70, 5176.58)
 Banchine libere 3 su 3
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 0 volte
 
-Porto numero 5 [79153] in posizione: (950.45, 968.03)
+Porto numero 30 [79302] in posizione: (9920.78, 9942.51)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 31 [79303] in posizione: (7445.61, 7466.27)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 32 [79304] in posizione: (1209.48, 1266.93)
+Banchine libere 8 su 8
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 33 [79305] in posizione: (1616.30, 1633.65)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 34 [79306] in posizione: (7211.36, 7255.88)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 35 [79307] in posizione: (8245.70, 8273.55)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 36 [79308] in posizione: (4437.84, 4460.93)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 37 [79309] in posizione: (5910.32, 5931.11)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 38 [79310] in posizione: (5856.66, 5873.67)
 Banchine libere 6 su 6
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
-Porto colpito da mareggiata 1 volte
+Porto colpito da mareggiata 0 volte
+
+Porto numero 39 [79311] in posizione: (1884.42, 1922.06)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 40 [79312] in posizione: (2251.14, 2279.36)
+Banchine libere 3 su 3
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 41 [79313] in posizione: (4595.93, 4614.93)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 42 [79314] in posizione: (119.82, 135.93)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 43 [79315] in posizione: (4253.12, 4269.21)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 44 [79316] in posizione: (734.21, 750.51)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 45 [79317] in posizione: (5636.38, 5671.46)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 46 [79318] in posizione: (667.58, 701.99)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 47 [79319] in posizione: (5637.20, 5651.58)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 48 [79320] in posizione: (1418.12, 1433.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 49 [79321] in posizione: (9809.44, 9827.56)
+Banchine libere 3 su 3
+Merci spedite: 0 ton
+Merci generate ancora in porto: 70 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 50 [79322] in posizione: (4753.45, 4782.33)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
 
 
 ==============================> Riga: 384
@@ -2239,31 +2907,23 @@ Porto colpito da mareggiata 1 volte
 
 ---------->	PER STATI:
 
-Merce in porto: 44448ton
-Merce scaduta in porto: 611ton
-Merce in nave: 0ton
-Merce scaduta in nave: 0
+Merce in porto: 1598ton
+Merce scaduta in porto: 67ton
+Merce in nave: 187ton
+Merce scaduta in nave: 8
 Merce consegnata: 0ton
 
 ---------->	PER TIPOLOGIA:
 
-Merce di tipo 1: 4156ton
-Merce di tipo 2: 4656ton
-Merce di tipo 3: 3177ton
-Merce di tipo 4: 4937ton
-Merce di tipo 5: 0ton
-Merce di tipo 6: 9307ton
-Merce di tipo 7: 3887ton
-Merce di tipo 8: 5251ton
-Merce di tipo 9: 4342ton
-Merce di tipo 10: 5346ton
+Merce di tipo 1: 618ton
+Merce di tipo 2: 1052ton
 
  ==================>		NAVI
 
 Navi affondate: 0
 Numero di navi facendo operazioni di carico/scarico: 0
-In mare con un carico a bordo: 0
-In mare senza carico a bordo: 100
+In mare con un carico a bordo: 48
+In mare senza carico a bordo: 52
 
  ==================>		REPORT METEO
 
@@ -2281,40 +2941,355 @@ Navi rallentate dalla tempesta: 2
 
 
 ==================>		PORTI
-Porto numero 1 [79149] in posizione: (0.00, 0.00)
+Porto numero 1 [79273] in posizione: (0.00, 0.00)
+Banchine libere 7 su 7
+Merci spedite: 5 ton
+Merci generate ancora in porto: 472 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 2 [79274] in posizione: (10000.00, 0.00)
 Banchine libere 5 su 5
 Merci spedite: 0 ton
-Merci generate ancora in porto: 94662 ton
+Merci generate ancora in porto: 331 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 3 [79275] in posizione: (0.00, 10000.00)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 4 [79276] in posizione: (10000.00, 10000.00)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 5 [79277] in posizione: (3018.78, 3049.77)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 594 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 1 volte
 
-Porto numero 2 [79150] in posizione: (1000.00, 0.00)
+Porto numero 6 [79278] in posizione: (452.90, 470.44)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 84 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 7 [79279] in posizione: (5871.83, 5886.42)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 8 [79280] in posizione: (8298.90, 8319.71)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 9 [79281] in posizione: (6078.68, 6115.88)
 Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 10 [79282] in posizione: (1110.26, 1141.73)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 11 [79283] in posizione: (4132.26, 4164.34)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 12 [79284] in posizione: (3588.45, 3611.92)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 13 [79285] in posizione: (5867.63, 5883.67)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 14 [79286] in posizione: (8537.43, 8585.77)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 15 [79287] in posizione: (9450.87, 9466.93)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 16 [79288] in posizione: (5969.39, 5985.92)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 17 [79289] in posizione: (1613.85, 1634.73)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 18 [79290] in posizione: (9360.27, 9401.37)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 19 [79291] in posizione: (5337.13, 5354.65)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 20 [79292] in posizione: (2685.98, 2709.92)
+Banchine libere 1 su 1
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 1 volte
 
-Porto numero 3 [79151] in posizione: (0.00, 1000.00)
+Porto numero 21 [79293] in posizione: (8359.22, 8404.54)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 22 [79294] in posizione: (1773.67, 1802.13)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 23 [79295] in posizione: (246.03, 262.26)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 260 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 24 [79296] in posizione: (6972.91, 6991.01)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 25 [79297] in posizione: (9927.35, 9966.04)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 26 [79298] in posizione: (7473.20, 7493.64)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 27 [79299] in posizione: (9457.11, 9472.48)
 Banchine libere 8 su 8
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 0 volte
 
-Porto numero 4 [79152] in posizione: (1000.00, 1000.00)
+Porto numero 28 [79300] in posizione: (4421.12, 4465.05)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 29 [79301] in posizione: (5161.70, 5176.58)
 Banchine libere 3 su 3
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 0 volte
 
-Porto numero 5 [79153] in posizione: (950.45, 968.03)
+Porto numero 30 [79302] in posizione: (9920.78, 9942.51)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 31 [79303] in posizione: (7445.61, 7466.27)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 32 [79304] in posizione: (1209.48, 1266.93)
+Banchine libere 8 su 8
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 33 [79305] in posizione: (1616.30, 1633.65)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 34 [79306] in posizione: (7211.36, 7255.88)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 35 [79307] in posizione: (8245.70, 8273.55)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 36 [79308] in posizione: (4437.84, 4460.93)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 37 [79309] in posizione: (5910.32, 5931.11)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 38 [79310] in posizione: (5856.66, 5873.67)
 Banchine libere 6 su 6
 Merci spedite: 0 ton
-Merci generate ancora in porto: 518 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 39 [79311] in posizione: (1884.42, 1922.06)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 40 [79312] in posizione: (2251.14, 2279.36)
+Banchine libere 3 su 3
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 41 [79313] in posizione: (4595.93, 4614.93)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 42 [79314] in posizione: (119.82, 135.93)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 43 [79315] in posizione: (4253.12, 4269.21)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 44 [79316] in posizione: (734.21, 750.51)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 45 [79317] in posizione: (5636.38, 5671.46)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 46 [79318] in posizione: (667.58, 701.99)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 47 [79319] in posizione: (5637.20, 5651.58)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 1 volte
+
+Porto numero 48 [79320] in posizione: (1418.12, 1433.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 49 [79321] in posizione: (9809.44, 9827.56)
+Banchine libere 3 su 3
+Merci spedite: 0 ton
+Merci generate ancora in porto: 36 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 50 [79322] in posizione: (4753.45, 4782.33)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
 
 
 ==============================> Riga: 384
@@ -3324,31 +4299,23 @@ Porto colpito da mareggiata 1 volte
 
 ---------->	PER STATI:
 
-Merce in porto: 95180ton
-Merce scaduta in porto: 611ton
-Merce in nave: 0ton
-Merce scaduta in nave: 0
+Merce in porto: 1777ton
+Merce scaduta in porto: 67ton
+Merce in nave: 258ton
+Merce scaduta in nave: 7
 Merce consegnata: 0ton
 
 ---------->	PER TIPOLOGIA:
 
-Merce di tipo 1: 10000ton
-Merce di tipo 2: 9247ton
-Merce di tipo 3: 8116ton
-Merce di tipo 4: 10494ton
-Merce di tipo 5: 90ton
-Merce di tipo 6: 18836ton
-Merce di tipo 7: 9312ton
-Merce di tipo 8: 10847ton
-Merce di tipo 9: 9073ton
-Merce di tipo 10: 9776ton
+Merce di tipo 1: 854ton
+Merce di tipo 2: 995ton
 
  ==================>		NAVI
 
 Navi affondate: 0
 Numero di navi facendo operazioni di carico/scarico: 0
-In mare con un carico a bordo: 0
-In mare senza carico a bordo: 100
+In mare con un carico a bordo: 56
+In mare senza carico a bordo: 44
 
  ==================>		REPORT METEO
 
@@ -3366,40 +4333,355 @@ Navi rallentate dalla tempesta: 3
 
 
 ==================>		PORTI
-Porto numero 1 [79149] in posizione: (0.00, 0.00)
+Porto numero 1 [79273] in posizione: (0.00, 0.00)
+Banchine libere 7 su 7
+Merci spedite: 5 ton
+Merci generate ancora in porto: 735 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 2 [79274] in posizione: (10000.00, 0.00)
 Banchine libere 5 su 5
 Merci spedite: 0 ton
-Merci generate ancora in porto: 119389 ton
+Merci generate ancora in porto: 301 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 3 [79275] in posizione: (0.00, 10000.00)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 4 [79276] in posizione: (10000.00, 10000.00)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 5 [79277] in posizione: (3018.78, 3049.77)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 604 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 1 volte
 
-Porto numero 2 [79150] in posizione: (1000.00, 0.00)
-Banchine libere 9 su 9
+Porto numero 6 [79278] in posizione: (452.90, 470.44)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 7 [79279] in posizione: (5871.83, 5886.42)
+Banchine libere 2 su 2
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 1 volte
 
-Porto numero 3 [79151] in posizione: (0.00, 1000.00)
+Porto numero 8 [79280] in posizione: (8298.90, 8319.71)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 9 [79281] in posizione: (6078.68, 6115.88)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 10 [79282] in posizione: (1110.26, 1141.73)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 11 [79283] in posizione: (4132.26, 4164.34)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 12 [79284] in posizione: (3588.45, 3611.92)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 13 [79285] in posizione: (5867.63, 5883.67)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 14 [79286] in posizione: (8537.43, 8585.77)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 15 [79287] in posizione: (9450.87, 9466.93)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 16 [79288] in posizione: (5969.39, 5985.92)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 17 [79289] in posizione: (1613.85, 1634.73)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 18 [79290] in posizione: (9360.27, 9401.37)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 19 [79291] in posizione: (5337.13, 5354.65)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 20 [79292] in posizione: (2685.98, 2709.92)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 1 volte
+
+Porto numero 21 [79293] in posizione: (8359.22, 8404.54)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 22 [79294] in posizione: (1773.67, 1802.13)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 23 [79295] in posizione: (246.03, 262.26)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 313 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 24 [79296] in posizione: (6972.91, 6991.01)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 25 [79297] in posizione: (9927.35, 9966.04)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 26 [79298] in posizione: (7473.20, 7493.64)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 27 [79299] in posizione: (9457.11, 9472.48)
 Banchine libere 8 su 8
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 0 volte
 
-Porto numero 4 [79152] in posizione: (1000.00, 1000.00)
+Porto numero 28 [79300] in posizione: (4421.12, 4465.05)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 29 [79301] in posizione: (5161.70, 5176.58)
 Banchine libere 3 su 3
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 0 volte
 
-Porto numero 5 [79153] in posizione: (950.45, 968.03)
+Porto numero 30 [79302] in posizione: (9920.78, 9942.51)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 31 [79303] in posizione: (7445.61, 7466.27)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 32 [79304] in posizione: (1209.48, 1266.93)
+Banchine libere 8 su 8
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 33 [79305] in posizione: (1616.30, 1633.65)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 34 [79306] in posizione: (7211.36, 7255.88)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 35 [79307] in posizione: (8245.70, 8273.55)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 36 [79308] in posizione: (4437.84, 4460.93)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 37 [79309] in posizione: (5910.32, 5931.11)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 38 [79310] in posizione: (5856.66, 5873.67)
 Banchine libere 6 su 6
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 39 [79311] in posizione: (1884.42, 1922.06)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 40 [79312] in posizione: (2251.14, 2279.36)
+Banchine libere 3 su 3
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 41 [79313] in posizione: (4595.93, 4614.93)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 42 [79314] in posizione: (119.82, 135.93)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 43 [79315] in posizione: (4253.12, 4269.21)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 44 [79316] in posizione: (734.21, 750.51)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 45 [79317] in posizione: (5636.38, 5671.46)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 46 [79318] in posizione: (667.58, 701.99)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 47 [79319] in posizione: (5637.20, 5651.58)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
 Porto colpito da mareggiata 1 volte
+
+Porto numero 48 [79320] in posizione: (1418.12, 1433.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 49 [79321] in posizione: (9809.44, 9827.56)
+Banchine libere 3 su 3
+Merci spedite: 0 ton
+Merci generate ancora in porto: 34 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 50 [79322] in posizione: (4753.45, 4782.33)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
 
 
 ==============================> Riga: 384
@@ -4409,37 +5691,29 @@ Porto colpito da mareggiata 1 volte
 
 ---------->	PER STATI:
 
-Merce in porto: 119389ton
-Merce scaduta in porto: 611ton
-Merce in nave: 0ton
-Merce scaduta in nave: 0
+Merce in porto: 1987ton
+Merce scaduta in porto: 67ton
+Merce in nave: 290ton
+Merce scaduta in nave: 6
 Merce consegnata: 0ton
 
 ---------->	PER TIPOLOGIA:
 
-Merce di tipo 1: 12655ton
-Merce di tipo 2: 11285ton
-Merce di tipo 3: 10388ton
-Merce di tipo 4: 13206ton
-Merce di tipo 5: 0ton
-Merce di tipo 6: 23875ton
-Merce di tipo 7: 11730ton
-Merce di tipo 8: 13105ton
-Merce di tipo 9: 11935ton
-Merce di tipo 10: 11821ton
+Merce di tipo 1: 917ton
+Merce di tipo 2: 1142ton
 
  ==================>		NAVI
 
 Navi affondate: 0
 Numero di navi facendo operazioni di carico/scarico: 0
-In mare con un carico a bordo: 0
-In mare senza carico a bordo: 100
+In mare con un carico a bordo: 64
+In mare senza carico a bordo: 36
 
  ==================>		REPORT METEO
 
 Navi affondate dal vortice: 0
-Porti colpiti da mareggiata: 3
-Navi rallentate dalla tempesta: 3
+Porti colpiti da mareggiata: 4
+Navi rallentate dalla tempesta: 4
 
 ============================= FINE REPORT GIORNO 4 =============================
 
@@ -4451,40 +5725,355 @@ Navi rallentate dalla tempesta: 3
 
 
 ==================>		PORTI
-Porto numero 1 [79149] in posizione: (0.00, 0.00)
+Porto numero 1 [79273] in posizione: (0.00, 0.00)
+Banchine libere 7 su 7
+Merci spedite: 5 ton
+Merci generate ancora in porto: 957 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 2 [79274] in posizione: (10000.00, 0.00)
 Banchine libere 5 su 5
 Merci spedite: 0 ton
-Merci generate ancora in porto: 151695 ton
+Merci generate ancora in porto: 102 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 1 volte
 
-Porto numero 2 [79150] in posizione: (1000.00, 0.00)
+Porto numero 3 [79275] in posizione: (0.00, 10000.00)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 272 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 4 [79276] in posizione: (10000.00, 10000.00)
 Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 5 [79277] in posizione: (3018.78, 3049.77)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 658 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 1 volte
+
+Porto numero 6 [79278] in posizione: (452.90, 470.44)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 7 [79279] in posizione: (5871.83, 5886.42)
+Banchine libere 2 su 2
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 1 volte
 
-Porto numero 3 [79151] in posizione: (0.00, 1000.00)
+Porto numero 8 [79280] in posizione: (8298.90, 8319.71)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 9 [79281] in posizione: (6078.68, 6115.88)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 10 [79282] in posizione: (1110.26, 1141.73)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 11 [79283] in posizione: (4132.26, 4164.34)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 12 [79284] in posizione: (3588.45, 3611.92)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 13 [79285] in posizione: (5867.63, 5883.67)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 14 [79286] in posizione: (8537.43, 8585.77)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 15 [79287] in posizione: (9450.87, 9466.93)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 16 [79288] in posizione: (5969.39, 5985.92)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 17 [79289] in posizione: (1613.85, 1634.73)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 18 [79290] in posizione: (9360.27, 9401.37)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 19 [79291] in posizione: (5337.13, 5354.65)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 20 [79292] in posizione: (2685.98, 2709.92)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 1 volte
+
+Porto numero 21 [79293] in posizione: (8359.22, 8404.54)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 22 [79294] in posizione: (1773.67, 1802.13)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 23 [79295] in posizione: (246.03, 262.26)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 337 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 24 [79296] in posizione: (6972.91, 6991.01)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 25 [79297] in posizione: (9927.35, 9966.04)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 26 [79298] in posizione: (7473.20, 7493.64)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 27 [79299] in posizione: (9457.11, 9472.48)
 Banchine libere 8 su 8
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 0 volte
 
-Porto numero 4 [79152] in posizione: (1000.00, 1000.00)
-Banchine libere 3 su 3
-Merci spedite: 0 ton
-Merci generate ancora in porto: 0 ton
-Merci ricevute: 0 ton
-Porto colpito da mareggiata 2 volte
-
-Porto numero 5 [79153] in posizione: (950.45, 968.03)
+Porto numero 28 [79300] in posizione: (4421.12, 4465.05)
 Banchine libere 6 su 6
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 29 [79301] in posizione: (5161.70, 5176.58)
+Banchine libere 3 su 3
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 30 [79302] in posizione: (9920.78, 9942.51)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 31 [79303] in posizione: (7445.61, 7466.27)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 32 [79304] in posizione: (1209.48, 1266.93)
+Banchine libere 8 su 8
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 33 [79305] in posizione: (1616.30, 1633.65)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 34 [79306] in posizione: (7211.36, 7255.88)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 35 [79307] in posizione: (8245.70, 8273.55)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 36 [79308] in posizione: (4437.84, 4460.93)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 37 [79309] in posizione: (5910.32, 5931.11)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 38 [79310] in posizione: (5856.66, 5873.67)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 39 [79311] in posizione: (1884.42, 1922.06)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 40 [79312] in posizione: (2251.14, 2279.36)
+Banchine libere 3 su 3
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 41 [79313] in posizione: (4595.93, 4614.93)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 42 [79314] in posizione: (119.82, 135.93)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 43 [79315] in posizione: (4253.12, 4269.21)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 44 [79316] in posizione: (734.21, 750.51)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 45 [79317] in posizione: (5636.38, 5671.46)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 46 [79318] in posizione: (667.58, 701.99)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 47 [79319] in posizione: (5637.20, 5651.58)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
 Porto colpito da mareggiata 1 volte
+
+Porto numero 48 [79320] in posizione: (1418.12, 1433.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 49 [79321] in posizione: (9809.44, 9827.56)
+Banchine libere 3 su 3
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 50 [79322] in posizione: (4753.45, 4782.33)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
 
 
 ==============================> Riga: 384
@@ -5494,36 +7083,28 @@ Porto colpito da mareggiata 1 volte
 
 ---------->	PER STATI:
 
-Merce in porto: 151695ton
-Merce scaduta in porto: 611ton
-Merce in nave: 0ton
-Merce scaduta in nave: 0
+Merce in porto: 2326ton
+Merce scaduta in porto: 67ton
+Merce in nave: 313ton
+Merce scaduta in nave: 5
 Merce consegnata: 0ton
 
 ---------->	PER TIPOLOGIA:
 
-Merce di tipo 1: 16111ton
-Merce di tipo 2: 14398ton
-Merce di tipo 3: 12752ton
-Merce di tipo 4: 16692ton
-Merce di tipo 5: 0ton
-Merce di tipo 6: 31013ton
-Merce di tipo 7: 15445ton
-Merce di tipo 8: 15836ton
-Merce di tipo 9: 15278ton
-Merce di tipo 10: 14781ton
+Merce di tipo 1: 1267ton
+Merce di tipo 2: 1131ton
 
  ==================>		NAVI
 
 Navi affondate: 0
 Numero di navi facendo operazioni di carico/scarico: 0
-In mare con un carico a bordo: 0
-In mare senza carico a bordo: 100
+In mare con un carico a bordo: 64
+In mare senza carico a bordo: 36
 
  ==================>		REPORT METEO
 
 Navi affondate dal vortice: 0
-Porti colpiti da mareggiata: 4
+Porti colpiti da mareggiata: 5
 Navi rallentate dalla tempesta: 5
 
 ============================= FINE REPORT GIORNO 5 =============================
@@ -5536,40 +7117,355 @@ Navi rallentate dalla tempesta: 5
 
 
 ==================>		PORTI
-Porto numero 1 [79149] in posizione: (0.00, 0.00)
+Porto numero 1 [79273] in posizione: (0.00, 0.00)
+Banchine libere 7 su 7
+Merci spedite: 5 ton
+Merci generate ancora in porto: 957 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 2 [79274] in posizione: (10000.00, 0.00)
 Banchine libere 5 su 5
 Merci spedite: 0 ton
-Merci generate ancora in porto: 179666 ton
+Merci generate ancora in porto: 102 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 1 volte
 
-Porto numero 2 [79150] in posizione: (1000.00, 0.00)
+Porto numero 3 [79275] in posizione: (0.00, 10000.00)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 272 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 4 [79276] in posizione: (10000.00, 10000.00)
 Banchine libere 9 su 9
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 1 volte
 
-Porto numero 3 [79151] in posizione: (0.00, 1000.00)
-Banchine libere 8 su 8
+Porto numero 5 [79277] in posizione: (3018.78, 3049.77)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 658 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 1 volte
+
+Porto numero 6 [79278] in posizione: (452.90, 470.44)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 213 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 7 [79279] in posizione: (5871.83, 5886.42)
+Banchine libere 2 su 2
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 1 volte
 
-Porto numero 4 [79152] in posizione: (1000.00, 1000.00)
-Banchine libere 3 su 3
+Porto numero 8 [79280] in posizione: (8298.90, 8319.71)
+Banchine libere 7 su 7
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
-Porto colpito da mareggiata 2 volte
+Porto colpito da mareggiata 0 volte
 
-Porto numero 5 [79153] in posizione: (950.45, 968.03)
+Porto numero 9 [79281] in posizione: (6078.68, 6115.88)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 10 [79282] in posizione: (1110.26, 1141.73)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 11 [79283] in posizione: (4132.26, 4164.34)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 12 [79284] in posizione: (3588.45, 3611.92)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 13 [79285] in posizione: (5867.63, 5883.67)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 14 [79286] in posizione: (8537.43, 8585.77)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 15 [79287] in posizione: (9450.87, 9466.93)
 Banchine libere 6 su 6
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 16 [79288] in posizione: (5969.39, 5985.92)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 17 [79289] in posizione: (1613.85, 1634.73)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 18 [79290] in posizione: (9360.27, 9401.37)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 19 [79291] in posizione: (5337.13, 5354.65)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 20 [79292] in posizione: (2685.98, 2709.92)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
 Porto colpito da mareggiata 1 volte
+
+Porto numero 21 [79293] in posizione: (8359.22, 8404.54)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 22 [79294] in posizione: (1773.67, 1802.13)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 23 [79295] in posizione: (246.03, 262.26)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 533 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 24 [79296] in posizione: (6972.91, 6991.01)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 25 [79297] in posizione: (9927.35, 9966.04)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 26 [79298] in posizione: (7473.20, 7493.64)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 27 [79299] in posizione: (9457.11, 9472.48)
+Banchine libere 8 su 8
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 28 [79300] in posizione: (4421.12, 4465.05)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 29 [79301] in posizione: (5161.70, 5176.58)
+Banchine libere 3 su 3
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 30 [79302] in posizione: (9920.78, 9942.51)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 31 [79303] in posizione: (7445.61, 7466.27)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 32 [79304] in posizione: (1209.48, 1266.93)
+Banchine libere 8 su 8
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 33 [79305] in posizione: (1616.30, 1633.65)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 34 [79306] in posizione: (7211.36, 7255.88)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 35 [79307] in posizione: (8245.70, 8273.55)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 36 [79308] in posizione: (4437.84, 4460.93)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 37 [79309] in posizione: (5910.32, 5931.11)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 38 [79310] in posizione: (5856.66, 5873.67)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 39 [79311] in posizione: (1884.42, 1922.06)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 40 [79312] in posizione: (2251.14, 2279.36)
+Banchine libere 3 su 3
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 41 [79313] in posizione: (4595.93, 4614.93)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 42 [79314] in posizione: (119.82, 135.93)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 43 [79315] in posizione: (4253.12, 4269.21)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 44 [79316] in posizione: (734.21, 750.51)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 45 [79317] in posizione: (5636.38, 5671.46)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 46 [79318] in posizione: (667.58, 701.99)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 47 [79319] in posizione: (5637.20, 5651.58)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 1 volte
+
+Porto numero 48 [79320] in posizione: (1418.12, 1433.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 49 [79321] in posizione: (9809.44, 9827.56)
+Banchine libere 3 su 3
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 50 [79322] in posizione: (4753.45, 4782.33)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
 
 
 ==============================> Riga: 384
@@ -6579,36 +8475,28 @@ Porto colpito da mareggiata 1 volte
 
 ---------->	PER STATI:
 
-Merce in porto: 179666ton
-Merce scaduta in porto: 611ton
-Merce in nave: 0ton
-Merce scaduta in nave: 0
+Merce in porto: 2735ton
+Merce scaduta in porto: 67ton
+Merce in nave: 319ton
+Merce scaduta in nave: 3
 Merce consegnata: 0ton
 
 ---------->	PER TIPOLOGIA:
 
-Merce di tipo 1: 18738ton
-Merce di tipo 2: 17123ton
-Merce di tipo 3: 16672ton
-Merce di tipo 4: 19138ton
-Merce di tipo 5: 0ton
-Merce di tipo 6: 36798ton
-Merce di tipo 7: 17973ton
-Merce di tipo 8: 18244ton
-Merce di tipo 9: 18043ton
-Merce di tipo 10: 17548ton
+Merce di tipo 1: 1463ton
+Merce di tipo 2: 1344ton
 
  ==================>		NAVI
 
 Navi affondate: 0
 Numero di navi facendo operazioni di carico/scarico: 0
-In mare con un carico a bordo: 0
-In mare senza carico a bordo: 100
+In mare con un carico a bordo: 71
+In mare senza carico a bordo: 29
 
  ==================>		REPORT METEO
 
 Navi affondate dal vortice: 0
-Porti colpiti da mareggiata: 5
+Porti colpiti da mareggiata: 6
 Navi rallentate dalla tempesta: 6
 
 ============================= FINE REPORT GIORNO 6 =============================
@@ -6621,40 +8509,355 @@ Navi rallentate dalla tempesta: 6
 
 
 ==================>		PORTI
-Porto numero 1 [79149] in posizione: (0.00, 0.00)
+Porto numero 1 [79273] in posizione: (0.00, 0.00)
+Banchine libere 7 su 7
+Merci spedite: 5 ton
+Merci generate ancora in porto: 957 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 2 [79274] in posizione: (10000.00, 0.00)
 Banchine libere 5 su 5
 Merci spedite: 0 ton
-Merci generate ancora in porto: 189389 ton
+Merci generate ancora in porto: 365 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 1 volte
 
-Porto numero 2 [79150] in posizione: (1000.00, 0.00)
+Porto numero 3 [79275] in posizione: (0.00, 10000.00)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 211 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 4 [79276] in posizione: (10000.00, 10000.00)
 Banchine libere 9 su 9
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 1 volte
 
-Porto numero 3 [79151] in posizione: (0.00, 1000.00)
-Banchine libere 8 su 8
+Porto numero 5 [79277] in posizione: (3018.78, 3049.77)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 704 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 1 volte
+
+Porto numero 6 [79278] in posizione: (452.90, 470.44)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 194 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 7 [79279] in posizione: (5871.83, 5886.42)
+Banchine libere 2 su 2
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 1 volte
 
-Porto numero 4 [79152] in posizione: (1000.00, 1000.00)
-Banchine libere 3 su 3
+Porto numero 8 [79280] in posizione: (8298.90, 8319.71)
+Banchine libere 7 su 7
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
-Porto colpito da mareggiata 2 volte
+Porto colpito da mareggiata 0 volte
 
-Porto numero 5 [79153] in posizione: (950.45, 968.03)
+Porto numero 9 [79281] in posizione: (6078.68, 6115.88)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 10 [79282] in posizione: (1110.26, 1141.73)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 11 [79283] in posizione: (4132.26, 4164.34)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 12 [79284] in posizione: (3588.45, 3611.92)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 13 [79285] in posizione: (5867.63, 5883.67)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 14 [79286] in posizione: (8537.43, 8585.77)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 15 [79287] in posizione: (9450.87, 9466.93)
 Banchine libere 6 su 6
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 16 [79288] in posizione: (5969.39, 5985.92)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 17 [79289] in posizione: (1613.85, 1634.73)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 18 [79290] in posizione: (9360.27, 9401.37)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 19 [79291] in posizione: (5337.13, 5354.65)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 20 [79292] in posizione: (2685.98, 2709.92)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
 Porto colpito da mareggiata 1 volte
+
+Porto numero 21 [79293] in posizione: (8359.22, 8404.54)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 22 [79294] in posizione: (1773.67, 1802.13)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 23 [79295] in posizione: (246.03, 262.26)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 520 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 24 [79296] in posizione: (6972.91, 6991.01)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 25 [79297] in posizione: (9927.35, 9966.04)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 26 [79298] in posizione: (7473.20, 7493.64)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 27 [79299] in posizione: (9457.11, 9472.48)
+Banchine libere 8 su 8
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 28 [79300] in posizione: (4421.12, 4465.05)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 29 [79301] in posizione: (5161.70, 5176.58)
+Banchine libere 3 su 3
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 30 [79302] in posizione: (9920.78, 9942.51)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 31 [79303] in posizione: (7445.61, 7466.27)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 32 [79304] in posizione: (1209.48, 1266.93)
+Banchine libere 8 su 8
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 33 [79305] in posizione: (1616.30, 1633.65)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 34 [79306] in posizione: (7211.36, 7255.88)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 35 [79307] in posizione: (8245.70, 8273.55)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 36 [79308] in posizione: (4437.84, 4460.93)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 37 [79309] in posizione: (5910.32, 5931.11)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 38 [79310] in posizione: (5856.66, 5873.67)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 39 [79311] in posizione: (1884.42, 1922.06)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 40 [79312] in posizione: (2251.14, 2279.36)
+Banchine libere 3 su 3
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 41 [79313] in posizione: (4595.93, 4614.93)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 42 [79314] in posizione: (119.82, 135.93)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 43 [79315] in posizione: (4253.12, 4269.21)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 44 [79316] in posizione: (734.21, 750.51)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 45 [79317] in posizione: (5636.38, 5671.46)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 46 [79318] in posizione: (667.58, 701.99)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 47 [79319] in posizione: (5637.20, 5651.58)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 1 volte
+
+Porto numero 48 [79320] in posizione: (1418.12, 1433.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 49 [79321] in posizione: (9809.44, 9827.56)
+Banchine libere 3 su 3
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 50 [79322] in posizione: (4753.45, 4782.33)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
 
 
 ==============================> Riga: 384
@@ -7664,37 +9867,29 @@ Porto colpito da mareggiata 1 volte
 
 ---------->	PER STATI:
 
-Merce in porto: 189389ton
-Merce scaduta in porto: 611ton
-Merce in nave: 0ton
-Merce scaduta in nave: 0
+Merce in porto: 2951ton
+Merce scaduta in porto: 67ton
+Merce in nave: 347ton
+Merce scaduta in nave: 5
 Merce consegnata: 0ton
 
 ---------->	PER TIPOLOGIA:
 
-Merce di tipo 1: 19323ton
-Merce di tipo 2: 18041ton
-Merce di tipo 3: 17516ton
-Merce di tipo 4: 20197ton
-Merce di tipo 5: 0ton
-Merce di tipo 6: 38902ton
-Merce di tipo 7: 18949ton
-Merce di tipo 8: 19287ton
-Merce di tipo 9: 19099ton
-Merce di tipo 10: 18686ton
+Merce di tipo 1: 1435ton
+Merce di tipo 2: 1588ton
 
  ==================>		NAVI
 
 Navi affondate: 0
 Numero di navi facendo operazioni di carico/scarico: 0
-In mare con un carico a bordo: 0
-In mare senza carico a bordo: 100
+In mare con un carico a bordo: 76
+In mare senza carico a bordo: 24
 
  ==================>		REPORT METEO
 
 Navi affondate dal vortice: 0
-Porti colpiti da mareggiata: 5
-Navi rallentate dalla tempesta: 6
+Porti colpiti da mareggiata: 6
+Navi rallentate dalla tempesta: 7
 
 ============================= FINE REPORT GIORNO 7 =============================
 
@@ -7706,40 +9901,355 @@ Navi rallentate dalla tempesta: 6
 
 
 ==================>		PORTI
-Porto numero 1 [79149] in posizione: (0.00, 0.00)
+Porto numero 1 [79273] in posizione: (0.00, 0.00)
+Banchine libere 7 su 7
+Merci spedite: 5 ton
+Merci generate ancora in porto: 1238 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 2 [79274] in posizione: (10000.00, 0.00)
 Banchine libere 5 su 5
 Merci spedite: 0 ton
-Merci generate ancora in porto: 189389 ton
+Merci generate ancora in porto: 717 ton
 Merci ricevute: 0 ton
-Porto colpito da mareggiata 2 volte
+Porto colpito da mareggiata 1 volte
 
-Porto numero 2 [79150] in posizione: (1000.00, 0.00)
+Porto numero 3 [79275] in posizione: (0.00, 10000.00)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 4 [79276] in posizione: (10000.00, 10000.00)
 Banchine libere 9 su 9
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 1 volte
 
-Porto numero 3 [79151] in posizione: (0.00, 1000.00)
+Porto numero 5 [79277] in posizione: (3018.78, 3049.77)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 313 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 1 volte
+
+Porto numero 6 [79278] in posizione: (452.90, 470.44)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 194 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 7 [79279] in posizione: (5871.83, 5886.42)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 1 volte
+
+Porto numero 8 [79280] in posizione: (8298.90, 8319.71)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 9 [79281] in posizione: (6078.68, 6115.88)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 10 [79282] in posizione: (1110.26, 1141.73)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 11 [79283] in posizione: (4132.26, 4164.34)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 12 [79284] in posizione: (3588.45, 3611.92)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 13 [79285] in posizione: (5867.63, 5883.67)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 14 [79286] in posizione: (8537.43, 8585.77)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 1 volte
+
+Porto numero 15 [79287] in posizione: (9450.87, 9466.93)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 16 [79288] in posizione: (5969.39, 5985.92)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 17 [79289] in posizione: (1613.85, 1634.73)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 18 [79290] in posizione: (9360.27, 9401.37)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 19 [79291] in posizione: (5337.13, 5354.65)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 20 [79292] in posizione: (2685.98, 2709.92)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 1 volte
+
+Porto numero 21 [79293] in posizione: (8359.22, 8404.54)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 22 [79294] in posizione: (1773.67, 1802.13)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 23 [79295] in posizione: (246.03, 262.26)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 520 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 24 [79296] in posizione: (6972.91, 6991.01)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 25 [79297] in posizione: (9927.35, 9966.04)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 26 [79298] in posizione: (7473.20, 7493.64)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 27 [79299] in posizione: (9457.11, 9472.48)
 Banchine libere 8 su 8
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
-Porto colpito da mareggiata 1 volte
+Porto colpito da mareggiata 0 volte
 
-Porto numero 4 [79152] in posizione: (1000.00, 1000.00)
+Porto numero 28 [79300] in posizione: (4421.12, 4465.05)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 29 [79301] in posizione: (5161.70, 5176.58)
 Banchine libere 3 su 3
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
-Porto colpito da mareggiata 2 volte
+Porto colpito da mareggiata 0 volte
 
-Porto numero 5 [79153] in posizione: (950.45, 968.03)
+Porto numero 30 [79302] in posizione: (9920.78, 9942.51)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 31 [79303] in posizione: (7445.61, 7466.27)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 32 [79304] in posizione: (1209.48, 1266.93)
+Banchine libere 8 su 8
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 33 [79305] in posizione: (1616.30, 1633.65)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 34 [79306] in posizione: (7211.36, 7255.88)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 35 [79307] in posizione: (8245.70, 8273.55)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 36 [79308] in posizione: (4437.84, 4460.93)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 37 [79309] in posizione: (5910.32, 5931.11)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 38 [79310] in posizione: (5856.66, 5873.67)
 Banchine libere 6 su 6
 Merci spedite: 0 ton
-Merci generate ancora in porto: 24704 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 39 [79311] in posizione: (1884.42, 1922.06)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 40 [79312] in posizione: (2251.14, 2279.36)
+Banchine libere 3 su 3
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 41 [79313] in posizione: (4595.93, 4614.93)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 42 [79314] in posizione: (119.82, 135.93)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 1 volte
+
+Porto numero 43 [79315] in posizione: (4253.12, 4269.21)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 44 [79316] in posizione: (734.21, 750.51)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 45 [79317] in posizione: (5636.38, 5671.46)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 46 [79318] in posizione: (667.58, 701.99)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 47 [79319] in posizione: (5637.20, 5651.58)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 1 volte
+
+Porto numero 48 [79320] in posizione: (1418.12, 1433.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 49 [79321] in posizione: (9809.44, 9827.56)
+Banchine libere 3 su 3
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 50 [79322] in posizione: (4753.45, 4782.33)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
 
 
 ==============================> Riga: 384
@@ -8749,37 +11259,29 @@ Porto colpito da mareggiata 1 volte
 
 ---------->	PER STATI:
 
-Merce in porto: 214093ton
-Merce scaduta in porto: 611ton
-Merce in nave: 0ton
-Merce scaduta in nave: 0
+Merce in porto: 2982ton
+Merce scaduta in porto: 67ton
+Merce in nave: 368ton
+Merce scaduta in nave: 19
 Merce consegnata: 0ton
 
 ---------->	PER TIPOLOGIA:
 
-Merce di tipo 1: 21459ton
-Merce di tipo 2: 20638ton
-Merce di tipo 3: 20347ton
-Merce di tipo 4: 22582ton
-Merce di tipo 5: 2792ton
-Merce di tipo 6: 38902ton
-Merce di tipo 7: 23647ton
-Merce di tipo 8: 22134ton
-Merce di tipo 9: 21175ton
-Merce di tipo 10: 21028ton
+Merce di tipo 1: 833ton
+Merce di tipo 2: 2221ton
 
  ==================>		NAVI
 
 Navi affondate: 0
 Numero di navi facendo operazioni di carico/scarico: 0
-In mare con un carico a bordo: 0
-In mare senza carico a bordo: 100
+In mare con un carico a bordo: 79
+In mare senza carico a bordo: 21
 
  ==================>		REPORT METEO
 
 Navi affondate dal vortice: 0
-Porti colpiti da mareggiata: 5
-Navi rallentate dalla tempesta: 7
+Porti colpiti da mareggiata: 8
+Navi rallentate dalla tempesta: 8
 
 ============================= FINE REPORT GIORNO 8 =============================
 
@@ -8791,40 +11293,355 @@ Navi rallentate dalla tempesta: 7
 
 
 ==================>		PORTI
-Porto numero 1 [79149] in posizione: (0.00, 0.00)
+Porto numero 1 [79273] in posizione: (0.00, 0.00)
+Banchine libere 7 su 7
+Merci spedite: 5 ton
+Merci generate ancora in porto: 1808 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 2 [79274] in posizione: (10000.00, 0.00)
 Banchine libere 5 su 5
 Merci spedite: 0 ton
-Merci generate ancora in porto: 209389 ton
+Merci generate ancora in porto: 502 ton
 Merci ricevute: 0 ton
-Porto colpito da mareggiata 3 volte
+Porto colpito da mareggiata 1 volte
 
-Porto numero 2 [79150] in posizione: (1000.00, 0.00)
+Porto numero 3 [79275] in posizione: (0.00, 10000.00)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 4 [79276] in posizione: (10000.00, 10000.00)
 Banchine libere 9 su 9
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 1 volte
 
-Porto numero 3 [79151] in posizione: (0.00, 1000.00)
+Porto numero 5 [79277] in posizione: (3018.78, 3049.77)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 327 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 1 volte
+
+Porto numero 6 [79278] in posizione: (452.90, 470.44)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 196 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 7 [79279] in posizione: (5871.83, 5886.42)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 2 volte
+
+Porto numero 8 [79280] in posizione: (8298.90, 8319.71)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 9 [79281] in posizione: (6078.68, 6115.88)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 10 [79282] in posizione: (1110.26, 1141.73)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 11 [79283] in posizione: (4132.26, 4164.34)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 12 [79284] in posizione: (3588.45, 3611.92)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 13 [79285] in posizione: (5867.63, 5883.67)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 14 [79286] in posizione: (8537.43, 8585.77)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 1 volte
+
+Porto numero 15 [79287] in posizione: (9450.87, 9466.93)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 16 [79288] in posizione: (5969.39, 5985.92)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 17 [79289] in posizione: (1613.85, 1634.73)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 18 [79290] in posizione: (9360.27, 9401.37)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 19 [79291] in posizione: (5337.13, 5354.65)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 20 [79292] in posizione: (2685.98, 2709.92)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 1 volte
+
+Porto numero 21 [79293] in posizione: (8359.22, 8404.54)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 22 [79294] in posizione: (1773.67, 1802.13)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 23 [79295] in posizione: (246.03, 262.26)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 203 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 24 [79296] in posizione: (6972.91, 6991.01)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 25 [79297] in posizione: (9927.35, 9966.04)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 26 [79298] in posizione: (7473.20, 7493.64)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 27 [79299] in posizione: (9457.11, 9472.48)
 Banchine libere 8 su 8
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
-Porto colpito da mareggiata 2 volte
+Porto colpito da mareggiata 0 volte
 
-Porto numero 4 [79152] in posizione: (1000.00, 1000.00)
+Porto numero 28 [79300] in posizione: (4421.12, 4465.05)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 29 [79301] in posizione: (5161.70, 5176.58)
 Banchine libere 3 su 3
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
-Porto colpito da mareggiata 2 volte
+Porto colpito da mareggiata 0 volte
 
-Porto numero 5 [79153] in posizione: (950.45, 968.03)
+Porto numero 30 [79302] in posizione: (9920.78, 9942.51)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 31 [79303] in posizione: (7445.61, 7466.27)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 32 [79304] in posizione: (1209.48, 1266.93)
+Banchine libere 8 su 8
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 33 [79305] in posizione: (1616.30, 1633.65)
+Banchine libere 1 su 1
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 34 [79306] in posizione: (7211.36, 7255.88)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 35 [79307] in posizione: (8245.70, 8273.55)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 36 [79308] in posizione: (4437.84, 4460.93)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 37 [79309] in posizione: (5910.32, 5931.11)
+Banchine libere 7 su 7
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 38 [79310] in posizione: (5856.66, 5873.67)
 Banchine libere 6 su 6
 Merci spedite: 0 ton
-Merci generate ancora in porto: 24522 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 39 [79311] in posizione: (1884.42, 1922.06)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 40 [79312] in posizione: (2251.14, 2279.36)
+Banchine libere 3 su 3
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 41 [79313] in posizione: (4595.93, 4614.93)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 42 [79314] in posizione: (119.82, 135.93)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 1 volte
+
+Porto numero 43 [79315] in posizione: (4253.12, 4269.21)
+Banchine libere 5 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 44 [79316] in posizione: (734.21, 750.51)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 45 [79317] in posizione: (5636.38, 5671.46)
+Banchine libere 2 su 2
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 46 [79318] in posizione: (667.58, 701.99)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 47 [79319] in posizione: (5637.20, 5651.58)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 1 volte
+
+Porto numero 48 [79320] in posizione: (1418.12, 1433.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 49 [79321] in posizione: (9809.44, 9827.56)
+Banchine libere 3 su 3
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 50 [79322] in posizione: (4753.45, 4782.33)
+Banchine libere 4 su 4
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
 
 
 ==============================> Riga: 384
@@ -9834,37 +12651,29 @@ Porto colpito da mareggiata 1 volte
 
 ---------->	PER STATI:
 
-Merce in porto: 233911ton
-Merce scaduta in porto: 611ton
-Merce in nave: 0ton
-Merce scaduta in nave: 0
+Merce in porto: 3036ton
+Merce scaduta in porto: 67ton
+Merce in nave: 393ton
+Merce scaduta in nave: 9
 Merce consegnata: 0ton
 
 ---------->	PER TIPOLOGIA:
 
-Merce di tipo 1: 23943ton
-Merce di tipo 2: 22209ton
-Merce di tipo 3: 22388ton
-Merce di tipo 4: 25203ton
-Merce di tipo 5: 2378ton
-Merce di tipo 6: 41561ton
-Merce di tipo 7: 25337ton
-Merce di tipo 8: 23540ton
-Merce di tipo 9: 24853ton
-Merce di tipo 10: 23110ton
+Merce di tipo 1: 530ton
+Merce di tipo 2: 2578ton
 
  ==================>		NAVI
 
 Navi affondate: 0
 Numero di navi facendo operazioni di carico/scarico: 0
-In mare con un carico a bordo: 0
-In mare senza carico a bordo: 100
+In mare con un carico a bordo: 82
+In mare senza carico a bordo: 18
 
  ==================>		REPORT METEO
 
 Navi affondate dal vortice: 0
-Porti colpiti da mareggiata: 5
-Navi rallentate dalla tempesta: 9
+Porti colpiti da mareggiata: 8
+Navi rallentate dalla tempesta: 8
 
 ============================= FINE REPORT GIORNO 9 =============================
 
@@ -9878,39 +12687,354 @@ Navi rallentate dalla tempesta: 9
 ==================>		PORTI
 
 
-PORTO[79149] NUMERO 1 (0.00,0.00):
-Merce in porto:209389ton
+PORTO[79273] NUMERO 1 (0.00,0.00):
+Merce in porto:1808ton
+Merce spedita:5ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79274] NUMERO 2 (10000.00,0.00):
+Merce in porto:2154ton
 Merce spedita:0ton
 Merce ricevuta:0ton
-Porto colpito da mareggiata 3 volte
+Porto colpito da mareggiata 1 volte
 
 
-PORTO[79150] NUMERO 2 (1000.00,0.00):
-Merce in porto:209577ton
+PORTO[79275] NUMERO 3 (0.00,10000.00):
+Merce in porto:1853ton
+Merce spedita:0ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79276] NUMERO 4 (10000.00,10000.00):
+Merce in porto:1549ton
+Merce spedita:10ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 1 volte
+
+
+PORTO[79277] NUMERO 5 (3018.78,3049.77):
+Merce in porto:2517ton
+Merce spedita:15ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 1 volte
+
+
+PORTO[79278] NUMERO 6 (452.90,470.44):
+Merce in porto:2765ton
+Merce spedita:0ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79279] NUMERO 7 (5871.83,5886.42):
+Merce in porto:2034ton
+Merce spedita:1ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 2 volte
+
+
+PORTO[79280] NUMERO 8 (8298.90,8319.71):
+Merce in porto:769ton
+Merce spedita:0ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79281] NUMERO 9 (6078.68,6115.88):
+Merce in porto:2281ton
+Merce spedita:8ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79282] NUMERO 10 (1110.26,1141.73):
+Merce in porto:2607ton
+Merce spedita:20ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79283] NUMERO 11 (4132.26,4164.34):
+Merce in porto:1830ton
+Merce spedita:11ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79284] NUMERO 12 (3588.45,3611.92):
+Merce in porto:1611ton
+Merce spedita:49ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79285] NUMERO 13 (5867.63,5883.67):
+Merce in porto:1541ton
+Merce spedita:0ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79286] NUMERO 14 (8537.43,8585.77):
+Merce in porto:2296ton
 Merce spedita:0ton
 Merce ricevuta:0ton
 Porto colpito da mareggiata 1 volte
 
 
-PORTO[79151] NUMERO 3 (0.00,1000.00):
-Merce in porto:134665ton
+PORTO[79287] NUMERO 15 (9450.87,9466.93):
+Merce in porto:1612ton
 Merce spedita:0ton
 Merce ricevuta:0ton
-Porto colpito da mareggiata 2 volte
+Porto colpito da mareggiata 0 volte
 
 
-PORTO[79152] NUMERO 4 (1000.00,1000.00):
-Merce in porto:209404ton
+PORTO[79288] NUMERO 16 (5969.39,5985.92):
+Merce in porto:2102ton
 Merce spedita:0ton
 Merce ricevuta:0ton
-Porto colpito da mareggiata 2 volte
+Porto colpito da mareggiata 0 volte
 
 
-PORTO[79153] NUMERO 5 (950.45,968.03):
-Merce in porto:234561ton
+PORTO[79289] NUMERO 17 (1613.85,1634.73):
+Merce in porto:1515ton
+Merce spedita:0ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79290] NUMERO 18 (9360.27,9401.37):
+Merce in porto:2281ton
+Merce spedita:6ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79291] NUMERO 19 (5337.13,5354.65):
+Merce in porto:1968ton
+Merce spedita:5ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79292] NUMERO 20 (2685.98,2709.92):
+Merce in porto:2437ton
+Merce spedita:16ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 1 volte
+
+
+PORTO[79293] NUMERO 21 (8359.22,8404.54):
+Merce in porto:1860ton
+Merce spedita:6ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79294] NUMERO 22 (1773.67,1802.13):
+Merce in porto:2471ton
+Merce spedita:0ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79295] NUMERO 23 (246.03,262.26):
+Merce in porto:2962ton
+Merce spedita:27ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79296] NUMERO 24 (6972.91,6991.01):
+Merce in porto:1286ton
+Merce spedita:22ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79297] NUMERO 25 (9927.35,9966.04):
+Merce in porto:1265ton
+Merce spedita:1ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79298] NUMERO 26 (7473.20,7493.64):
+Merce in porto:1400ton
+Merce spedita:10ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79299] NUMERO 27 (9457.11,9472.48):
+Merce in porto:1686ton
+Merce spedita:15ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79300] NUMERO 28 (4421.12,4465.05):
+Merce in porto:1829ton
+Merce spedita:6ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79301] NUMERO 29 (5161.70,5176.58):
+Merce in porto:2553ton
+Merce spedita:14ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79302] NUMERO 30 (9920.78,9942.51):
+Merce in porto:1956ton
+Merce spedita:0ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79303] NUMERO 31 (7445.61,7466.27):
+Merce in porto:956ton
+Merce spedita:0ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79304] NUMERO 32 (1209.48,1266.93):
+Merce in porto:1209ton
+Merce spedita:21ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79305] NUMERO 33 (1616.30,1633.65):
+Merce in porto:2880ton
+Merce spedita:2ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79306] NUMERO 34 (7211.36,7255.88):
+Merce in porto:1535ton
+Merce spedita:6ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79307] NUMERO 35 (8245.70,8273.55):
+Merce in porto:1518ton
+Merce spedita:23ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79308] NUMERO 36 (4437.84,4460.93):
+Merce in porto:2639ton
+Merce spedita:20ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79309] NUMERO 37 (5910.32,5931.11):
+Merce in porto:2237ton
+Merce spedita:2ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79310] NUMERO 38 (5856.66,5873.67):
+Merce in porto:1939ton
+Merce spedita:0ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79311] NUMERO 39 (1884.42,1922.06):
+Merce in porto:2000ton
+Merce spedita:12ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79312] NUMERO 40 (2251.14,2279.36):
+Merce in porto:2020ton
+Merce spedita:1ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79313] NUMERO 41 (4595.93,4614.93):
+Merce in porto:2277ton
+Merce spedita:16ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79314] NUMERO 42 (119.82,135.93):
+Merce in porto:1180ton
+Merce spedita:5ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 1 volte
+
+
+PORTO[79315] NUMERO 43 (4253.12,4269.21):
+Merce in porto:2327ton
+Merce spedita:8ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79316] NUMERO 44 (734.21,750.51):
+Merce in porto:1863ton
+Merce spedita:3ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79317] NUMERO 45 (5636.38,5671.46):
+Merce in porto:1153ton
+Merce spedita:4ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79318] NUMERO 46 (667.58,701.99):
+Merce in porto:1250ton
+Merce spedita:0ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79319] NUMERO 47 (5637.20,5651.58):
+Merce in porto:1530ton
 Merce spedita:0ton
 Merce ricevuta:0ton
 Porto colpito da mareggiata 1 volte
+
+
+PORTO[79320] NUMERO 48 (1418.12,1433.00):
+Merce in porto:2528ton
+Merce spedita:10ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79321] NUMERO 49 (9809.44,9827.56):
+Merce in porto:2681ton
+Merce spedita:1ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[79322] NUMERO 50 (4753.45,4782.33):
+Merce in porto:2619ton
+Merce spedita:0ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
 
 ==============================> Riga: 190
 
@@ -10519,119 +13643,47 @@ Porto colpito da mareggiata 1 volte
 
 Navi affondate: 0
 Numero di navi facendo operazioni di carico/scarico: 0
-In mare con un carico a bordo: 0
-In mare senza carico a bordo: 100
+In mare con un carico a bordo: 82
+In mare senza carico a bordo: 18
 
  ==================>		REPORT MERCI
 
 ---------->	PER STATI:
 
-Merce in porto (disponibile): 997596ton
-Merce scaduta in porto: 2404ton
+Merce in porto (disponibile): 97139ton
+Merce scaduta in porto: 2390ton
 Merce consegnata: 0ton
-Merce in nave: 0ton
-Merce scaduta in nave: 0ton
+Merce in nave: 398ton
+Merce scaduta in nave: 10ton
 
 ---------->	PER TIPOLOGIA:
 
 
-TOTALE MERCE GENERATA: 1000000ton
+TOTALE MERCE GENERATA: 99910ton
 MERCE DI TIPO 1:
-Merce generata: 97429ton
-Merce ferma in porto: 97410ton
-Merce scaduta in porto: 19ton
-Merce scaduta in nave: 0ton
+Merce generata: 48243ton
+Merce ferma in porto: 46859ton
+Merce scaduta in porto: 1217ton
+Merce scaduta in nave: 6ton
 Merce consegnata: 0
-Il porto che ne ha fatto più richiesta è il numero 0 (0ton)
-Il porto che ne ha generato di più è 0 (21747ton)
+Il porto che ne ha fatto più richiesta è il numero 11 (3869ton)
+Il porto che ne ha generato di più è 22 (3020ton)
 
 MERCE DI TIPO 2:
-Merce generata: 97658ton
-Merce ferma in porto: 97480ton
-Merce scaduta in porto: 178ton
-Merce scaduta in nave: 0ton
+Merce generata: 51667ton
+Merce ferma in porto: 50280ton
+Merce scaduta in porto: 1173ton
+Merce scaduta in nave: 4ton
 Merce consegnata: 0
-Il porto che ne ha fatto più richiesta è il numero 0 (0ton)
-Il porto che ne ha generato di più è 4 (23386ton)
-
-MERCE DI TIPO 3:
-Merce generata: 82092ton
-Merce ferma in porto: 81822ton
-Merce scaduta in porto: 270ton
-Merce scaduta in nave: 0ton
-Merce consegnata: 0
-Il porto che ne ha fatto più richiesta è il numero 3 (304794ton)
-Il porto che ne ha generato di più è 4 (24808ton)
-
-MERCE DI TIPO 4:
-Merce generata: 123744ton
-Merce ferma in porto: 123266ton
-Merce scaduta in porto: 478ton
-Merce scaduta in nave: 0ton
-Merce consegnata: 0
-Il porto che ne ha fatto più richiesta è il numero 0 (0ton)
-Il porto che ne ha generato di più è 3 (42968ton)
-
-MERCE DI TIPO 5:
-Merce generata: 81264ton
-Merce ferma in porto: 81064ton
-Merce scaduta in porto: 200ton
-Merce scaduta in nave: 0ton
-Merce consegnata: 0
-Il porto che ne ha fatto più richiesta è il numero 0 (292341ton)
-Il porto che ne ha generato di più è 4 (25270ton)
-
-MERCE DI TIPO 6:
-Merce generata: 98021ton
-Merce ferma in porto: 97848ton
-Merce scaduta in porto: 173ton
-Merce scaduta in nave: 0ton
-Merce consegnata: 0
-Il porto che ne ha fatto più richiesta è il numero 4 (254358ton)
-Il porto che ne ha generato di più è 0 (41561ton)
-
-MERCE DI TIPO 7:
-Merce generata: 126295ton
-Merce ferma in porto: 125936ton
-Merce scaduta in porto: 359ton
-Merce scaduta in nave: 0ton
-Merce consegnata: 0
-Il porto che ne ha fatto più richiesta è il numero 0 (0ton)
-Il porto che ne ha generato di più è 4 (49995ton)
-
-MERCE DI TIPO 8:
-Merce generata: 84193ton
-Merce ferma in porto: 83938ton
-Merce scaduta in porto: 255ton
-Merce scaduta in nave: 0ton
-Merce consegnata: 0
-Il porto che ne ha fatto più richiesta è il numero 2 (101494ton)
-Il porto che ne ha generato di più è 4 (22910ton)
-
-MERCE DI TIPO 9:
-Merce generata: 92801ton
-Merce ferma in porto: 92603ton
-Merce scaduta in porto: 198ton
-Merce scaduta in nave: 0ton
-Merce consegnata: 0
-Il porto che ne ha fatto più richiesta è il numero 1 (47011ton)
-Il porto che ne ha generato di più è 2 (27974ton)
-
-MERCE DI TIPO 10:
-Merce generata: 116503ton
-Merce ferma in porto: 116229ton
-Merce scaduta in porto: 274ton
-Merce scaduta in nave: 0ton
-Merce consegnata: 0
-Il porto che ne ha fatto più richiesta è il numero 0 (0ton)
-Il porto che ne ha generato di più è 1 (40769ton)
+Il porto che ne ha fatto più richiesta è il numero 22 (4122ton)
+Il porto che ne ha generato di più è 32 (2930ton)
 
 
  ==================>		REPORT METEO
 
 Navi affondate dal vortice: 0
-Porti colpiti da mareggiata: 5
-Navi rallentate dalla tempesta: 9
+Porti colpiti da mareggiata: 8
+Navi rallentate dalla tempesta: 8
 
 SIMULAZIONE FINITA!!!
 

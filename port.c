@@ -15,10 +15,12 @@
 #include <sys/shm.h>
 #include <sys/msg.h>
 #include <math.h>
+#include <time.h>
 
 #include "macro.h"
 #include "semaphore_library.h"
 #include "types_module.h"
+#include "utility_meteo.h"
 #include "utility_coordinates.h"
 #include "utility_port.h"
 
@@ -53,14 +55,53 @@ void printPort(port p, int i) {
 
 void handleSignal(int signal) {
 	int prevErrno=errno;
+	int i;
+	int freeDocks;
+	struct sembuf sops;
+	struct timespec sleepTime, rem;
+
+	bzero(&sops, sizeof(struct sembuf));
+
 	errno=0;
+	
 	switch(signal) {
 		case SIGUSR1:
 			idxOffer=generateOffer(p, idxOffer, sum_offerID, sem_sum_id, shared_portCoords[idx].semID);
 			break;
 
 		case SIGUSR2:
+			sleepTime = getSwellDuration();
+			freeDocks = semctl(shared_portCoords[idx].semID, DOCK, GETVAL); TEST_ERROR;
+
+			for(i=0; i<freeDocks; i++)
+			{
+				decreaseSem(sops,shared_portCoords[idx].semID,DOCK); TEST_ERROR;
+			}
+			
+			printTest(semctl(shared_portCoords[idx].semID, DOCK, GETVAL));
+
+			nanosleep(&sleepTime, &rem);
+		    if(errno==EINTR){
+		        errno=0;
+		        while(nanosleep(&rem, &rem)==-1)
+		        {
+		            if(errno!=EINTR)
+		            {
+		                TEST_ERROR;
+		            }
+		        }
+		    }else
+		    {
+		        TEST_ERROR;
+		    }
+
+			for(i=0; i<freeDocks; i++)
+			{
+				increaseSem(sops,shared_portCoords[idx].semID,DOCK); TEST_ERROR;
+			}
+
 			break;
+			
 
 		case SIGALRM:
 			pastDays++;

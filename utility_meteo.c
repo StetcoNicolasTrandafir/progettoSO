@@ -20,7 +20,7 @@
 #include "utility_meteo.h"
 
 
-
+/*
 void mealstrom(struct ship_sharedMemory * ships){
     int shipIndex;
     struct timespec now;
@@ -43,8 +43,7 @@ void storm(struct ship_sharedMemory * ships){
     shipIndex=t.tv_nsec%(sizeof(shipPids)/sizeof(pid_t));
 
 
-    /*REVIEW : lo gestiamo con SIGSTOP e SIGCONT? 
-    effetti dei segnali sulle sleep/nanosleep?*/
+
     kill(SIGSTOP, shipPids[shipIndex]);
 
     if(SO_STORM_DURATION%24==0){
@@ -90,9 +89,6 @@ void swell(struct port_sharedMemory *ports, struct ship_sharedMemory *ships){
 	    semop(portSemaphoreID, &sops, 1); TEST_ERROR;
     }
 
-
-    /*REVIEW : lo gestiamo con SIGSTOP e SIGCONT? 
-    effetti dei segnali sulle sleep/nanosleep?*/
     for(i=0; i< sizeof(shipPids)/sizeof(pid_t); i++){
         kill(SIGSTOP, shipPids[i]);
     }
@@ -122,6 +118,7 @@ void swell(struct port_sharedMemory *ports, struct ship_sharedMemory *ships){
 	    semop(portSemaphoreID, &sops, 1); TEST_ERROR;
     }
 }
+*/
 
 
 struct timespec getStormDuration(){
@@ -160,5 +157,7 @@ struct itimerval getMealstromQuantum() {
     t.it_interval = t.it_value;
     printTest(t.it_value.tv_sec);
     printTest(t.it_value.tv_usec);
+
+    return t;
     
 }

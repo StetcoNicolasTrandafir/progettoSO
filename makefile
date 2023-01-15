@@ -13,7 +13,7 @@ objects:
 	gcc -c semaphore_library.c
 
 port:
-	gcc port.c utility_coordinates.o utility_goods.o utility_port.o semaphore_library.o -o port $(LDFLAGS)
+	gcc port.c utility_coordinates.o utility_goods.o utility_port.o semaphore_library.o utility_meteo.o -o port $(LDFLAGS)
 
 ship:
 	gcc ship.c utility_coordinates.o utility_port.o utility_ship.o utility_goods.o semaphore_library.o utility_meteo.o -o ship $(LDFLAGS)

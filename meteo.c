@@ -52,7 +52,6 @@ void handleSignal(int signal) {
 	switch(signal) {
 
 		case SIGINT:
-			printTest(53);
 			cleanUp();
 			exit(EXIT_SUCCESS);
 			break;
@@ -85,13 +84,13 @@ void handleSignal(int signal) {
 				if(plus!=SO_NAVI){
 					/*printf("\n\nPID: %d (%.2lf,%.2lf)",ships[(randomShip + plus)%SO_NAVI].pid,ships[(randomShip + plus)%SO_NAVI].coords.x,ships[(randomShip + plus)%SO_NAVI].coords.y);*/
 					kill(ships[(randomShip+plus)%SO_NAVI].pid, SIGUSR2); TEST_ERROR;
+					
 					decreaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, STORM); TEST_ERROR;
 					ships[(randomShip+plus)%SO_NAVI].storm++;
 					increaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, STORM); TEST_ERROR;
 				}
 
 				randomPort=now.tv_nsec%SO_PORTI;
-				/*TODO - SEMAFORO BANCHINE PORTO*/
 
 				kill(ports[randomPort].pid, SIGUSR2); TEST_ERROR;
 				decreaseSem(sops, ports[randomPort].semID, SWELL); TEST_ERROR;

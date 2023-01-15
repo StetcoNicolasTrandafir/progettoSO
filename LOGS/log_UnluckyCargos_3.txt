@@ -1,108 +1,109 @@
-Porto[79150] numero 1: (1000.00, 0.00) - 9 banchine
-Porto[79149] numero 0: (0.00, 0.00) - 5 banchine
-Ship[79154]: (486.40, 489.95)
-Ship[79223]: (173.25, 177.10)
-Ship[79173]: (952.11, 956.60)
-Porto[79153] numero 4: (950.45, 968.03) - 6 banchine
-Ship[79155]: (427.37, 430.93)
-Ship[79167]: (459.95, 463.40)
-Ship[79232]: (732.06, 735.99)
-Ship[79247]: (118.46, 123.05)
-Porto[79151] numero 2: (0.00, 1000.00) - 8 banchine
-Ship[79235]: (673.95, 678.32)
-Ship[79243]: (845.77, 851.87)
-Ship[79176]: (58.69, 62.17)
-Ship[79159]: (373.09, 376.45)
-Ship[79182]: (221.23, 224.71)
-Ship[79166]: (655.23, 658.56)
-Ship[79183]: (587.41, 590.48)
-Ship[79179]: (649.48, 652.89)
-Ship[79177]: (618.79, 622.93)
-Ship[79178]: (487.95, 491.62)
-Ship[79184]: (235.90, 239.52)
-Ship[79181]: (530.18, 533.17)
-Ship[79186]: (52.92, 55.95)
-Ship[79174]: (755.43, 758.37)
-Ship[79188]: (99.09, 102.12)
-Ship[79187]: (638.94, 641.83)
-Ship[79171]: (812.33, 815.19)
-Ship[79189]: (564.91, 568.06)
-Ship[79190]: (702.28, 705.41)
-Ship[79165]: (884.46, 887.49)
-Ship[79192]: (227.44, 230.29)
-Ship[79191]: (746.20, 750.03)
-Ship[79160]: (87.03, 90.07)
-Ship[79193]: (9.73, 12.88)
-Ship[79194]: (901.34, 904.21)
-Ship[79161]: (677.00, 680.69)
-Ship[79197]: (608.32, 611.89)
-Ship[79195]: (626.24, 629.54)
-Ship[79170]: (698.83, 701.73)
-Ship[79198]: (573.46, 576.63)
-Ship[79196]: (557.91, 561.03)
-Ship[79175]: (808.44, 811.39)
-Ship[79201]: (67.15, 71.81)
-Ship[79199]: (417.90, 421.65)
-Ship[79156]: (878.48, 882.10)
-Ship[79164]: (341.53, 345.05)
-Ship[79200]: (301.29, 305.09)
-Ship[79202]: (57.49, 61.97)
-Ship[79203]: (465.25, 468.41)
-Ship[79157]: (834.05, 838.51)
-Ship[79206]: (514.24, 517.59)
-Ship[79204]: (771.66, 775.33)
-Ship[79207]: (80.52, 83.60)
-Ship[79205]: (691.82, 695.04)
-Ship[79158]: (246.22, 249.58)
-Ship[79208]: (600.48, 603.49)
-Ship[79209]: (570.87, 573.89)
-Ship[79213]: (891.86, 895.13)
-Ship[79210]: (193.36, 196.56)
-Ship[79214]: (576.61, 579.42)
-Ship[79185]: (911.71, 916.76)
-Ship[79172]: (421.10, 424.78)
-Ship[79215]: (41.25, 45.41)
-Porto[79152] numero 3: (1000.00, 1000.00) - 3 banchine
-Ship[79220]: (770.00, 773.30)
-Ship[79222]: (943.12, 947.12)
-Ship[79162]: (350.46, 354.99)
-Ship[79218]: (714.78, 719.61)
-Ship[79221]: (427.07, 431.61)
-Ship[79219]: (811.61, 816.28)
-Ship[79211]: (984.14, 988.63)
-Ship[79230]: (814.57, 819.14)
-Ship[79212]: (322.25, 325.79)
-Ship[79163]: (882.70, 886.60)
-Ship[79224]: (713.73, 717.07)
-Ship[79225]: (463.74, 467.27)
-Ship[79231]: (718.22, 722.45)
-Ship[79216]: (167.58, 171.10)
-Ship[79226]: (566.41, 569.92)
-Ship[79233]: (763.77, 767.30)
-Ship[79217]: (708.11, 711.68)
-Ship[79234]: (181.02, 184.03)
-Ship[79227]: (862.55, 865.84)
-Ship[79228]: (625.41, 628.73)
-Ship[79169]: (56.55, 60.67)
-Ship[79168]: (795.30, 798.93)
-Ship[79237]: (493.63, 497.27)
-Ship[79236]: (68.52, 72.48)
-Ship[79229]: (113.38, 118.76)
-Ship[79180]: (785.19, 790.37)
-Ship[79248]: (230.36, 234.79)
-Ship[79244]: (915.35, 918.63)
-Ship[79245]: (86.90, 90.04)
-Ship[79249]: (235.30, 239.30)
-Ship[79251]: (423.18, 426.09)
-Ship[79250]: (617.21, 620.96)
-Ship[79252]: (331.60, 334.76)
-Ship[79253]: (162.36, 165.32)
-Ship[79241]: (422.97, 426.70)
-Ship[79242]: (102.41, 106.51)
-Ship[79246]: (193.91, 198.81)
-Ship[79240]: (807.80, 812.40)
-Ship[79239]: (118.44, 123.38)
-Ship[79238]: (464.38, 469.45)
+./simulation
+Porto[83604] numero 0: (0.00, 0.00) - 2 banchine
+Ship[83619]: (665.08, 681.54)
+Ship[83628]: (707.24, 718.84)
+Ship[83649]: (290.52, 297.45)
+Ship[83621]: (716.42, 723.29)
+Ship[83668]: (248.18, 255.68)
+Ship[83670]: (225.18, 230.98)
+Ship[83681]: (250.69, 256.93)
+Ship[83674]: (480.36, 487.92)
+Ship[83656]: (822.62, 829.10)
+Ship[83643]: (834.39, 849.27)
+Ship[83675]: (880.24, 889.13)
+Ship[83685]: (380.65, 399.11)
+Ship[83706]: (665.67, 677.56)
+Ship[83617]: (462.27, 474.82)
+Ship[83686]: (237.64, 251.74)
+Porto[83607] numero 3: (1000.00, 1000.00) - 9 banchine
+Ship[83660]: (54.52, 71.49)
+Ship[83615]: (932.77, 940.27)
+Ship[83632]: (749.08, 758.82)
+Ship[83633]: (358.72, 365.73)
+Ship[83620]: (176.38, 189.78)
+Ship[83634]: (877.77, 886.62)
+Ship[83614]: (700.65, 712.87)
+Ship[83687]: (116.37, 123.63)
+Ship[83618]: (837.97, 844.80)
+Porto[83608] numero 4: (657.68, 684.21) - 5 banchine
+Ship[83650]: (221.37, 229.36)
+Ship[83638]: (873.04, 880.44)
+Ship[83688]: (354.03, 360.90)
+Ship[83641]: (687.40, 694.32)
+Ship[83651]: (778.09, 785.36)
+Ship[83690]: (433.97, 443.52)
+Ship[83689]: (337.79, 345.81)
+Porto[83606] numero 2: (0.00, 1000.00) - 10 banchine
+Ship[83652]: (347.41, 355.78)
+Ship[83691]: (685.28, 692.39)
+Ship[83609]: (952.62, 960.07)
+Ship[83635]: (843.84, 851.11)
+Ship[83694]: (669.56, 679.43)
+Ship[83695]: (128.23, 136.28)
+Ship[83631]: (200.28, 214.13)
+Ship[83611]: (154.29, 164.14)
+Ship[83655]: (11.05, 17.86)
+Ship[83701]: (126.50, 133.70)
+Ship[83616]: (589.94, 596.28)
+Ship[83626]: (39.13, 50.17)
+Ship[83658]: (772.01, 787.08)
+Ship[83625]: (734.68, 741.71)
+Ship[83627]: (36.28, 48.71)
+Ship[83647]: (96.59, 102.56)
+Ship[83662]: (801.88, 808.39)
+Ship[83663]: (887.00, 904.20)
+Ship[83612]: (469.80, 480.72)
+Ship[83664]: (665.43, 672.15)
+Ship[83648]: (769.15, 777.51)
+Ship[83653]: (837.05, 844.53)
+Ship[83665]: (794.21, 799.81)
+Ship[83657]: (46.06, 52.22)
+Ship[83645]: (280.58, 286.69)
+Ship[83672]: (133.07, 139.30)
+Ship[83666]: (309.03, 315.79)
+Ship[83673]: (808.86, 815.88)
+Ship[83667]: (549.67, 556.11)
+Ship[83637]: (308.93, 314.14)
+Ship[83613]: (996.45, 2.65)
+Ship[83680]: (237.76, 243.59)
+Ship[83642]: (589.15, 595.31)
+Ship[83702]: (93.12, 99.81)
+Ship[83703]: (907.49, 913.57)
+Ship[83708]: (454.99, 461.42)
+Ship[83644]: (273.96, 279.66)
+Ship[83646]: (285.59, 291.23)
+Ship[83684]: (540.15, 546.69)
+Ship[83700]: (809.18, 816.10)
+Ship[83704]: (224.75, 231.64)
+Ship[83678]: (619.10, 633.99)
+Ship[83622]: (135.60, 142.55)
+Ship[83629]: (413.81, 428.86)
+Ship[83636]: (568.27, 576.16)
+Ship[83679]: (722.03, 730.09)
+Ship[83630]: (130.02, 135.74)
+Ship[83682]: (863.02, 876.46)
+Ship[83610]: (792.38, 803.76)
+Ship[83683]: (984.14, 990.02)
+Ship[83696]: (306.27, 315.24)
+Ship[83624]: (835.85, 843.24)
+Ship[83676]: (743.69, 750.06)
+Ship[83623]: (360.43, 375.29)
+Ship[83640]: (851.97, 859.64)
+Ship[83639]: (862.59, 869.64)
+Ship[83669]: (512.03, 518.89)
+Ship[83693]: (290.21, 298.64)
+Ship[83677]: (728.44, 734.73)
+Ship[83671]: (250.34, 258.27)
+Porto[83605] numero 1: (1000.00, 0.00) - 6 banchine
+Ship[83705]: (560.31, 566.99)
+Ship[83661]: (666.89, 672.77)
+Ship[83659]: (547.65, 554.21)
+Ship[83692]: (163.23, 170.01)
+Ship[83697]: (506.65, 516.20)
+Ship[83699]: (452.17, 459.51)
+Ship[83698]: (164.09, 170.24)
+Ship[83654]: (846.21, 874.41)
+Ship[83707]: (893.95, 901.13)
 
 
 ========================================================================
@@ -111,36 +112,36 @@ Ship[79238]: (464.38, 469.45)
 
 
 ==================>		PORTI
-Porto numero 1 [79149] in posizione: (0.00, 0.00)
-Banchine libere 5 su 5
-Merci spedite: 0 ton
-Merci generate ancora in porto: 19657 ton
-Merci ricevute: 0 ton
-Porto colpito da mareggiata 1 volte
+Porto numero 1 [83604] in posizione: (0.00, 0.00)
+Banchine libere 2 su 2
+Merci spedite: 8370 ton
+Merci generate ancora in porto: 11050 ton
+Merci ricevute: 28166 ton
+Porto colpito da mareggiata 0 volte
 
-Porto numero 2 [79150] in posizione: (1000.00, 0.00)
+Porto numero 2 [83605] in posizione: (1000.00, 0.00)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 3 [83606] in posizione: (0.00, 1000.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 4 [83607] in posizione: (1000.00, 1000.00)
 Banchine libere 9 su 9
 Merci spedite: 0 ton
-Merci generate ancora in porto: 1891 ton
+Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 0 volte
 
-Porto numero 3 [79151] in posizione: (0.00, 1000.00)
-Banchine libere 8 su 8
-Merci spedite: 0 ton
-Merci generate ancora in porto: 13005 ton
-Merci ricevute: 0 ton
-Porto colpito da mareggiata 0 volte
-
-Porto numero 4 [79152] in posizione: (1000.00, 1000.00)
-Banchine libere 3 su 3
-Merci spedite: 0 ton
-Merci generate ancora in porto: 9904 ton
-Merci ricevute: 0 ton
-Porto colpito da mareggiata 0 volte
-
-Porto numero 5 [79153] in posizione: (950.45, 968.03)
-Banchine libere 6 su 6
+Porto numero 5 [83608] in posizione: (657.68, 684.21)
+Banchine libere 5 su 5
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
@@ -1154,36 +1155,36 @@ Porto colpito da mareggiata 0 volte
 
 ---------->	PER STATI:
 
-Merce in porto: 44457ton
-Merce scaduta in porto: 611ton
+Merce in porto: 11050ton
+Merce scaduta in porto: 580ton
 Merce in nave: 0ton
-Merce scaduta in nave: 0
-Merce consegnata: 0ton
+Merce scaduta in nave: 521
+Merce consegnata: 28166ton
 
 ---------->	PER TIPOLOGIA:
 
-Merce di tipo 1: 3696ton
-Merce di tipo 2: 4137ton
-Merce di tipo 3: 2967ton
-Merce di tipo 4: 6478ton
-Merce di tipo 5: 2347ton
-Merce di tipo 6: 7207ton
-Merce di tipo 7: 4593ton
-Merce di tipo 8: 3155ton
-Merce di tipo 9: 5598ton
-Merce di tipo 10: 4890ton
+Merce di tipo 1: 1569ton
+Merce di tipo 2: 0ton
+Merce di tipo 3: 4130ton
+Merce di tipo 4: 2047ton
+Merce di tipo 5: 1858ton
+Merce di tipo 6: 2055ton
+Merce di tipo 7: 2170ton
+Merce di tipo 8: 2133ton
+Merce di tipo 9: 2154ton
+Merce di tipo 10: 1884ton
 
  ==================>		NAVI
 
 Navi affondate: 0
 Numero di navi facendo operazioni di carico/scarico: 0
-In mare con un carico a bordo: 0
-In mare senza carico a bordo: 100
+In mare con un carico a bordo: 74
+In mare senza carico a bordo: 26
 
  ==================>		REPORT METEO
 
 Navi affondate dal vortice: 0
-Porti colpiti da mareggiata: 1
+Porti colpiti da mareggiata: 0
 Navi rallentate dalla tempesta: 1
 
 ============================= FINE REPORT GIORNO 1 =============================
@@ -1196,39 +1197,39 @@ Navi rallentate dalla tempesta: 1
 
 
 ==================>		PORTI
-Porto numero 1 [79149] in posizione: (0.00, 0.00)
-Banchine libere 5 su 5
-Merci spedite: 0 ton
-Merci generate ancora in porto: 44448 ton
-Merci ricevute: 0 ton
+Porto numero 1 [83604] in posizione: (0.00, 0.00)
+Banchine libere 2 su 2
+Merci spedite: 21399 ton
+Merci generate ancora in porto: 98021 ton
+Merci ricevute: 57159 ton
 Porto colpito da mareggiata 1 volte
 
-Porto numero 2 [79150] in posizione: (1000.00, 0.00)
+Porto numero 2 [83605] in posizione: (1000.00, 0.00)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 3 [83606] in posizione: (0.00, 1000.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 4 [83607] in posizione: (1000.00, 1000.00)
 Banchine libere 9 su 9
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 0 volte
 
-Porto numero 3 [79151] in posizione: (0.00, 1000.00)
-Banchine libere 8 su 8
+Porto numero 5 [83608] in posizione: (657.68, 684.21)
+Banchine libere 5 su 5
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
-Merci ricevute: 0 ton
-Porto colpito da mareggiata 0 volte
-
-Porto numero 4 [79152] in posizione: (1000.00, 1000.00)
-Banchine libere 3 su 3
-Merci spedite: 0 ton
-Merci generate ancora in porto: 0 ton
-Merci ricevute: 0 ton
-Porto colpito da mareggiata 0 volte
-
-Porto numero 5 [79153] in posizione: (950.45, 968.03)
-Banchine libere 6 su 6
-Merci spedite: 0 ton
-Merci generate ancora in porto: 0 ton
-Merci ricevute: 0 ton
+Merci ricevute: 49992 ton
 Porto colpito da mareggiata 1 volte
 
 
@@ -2239,31 +2240,31 @@ Porto colpito da mareggiata 1 volte
 
 ---------->	PER STATI:
 
-Merce in porto: 44448ton
-Merce scaduta in porto: 611ton
-Merce in nave: 0ton
-Merce scaduta in nave: 0
-Merce consegnata: 0ton
+Merce in porto: 98021ton
+Merce scaduta in porto: 580ton
+Merce in nave: 16490ton
+Merce scaduta in nave: 202
+Merce consegnata: 107151ton
 
 ---------->	PER TIPOLOGIA:
 
-Merce di tipo 1: 4156ton
-Merce di tipo 2: 4656ton
-Merce di tipo 3: 3177ton
-Merce di tipo 4: 4937ton
-Merce di tipo 5: 0ton
-Merce di tipo 6: 9307ton
-Merce di tipo 7: 3887ton
-Merce di tipo 8: 5251ton
-Merce di tipo 9: 4342ton
-Merce di tipo 10: 5346ton
+Merce di tipo 1: 12912ton
+Merce di tipo 2: 0ton
+Merce di tipo 3: 24712ton
+Merce di tipo 4: 10600ton
+Merce di tipo 5: 11561ton
+Merce di tipo 6: 12046ton
+Merce di tipo 7: 11592ton
+Merce di tipo 8: 11615ton
+Merce di tipo 9: 12255ton
+Merce di tipo 10: 12707ton
 
  ==================>		NAVI
 
 Navi affondate: 0
 Numero di navi facendo operazioni di carico/scarico: 0
-In mare con un carico a bordo: 0
-In mare senza carico a bordo: 100
+In mare con un carico a bordo: 50
+In mare senza carico a bordo: 50
 
  ==================>		REPORT METEO
 
@@ -2281,40 +2282,40 @@ Navi rallentate dalla tempesta: 2
 
 
 ==================>		PORTI
-Porto numero 1 [79149] in posizione: (0.00, 0.00)
-Banchine libere 5 su 5
-Merci spedite: 0 ton
-Merci generate ancora in porto: 94662 ton
-Merci ricevute: 0 ton
+Porto numero 1 [83604] in posizione: (0.00, 0.00)
+Banchine libere 4 su 2
+Merci spedite: 23457 ton
+Merci generate ancora in porto: 145963 ton
+Merci ricevute: 97154 ton
 Porto colpito da mareggiata 1 volte
 
-Porto numero 2 [79150] in posizione: (1000.00, 0.00)
+Porto numero 2 [83605] in posizione: (1000.00, 0.00)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 3 [83606] in posizione: (0.00, 1000.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 4 [83607] in posizione: (1000.00, 1000.00)
 Banchine libere 9 su 9
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
-Porto colpito da mareggiata 1 volte
-
-Porto numero 3 [79151] in posizione: (0.00, 1000.00)
-Banchine libere 8 su 8
-Merci spedite: 0 ton
-Merci generate ancora in porto: 0 ton
-Merci ricevute: 0 ton
 Porto colpito da mareggiata 0 volte
 
-Porto numero 4 [79152] in posizione: (1000.00, 1000.00)
-Banchine libere 3 su 3
+Porto numero 5 [83608] in posizione: (657.68, 684.21)
+Banchine libere 4 su 5
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
-Merci ricevute: 0 ton
-Porto colpito da mareggiata 0 volte
-
-Porto numero 5 [79153] in posizione: (950.45, 968.03)
-Banchine libere 6 su 6
-Merci spedite: 0 ton
-Merci generate ancora in porto: 518 ton
-Merci ricevute: 0 ton
-Porto colpito da mareggiata 1 volte
+Merci ricevute: 118961 ton
+Porto colpito da mareggiata 2 volte
 
 
 ==============================> Riga: 384
@@ -2647,7 +2648,7 @@ Porto colpito da mareggiata 1 volte
 
 ==============================> Riga: 396
 
-==============================> Riga: 403
+==============================> Riga: 399
 
 ==============================> Riga: 390
 
@@ -3007,7 +3008,7 @@ Porto colpito da mareggiata 1 volte
 
 ==============================> Riga: 396
 
-==============================> Riga: 403
+==============================> Riga: 399
 
 ==============================> Riga: 390
 
@@ -3067,7 +3068,7 @@ Porto colpito da mareggiata 1 volte
 
 ==============================> Riga: 396
 
-==============================> Riga: 403
+==============================> Riga: 399
 
 ==============================> Riga: 390
 
@@ -3324,36 +3325,36 @@ Porto colpito da mareggiata 1 volte
 
 ---------->	PER STATI:
 
-Merce in porto: 95180ton
-Merce scaduta in porto: 611ton
+Merce in porto: 145963ton
+Merce scaduta in porto: 580ton
 Merce in nave: 0ton
-Merce scaduta in nave: 0
-Merce consegnata: 0ton
+Merce scaduta in nave: 385
+Merce consegnata: 216115ton
 
 ---------->	PER TIPOLOGIA:
 
-Merce di tipo 1: 10000ton
-Merce di tipo 2: 9247ton
-Merce di tipo 3: 8116ton
-Merce di tipo 4: 10494ton
-Merce di tipo 5: 90ton
-Merce di tipo 6: 18836ton
-Merce di tipo 7: 9312ton
-Merce di tipo 8: 10847ton
-Merce di tipo 9: 9073ton
-Merce di tipo 10: 9776ton
+Merce di tipo 1: 17607ton
+Merce di tipo 2: 0ton
+Merce di tipo 3: 34254ton
+Merce di tipo 4: 16033ton
+Merce di tipo 5: 16714ton
+Merce di tipo 6: 18158ton
+Merce di tipo 7: 16519ton
+Merce di tipo 8: 16743ton
+Merce di tipo 9: 16567ton
+Merce di tipo 10: 17405ton
 
  ==================>		NAVI
 
 Navi affondate: 0
-Numero di navi facendo operazioni di carico/scarico: 0
-In mare con un carico a bordo: 0
-In mare senza carico a bordo: 100
+Numero di navi facendo operazioni di carico/scarico: 3
+In mare con un carico a bordo: 21
+In mare senza carico a bordo: 76
 
  ==================>		REPORT METEO
 
 Navi affondate dal vortice: 0
-Porti colpiti da mareggiata: 3
+Porti colpiti da mareggiata: 2
 Navi rallentate dalla tempesta: 3
 
 ============================= FINE REPORT GIORNO 3 =============================
@@ -3366,40 +3367,40 @@ Navi rallentate dalla tempesta: 3
 
 
 ==================>		PORTI
-Porto numero 1 [79149] in posizione: (0.00, 0.00)
-Banchine libere 5 su 5
-Merci spedite: 0 ton
-Merci generate ancora in porto: 119389 ton
-Merci ricevute: 0 ton
+Porto numero 1 [83604] in posizione: (0.00, 0.00)
+Banchine libere 5 su 2
+Merci spedite: 23457 ton
+Merci generate ancora in porto: 145963 ton
+Merci ricevute: 111150 ton
 Porto colpito da mareggiata 1 volte
 
-Porto numero 2 [79150] in posizione: (1000.00, 0.00)
-Banchine libere 9 su 9
-Merci spedite: 0 ton
-Merci generate ancora in porto: 0 ton
-Merci ricevute: 0 ton
-Porto colpito da mareggiata 1 volte
-
-Porto numero 3 [79151] in posizione: (0.00, 1000.00)
-Banchine libere 8 su 8
-Merci spedite: 0 ton
-Merci generate ancora in porto: 0 ton
-Merci ricevute: 0 ton
-Porto colpito da mareggiata 0 volte
-
-Porto numero 4 [79152] in posizione: (1000.00, 1000.00)
-Banchine libere 3 su 3
-Merci spedite: 0 ton
-Merci generate ancora in porto: 0 ton
-Merci ricevute: 0 ton
-Porto colpito da mareggiata 0 volte
-
-Porto numero 5 [79153] in posizione: (950.45, 968.03)
+Porto numero 2 [83605] in posizione: (1000.00, 0.00)
 Banchine libere 6 su 6
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
-Porto colpito da mareggiata 1 volte
+Porto colpito da mareggiata 0 volte
+
+Porto numero 3 [83606] in posizione: (0.00, 1000.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 4 [83607] in posizione: (1000.00, 1000.00)
+Banchine libere 9 su 9
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 5 [83608] in posizione: (657.68, 684.21)
+Banchine libere 4 su 5
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 118961 ton
+Porto colpito da mareggiata 3 volte
 
 
 ==============================> Riga: 384
@@ -3482,7 +3483,7 @@ Porto colpito da mareggiata 1 volte
 
 ==============================> Riga: 396
 
-==============================> Riga: 403
+==============================> Riga: 399
 
 ==============================> Riga: 390
 
@@ -3492,7 +3493,7 @@ Porto colpito da mareggiata 1 volte
 
 ==============================> Riga: 396
 
-==============================> Riga: 403
+==============================> Riga: 399
 
 ==============================> Riga: 390
 
@@ -3512,7 +3513,7 @@ Porto colpito da mareggiata 1 volte
 
 ==============================> Riga: 396
 
-==============================> Riga: 403
+==============================> Riga: 399
 
 ==============================> Riga: 390
 
@@ -3552,7 +3553,7 @@ Porto colpito da mareggiata 1 volte
 
 ==============================> Riga: 396
 
-==============================> Riga: 403
+==============================> Riga: 399
 
 ==============================> Riga: 390
 
@@ -3612,7 +3613,7 @@ Porto colpito da mareggiata 1 volte
 
 ==============================> Riga: 396
 
-==============================> Riga: 403
+==============================> Riga: 399
 
 ==============================> Riga: 390
 
@@ -3652,7 +3653,7 @@ Porto colpito da mareggiata 1 volte
 
 ==============================> Riga: 396
 
-==============================> Riga: 403
+==============================> Riga: 399
 
 ==============================> Riga: 390
 
@@ -3842,7 +3843,7 @@ Porto colpito da mareggiata 1 volte
 
 ==============================> Riga: 396
 
-==============================> Riga: 403
+==============================> Riga: 399
 
 ==============================> Riga: 390
 
@@ -3912,7 +3913,7 @@ Porto colpito da mareggiata 1 volte
 
 ==============================> Riga: 396
 
-==============================> Riga: 403
+==============================> Riga: 399
 
 ==============================> Riga: 390
 
@@ -3962,7 +3963,7 @@ Porto colpito da mareggiata 1 volte
 
 ==============================> Riga: 396
 
-==============================> Riga: 403
+==============================> Riga: 399
 
 ==============================> Riga: 390
 
@@ -4012,7 +4013,7 @@ Porto colpito da mareggiata 1 volte
 
 ==============================> Riga: 396
 
-==============================> Riga: 403
+==============================> Riga: 399
 
 ==============================> Riga: 390
 
@@ -4212,7 +4213,7 @@ Porto colpito da mareggiata 1 volte
 
 ==============================> Riga: 396
 
-==============================> Riga: 403
+==============================> Riga: 399
 
 ==============================> Riga: 390
 
@@ -4409,37 +4410,37 @@ Porto colpito da mareggiata 1 volte
 
 ---------->	PER STATI:
 
-Merce in porto: 119389ton
-Merce scaduta in porto: 611ton
-Merce in nave: 0ton
-Merce scaduta in nave: 0
-Merce consegnata: 0ton
+Merce in porto: 145963ton
+Merce scaduta in porto: 580ton
+Merce in nave: 10702ton
+Merce scaduta in nave: 514
+Merce consegnata: 230111ton
 
 ---------->	PER TIPOLOGIA:
 
-Merce di tipo 1: 12655ton
-Merce di tipo 2: 11285ton
-Merce di tipo 3: 10388ton
-Merce di tipo 4: 13206ton
-Merce di tipo 5: 0ton
-Merce di tipo 6: 23875ton
-Merce di tipo 7: 11730ton
-Merce di tipo 8: 13105ton
-Merce di tipo 9: 11935ton
-Merce di tipo 10: 11821ton
+Merce di tipo 1: 17607ton
+Merce di tipo 2: 0ton
+Merce di tipo 3: 34254ton
+Merce di tipo 4: 16033ton
+Merce di tipo 5: 16714ton
+Merce di tipo 6: 18158ton
+Merce di tipo 7: 16519ton
+Merce di tipo 8: 16743ton
+Merce di tipo 9: 16567ton
+Merce di tipo 10: 17405ton
 
  ==================>		NAVI
 
 Navi affondate: 0
-Numero di navi facendo operazioni di carico/scarico: 0
-In mare con un carico a bordo: 0
-In mare senza carico a bordo: 100
+Numero di navi facendo operazioni di carico/scarico: 11
+In mare con un carico a bordo: 49
+In mare senza carico a bordo: 40
 
  ==================>		REPORT METEO
 
 Navi affondate dal vortice: 0
-Porti colpiti da mareggiata: 3
-Navi rallentate dalla tempesta: 3
+Porti colpiti da mareggiata: 2
+Navi rallentate dalla tempesta: 4
 
 ============================= FINE REPORT GIORNO 4 =============================
 
@@ -4451,40 +4452,40 @@ Navi rallentate dalla tempesta: 3
 
 
 ==================>		PORTI
-Porto numero 1 [79149] in posizione: (0.00, 0.00)
-Banchine libere 5 su 5
-Merci spedite: 0 ton
-Merci generate ancora in porto: 151695 ton
-Merci ricevute: 0 ton
+Porto numero 1 [83604] in posizione: (0.00, 0.00)
+Banchine libere 5 su 2
+Merci spedite: 23457 ton
+Merci generate ancora in porto: 146001 ton
+Merci ricevute: 241854 ton
 Porto colpito da mareggiata 1 volte
 
-Porto numero 2 [79150] in posizione: (1000.00, 0.00)
+Porto numero 2 [83605] in posizione: (1000.00, 0.00)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 3 [83606] in posizione: (0.00, 1000.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 4 [83607] in posizione: (1000.00, 1000.00)
 Banchine libere 9 su 9
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 1 volte
 
-Porto numero 3 [79151] in posizione: (0.00, 1000.00)
-Banchine libere 8 su 8
+Porto numero 5 [83608] in posizione: (657.68, 684.21)
+Banchine libere 5 su 5
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
-Merci ricevute: 0 ton
-Porto colpito da mareggiata 0 volte
-
-Porto numero 4 [79152] in posizione: (1000.00, 1000.00)
-Banchine libere 3 su 3
-Merci spedite: 0 ton
-Merci generate ancora in porto: 0 ton
-Merci ricevute: 0 ton
-Porto colpito da mareggiata 2 volte
-
-Porto numero 5 [79153] in posizione: (950.45, 968.03)
-Banchine libere 6 su 6
-Merci spedite: 0 ton
-Merci generate ancora in porto: 0 ton
-Merci ricevute: 0 ton
-Porto colpito da mareggiata 1 volte
+Merci ricevute: 118961 ton
+Porto colpito da mareggiata 3 volte
 
 
 ==============================> Riga: 384
@@ -5494,36 +5495,36 @@ Porto colpito da mareggiata 1 volte
 
 ---------->	PER STATI:
 
-Merce in porto: 151695ton
-Merce scaduta in porto: 611ton
-Merce in nave: 0ton
-Merce scaduta in nave: 0
-Merce consegnata: 0ton
+Merce in porto: 146001ton
+Merce scaduta in porto: 580ton
+Merce in nave: 3133ton
+Merce scaduta in nave: 421
+Merce consegnata: 360815ton
 
 ---------->	PER TIPOLOGIA:
 
-Merce di tipo 1: 16111ton
-Merce di tipo 2: 14398ton
-Merce di tipo 3: 12752ton
-Merce di tipo 4: 16692ton
-Merce di tipo 5: 0ton
-Merce di tipo 6: 31013ton
-Merce di tipo 7: 15445ton
-Merce di tipo 8: 15836ton
-Merce di tipo 9: 15278ton
-Merce di tipo 10: 14781ton
+Merce di tipo 1: 17607ton
+Merce di tipo 2: 0ton
+Merce di tipo 3: 34254ton
+Merce di tipo 4: 16033ton
+Merce di tipo 5: 16714ton
+Merce di tipo 6: 18158ton
+Merce di tipo 7: 16557ton
+Merce di tipo 8: 16743ton
+Merce di tipo 9: 16567ton
+Merce di tipo 10: 17405ton
 
  ==================>		NAVI
 
 Navi affondate: 0
 Numero di navi facendo operazioni di carico/scarico: 0
-In mare con un carico a bordo: 0
-In mare senza carico a bordo: 100
+In mare con un carico a bordo: 7
+In mare senza carico a bordo: 93
 
  ==================>		REPORT METEO
 
 Navi affondate dal vortice: 0
-Porti colpiti da mareggiata: 4
+Porti colpiti da mareggiata: 3
 Navi rallentate dalla tempesta: 5
 
 ============================= FINE REPORT GIORNO 5 =============================
@@ -5536,40 +5537,40 @@ Navi rallentate dalla tempesta: 5
 
 
 ==================>		PORTI
-Porto numero 1 [79149] in posizione: (0.00, 0.00)
-Banchine libere 5 su 5
-Merci spedite: 0 ton
-Merci generate ancora in porto: 179666 ton
-Merci ricevute: 0 ton
+Porto numero 1 [83604] in posizione: (0.00, 0.00)
+Banchine libere 5 su 2
+Merci spedite: 23457 ton
+Merci generate ancora in porto: 204296 ton
+Merci ricevute: 247864 ton
 Porto colpito da mareggiata 1 volte
 
-Porto numero 2 [79150] in posizione: (1000.00, 0.00)
+Porto numero 2 [83605] in posizione: (1000.00, 0.00)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 3 [83606] in posizione: (0.00, 1000.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 4 [83607] in posizione: (1000.00, 1000.00)
 Banchine libere 9 su 9
-Merci spedite: 0 ton
-Merci generate ancora in porto: 0 ton
-Merci ricevute: 0 ton
-Porto colpito da mareggiata 1 volte
-
-Porto numero 3 [79151] in posizione: (0.00, 1000.00)
-Banchine libere 8 su 8
-Merci spedite: 0 ton
-Merci generate ancora in porto: 0 ton
-Merci ricevute: 0 ton
-Porto colpito da mareggiata 1 volte
-
-Porto numero 4 [79152] in posizione: (1000.00, 1000.00)
-Banchine libere 3 su 3
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 2 volte
 
-Porto numero 5 [79153] in posizione: (950.45, 968.03)
-Banchine libere 6 su 6
+Porto numero 5 [83608] in posizione: (657.68, 684.21)
+Banchine libere 5 su 5
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
-Merci ricevute: 0 ton
-Porto colpito da mareggiata 1 volte
+Merci ricevute: 118961 ton
+Porto colpito da mareggiata 3 volte
 
 
 ==============================> Riga: 384
@@ -6579,24 +6580,24 @@ Porto colpito da mareggiata 1 volte
 
 ---------->	PER STATI:
 
-Merce in porto: 179666ton
-Merce scaduta in porto: 611ton
+Merce in porto: 204296ton
+Merce scaduta in porto: 580ton
 Merce in nave: 0ton
-Merce scaduta in nave: 0
-Merce consegnata: 0ton
+Merce scaduta in nave: 421
+Merce consegnata: 366825ton
 
 ---------->	PER TIPOLOGIA:
 
-Merce di tipo 1: 18738ton
-Merce di tipo 2: 17123ton
-Merce di tipo 3: 16672ton
-Merce di tipo 4: 19138ton
-Merce di tipo 5: 0ton
-Merce di tipo 6: 36798ton
-Merce di tipo 7: 17973ton
-Merce di tipo 8: 18244ton
-Merce di tipo 9: 18043ton
-Merce di tipo 10: 17548ton
+Merce di tipo 1: 22885ton
+Merce di tipo 2: 0ton
+Merce di tipo 3: 45559ton
+Merce di tipo 4: 22827ton
+Merce di tipo 5: 22541ton
+Merce di tipo 6: 24029ton
+Merce di tipo 7: 22459ton
+Merce di tipo 8: 22171ton
+Merce di tipo 9: 22587ton
+Merce di tipo 10: 23275ton
 
  ==================>		NAVI
 
@@ -6608,7 +6609,7 @@ In mare senza carico a bordo: 100
  ==================>		REPORT METEO
 
 Navi affondate dal vortice: 0
-Porti colpiti da mareggiata: 5
+Porti colpiti da mareggiata: 3
 Navi rallentate dalla tempesta: 6
 
 ============================= FINE REPORT GIORNO 6 =============================
@@ -6621,40 +6622,40 @@ Navi rallentate dalla tempesta: 6
 
 
 ==================>		PORTI
-Porto numero 1 [79149] in posizione: (0.00, 0.00)
-Banchine libere 5 su 5
+Porto numero 1 [83604] in posizione: (0.00, 0.00)
+Banchine libere 5 su 2
+Merci spedite: 23457 ton
+Merci generate ancora in porto: 222549 ton
+Merci ricevute: 247864 ton
+Porto colpito da mareggiata 1 volte
+
+Porto numero 2 [83605] in posizione: (1000.00, 0.00)
+Banchine libere 6 su 6
 Merci spedite: 0 ton
-Merci generate ancora in porto: 189389 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 3 [83606] in posizione: (0.00, 1000.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 1 volte
 
-Porto numero 2 [79150] in posizione: (1000.00, 0.00)
+Porto numero 4 [83607] in posizione: (1000.00, 1000.00)
 Banchine libere 9 su 9
-Merci spedite: 0 ton
-Merci generate ancora in porto: 0 ton
-Merci ricevute: 0 ton
-Porto colpito da mareggiata 1 volte
-
-Porto numero 3 [79151] in posizione: (0.00, 1000.00)
-Banchine libere 8 su 8
-Merci spedite: 0 ton
-Merci generate ancora in porto: 0 ton
-Merci ricevute: 0 ton
-Porto colpito da mareggiata 1 volte
-
-Porto numero 4 [79152] in posizione: (1000.00, 1000.00)
-Banchine libere 3 su 3
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 2 volte
 
-Porto numero 5 [79153] in posizione: (950.45, 968.03)
-Banchine libere 6 su 6
+Porto numero 5 [83608] in posizione: (657.68, 684.21)
+Banchine libere 5 su 5
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
-Merci ricevute: 0 ton
-Porto colpito da mareggiata 1 volte
+Merci ricevute: 118961 ton
+Porto colpito da mareggiata 3 volte
 
 
 ==============================> Riga: 384
@@ -7664,24 +7665,24 @@ Porto colpito da mareggiata 1 volte
 
 ---------->	PER STATI:
 
-Merce in porto: 189389ton
-Merce scaduta in porto: 611ton
+Merce in porto: 222549ton
+Merce scaduta in porto: 580ton
 Merce in nave: 0ton
-Merce scaduta in nave: 0
-Merce consegnata: 0ton
+Merce scaduta in nave: 421
+Merce consegnata: 366825ton
 
 ---------->	PER TIPOLOGIA:
 
-Merce di tipo 1: 19323ton
-Merce di tipo 2: 18041ton
-Merce di tipo 3: 17516ton
-Merce di tipo 4: 20197ton
-Merce di tipo 5: 0ton
-Merce di tipo 6: 38902ton
-Merce di tipo 7: 18949ton
-Merce di tipo 8: 19287ton
-Merce di tipo 9: 19099ton
-Merce di tipo 10: 18686ton
+Merce di tipo 1: 24460ton
+Merce di tipo 2: 0ton
+Merce di tipo 3: 48941ton
+Merce di tipo 4: 24296ton
+Merce di tipo 5: 24421ton
+Merce di tipo 6: 25787ton
+Merce di tipo 7: 24100ton
+Merce di tipo 8: 24673ton
+Merce di tipo 9: 24446ton
+Merce di tipo 10: 25462ton
 
  ==================>		NAVI
 
@@ -7693,8 +7694,8 @@ In mare senza carico a bordo: 100
  ==================>		REPORT METEO
 
 Navi affondate dal vortice: 0
-Porti colpiti da mareggiata: 5
-Navi rallentate dalla tempesta: 6
+Porti colpiti da mareggiata: 4
+Navi rallentate dalla tempesta: 7
 
 ============================= FINE REPORT GIORNO 7 =============================
 
@@ -7706,40 +7707,40 @@ Navi rallentate dalla tempesta: 6
 
 
 ==================>		PORTI
-Porto numero 1 [79149] in posizione: (0.00, 0.00)
-Banchine libere 5 su 5
+Porto numero 1 [83604] in posizione: (0.00, 0.00)
+Banchine libere 5 su 2
+Merci spedite: 23457 ton
+Merci generate ancora in porto: 329296 ton
+Merci ricevute: 247864 ton
+Porto colpito da mareggiata 1 volte
+
+Porto numero 2 [83605] in posizione: (1000.00, 0.00)
+Banchine libere 6 su 6
 Merci spedite: 0 ton
-Merci generate ancora in porto: 189389 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 3 [83606] in posizione: (0.00, 1000.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
 Porto colpito da mareggiata 2 volte
 
-Porto numero 2 [79150] in posizione: (1000.00, 0.00)
+Porto numero 4 [83607] in posizione: (1000.00, 1000.00)
 Banchine libere 9 su 9
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
-Porto colpito da mareggiata 1 volte
-
-Porto numero 3 [79151] in posizione: (0.00, 1000.00)
-Banchine libere 8 su 8
-Merci spedite: 0 ton
-Merci generate ancora in porto: 0 ton
-Merci ricevute: 0 ton
-Porto colpito da mareggiata 1 volte
-
-Porto numero 4 [79152] in posizione: (1000.00, 1000.00)
-Banchine libere 3 su 3
-Merci spedite: 0 ton
-Merci generate ancora in porto: 0 ton
-Merci ricevute: 0 ton
 Porto colpito da mareggiata 2 volte
 
-Porto numero 5 [79153] in posizione: (950.45, 968.03)
-Banchine libere 6 su 6
+Porto numero 5 [83608] in posizione: (657.68, 684.21)
+Banchine libere 5 su 5
 Merci spedite: 0 ton
-Merci generate ancora in porto: 24704 ton
-Merci ricevute: 0 ton
-Porto colpito da mareggiata 1 volte
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 118961 ton
+Porto colpito da mareggiata 3 volte
 
 
 ==============================> Riga: 384
@@ -8749,24 +8750,24 @@ Porto colpito da mareggiata 1 volte
 
 ---------->	PER STATI:
 
-Merce in porto: 214093ton
-Merce scaduta in porto: 611ton
+Merce in porto: 329296ton
+Merce scaduta in porto: 580ton
 Merce in nave: 0ton
-Merce scaduta in nave: 0
-Merce consegnata: 0ton
+Merce scaduta in nave: 421
+Merce consegnata: 366825ton
 
 ---------->	PER TIPOLOGIA:
 
-Merce di tipo 1: 21459ton
-Merce di tipo 2: 20638ton
-Merce di tipo 3: 20347ton
-Merce di tipo 4: 22582ton
-Merce di tipo 5: 2792ton
-Merce di tipo 6: 38902ton
-Merce di tipo 7: 23647ton
-Merce di tipo 8: 22134ton
-Merce di tipo 9: 21175ton
-Merce di tipo 10: 21028ton
+Merce di tipo 1: 35718ton
+Merce di tipo 2: 0ton
+Merce di tipo 3: 69674ton
+Merce di tipo 4: 34274ton
+Merce di tipo 5: 33695ton
+Merce di tipo 6: 38305ton
+Merce di tipo 7: 34440ton
+Merce di tipo 8: 36878ton
+Merce di tipo 9: 34684ton
+Merce di tipo 10: 35665ton
 
  ==================>		NAVI
 
@@ -8778,8 +8779,8 @@ In mare senza carico a bordo: 100
  ==================>		REPORT METEO
 
 Navi affondate dal vortice: 0
-Porti colpiti da mareggiata: 5
-Navi rallentate dalla tempesta: 7
+Porti colpiti da mareggiata: 4
+Navi rallentate dalla tempesta: 8
 
 ============================= FINE REPORT GIORNO 8 =============================
 
@@ -8791,40 +8792,40 @@ Navi rallentate dalla tempesta: 7
 
 
 ==================>		PORTI
-Porto numero 1 [79149] in posizione: (0.00, 0.00)
-Banchine libere 5 su 5
-Merci spedite: 0 ton
-Merci generate ancora in porto: 209389 ton
-Merci ricevute: 0 ton
-Porto colpito da mareggiata 3 volte
+Porto numero 1 [83604] in posizione: (0.00, 0.00)
+Banchine libere 5 su 2
+Merci spedite: 23457 ton
+Merci generate ancora in porto: 329296 ton
+Merci ricevute: 247864 ton
+Porto colpito da mareggiata 1 volte
 
-Porto numero 2 [79150] in posizione: (1000.00, 0.00)
+Porto numero 2 [83605] in posizione: (1000.00, 0.00)
+Banchine libere 6 su 6
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 0 volte
+
+Porto numero 3 [83606] in posizione: (0.00, 1000.00)
+Banchine libere 10 su 10
+Merci spedite: 0 ton
+Merci generate ancora in porto: 0 ton
+Merci ricevute: 0 ton
+Porto colpito da mareggiata 2 volte
+
+Porto numero 4 [83607] in posizione: (1000.00, 1000.00)
 Banchine libere 9 su 9
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
 Merci ricevute: 0 ton
-Porto colpito da mareggiata 1 volte
-
-Porto numero 3 [79151] in posizione: (0.00, 1000.00)
-Banchine libere 8 su 8
-Merci spedite: 0 ton
-Merci generate ancora in porto: 0 ton
-Merci ricevute: 0 ton
 Porto colpito da mareggiata 2 volte
 
-Porto numero 4 [79152] in posizione: (1000.00, 1000.00)
-Banchine libere 3 su 3
+Porto numero 5 [83608] in posizione: (657.68, 684.21)
+Banchine libere 3 su 5
 Merci spedite: 0 ton
 Merci generate ancora in porto: 0 ton
-Merci ricevute: 0 ton
-Porto colpito da mareggiata 2 volte
-
-Porto numero 5 [79153] in posizione: (950.45, 968.03)
-Banchine libere 6 su 6
-Merci spedite: 0 ton
-Merci generate ancora in porto: 24522 ton
-Merci ricevute: 0 ton
-Porto colpito da mareggiata 1 volte
+Merci ricevute: 118961 ton
+Porto colpito da mareggiata 4 volte
 
 
 ==============================> Riga: 384
@@ -8937,7 +8938,7 @@ Porto colpito da mareggiata 1 volte
 
 ==============================> Riga: 396
 
-==============================> Riga: 403
+==============================> Riga: 399
 
 ==============================> Riga: 390
 
@@ -9834,36 +9835,36 @@ Porto colpito da mareggiata 1 volte
 
 ---------->	PER STATI:
 
-Merce in porto: 233911ton
-Merce scaduta in porto: 611ton
+Merce in porto: 329296ton
+Merce scaduta in porto: 580ton
 Merce in nave: 0ton
-Merce scaduta in nave: 0
-Merce consegnata: 0ton
+Merce scaduta in nave: 526
+Merce consegnata: 366825ton
 
 ---------->	PER TIPOLOGIA:
 
-Merce di tipo 1: 23943ton
-Merce di tipo 2: 22209ton
-Merce di tipo 3: 22388ton
-Merce di tipo 4: 25203ton
-Merce di tipo 5: 2378ton
-Merce di tipo 6: 41561ton
-Merce di tipo 7: 25337ton
-Merce di tipo 8: 23540ton
-Merce di tipo 9: 24853ton
-Merce di tipo 10: 23110ton
+Merce di tipo 1: 35718ton
+Merce di tipo 2: 0ton
+Merce di tipo 3: 69674ton
+Merce di tipo 4: 34274ton
+Merce di tipo 5: 33695ton
+Merce di tipo 6: 38305ton
+Merce di tipo 7: 34440ton
+Merce di tipo 8: 36878ton
+Merce di tipo 9: 34684ton
+Merce di tipo 10: 35665ton
 
  ==================>		NAVI
 
 Navi affondate: 0
-Numero di navi facendo operazioni di carico/scarico: 0
-In mare con un carico a bordo: 0
-In mare senza carico a bordo: 100
+Numero di navi facendo operazioni di carico/scarico: 1
+In mare con un carico a bordo: 4
+In mare senza carico a bordo: 95
 
  ==================>		REPORT METEO
 
 Navi affondate dal vortice: 0
-Porti colpiti da mareggiata: 5
+Porti colpiti da mareggiata: 4
 Navi rallentate dalla tempesta: 9
 
 ============================= FINE REPORT GIORNO 9 =============================
@@ -9878,39 +9879,39 @@ Navi rallentate dalla tempesta: 9
 ==================>		PORTI
 
 
-PORTO[79149] NUMERO 1 (0.00,0.00):
-Merce in porto:209389ton
-Merce spedita:0ton
-Merce ricevuta:0ton
-Porto colpito da mareggiata 3 volte
-
-
-PORTO[79150] NUMERO 2 (1000.00,0.00):
-Merce in porto:209577ton
-Merce spedita:0ton
-Merce ricevuta:0ton
+PORTO[83604] NUMERO 1 (0.00,0.00):
+Merce in porto:349296ton
+Merce spedita:23457ton
+Merce ricevuta:253864ton
 Porto colpito da mareggiata 1 volte
 
 
-PORTO[79151] NUMERO 3 (0.00,1000.00):
-Merce in porto:134665ton
+PORTO[83605] NUMERO 2 (1000.00,0.00):
+Merce in porto:231096ton
+Merce spedita:0ton
+Merce ricevuta:0ton
+Porto colpito da mareggiata 0 volte
+
+
+PORTO[83606] NUMERO 3 (0.00,1000.00):
+Merce in porto:181175ton
 Merce spedita:0ton
 Merce ricevuta:0ton
 Porto colpito da mareggiata 2 volte
 
 
-PORTO[79152] NUMERO 4 (1000.00,1000.00):
-Merce in porto:209404ton
+PORTO[83607] NUMERO 4 (1000.00,1000.00):
+Merce in porto:114384ton
 Merce spedita:0ton
 Merce ricevuta:0ton
 Porto colpito da mareggiata 2 volte
 
 
-PORTO[79153] NUMERO 5 (950.45,968.03):
-Merce in porto:234561ton
-Merce spedita:0ton
-Merce ricevuta:0ton
-Porto colpito da mareggiata 1 volte
+PORTO[83608] NUMERO 5 (657.68,684.21):
+Merce in porto:26806ton
+Merce spedita:71444ton
+Merce ricevuta:118961ton
+Porto colpito da mareggiata 4 volte
 
 ==============================> Riga: 190
 
@@ -10519,118 +10520,118 @@ Porto colpito da mareggiata 1 volte
 
 Navi affondate: 0
 Numero di navi facendo operazioni di carico/scarico: 0
-In mare con un carico a bordo: 0
-In mare senza carico a bordo: 100
+In mare con un carico a bordo: 6
+In mare senza carico a bordo: 94
 
  ==================>		REPORT MERCI
 
 ---------->	PER STATI:
 
-Merce in porto (disponibile): 997596ton
-Merce scaduta in porto: 2404ton
-Merce consegnata: 0ton
-Merce in nave: 0ton
-Merce scaduta in nave: 0ton
+Merce in porto (disponibile): 902757ton
+Merce scaduta in porto: 2340ton
+Merce consegnata: 372825ton
+Merce in nave: 1098ton
+Merce scaduta in nave: 506ton
 
 ---------->	PER TIPOLOGIA:
 
 
-TOTALE MERCE GENERATA: 1000000ton
+TOTALE MERCE GENERATA: 999998ton
 MERCE DI TIPO 1:
-Merce generata: 97429ton
-Merce ferma in porto: 97410ton
-Merce scaduta in porto: 19ton
-Merce scaduta in nave: 0ton
+Merce generata: 117491ton
+Merce ferma in porto: 107454ton
+Merce scaduta in porto: 198ton
+Merce scaduta in nave: 84ton
 Merce consegnata: 0
 Il porto che ne ha fatto più richiesta è il numero 0 (0ton)
-Il porto che ne ha generato di più è 0 (21747ton)
+Il porto che ne ha generato di più è 2 (39755ton)
 
 MERCE DI TIPO 2:
-Merce generata: 97658ton
-Merce ferma in porto: 97480ton
-Merce scaduta in porto: 178ton
-Merce scaduta in nave: 0ton
-Merce consegnata: 0
-Il porto che ne ha fatto più richiesta è il numero 0 (0ton)
-Il porto che ne ha generato di più è 4 (23386ton)
+Merce generata: 63257ton
+Merce ferma in porto: 55275ton
+Merce scaduta in porto: 154ton
+Merce scaduta in nave: 37ton
+Merce consegnata: 253864
+Il porto che ne ha fatto più richiesta è il numero 0 (309414ton)
+Il porto che ne ha generato di più è 1 (23478ton)
 
 MERCE DI TIPO 3:
-Merce generata: 82092ton
-Merce ferma in porto: 81822ton
-Merce scaduta in porto: 270ton
-Merce scaduta in nave: 0ton
+Merce generata: 137946ton
+Merce ferma in porto: 125632ton
+Merce scaduta in porto: 242ton
+Merce scaduta in nave: 76ton
 Merce consegnata: 0
-Il porto che ne ha fatto più richiesta è il numero 3 (304794ton)
-Il porto che ne ha generato di più è 4 (24808ton)
+Il porto che ne ha fatto più richiesta è il numero 0 (0ton)
+Il porto che ne ha generato di più è 0 (74082ton)
 
 MERCE DI TIPO 4:
-Merce generata: 123744ton
-Merce ferma in porto: 123266ton
-Merce scaduta in porto: 478ton
-Merce scaduta in nave: 0ton
+Merce generata: 97380ton
+Merce ferma in porto: 86699ton
+Merce scaduta in porto: 362ton
+Merce scaduta in nave: 57ton
 Merce consegnata: 0
 Il porto che ne ha fatto più richiesta è il numero 0 (0ton)
-Il porto che ne ha generato di più è 3 (42968ton)
+Il porto che ne ha generato di più è 0 (36471ton)
 
 MERCE DI TIPO 5:
-Merce generata: 81264ton
-Merce ferma in porto: 81064ton
-Merce scaduta in porto: 200ton
-Merce scaduta in nave: 0ton
-Merce consegnata: 0
-Il porto che ne ha fatto più richiesta è il numero 0 (292341ton)
-Il porto che ne ha generato di più è 4 (25270ton)
+Merce generata: 89792ton
+Merce ferma in porto: 87367ton
+Merce scaduta in porto: 101ton
+Merce scaduta in nave: 82ton
+Merce consegnata: 118961
+Il porto che ne ha fatto più richiesta è il numero 4 (48716ton)
+Il porto che ne ha generato di più è 0 (36005ton)
 
 MERCE DI TIPO 6:
-Merce generata: 98021ton
-Merce ferma in porto: 97848ton
-Merce scaduta in porto: 173ton
-Merce scaduta in nave: 0ton
+Merce generata: 90982ton
+Merce ferma in porto: 75190ton
+Merce scaduta in porto: 116ton
+Merce scaduta in nave: 1ton
 Merce consegnata: 0
-Il porto che ne ha fatto più richiesta è il numero 4 (254358ton)
-Il porto che ne ha generato di più è 0 (41561ton)
+Il porto che ne ha fatto più richiesta è il numero 1 (233048ton)
+Il porto che ne ha generato di più è 0 (40086ton)
 
 MERCE DI TIPO 7:
-Merce generata: 126295ton
-Merce ferma in porto: 125936ton
-Merce scaduta in porto: 359ton
-Merce scaduta in nave: 0ton
+Merce generata: 118623ton
+Merce ferma in porto: 109216ton
+Merce scaduta in porto: 297ton
+Merce scaduta in nave: 62ton
 Merce consegnata: 0
 Il porto che ne ha fatto più richiesta è il numero 0 (0ton)
-Il porto che ne ha generato di più è 4 (49995ton)
+Il porto che ne ha generato di più è 1 (45808ton)
 
 MERCE DI TIPO 8:
-Merce generata: 84193ton
-Merce ferma in porto: 83938ton
-Merce scaduta in porto: 255ton
-Merce scaduta in nave: 0ton
-Merce consegnata: 0
-Il porto che ne ha fatto più richiesta è il numero 2 (101494ton)
-Il porto che ne ha generato di più è 4 (22910ton)
-
-MERCE DI TIPO 9:
-Merce generata: 92801ton
-Merce ferma in porto: 92603ton
-Merce scaduta in porto: 198ton
-Merce scaduta in nave: 0ton
-Merce consegnata: 0
-Il porto che ne ha fatto più richiesta è il numero 1 (47011ton)
-Il porto che ne ha generato di più è 2 (27974ton)
-
-MERCE DI TIPO 10:
-Merce generata: 116503ton
-Merce ferma in porto: 116229ton
-Merce scaduta in porto: 274ton
-Merce scaduta in nave: 0ton
+Merce generata: 103907ton
+Merce ferma in porto: 94214ton
+Merce scaduta in porto: 196ton
+Merce scaduta in nave: 1ton
 Merce consegnata: 0
 Il porto che ne ha fatto più richiesta è il numero 0 (0ton)
-Il porto che ne ha generato di più è 1 (40769ton)
+Il porto che ne ha generato di più è 0 (39082ton)
+
+MERCE DI TIPO 9:
+Merce generata: 86207ton
+Merce ferma in porto: 76504ton
+Merce scaduta in porto: 294ton
+Merce scaduta in nave: 72ton
+Merce consegnata: 0
+Il porto che ne ha fatto più richiesta è il numero 3 (276826ton)
+Il porto che ne ha generato di più è 0 (36688ton)
+
+MERCE DI TIPO 10:
+Merce generata: 94413ton
+Merce ferma in porto: 85206ton
+Merce scaduta in porto: 380ton
+Merce scaduta in nave: 34ton
+Merce consegnata: 0
+Il porto che ne ha fatto più richiesta è il numero 2 (131994ton)
+Il porto che ne ha generato di più è 0 (37801ton)
 
 
  ==================>		REPORT METEO
 
 Navi affondate dal vortice: 0
-Porti colpiti da mareggiata: 5
+Porti colpiti da mareggiata: 4
 Navi rallentate dalla tempesta: 9
 
 SIMULAZIONE FINITA!!!
