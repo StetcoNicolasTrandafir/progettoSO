@@ -52,6 +52,8 @@ typedef struct ship{
     coordinates coords; 
     goods *goods; 
     int inDock; 
+    int semLastID;
+    int semLastNum;
 }ship;
 
 
