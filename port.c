@@ -77,8 +77,6 @@ void handleSignal(int signal) {
 			{
 				decreaseSem(sops,shared_portCoords[idx].semID,DOCK); TEST_ERROR;
 			}
-			
-			printTest(semctl(shared_portCoords[idx].semID, DOCK, GETVAL));
 
 			nanosleep(&sleepTime, &rem);
 		    if(errno==EINTR){

@@ -24,7 +24,6 @@
 #include "semaphore_library.h"
 #include "utility_meteo.h"
 
-
 struct ship_sharedMemory *ships;
 struct port_sharedMemory *ports;
 int sem_sync_id, pastDays = 0;
@@ -69,12 +68,10 @@ void handleSignal(int signal) {
 					TEST_ERROR;
 					if(ships[(randomShip+plus)%SO_NAVI].sinked!=1){
 
-						decreaseSem(sops,ships[i].semID, INDOCK); TEST_ERROR;
 						if( ships[(randomShip+plus)%SO_NAVI].inDock==0)
 							endWhile++;
 						else
 							plus++;
-						increaseSem(sops,ships[i].semID, INDOCK); TEST_ERROR;
 
 					}else{
 						plus++;
@@ -85,20 +82,15 @@ void handleSignal(int signal) {
 					/*printf("\n\nPID: %d (%.2lf,%.2lf)",ships[(randomShip + plus)%SO_NAVI].pid,ships[(randomShip + plus)%SO_NAVI].coords.x,ships[(randomShip + plus)%SO_NAVI].coords.y);*/
 					kill(ships[(randomShip+plus)%SO_NAVI].pid, SIGUSR2); TEST_ERROR;
 					
-					decreaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, STORM); TEST_ERROR;
 					ships[(randomShip+plus)%SO_NAVI].storm++;
-					increaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, STORM); TEST_ERROR;
 				}
 
 				randomPort=now.tv_nsec%SO_PORTI;
 
 				kill(ports[randomPort].pid, SIGUSR2); TEST_ERROR;
-				decreaseSem(sops, ports[randomPort].semID, SWELL); TEST_ERROR;
 				ports[randomPort].swell++;
-				increaseSem(sops, ports[randomPort].semID, SWELL); TEST_ERROR;
 
 				for(i=0; i< SO_NAVI;i++){
-					decreaseSem(sops,ships[i].semID, COORDS); TEST_ERROR;
 					if(ships[i].coords.x==ports[randomPort].coords.x && ships[i].coords.y==ports[randomPort].coords.y){
 
 						if(ships[i].sinked!=1)
@@ -106,7 +98,6 @@ void handleSignal(int signal) {
 							kill(ships[i].pid, SIGUSR1); TEST_ERROR;
 						}
 					}
-					increaseSem(sops,ships[i].semID, COORDS); TEST_ERROR;
 				}
 			}
 			break;
@@ -124,23 +115,17 @@ void handleSignal(int signal) {
 		    		}
 		    	}
 				if(plus < SO_NAVI){
-		    		decreaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, INDOCK); TEST_ERROR;
 					if (!ships[(randomShip+plus)%SO_NAVI].inDock) {
-		    			increaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, INDOCK); TEST_ERROR;
 						for (i = 0; i < SO_PORTI && !flag; i++) {
-			    			decreaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, COORDS); TEST_ERROR;
 							if (ports[i].coords.x == ships[(randomShip+plus)%SO_NAVI].coords.x && ports[i].coords.y == ships[(randomShip+plus)%SO_NAVI].coords.y) {
-			    				increaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, COORDS); TEST_ERROR;
 								increaseSem(sops, ports[i].semID, DOCK); TEST_ERROR;
 								flag++;
 							}
 							else {
-			    				increaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, COORDS); TEST_ERROR;
 							}
 						}
 					}
 					else {
-		    			increaseSem(sops, ships[(randomShip+plus)%SO_NAVI].semID, INDOCK); TEST_ERROR;
 					}
 		    		ships[(randomShip+plus)%SO_NAVI].sinked = 1;
 					kill(ships[(randomShip+plus)%SO_NAVI].pid, SIGINT); TEST_ERROR;

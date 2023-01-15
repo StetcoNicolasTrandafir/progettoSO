@@ -369,7 +369,6 @@ void dailyReport(){
 		fflush(stdout);
 		write(1, string, numBytes);
 		
-
 		shmdt(g);
 		shmdt(r);
 	}
@@ -378,17 +377,12 @@ void dailyReport(){
 	for(i=0; i< SO_NAVI; i++){
 
 		if(shared_ship[i].sinked!=1){
-			decreaseSem(sops,shared_ship[i].semID, STORM);
 			if(shared_ship[i].storm) stormed++;
-			increaseSem(sops,shared_ship[i].semID, STORM);
-			
-			decreaseSem(sops,shared_ship[i].semID, INDOCK);
+
 			if(shared_ship[i].inDock){
 				busyDocks++; 
-				increaseSem(sops,shared_ship[i].semID, INDOCK);
 			}
 			else {
-				increaseSem(sops,shared_ship[i].semID, INDOCK);
 				j=0;
 				g=shmat(shared_ship[i].goodsID, NULL, 0); TEST_ERROR;
 				if(g[0].type!=0)
