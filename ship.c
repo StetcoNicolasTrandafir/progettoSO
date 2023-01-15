@@ -118,7 +118,7 @@ void handleSignal(int signal) {
 
 int main(int argc, char *argv[]) {
 	sigset_t set;
-	int portsSharedMemoryID;
+	int portsSharedMemoryID, sem_expired_goods_id;
 	int i, msg_id, *ptr_set;
 	struct sembuf sops;
 	struct msg_request msg_request;
@@ -128,6 +128,8 @@ int main(int argc, char *argv[]) {
 	shared_shipCoords= shmat(atoi(argv[3]), NULL, 0); TEST_ERROR;
 	shipIndex= atoi(argv[4]);
 	expiredGoods=shmat(atoi(argv[5]), NULL, 0); TEST_ERROR;
+	sem_expired_goods_id = atoi(argv[6]); 
+
 	/*
 	printf("\n");
 	for(i=0; i<SO_PORTI; i++){
@@ -186,7 +188,7 @@ int main(int argc, char *argv[]) {
 	msg_id = msgget(getppid(), IPC_CREAT | 0600); TEST_ERROR;
 	
 	while (pastDays < SO_DAYS) {
-		if(negociate(atoi(argv[2]), s, shared_shipCoords,shipIndex,expiredGoods)== -1, expiredGoods) {
+		if(negociate(atoi(argv[2]), s, shared_shipCoords,shipIndex,expiredGoods, sem_expired_goods_id)== -1, expiredGoods) {
 			pause();
 			if (errno == 4) errno = 0;
 			else TEST_ERROR;

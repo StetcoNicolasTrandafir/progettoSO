@@ -185,7 +185,7 @@ pid_t * getShipsInPort(struct ship_sharedMemory *ships, coordinates portCoords){
 }
 
 
-int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int shipIndex, int *expiredGood){
+int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int shipIndex, int *expiredGood, int sem_expired_goods_id){
     struct port_sharedMemory *ports = shmat(portsID, NULL, 0);
     int indexClosestPort= getNearestPort(ports, s.coords,-1);
     goods *g;
@@ -322,7 +322,9 @@ int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int sh
             else{
                 
                 g[shippedGoods[i]].state=expired_ship;
+                decreaseSem(sops, sem_expired_goods_id, 0); TEST_ERROR;
                 expiredGood[(g[shippedGoods[i]].type)-1]+=g[shippedGoods[i]].dimension;
+                increaseSem(sops, sem_expired_goods_id, 0); TEST_ERROR;
             }
         }
         increaseSem(sops, destinationPortSemID, DOCK);TEST_ERROR;

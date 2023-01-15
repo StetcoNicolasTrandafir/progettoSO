@@ -66,6 +66,7 @@ void cleanUp(){
 	shmdt(sum_offer); TEST_ERROR; 	
 	semctl(sem_sync_id, 0, IPC_RMID); TEST_ERROR;
 	semctl(sem_sum_id, 0, IPC_RMID); TEST_ERROR;
+	semctl(sem_expired_goods_id, 0, IPC_RMID); TEST_ERROR;
 	msgctl(msg_id, IPC_RMID, NULL); TEST_ERROR;
 }
 
@@ -307,20 +308,22 @@ void dailyReport(){
 		if(shared_ship[i].pid!=-1){
 			if(shared_ship[i].inDock)
 			busyDocks++;
-		else {
-			j=0;
-			g=shmat(shared_ship[i].goodsID, NULL, 0); TEST_ERROR;
-			if(g[0].type!=0)
-				chargedShips++;
-			else 
-				dischargedShips++;
-			}
+			else {
+				j=0;
+				g=shmat(shared_ship[i].goodsID, NULL, 0); TEST_ERROR;
+				if(g[0].type!=0)
+					chargedShips++;
+				else 
+					dischargedShips++;
+				}
 			/*NOTE si blocca qui*/
 
 			/*while(g[j].type!=0 && j< SO_CAPACITY){
 				if(g[j].state==on_ship && isExpired(g[j])){
 					g[j].state=expired_ship;
+					decreaseSem(sops, sem_expired_goods_id, 0); TEST_ERROR;
 					expiredGoods[g[j].type-1]=g[j].dimension;
+					increaseSem(sops, sem_expired_goods_id, 0); TEST_ERROR;
 				}else{
 					stateSum[on_ship]+=g[j].dimension;
 				}
@@ -329,10 +332,11 @@ void dailyReport(){
 		}else 
 			sinked++;
 	}
-
+	decreaseSem(sops, sem_expired_goods_id, 0); TEST_ERROR;
 	for(i=0; i<SO_MERCI; i++){
 		stateSum[expired_ship]+=expiredGoods[i];
 	}
+	increaseSem(sops, sem_expired_goods_id, 0); TEST_ERROR;
 
 
 
@@ -493,7 +497,7 @@ int main() {
 	struct sigaction sa;
 	int i, j, *ptr_set;
 	coordinates coord_c;
-	char  *args[10], name_file[100], sem_sync_str[3 * sizeof(int) + 1], expiredGoods_STR[3 * sizeof(int) + 1],i_str[3 * sizeof(int) + 1], port_sharedMemoryID_STR[3*sizeof(int)+1], sum_requestID_STR[3 * sizeof(int) + 1], sem_request_str[3 * sizeof(int) + 1], msg_str[3 * sizeof(int) + 1], sum_offerID_STR[3 * sizeof(int) + 1];
+	char  *args[10], name_file[100], sem_sync_str[3 * sizeof(int) + 1], expiredGoods_STR[3 * sizeof(int) + 1],i_str[3 * sizeof(int) + 1], port_sharedMemoryID_STR[3*sizeof(int)+1], sum_requestID_STR[3 * sizeof(int) + 1], sem_request_str[3 * sizeof(int) + 1], msg_str[3 * sizeof(int) + 1], sum_offerID_STR[3 * sizeof(int) + 1], sem_expired_goods_str[3 * sizeof(int) + 1];
 	pid_t fork_rst;
 	char  shipSharedMemory_str[3 * sizeof(int) + 1];
 	struct sembuf sops;
@@ -509,8 +513,8 @@ int main() {
 	shmctl(shipSharedMemoryID, IPC_RMID, NULL); TEST_ERROR;
 
 	expiredGoodsSharedMemoryID= shmget(IPC_PRIVATE, SO_MERCI*sizeof(int),S_IRUSR | S_IWUSR | IPC_CREAT); TEST_ERROR;
-	expiredGoods=shmat(expiredGoodsSharedMemoryID, NULL, 0);TEST_ERROR:
-	shmctl(expiredGoodsSharedMemoryID, IPC_RMID, NULL);	TEST_ERROR:
+	expiredGoods=shmat(expiredGoodsSharedMemoryID, NULL, 0);TEST_ERROR;
+	shmctl(expiredGoodsSharedMemoryID, IPC_RMID, NULL);	TEST_ERROR;
 	bzero(expiredGoods,SO_MERCI*sizeof(int));
 
 	sharedPortPositions = calloc(SO_PORTI, sizeof(struct port_sharedMemory));
@@ -535,7 +539,10 @@ int main() {
 	semctl(sem_sum_id, 0, SETVAL, 1); TEST_ERROR; 
 	semctl(sem_sum_id, 1, SETVAL, SO_PORTI); TEST_ERROR;
 	semctl(sem_sum_id, 2, SETVAL, 1); TEST_ERROR; 
-	semctl(sem_sum_id, 3, SETVAL, SO_PORTI); TEST_ERROR; 
+	semctl(sem_sum_id, 3, SETVAL, SO_PORTI); TEST_ERROR;
+
+	sem_expired_goods_id = semget(IPC_PRIVATE, 1, 0600); TEST_ERROR;
+	semctl(sem_expired_goods_id, 0, SETVAL, 1); TEST_ERROR; 
 
 	port_sharedMemoryID=shmget(IPC_PRIVATE, SO_PORTI*sizeof(struct port_sharedMemory),S_IRUSR | S_IWUSR | IPC_CREAT); TEST_ERROR;
 	sharedPortPositions=shmat(port_sharedMemoryID, NULL, 0); TEST_ERROR;
@@ -560,8 +567,7 @@ int main() {
 	sprintf(sem_request_str, "%d", sem_sum_id);
 	sprintf(msg_str, "%d", msg_id);
 	sprintf(sum_offerID_STR, "%d", sum_offerID);
-	sprintf(expiredGoods_STR, "%d", expiredGoodsSharedMemoryID);
-	
+	sprintf(expiredGoods_STR, "%d", expiredGoodsSharedMemoryID);	
 
 	args[0] = name_file;
 	args[1] = sem_sync_str;
@@ -595,10 +601,12 @@ int main() {
 
 	sprintf(name_file, "ship");
 	sprintf(shipSharedMemory_str, "%d",shipSharedMemoryID);
+	sprintf(sem_expired_goods_str, "%d", sem_expired_goods_id);
 	args[0] = name_file;
 	args[3]=shipSharedMemory_str;
 	args[5] = expiredGoods_STR;
-	args[6] = NULL;
+	args[6] = sem_expired_goods_str;
+	args[7] = NULL;
 	
 	
 	for (i = 0; i < SO_NAVI; i++) {
