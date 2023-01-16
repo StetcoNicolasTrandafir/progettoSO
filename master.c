@@ -23,13 +23,6 @@
 #include "utility_coordinates.h"
 #include "utility_port.h"
 
-/*
-SEMAFORI:
--uno per ogni porto
--uno per ogni memoria condivisa
--uno per la sincronizzazione iniziale
-*/
-
 int pastDays = 0, *sum_request, *sum_offer;
 int sem_sync_id, sem_sum_id;
 int port_sharedMemoryID, sum_requestID, sum_offerID;
@@ -78,14 +71,12 @@ void cleanUp(){
 void finalReport(){
 	int i, j;
 	int maxRequestPortIndex=-1, maxRequest=0;
-	int maxOfferPortIndex=-1, maxOfferSum=0;
+	int maxOfferPortIndex=-1;
 	int *goodsStateSum;
 	int totalGoodsSum=0;
 	int inPortGoods=0;
 	int shippedGoods=0;
 	int *offerSum;
-	int shipsInDock;
-	int totalGoodsState[5];
 	struct goodsTypeReport *goodsReport;
 	goods *g;
 	enum states state;
@@ -131,8 +122,6 @@ void finalReport(){
 			offerSum[(g[j].type-1)]+=g[j].dimension;
 			goodsReport[(g[j].type-1)].totalSum+=g[j].dimension;
 
-			decreaseSem(sops, sharedPortPositions[i].semID, OFFER);
-
 			if(g[j].state==in_port){
 				goodsStateSum[in_port]+=g[j].dimension;
 				goodsReport[(g[j].type-1)].inPort+=g[j].dimension;
@@ -143,8 +132,6 @@ void finalReport(){
 			}else if(g[j].state==on_ship){
 				shippedGoods+=g[j].dimension;
 			}
-			
-           	increaseSem(sops, sharedPortPositions[i].semID, OFFER);
 		}
 
         decreaseSem(sops, sharedPortPositions[i].semID, REQUEST);
@@ -303,7 +290,6 @@ void dailyReport(){
 	int totalRequest=0;
 	int totalOffer=0;
 	int sinked=0;
-	int expiredOnShip=0;
 	int stormed=0;
 	int swellPort=0;
 	bzero(&sops, sizeof(struct sembuf));
@@ -327,9 +313,7 @@ void dailyReport(){
 		inPort=0;
 		shipped=0;
 
-        decreaseSem(sops, sharedPortPositions[i].semID, OFFER);
 		while(j<SO_FILL && g[j].type!=0){
-
 			if(g[j].state==in_port){
 				totalOffer+=g[j].dimension;
 				stateSum[in_port]+=g[j].dimension;
@@ -347,13 +331,10 @@ void dailyReport(){
 			j++;
 		}
 
-        increaseSem(sops, sharedPortPositions[i].semID, OFFER);
-
 		freeDocks= semctl(sharedPortPositions[i].semID, 0, GETVAL);TEST_ERROR;
 
         decreaseSem(sops, sharedPortPositions[i].semID, REQUEST);
 		totalRequest+=r->quantity-r->satisfied;
-		/*delivered*/
 		stateSum[delivered]+=r->satisfied;
 
 		decreaseSem(sops, sharedPortPositions[i].semID, SWELL);
@@ -368,7 +349,7 @@ void dailyReport(){
 
 		fflush(stdout);
 		write(1, string, numBytes);
-		
+
 		shmdt(g);
 		shmdt(r);
 	}
@@ -553,7 +534,6 @@ void handleSignal(int signal) {
 			}else{
 				sendSignalToCasualPorts();
 				dailyReport();
-				/*kill(meteoPid, SIGUSR1); TEST_ERROR;*/
 				alarm(1);
 			}
 			break;
@@ -575,20 +555,17 @@ void handleSignal(int signal) {
 			exit(EXIT_SUCCESS);
 			break;
 	}
+	errno = prevErrno;
 }
-
-/*source setEnv.sh*/
 
 int main() {
 	sigset_t set;
 	struct sigaction sa;
-	int i, j, *ptr_set;
-	coordinates coord_c;
+	int i, j;
 	char  *args[10], name_file[100], sem_sync_str[3 * sizeof(int) + 1], expiredGoods_STR[3 * sizeof(int) + 1],i_str[3 * sizeof(int) + 1], port_sharedMemoryID_STR[3*sizeof(int)+1], sum_requestID_STR[3 * sizeof(int) + 1], sem_request_str[3 * sizeof(int) + 1], msg_str[3 * sizeof(int) + 1], sum_offerID_STR[3 * sizeof(int) + 1], sem_expired_goods_str[3 * sizeof(int) + 1];
 	pid_t fork_rst;
 	char  shipSharedMemory_str[3 * sizeof(int) + 1];
 	struct sembuf sops;
-	struct shared_port *port_coords;
 	goods *g;
 	int idRequest;
 	struct 	request *r;
@@ -616,16 +593,14 @@ int main() {
 	sigaction(SIGINT, &sa, NULL);
 
 	sem_sync_id = semget(IPC_PRIVATE, 4, 0600); TEST_ERROR;
-	semctl(sem_sync_id, 0, SETVAL, SO_PORTI + SO_NAVI + 1); TEST_ERROR; /**/
+	semctl(sem_sync_id, 0, SETVAL, SO_PORTI + SO_NAVI + 1); TEST_ERROR;
 	semctl(sem_sync_id, 1, SETVAL, SO_PORTI); TEST_ERROR;
 	semctl(sem_sync_id, 2, SETVAL, SO_NAVI); TEST_ERROR;
 	semctl(sem_sync_id, 3, SETVAL, 1); TEST_ERROR;
 
-	sem_sum_id = semget(IPC_PRIVATE, 4, 0600); TEST_ERROR;
+	sem_sum_id = semget(IPC_PRIVATE, 2, 0600); TEST_ERROR;
 	semctl(sem_sum_id, 0, SETVAL, 1); TEST_ERROR; 
 	semctl(sem_sum_id, 1, SETVAL, SO_PORTI); TEST_ERROR;
-	semctl(sem_sum_id, 2, SETVAL, 1); TEST_ERROR; 
-	semctl(sem_sum_id, 3, SETVAL, SO_PORTI); TEST_ERROR;
 
 	sem_expired_goods_id = semget(IPC_PRIVATE, 1, 0600); TEST_ERROR;
 	semctl(sem_expired_goods_id, 0, SETVAL, 1); TEST_ERROR; 

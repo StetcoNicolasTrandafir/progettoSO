@@ -53,17 +53,6 @@ void move(ship s,coordinates from, coordinates to){
     s.coords=to;
 }
 
-
-/*NON È PIÙ NECESSARIO E IO GODO COME UN RICCIO*/
-/*coordinates getPosition(ship ship, struct timespec rem){
-    if(rem){
-        nanosleep(rem, rem);
-    }else{
-        return ship.coords;
-    }
-}*/
-
-
 void checkExpiredGoods(ship s, int goodsNumber, int *shippedGoods){
     int i;
     
@@ -191,12 +180,9 @@ int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int sh
     double travelTime;
     struct timespec time, rem; 
     int startingPortSemID, destinationPortSemID;
-    int shippedQuantity=0;
     int goodIndex=-1;
     struct request *request;
     struct sembuf sops;
-    char *string;
-    int numBytes;
     int *shippedGoods;
     int shippedGoodsQuantity=0;
     int shippedGoodsIndex=0;
@@ -394,13 +380,6 @@ int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int sh
         shmdt(request); TEST_ERROR;
         shmdt(g); TEST_ERROR;
 
-        /*string=malloc(70);
-        numBytes=sprintf(string,"\n[%d]FINITO DI SCARICARE! Merce portata dal punto A al punto B!\n\n", getpid());
-
-        fflush(stdout);
-        write(1, string, numBytes);
-        free(string);
-        */
         decreaseSem(sops, shared_ship[shipIndex].semID, GOODS);
         bzero(s.goods, sizeof(goods)*SO_CAPACITY);
         increaseSem(sops, shared_ship[shipIndex].semID, GOODS);
@@ -411,13 +390,6 @@ int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int sh
 
         return destinationPortIndex;
     }else{
-        /*
-        string=malloc(70);
-        numBytes=sprintf(string,"\n[%d]NESSUN PORTO DOVE ANDARE\n\n", getpid());
-
-        fflush(stdout);
-        write(1, string, numBytes);
-        free(string);*/
         return -1;
     }
 }
@@ -426,7 +398,7 @@ int negociate(int portsID, ship s, struct ship_sharedMemory *shared_ship, int sh
 
 int getValidRequestPort(goods good, struct port_sharedMemory * sh_port) {
     struct msg_request msg;
-    int ret = 0, first_idx = -1, request_id, sem_id, i;
+    int ret = 0, first_idx = -1, sem_id, i;
     struct request *request;
     struct sembuf sops;
     int msg_id;

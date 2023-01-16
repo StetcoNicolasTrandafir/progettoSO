@@ -16,7 +16,6 @@ void decreaseSem(struct sembuf sops,int semID, int semNum){
     ris=semop(semID, &sops, 1);
 
     while(ris==-1) {
-        /*printf("\n\n[%d] SEMOP FALLITA ,  SEMID=%d RIS= %d",getpid(),semID, ris);*/
         if(errno!=4){
             break;
         }
@@ -25,8 +24,6 @@ void decreaseSem(struct sembuf sops,int semID, int semNum){
 
         }
     }
-    /*printf("\n\n[%d]USCITO DAL WHILE,SEMID=%d RIS= %d",getpid(),semID ,ris);*/
-
     
     if(errno==4)
         errno=0;
@@ -48,7 +45,6 @@ void waitForZero(struct sembuf sops,int semID, int semNum){
     ris=semop(semID, &sops, 1);
 
     while(ris==-1) {
-        /*printf("\n\n[%d] SEMOP FALLITA ,  SEMID=%d RIS= %d",getpid(),semID, ris);*/
         if(errno!=4){
             
             break;
@@ -58,7 +54,6 @@ void waitForZero(struct sembuf sops,int semID, int semNum){
 
         }
     }
-    /*printf("\n\n[%d]USCITO DAL WHILE,SEMID=%d RIS= %d",getpid(),semID ,ris);*/
 
     
     if(errno==4)

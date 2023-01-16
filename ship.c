@@ -24,7 +24,6 @@
 #include "utility_ship.h"
 #include "utility_meteo.h"
 
-struct port_sharedMemory *shared_portCoords;
 struct ship_sharedMemory *shared_shipCoords;
 ship s;
 int pastDays = 0, sem_sync_id, shipIndex;
@@ -50,6 +49,7 @@ void cleanUp() {
 	}
 	else {
 		if(s.semLastID != -1 && s.semLastNum != -1) {
+			printTest(53);
 			increaseSem(sops, s.semLastID, s.semLastNum); TEST_ERROR;
 		}
 	}
@@ -98,22 +98,6 @@ void handleSignal(int signal) {
 			pastDays++;
             break;
 
-
-
-		/*SIGSTOP:
-			string=malloc(76);
-			numBytes=sprintf(string,"\n[%d]IMPREVISTO METEO! Le operazioni della nave saranno compromesse...", getpid());
-			fflush(stdout);
-			write(1, string, numBytes);
-			break;*/
-
-		case SIGCONT:
-			string=malloc(74);
-			numBytes=sprintf(string,"\n[%d]MALTEMPO FINITO! Le operazioni della nave possono riprendere...",getpid());
-			fflush(stdout);
-			write(1, string, numBytes);
-			break;
-
 		case SIGINT:
 			cleanUp();
 			exit(EXIT_SUCCESS);
@@ -125,24 +109,15 @@ void handleSignal(int signal) {
 int main(int argc, char *argv[]) {
 	sigset_t set;
 	int portsSharedMemoryID, sem_expired_goods_id;
-	int i, msg_id, *ptr_set;
+	int i;
 	struct sembuf sops;
-	struct msg_request msg_request;
 	struct sigaction sa;
 
-	/*shared_portCoords = shmat(atoi(argv[2]), NULL, 0); TEST_ERROR;*/
 	shared_shipCoords= shmat(atoi(argv[3]), NULL, 0); TEST_ERROR;
 	shipIndex= atoi(argv[4]);
 	expiredGoods=shmat(atoi(argv[5]), NULL, 0); TEST_ERROR;
 	sem_expired_goods_id = atoi(argv[6]); 
 
-	/*
-	printf("\n");
-	for(i=0; i<SO_PORTI; i++){
-		printf("\n[%d] (%f, %f)", shared_portCoords[i].pid, shared_portCoords[i].coords.x,shared_portCoords[i].coords.y);
-	}
-	printf("\n");
-	*/
 	bzero(&sa, sizeof(sa));TEST_ERROR;
 
 	swellDuration=getSwellDuration();
@@ -152,7 +127,6 @@ int main(int argc, char *argv[]) {
 	sigaction(SIGUSR1, &sa, NULL);TEST_ERROR;
 	sigaction(SIGUSR2, &sa, NULL);TEST_ERROR;
 	sigaction(SIGALRM, &sa, NULL);TEST_ERROR;
-	sigaction(SIGCONT, &sa, NULL);TEST_ERROR;
 	sigaction(SIGINT, &sa, NULL);TEST_ERROR;
 	
 	bzero(&sops, sizeof(sops));

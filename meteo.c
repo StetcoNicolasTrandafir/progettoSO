@@ -79,7 +79,6 @@ void handleSignal(int signal) {
 				}
 
 				if(plus!=SO_NAVI){
-					/*printf("\n\nPID: %d (%.2lf,%.2lf)",ships[(randomShip + plus)%SO_NAVI].pid,ships[(randomShip + plus)%SO_NAVI].coords.x,ships[(randomShip + plus)%SO_NAVI].coords.y);*/
 					kill(ships[(randomShip+plus)%SO_NAVI].pid, SIGUSR2); TEST_ERROR;
 					
 					ships[(randomShip+plus)%SO_NAVI].storm++;
@@ -143,7 +142,6 @@ int main(int argc, char *argv[]){
     int i;
     int h;	
 	struct sigaction sa;
-	int numBytes;
 	char *string;
 	struct sembuf sops;
 
@@ -155,12 +153,6 @@ int main(int argc, char *argv[]){
     h = SO_MEALSTROM - (mealstromQuantum.it_value.tv_sec*24);
     mealstromQuantum.it_value.tv_usec=(h*100000)/24;
     mealstromQuantum.it_interval = mealstromQuantum.it_value;
-
-	/*string=realloc(string,120);
-	numBytes=sprintf(string,"\n\nUNA NAVE VERRÀ AFFONDATA OGNI %ld,%ld giorni", mealstromQuantum.tv_sec,mealstromQuantum.tv_nsec);
-	fflush(stdout);
-
-	write(1, string, numBytes);*/
 
 	bzero(&sops, sizeof(struct sembuf));
     bzero(&sa, sizeof(sa));

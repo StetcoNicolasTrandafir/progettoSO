@@ -66,7 +66,7 @@ void handleSignal(int signal) {
 	
 	switch(signal) {
 		case SIGUSR1:
-			idxOffer=generateOffer(p, idxOffer, sum_offerID, sem_sum_id, shared_portCoords[idx].semID);
+			idxOffer=generateOffer(p, idxOffer, sum_offerID, shared_portCoords[idx].semID);
 			break;
 
 		case SIGUSR2:
@@ -117,11 +117,10 @@ void handleSignal(int signal) {
 int main(int argc, char *argv[]) {
 	char *string;
 	sigset_t set;
-	int i, *ptr_set, numBytes;
-	int portsSharedMemoryID, sum_requestID, *sum_request, msg_id, sh_request_id;
+	int i, numBytes;
+	int portsSharedMemoryID, sum_requestID, *sum_request, msg_id;
 	coordinates coords;
 	struct sembuf sops;
-	struct request *shared_request;
 	struct sigaction sa;
 	struct msg_request msg_request;
 	goods *g;
@@ -195,12 +194,11 @@ int main(int argc, char *argv[]) {
 	p.coords = coords;
 
 	printPort(p, idx);
-	/*initializeRequestsAndOffer(p);*/
 	bzero(p.generatedGoods,SO_FILL*sizeof(goods));
 
 	generateRequest(p, sum_requestID, sem_sum_id);
 
-	idxOffer=generateOffer(p, 0, sum_offerID, sem_sum_id, shared_portCoords[idx].semID);
+	idxOffer=generateOffer(p, 0, sum_offerID,  shared_portCoords[idx].semID);
 
 	msg_request.mtype = p.request -> goodsType;
 	msg_request.idx = idx;

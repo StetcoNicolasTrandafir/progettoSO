@@ -23,88 +23,7 @@
 #define ALL 0
 #define ONLY_SATISFIED 1
 
-void printDailyReport(port p){
-    char *report;
-    int tonsShipped, tonsInPort, tonsReceived, freeDocks = 0, num_bytes; /*TODO quante banchine libere?*/
-    report = malloc(200);
-    tonsShipped = getGeneratedGoods(p, SHIPPED);
-    tonsInPort = getGeneratedGoods(p, IN_PORT);
-    tonsReceived = getRequest(p, ONLY_SATISFIED);
-    num_bytes = sprintf(report, "Porto [%d] in posizione: (%.2f, %.2f)\nBanchine libere %d su %d\nMerci spedite: %d ton\nMerci generate ancora in porto: %d ton\nMerci ricevute: %d ton\n\n", getpid(), p.coords.x, p.coords.y, freeDocks, p.docks, tonsShipped, tonsInPort, tonsReceived);
-    fflush(stdout);
-    write(1, report, num_bytes);
-    free(report);
-}
-
-void initializeRequestsAndOffer(port p){
-    int i=0;
-
-    p.request -> booked = 0;
-    p.request -> satisfied = 0;
-    p.request -> goodsType=-1;
-    p.generatedGoods=calloc(SO_DAYS, sizeof(goods));
-    for(i=0; i< SO_DAYS; i++){
-        p.generatedGoods[i].type=-1;
-    }
-    /*return p;*/
-}
-
-/*NOTE assumo che gli array p.requests e p.generatedGoods siano 
-    array NULL terminated e di lunghezza SO_DAYS*/
-
-int getRequest(port p, int satisfied){
-    int i=0;
-    int total=0;
-
-    switch(satisfied){
-
-        case ONLY_SATISFIED:  
-            return p.request -> satisfied;
-
-        case ALL:
-            return p.request -> quantity;
-            
-        default:
-            /*INVALID FLAG*/
-            return -1;
-    }
-    /*return total;*/
-}
-
-
-
-int getGeneratedGoods(port p, int flag){
-    int i=0;
-    int total=0;
-    while(i<SO_DAYS && p.generatedGoods[i].type!=-1){
-
-        switch(flag){
-            case SHIPPED:
-                if(p.generatedGoods[i].state!=in_port && p.generatedGoods[i].state!=expired_port)
-                    total+=p.generatedGoods[i].dimension;
-                break;
-
-            case IN_PORT:
-                if(p.generatedGoods[i].state==in_port /*|| p.generatedGoods[i].state!=expired_port*/)
-                    total+=p.generatedGoods[i].dimension;
-                break;
-             
-            case ALL:
-                total+=p.generatedGoods[i].dimension;
-                break;
-            
-            default:
-                /*INVALID FLAG*/
-                return -1;
-                break;
-        }
-        i++;
-    }
-
-    return total;
-}
-
-int generateOffer(port p, int idx, int numPortShmID, int sem_sum_id, int sem_offer_id){
+int generateOffer(port p, int idx, int numPortShmID, int sem_offer_id){
     struct timespec t;
     struct sembuf sops;
     int type, *numPorts;
@@ -116,7 +35,6 @@ int generateOffer(port p, int idx, int numPortShmID, int sem_sum_id, int sem_off
     goods goods;
     int i;
     
-
     bzero(&sops, sizeof(struct sembuf));
 
     numPorts = shmat(numPortShmID, NULL, 0); TEST_ERROR;
@@ -125,12 +43,6 @@ int generateOffer(port p, int idx, int numPortShmID, int sem_sum_id, int sem_off
     quantityToGenerate=quantityToGenerate/(*numPorts);
 
     while(generatedQuantity<quantityToGenerate) {
-        /*!SECTION
-        1)scelta tipo
-        2)controllo se è possibile generare quel tipo
-        3)controllo sulla grandezza
-        4)aggiungi all'array
-        */
         clock_gettime(CLOCK_REALTIME, &t);
         type=(t.tv_nsec%SO_MERCI)+1;
 
@@ -147,9 +59,7 @@ int generateOffer(port p, int idx, int numPortShmID, int sem_sum_id, int sem_off
             }
         }
 
-        /*qua type è giusto*/
         goods = generateGoods(type);
-        /*printGood(goods);*/
         generatedQuantity+=goods.dimension;
 
         if(generatedQuantity>quantityToGenerate){
@@ -165,48 +75,6 @@ int generateOffer(port p, int idx, int numPortShmID, int sem_sum_id, int sem_off
     shmdt(numPorts); TEST_ERROR;
     return idx;
 }
-
-/*
-    srand(getpid());
-    type = rand() % SO_MERCI + 1;
-    while(plus < SO_MERCI && isRequested(p, (type + plus) % SO_MERCI)){
-        plus++;
-    }
-
-    if(plus == SO_MERCI){
-        string=malloc(90);
-        numBytes=sprintf(string,"Impossibile generare un'offerta al porto [%d] in posizione: (%2.f, %2.f)\n", getpid(), p.coords.x, p.coords.y);
-        fflush(stdout);
-        write(1, string, numBytes);
-        free(string);
-    }else{
-        
-
-        goods = generateGoods((type + plus) % SO_MERCI);
-        goods.type++;
-        clock_gettime(CLOCK_REALTIME, &t);
-        goods.dimension = t.tv_nsec % 1000;
-
-        decreaseSem(sops, sem_sum_id, 2);
-
-        *sum_offer += goods.dimension;
-
-        increaseSem(sops, sem_sum_id, 2);
-
-        decreaseSem(sops, sem_sum_id, 3);
-
-        waitForZero(sops, sem_sum_id, 3);
-
-
-        if((goods.dimension = round((goods.dimension * (SO_FILL / SO_DAYS)) / *sum_offer)) == 0)
-            goods.dimension++;
-
-        shmdt(numPorts); TEST_ERROR;
-
-        decreaseSem(sops, sem_offer_id, 1);
-        p.generatedGoods[idx] = goods;
-        increaseSem(sops, sem_offer_id, 1);
-    }*/
 
 
 void generateRequest(port p, int sum_requestID, int sem_sum_id){
